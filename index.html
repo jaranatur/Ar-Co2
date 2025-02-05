@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Erde</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+        <!-- Hiro-Marker -->
+        <a-marker preset="hiro">
+            <!-- Erde mit Rotation -->
+            <a-entity 
+                id="earth"
+                gltf-model="assets/earth.glb" 
+                position="0 0.5 0"  
+                scale="0.4 0.4 0.4">
+            </a-entity>
+        </a-marker>
+
+        <!-- Kamera -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // Rotation manuell mit JavaScript steuern
+        let earth = document.querySelector("#earth");
+        function rotateEarth() {
+            let rotation = earth.getAttribute("rotation");
+            rotation.y += 1; // Geschwindigkeit der Drehung (höher = schneller)
+            earth.setAttribute("rotation", rotation);
+        }
+        setInterval(rotateEarth, 50); // Alle 50ms drehen
+    </script>
+</body>
+</html>
