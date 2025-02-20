@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const overlay = document.getElementById("click-overlay");
     const scene = document.querySelector("a-scene");
-    const camera = document.querySelector("a-camera");
     const co2Display = document.getElementById("co2-display");
     const choices = document.getElementById("choices");
     const nextButton = document.getElementById("next-button");
@@ -21,25 +20,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     setInterval(rotateEarth, 50);
 
-    // 🎯 Raycasting-Funktion für Touch & Klick
-    function convertToRay(event) {
-        const touch = event.touches ? event.touches[0] : event;
-        const x = (touch.clientX / window.innerWidth) * 2 - 1;
-        const y = -(touch.clientY / window.innerHeight) * 2 + 1;
+    // ⏳ Warte, bis die Kamera vollständig geladen ist
+    const checkCamera = setInterval(() => {
+        const camera = document.querySelector("a-camera");
+        if (camera && camera.object3D) {
+            console.log("📸 Kamera gefunden!");
+            clearInterval(checkCamera);
 
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera({ x, y }, camera.object3D.children[0]);
-        const intersects = raycaster.intersectObjects(scene.object3D.children, true);
+            // 🎯 Raycasting-Funktion für Touch & Klick
+            function convertToRay(event) {
+                const touch = event.touches ? event.touches[0] : event;
+                const x = (touch.clientX / window.innerWidth) * 2 - 1;
+                const y = -(touch.clientY / window.innerHeight) * 2 + 1;
 
-        if (intersects.length > 0) {
-            console.log("📌 Klick erkannt auf: ", intersects[0].object);
-            intersects[0].object.el.emit("click");
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera({ x, y }, camera.object3D.children[0]); // Sicherstellen, dass Kamera geladen ist
+                const intersects = raycaster.intersectObjects(scene.object3D.children, true);
+
+                if (intersects.length > 0) {
+                    console.log("📌 Klick erkannt auf: ", intersects[0].object);
+                    intersects[0].object.el.emit("click");
+                }
+            }
+
+            // 🖱️ Klick- und Touch-Events über Overlay abfangen
+            overlay.addEventListener("click", convertToRay);
+            overlay.addEventListener("touchstart", convertToRay);
         }
-    }
-
-    // 🖱️ Klick- und Touch-Events über Overlay abfangen
-    overlay.addEventListener("click", convertToRay);
-    overlay.addEventListener("touchstart", convertToRay);
+    }, 500); // Alle 500ms prüfen, ob die Kamera geladen ist
 
     // 📊 CO₂-Anzeige aktualisieren
     function updateCO2(amount) {
