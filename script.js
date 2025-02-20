@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentScene = 0;
     let co2Score = 0;
 
-    // Rotation der Erde
+    // 🌍 Rotation der Erde
     function rotateEarth() {
         let earth = document.getElementById("earth");
         let rotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     setInterval(rotateEarth, 50);
 
-    // Funktion zur Umwandlung von Touch-Events in 3D-Raycasts
+    // 🎯 Raycasting-Funktion für Touch & Klick
     function convertToRay(event) {
         const touch = event.touches ? event.touches[0] : event;
         const x = (touch.clientX / window.innerWidth) * 2 - 1;
@@ -37,16 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // 🖱️ Klick- und Touch-Events über Overlay abfangen
     overlay.addEventListener("click", convertToRay);
     overlay.addEventListener("touchstart", convertToRay);
 
-    // Funktion zur Aktualisierung der CO₂-Anzeige
+    // 📊 CO₂-Anzeige aktualisieren
     function updateCO2(amount) {
         co2Score += amount;
         co2Display.setAttribute("text", `value: CO₂-Bilanz: ${co2Score}kg`);
     }
 
-    // Event-Listener für Szenenauswahl
+    // 🚗 Event-Listener für Szenenauswahl
     document.getElementById("mobility").addEventListener("click", () => {
         console.log("🚗 Auto gewählt – Smog erscheint!");
         updateCO2(5);
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCO2(-2);
     });
 
-    // Funktion zum Wechseln der Szenen
+    // 🔄 Szenenwechsel
     function changeScene(next) {
         if (next) {
             currentScene++;

@@ -6,14 +6,14 @@
     <title>AR Erde</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs cursor="rayOrigin: mouse">
+    <a-scene embedded arjs cursor="rayOrigin: mouse"
+        gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;">
+        
         <a-marker preset="hiro">
-            
             <!-- Erde (sichtbares 3D-Modell) -->
             <a-entity 
                 id="earth"
@@ -56,12 +56,12 @@
                 text="value: Zurück; align: center; color: white; width: 2"
                 visible="false">
             </a-entity>
-
         </a-marker>
+
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- Unsichtbares Overlay für Klickerkennung -->
+    <!-- Unsichtbares Overlay für bessere Touch-Erkennung -->
     <div id="click-overlay"></div>
 </body>
 </html>
