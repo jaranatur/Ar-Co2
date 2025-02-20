@@ -11,3 +11,14 @@ a-entity {
 #co2-display {
     font-weight: bold;
 }
+
+/* Unsichtbares Overlay zum Abfangen von Klicks */
+#click-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 10;
+}

@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Seite geladen!");
 
-    const earthHitbox = document.getElementById("earth-hitbox");
+    const overlay = document.getElementById("click-overlay");
+    const scene = document.querySelector("a-scene");
+    const camera = document.querySelector("a-camera");
+    const co2Display = document.getElementById("co2-display");
     const choices = document.getElementById("choices");
     const nextButton = document.getElementById("next-button");
     const backButton = document.getElementById("back-button");
-    const co2Display = document.getElementById("co2-display");
 
     let currentScene = 0;
     let co2Score = 0;
@@ -19,17 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     setInterval(rotateEarth, 50);
 
-    // Funktion zum Anzeigen der Auswahlmöglichkeiten
-    function showChoices() {
-        console.log("🌍 Erde wurde angeklickt!");
-        choices.setAttribute("visible", "true");
-        nextButton.setAttribute("visible", "true");
-        backButton.setAttribute("visible", "true");
+    // Funktion zur Umwandlung von Touch-Events in 3D-Raycasts
+    function convertToRay(event) {
+        const touch = event.touches ? event.touches[0] : event;
+        const x = (touch.clientX / window.innerWidth) * 2 - 1;
+        const y = -(touch.clientY / window.innerHeight) * 2 + 1;
+
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera({ x, y }, camera.object3D.children[0]);
+        const intersects = raycaster.intersectObjects(scene.object3D.children, true);
+
+        if (intersects.length > 0) {
+            console.log("📌 Klick erkannt auf: ", intersects[0].object);
+            intersects[0].object.el.emit("click");
+        }
     }
 
-    // Event-Listener für Erde-Klick
-    earthHitbox.addEventListener("click", showChoices);
-    earthHitbox.addEventListener("touchstart", showChoices);
+    overlay.addEventListener("click", convertToRay);
+    overlay.addEventListener("touchstart", convertToRay);
 
     // Funktion zur Aktualisierung der CO₂-Anzeige
     function updateCO2(amount) {
