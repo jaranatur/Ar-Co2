@@ -8,11 +8,7 @@ a-entity {
     cursor: pointer;
 }
 
-#co2-display {
-    font-weight: bold;
-}
-
-/* Unsichtbares Overlay zum Abfangen von Klicks */
+/* Falls du ein Overlay für Klicks hast, sollte es Klicks nicht blockieren */
 #click-overlay {
     position: fixed;
     top: 0;
@@ -20,5 +16,6 @@ a-entity {
     width: 100vw;
     height: 100vh;
     background: transparent;
+    pointer-events: none; /* ✨ WICHTIG: Verhindert Blockieren von Klicks */
     z-index: 10;
 }
