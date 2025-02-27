@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Stelle sicher, dass A-Frame Klicks auf `gltf-models` erkennt
+    // Sicherstellen, dass Klicks auf das `gltf-model` registriert werden
     earth.addEventListener("click", startExperience);
+
+    // Extra Fix für Touchscreens (falls nötig)
+    earth.addEventListener("touchstart", startExperience);
 });
