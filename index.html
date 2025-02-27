@@ -6,6 +6,7 @@
     <title>AR Erde</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@latest"></script>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
@@ -14,7 +15,8 @@
         <a-marker preset="hiro">
             <!-- 🌍 Startszene -->
             <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 0 0" scale="1 1 1">
+                position="0 0 0" rotation="0 0 0" scale="1 1 1" 
+                static-body>
             </a-entity>
             
             <a-entity id="hint-text" position="0 1.5 0" text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
@@ -36,7 +38,7 @@
         </a-marker>
 
         <a-entity camera look-controls wasd-controls>
-            <a-entity cursor="rayOrigin: mouse"></a-entity>
+            <a-entity cursor="rayOrigin: mouse; fuse: false;"></a-entity>
         </a-entity>
     </a-scene>
 </body>

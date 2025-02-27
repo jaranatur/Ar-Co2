@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
             earth.setAttribute("scale", "0.5 0.5 0.5");
             hintText.setAttribute("visible", "false");
             choices.setAttribute("visible", "true");
+
+            // Stelle sicher, dass das Objekt nicht bewegt werden kann
+            earth.setAttribute("static-body", "");
+            earth.setAttribute("dynamic-body", "mass: 0;");
+
             started = true;
         }
     }
