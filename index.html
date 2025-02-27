@@ -13,16 +13,18 @@
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
             <!-- 🌍 Fix: Erde bleibt fixiert auf dem Marker -->
-            <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 0 0" scale="0.5 0.5 0.5" 
-                anchor="true" visible="true">
+            <a-entity id="earth-container">
+                <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
+                    position="0 0 0" scale="0.7 0.7 0.7">
+                </a-entity>
             </a-entity>
 
+            <!-- Hinweistext -->
             <a-entity id="hint-text" position="0 1.5 0" 
                 text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
             </a-entity>
             
-            <!-- 🚀 Auswahlmöglichkeiten -->
+            <!-- 🚀 Auswahlmöglichkeiten (anfangs unsichtbar) -->
             <a-entity id="choices" visible="false">
                 <a-entity id="mobility" class="clickable" gltf-model="assets/bike.glb" position="-2 1.5 0" scale="0.5 0.5 0.5"></a-entity>
                 <a-entity id="food" class="clickable" gltf-model="assets/salad.glb" position="0 1 0" scale="0.5 0.5 0.5"></a-entity>
