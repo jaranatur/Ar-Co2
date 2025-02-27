@@ -10,24 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let co2Score = 0;
 
-    // Stelle sicher, dass die Erde sich NICHT bewegt
+    // Ensures Earth stays fixed in place
     function fixEarthPosition() {
         earth.setAttribute("position", "0 0 0");
-        earth.setAttribute("rotation", "0 0 0"); // Falls Rotation passiert
-        earth.setAttribute("scale", "0.7 0.7 0.7"); // Falls die Skalierung verloren geht
+        earth.setAttribute("rotation", "0 0 0");
+        earth.setAttribute("scale", "5 5 5"); // Bigger Earth
     }
 
-    // Falls AR.js das Modell doch bewegt, nach 500ms erneut fixieren
-    setTimeout(fixEarthPosition, 500);
+    // Force Earth to reset every 500ms in case AR.js moves it
+    setInterval(fixEarthPosition, 500);
 
-    // 🌍 Event-Listener für das Anklicken der Erde
+    // 🌍 Click event on Earth
     earth.addEventListener("click", () => {
         console.log("🌍 Erde wurde angeklickt!");
         hintText.setAttribute("visible", "false");
         choices.setAttribute("visible", "true");
     });
 
-    // 🚗 Event-Listener für Szenenauswahl
+    // 🚗 Event listeners for choices
     document.getElementById("mobility").addEventListener("click", () => {
         console.log("🚗 Auto gewählt – Mehr CO₂!");
         updateCO2(5);
@@ -43,17 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCO2(-2);
     });
 
-    // 📊 CO₂-Anzeige aktualisieren
+    // 📊 Update CO₂ Display
     function updateCO2(amount) {
         co2Score += amount;
         co2Display.setAttribute("text", `value: CO₂-Bilanz: ${co2Score}kg`);
     }
 
-    // 🔄 Szenenwechsel
+    // 🔄 Scene switching
     nextButton.addEventListener("click", () => changeScene(true));
     backButton.addEventListener("click", () => changeScene(false));
 
     function changeScene(next) {
         console.log(`🔄 Szene gewechselt!`);
     }
+
+    // 🛠 Adjust Earth Size for Mobile
+    function adjustScale() {
+        const isMobile = window.innerWidth < 768;
+        earth.setAttribute("scale", isMobile ? "6 6 6" : "5 5 5"); // Bigger on mobile
+    }
+
+    window.addEventListener("resize", adjustScale);
+    adjustScale(); // Run on load
 });

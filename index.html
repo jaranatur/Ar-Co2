@@ -12,31 +12,33 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Fix: Erde bleibt fixiert auf dem Marker -->
+            <!-- 🌍 Fix: Earth stays fixed on marker -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                    position="0 0 0" scale="3 3 3" anchor="true">
+                    position="0 0 0" scale="5 5 5"
+                    animation__position="property: position; to: 0 0 0; dur: 100; loop: true"
+                    animation__rotation="property: rotation; to: 0 0 0; dur: 100; loop: true">
                 </a-entity>
             </a-entity>
 
-            <!-- Hinweistext -->
-            <a-entity id="hint-text" position="0 1.5 0" 
+            <!-- Hint text -->
+            <a-entity id="hint-text" position="0 2 0" 
                 text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
             </a-entity>
             
-            <!-- 🚀 Auswahlmöglichkeiten (anfangs unsichtbar) -->
+            <!-- 🚀 Selection options (hidden at start) -->
             <a-entity id="choices" visible="false">
                 <a-entity id="mobility" class="clickable" gltf-model="assets/bike.glb" position="-2 1.5 0" scale="0.5 0.5 0.5"></a-entity>
                 <a-entity id="food" class="clickable" gltf-model="assets/salad.glb" position="0 1 0" scale="0.5 0.5 0.5"></a-entity>
                 <a-entity id="drink" class="clickable" gltf-model="assets/water.glb" position="2 1.2 0" scale="0.5 0.5 0.5"></a-entity>
             </a-entity>
             
-            <!-- 📊 CO₂-Anzeige -->
-            <a-entity id="co2-display" position="0 2 0" 
+            <!-- 📊 CO₂ Display -->
+            <a-entity id="co2-display" position="0 2.5 0" 
                 text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3">
             </a-entity>
             
-            <!-- 🔄 Weiter- & Zurück-Buttons -->
+            <!-- 🔄 Next & Back Buttons -->
             <a-entity id="next-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
                 material="color: green" position="1 0.5 0" 
                 text="value: Weiter; align: center; color: white; width: 2" visible="false">
@@ -47,9 +49,8 @@
             </a-entity>
         </a-marker>
 
-        <!-- ❌ Entfernt: look-controls & wasd-controls, damit sich Kamera NICHT mehr bewegt -->
-        <a-entity camera>
-        </a-entity>
+        <!-- ❌ Disabled user controls to keep the camera fixed -->
+        <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 </body>
 </html>
