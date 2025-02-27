@@ -13,10 +13,10 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Fix: Erde auf richtige Höhe bringen -->
+            <!-- 🌍 Fix: Erde genau über dem Marker platzieren & fixieren -->
             <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 0.05 0" scale="0.4 0.4 0.4" 
-                static-body>
+                position="0 -0.05 0" scale="0.3 0.3 0.3" 
+                static-body constraint="lock">
             </a-entity>
 
             <a-entity id="hint-text" position="0 1.5 0" 
