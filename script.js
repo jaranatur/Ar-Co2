@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function startExperience() {
         if (!started) {
             console.log("🌍 Erde wurde angeklickt! Startszene verschwindet, Optionen erscheinen.");
-            earth.setAttribute("scale", "0.4 0.4 0.4"); // Noch etwas kleiner für mobile Ansicht
+            earth.setAttribute("scale", "0.35 0.35 0.35"); // Noch etwas kleiner für mobile Ansicht
             hintText.setAttribute("visible", "false");
             choices.setAttribute("visible", "true");
 
