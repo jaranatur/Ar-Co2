@@ -15,7 +15,7 @@
             <!-- 🌍 Fix: Erde bleibt fixiert auf dem Marker -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                    position="0 0 0" scale="2 2 2">
+                    position="0 0 0" scale="3 3 3" anchor="true">
                 </a-entity>
             </a-entity>
 
@@ -47,8 +47,8 @@
             </a-entity>
         </a-marker>
 
-        <a-entity camera look-controls wasd-controls>
-            <a-entity cursor="rayOrigin: mouse; fuse: false;"></a-entity>
+        <!-- ❌ Entfernt: look-controls & wasd-controls, damit sich Kamera NICHT mehr bewegt -->
+        <a-entity camera>
         </a-entity>
     </a-scene>
 </body>
