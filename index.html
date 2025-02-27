@@ -6,17 +6,16 @@
     <title>AR Erde</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@latest"></script>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Fix: Erde genau über dem Marker platzieren & fixieren -->
+            <!-- 🌍 Fix: Erde bleibt fixiert auf dem Marker -->
             <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 -0.05 0" scale="0.3 0.3 0.3" 
-                static-body constraint="lock">
+                position="0 0 0" scale="0.5 0.5 0.5" 
+                anchor="true" visible="true">
             </a-entity>
 
             <a-entity id="hint-text" position="0 1.5 0" 
