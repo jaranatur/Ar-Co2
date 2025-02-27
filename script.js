@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Seite geladen!");
 
-    const scene = document.querySelector("a-scene");
-    const camera = document.querySelector("a-camera");
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
     const choices = document.getElementById("choices");
@@ -19,11 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function handleClick(event) {
-        if (event.target.id === "earth") {
-            startExperience();
-        }
-    }
-
-    window.addEventListener("click", handleClick);
+    // Stelle sicher, dass A-Frame Klicks auf `gltf-models` erkennt
+    earth.addEventListener("click", startExperience);
 });
