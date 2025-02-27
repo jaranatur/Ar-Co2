@@ -10,11 +10,11 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3;">
         <a-marker preset="hiro">
             <!-- 🌍 Startszene -->
             <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 0.2 0" scale="1 1 1">
+                position="0 0 0" scale="1 1 1">
             </a-entity>
             
             <a-entity id="hint-text" position="0 1.5 0" text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
