@@ -11,15 +11,16 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3;">
+    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Startszene -->
+            <!-- 🌍 Fix: Erde korrekt über dem Marker platzieren -->
             <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                position="0 0 0" rotation="0 0 0" scale="1 1 1" 
+                position="0 0.2 0" scale="0.5 0.5 0.5" 
                 static-body>
             </a-entity>
-            
-            <a-entity id="hint-text" position="0 1.5 0" text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
+
+            <a-entity id="hint-text" position="0 1.5 0" 
+                text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
             </a-entity>
             
             <!-- 🚀 Auswahlmöglichkeiten -->
@@ -30,11 +31,19 @@
             </a-entity>
             
             <!-- 📊 CO₂-Anzeige -->
-            <a-entity id="co2-display" position="0 2 0" text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3"></a-entity>
+            <a-entity id="co2-display" position="0 2 0" 
+                text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3">
+            </a-entity>
             
             <!-- 🔄 Weiter- & Zurück-Buttons -->
-            <a-entity id="next-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" material="color: green" position="1 0.5 0" text="value: Weiter; align: center; color: white; width: 2" visible="false"></a-entity>
-            <a-entity id="back-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" material="color: red" position="-1 0.5 0" text="value: Zurück; align: center; color: white; width: 2" visible="false"></a-entity>
+            <a-entity id="next-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
+                material="color: green" position="1 0.5 0" 
+                text="value: Weiter; align: center; color: white; width: 2" visible="false">
+            </a-entity>
+            <a-entity id="back-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
+                material="color: red" position="-1 0.5 0" 
+                text="value: Zurück; align: center; color: white; width: 2" visible="false">
+            </a-entity>
         </a-marker>
 
         <a-entity camera look-controls wasd-controls>
