@@ -12,51 +12,26 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Fix: Earth stays fixed on marker -->
+            <!-- 🌍 Animierte Erde als zentrales Element -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
-                    position="0 0 0" scale="1 1 1"
-                    animation="property: rotation; to: 0 360 0; dur: 10000; loop: true; easing: linear">
+                    position="0 0 0" scale="0.01 0.01 0.01"
+                    animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic"
+                    animation__rotate="property: rotation; to: 0 360 0; dur: 10000; loop: true; easing: linear">
                 </a-entity>
             </a-entity>
-            
 
-            <!-- Hint text -->
-            <a-entity id="hint-text" position="0 2.3 0" 
+            <!-- 📌 UX-optimierter Hinweistext mit Button-Charakter -->
+            <a-entity id="hint-text" position="0 2.5 0" 
                   text="value: Tippe auf\ndie Erde, um zu starten.; 
                        align: center; 
                        color: white; 
                       width: 4; 
                       font: exo2bold">
             </a-entity>
-
-            
-            <!-- 🚀 Selection options (hidden at start) -->
-            <a-entity id="choices" visible="false">
-                <a-entity id="mobility" class="clickable" gltf-model="assets/bike.glb" position="-2 1.5 0" scale="0.5 0.5 0.5"></a-entity>
-                <a-entity id="food" class="clickable" gltf-model="assets/salad.glb" position="0 1 0" scale="0.5 0.5 0.5"></a-entity>
-                <a-entity id="drink" class="clickable" gltf-model="assets/water.glb" position="2 1.2 0" scale="0.5 0.5 0.5"></a-entity>
-            </a-entity>
-            
-            <!-- 📊 CO₂ Display -->
-            <a-entity id="co2-display" position="0 2.5 0" 
-    text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3"
-    visible="false">
-</a-entity>
-
-            
-            <!-- 🔄 Next & Back Buttons -->
-            <a-entity id="next-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
-                material="color: green" position="1 0.5 0" 
-                text="value: Weiter; align: center; color: white; width: 2" visible="false">
-            </a-entity>
-            <a-entity id="back-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
-                material="color: red" position="-1 0.5 0" 
-                text="value: Zurück; align: center; color: white; width: 2" visible="false">
-            </a-entity>
         </a-marker>
 
-        <!-- ❌ Disabled user controls to keep the camera fixed -->
+        <!-- ❌ Fixierte Kamera ohne Bewegung -->
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 </body>
