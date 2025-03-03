@@ -22,9 +22,14 @@
             
 
             <!-- Hint text -->
-            <a-entity id="hint-text" position="0 2 0" 
-                text="value: Tippe auf die Erde zum Starten; align: center; color: white; width: 3">
+            <a-entity id="hint-text" position="0 2.3 0" 
+                  text="value: Tippe auf\ndie Erde, um zu starten.; 
+                       align: center; 
+                       color: white; 
+                      width: 4; 
+                      font: exo2bold">
             </a-entity>
+
             
             <!-- 🚀 Selection options (hidden at start) -->
             <a-entity id="choices" visible="false">
@@ -35,8 +40,10 @@
             
             <!-- 📊 CO₂ Display -->
             <a-entity id="co2-display" position="0 2.5 0" 
-                text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3">
-            </a-entity>
+    text="value: CO₂-Bilanz: 0kg; align: center; color: white; width: 3"
+    visible="false">
+</a-entity>
+
             
             <!-- 🔄 Next & Back Buttons -->
             <a-entity id="next-button" class="clickable" geometry="primitive: plane; width: 1; height: 0.3" 
