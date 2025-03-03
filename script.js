@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function fixEarthPosition() {
         earth.setAttribute("position", "0 0 0");
         earth.setAttribute("rotation", "0 0 0");
-        earth.setAttribute("scale", "2 2 2"); // Bigger Earth
+        
     }
 
     // Force Earth to reset every 500ms in case AR.js moves it
