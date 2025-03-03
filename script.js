@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🛠 Adjust Earth Size for Mobile
     function adjustScale() {
-        earth.setAttribute("scale", "3 3 3"); 
+        earth.setAttribute("scale", "2 2 2"); 
     }
     
 
