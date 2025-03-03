@@ -59,9 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🛠 Adjust Earth Size for Mobile
     function adjustScale() {
-        const isMobile = window.innerWidth < 768;
-        earth.setAttribute("scale", isMobile ? "6 6 6" : "5 5 5"); // Bigger on mobile
+        earth.setAttribute("scale", "3 3 3"); 
     }
+    
 
     window.addEventListener("resize", adjustScale);
     adjustScale(); // Run on load
