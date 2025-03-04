@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
+    const campusMap = document.getElementById("campus-map"); // 2D-Karte
 
     let isDragging = false;
     let lastX = 0;
@@ -37,6 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🌍 Erde langsam rauszoomen
         scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000); // Skaliert langsam bis auf 0.5
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+
+        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
+        if (rotationProgress > 1000) {
+            earth.setAttribute("visible", "false");
+            campusMap.setAttribute("visible", "true");
+            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
+        }
     });
 
     window.addEventListener("mouseup", () => {
@@ -71,6 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🌍 Erde langsam rauszoomen
         scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+
+        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
+        if (rotationProgress > 1000) {
+            earth.setAttribute("visible", "false");
+            campusMap.setAttribute("visible", "true");
+            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
+        }
     });
 
     window.addEventListener("touchend", () => {

@@ -20,6 +20,14 @@
                 </a-entity>
             </a-entity>
 
+
+<!-- 📌 2D-Karte (versteckt, bis Zoom passiert) -->
+<a-entity id="campus-map" geometry="primitive: plane; height: 3; width: 3"
+material="shader: flat; src: #campusTexture"
+position="0 1 -2" rotation="-90 0 0"
+visible="false">
+</a-entity>
+
             <!-- 📌 UX-optimierter Hinweistext mit Zeilenumbruch -->
             <a-entity id="hint-text" position="0 2.5 0" 
                   text="value: Drehe die Erde,\n um zu starten.; 
