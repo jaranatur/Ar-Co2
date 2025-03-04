@@ -85,13 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
         console.log("🔍 Zoom beginnt!");
     
-        // Sanftes Verkleinern der Erde, aber nicht zu extrem
-        earth.setAttribute("animation__zoomOut", "property: scale; to: 0.05 0.05 0.05; dur: 1500; easing: easeInOutQuad");
+        // Erde wird kleiner & verschwindet
+        earth.setAttribute("animation__zoomOut", "property: scale; to: 0.01 0.01 0.01; dur: 1500; easing: easeInOutQuad");
     
         setTimeout(() => {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
         }, 1500);
     }
+    
     
 });
