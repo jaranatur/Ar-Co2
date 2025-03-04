@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
-    
+
     let isDragging = false;
     let lastX = 0;
+    let rotationProgress = 0; // Speichert, wie viel gedreht wurde
+    let scaleProgress = 1; // Startgröße für die Erde
 
     // 🌍 Globale Event-Listener für Maus- & Touchbewegung
     window.addEventListener("mousedown", (event) => {
@@ -26,8 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
             z: currentRotation.z
         });
 
-        // Hinweistext ausblenden
-        hintText.setAttribute("visible", "false");
+        // 🌟 Fortschritt fürs Verblassen des Textes
+        rotationProgress += Math.abs(deltaX);
+        let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
+        hintText.setAttribute("text", `opacity: ${opacity}`);
+        if (opacity === 0) hintText.setAttribute("visible", "false");
+
+        // 🌍 Erde langsam rauszoomen
+        scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000); // Skaliert langsam bis auf 0.5
+        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
     });
 
     window.addEventListener("mouseup", () => {
@@ -53,8 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
             z: currentRotation.z
         });
 
-        // Hinweistext ausblenden
-        hintText.setAttribute("visible", "false");
+        // 🌟 Fortschritt fürs Verblassen des Textes (auch für Touch)
+        rotationProgress += Math.abs(deltaX);
+        let opacity = Math.max(0, 1 - rotationProgress / 500);
+        hintText.setAttribute("text", `opacity: ${opacity}`);
+        if (opacity === 0) hintText.setAttribute("visible", "false");
+
+        // 🌍 Erde langsam rauszoomen
+        scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
+        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
     });
 
     window.addEventListener("touchend", () => {
