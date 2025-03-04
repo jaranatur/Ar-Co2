@@ -95,4 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     
+
+    function fixEarthPosition() {
+        const earth = document.getElementById("earth");
+        earth.setAttribute("scale", "0.1 0.1 0.1");
+        earth.setAttribute("position", "0 0 0"); // Weiter weg setzen
+    }
+    setTimeout(fixEarthPosition, 500); // Falls AR.js sich einmischt
+    
 });
