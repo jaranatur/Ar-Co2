@@ -36,11 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
         // 🌍 Erde langsam rauszoomen
-        scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000); // Skaliert langsam bis auf 0.5
-        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+        // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
+scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
-        if (rotationProgress > 1000) {
+        if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
             console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
