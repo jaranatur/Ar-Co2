@@ -12,26 +12,15 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Drehbare Erde mit richtiger Skalierung -->
+            <!-- 🌍 Drehbare Erde -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
-                    position="0 0 -2" scale="0.1 0.1 0.1">
+                    position="0 0 0" scale="0.01 0.01 0.01"
+                    animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
                 </a-entity>
             </a-entity>
-            
-            
-            
-            
-            
 
-            <!-- 📌 2D-Karte (versteckt, bis Zoom passiert) -->
-            <a-entity id="campus-map" geometry="primitive: plane; height: 3; width: 3"
-                      material="shader: flat; src: #campusTexture"
-                      position="0 1 -2" rotation="-90 0 0"
-                      visible="false">
-            </a-entity>
-
-            <!-- UX-Hinweis -->
+            <!-- 📌 UX-optimierter Hinweistext mit Zeilenumbruch -->
             <a-entity id="hint-text" position="0 2.5 0" 
                   text="value: Drehe die Erde,\n um zu starten.; 
                        align: center; 
@@ -39,14 +28,10 @@
                        width: 4; 
                        font: exo2bold">
             </a-entity>
+        </a-marker>
 
-            <!-- ❌ Fixierte Kamera -->
-            <a-entity camera position="0 1 3" look-controls-enabled="false"></a-entity>
-
-
-        <a-assets>
-            <img id="campusTexture" src="assets/campus-map.png">
-        </a-assets>
+        <!-- ❌ Fixierte Kamera -->
+        <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 </body>
 </html>
