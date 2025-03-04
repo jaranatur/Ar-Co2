@@ -12,26 +12,25 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         <a-marker preset="hiro">
-            <!-- 🌍 Animierte Erde als zentrales Element -->
+            <!-- 🌍 Drehbare Erde -->
             <a-entity id="earth-container">
-                <a-entity id="earth" class="clickable" gltf-model="assets/earth.glb" 
+                <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
                     position="0 0 0" scale="0.01 0.01 0.01"
-                    animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic"
-                    animation__rotate="property: rotation; to: 0 360 0; dur: 10000; loop: true; easing: linear">
+                    animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
                 </a-entity>
             </a-entity>
 
-            <!-- 📌 UX-optimierter Hinweistext mit Button-Charakter -->
+            <!-- 📌 UX-optimierter Hinweistext -->
             <a-entity id="hint-text" position="0 2.5 0" 
-                  text="value: Tippe auf\ndie Erde, um zu starten.; 
+                  text="value: Drehe die Erde, um zu starten.; 
                        align: center; 
                        color: white; 
-                      width: 4; 
-                      font: exo2bold">
+                       width: 4; 
+                       font: exo2bold">
             </a-entity>
         </a-marker>
 
-        <!-- ❌ Fixierte Kamera ohne Bewegung -->
+        <!-- ❌ Fixierte Kamera -->
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 </body>
