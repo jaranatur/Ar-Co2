@@ -15,9 +15,10 @@
             <!-- 🌍 Drehbare Erde mit richtiger Skalierung -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
-                    position="0 0 0" scale="0.1 0.1 0.1">
+                    position="0 0 -2" scale="0.1 0.1 0.1">
                 </a-entity>
             </a-entity>
+            
             
             
             
@@ -40,8 +41,8 @@
             </a-entity>
 
             <!-- ❌ Fixierte Kamera -->
-            <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
-        </a-marker>
+            <a-entity camera position="0 1 3" look-controls-enabled="false"></a-entity>
+
 
         <a-assets>
             <img id="campusTexture" src="assets/campus-map.png">

@@ -97,10 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     function fixEarthPosition() {
-        const earth = document.getElementById("earth");
+        console.log("🔧 Fixe Erde-Position & Skalierung");
         earth.setAttribute("scale", "0.1 0.1 0.1");
-        earth.setAttribute("position", "0 0 0"); // Weiter weg setzen
+        earth.setAttribute("position", "0 0 -2"); // Weiter nach hinten setzen
     }
-    setTimeout(fixEarthPosition, 500); // Falls AR.js sich einmischt
-    
+    setTimeout(fixEarthPosition, 1000); // Falls AR.js nachträglich Werte überschreibt
+     
 });
