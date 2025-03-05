@@ -9,11 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastX = 0;
     let rotationProgress = 0;
 
-    // 🌍 Globale Event-Listener für Maus- & Touchbewegung
+    // 🌍 Fix: Erde wieder drehbar machen!
     window.addEventListener("mousedown", (event) => {
-        if (event.target.id === "earth" || event.target.closest("#earth")) {
+        if (earth && (event.target.id === "earth" || event.target.closest("#earth-container"))) {
             isDragging = true;
             lastX = event.clientX;
+            console.log("🌀 Drehen gestartet!");
         }
     });
 
@@ -32,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 300); // Schnellere Verblassung
+        let opacity = Math.max(0, 1 - rotationProgress / 300);
         hintText.setAttribute("text", `opacity: ${opacity}`);
 
         // 🌍 Erde sofort verschwinden lassen, wenn der Text weg ist
         if (opacity === 0 && earth.getAttribute("visible") !== "false") {
-            console.log("🌍 Erde sofort verschwunden, sobald der Text weg war!");
+            console.log("🌍 Erde sofort verschwunden!");
             hintText.setAttribute("visible", "false");
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
@@ -46,13 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("mouseup", () => {
         isDragging = false;
+        console.log("⏹️ Drehen gestoppt!");
     });
 
-    // 🖐 Touch-Unterstützung für Mobilgeräte
+    // 🖐 Fix für Touch-Geräte
     window.addEventListener("touchstart", (event) => {
-        if (event.target.id === "earth" || event.target.closest("#earth")) {
+        if (earth && (event.target.id === "earth" || event.target.closest("#earth-container"))) {
             isDragging = true;
             lastX = event.touches[0].clientX;
+            console.log("🌀 Touch-Drehen gestartet!");
         }
     });
 
@@ -75,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hintText.setAttribute("text", `opacity: ${opacity}`);
 
         if (opacity === 0 && earth.getAttribute("visible") !== "false") {
-            console.log("🌍 Erde sofort verschwunden, sobald der Text weg war!");
+            console.log("🌍 Erde sofort verschwunden!");
             hintText.setAttribute("visible", "false");
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
@@ -84,5 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("touchend", () => {
         isDragging = false;
+        console.log("⏹️ Touch-Drehen gestoppt!");
     });
 });
