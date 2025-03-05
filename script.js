@@ -2,94 +2,58 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ AR Szene geladen!");
 
     const earth = document.getElementById("earth");
-    const hintText = document.getElementById("hint-text");
-    const campusMap = document.getElementById("campus-map"); // 2D-Karte
+    const campusMap = document.getElementById("campus-map");
+    const menu = document.getElementById("menu");
+    const co2Bar = document.getElementById("co2-bar");
+    const btnResults = document.getElementById("btn-results");
 
-    let isDragging = false;
-    let lastX = 0;
-    let rotationProgress = 0; // Speichert, wie viel gedreht wurde
-    let scaleProgress = 1; // Startgröße für die Erde
-
-    // 🌍 Globale Event-Listener für Maus- & Touchbewegung
-    window.addEventListener("mousedown", (event) => {
-        isDragging = true;
-        lastX = event.clientX;
-    });
+    let rotationProgress = 0;
+    let co2Level = 0;
+    let completedScenes = { bike: false, mensa: false, third: false };
 
     window.addEventListener("mousemove", (event) => {
-        if (!isDragging) return;
+        if (earth.getAttribute("visible") === "false") return;
 
         let deltaX = event.clientX - lastX;
         lastX = event.clientX;
 
-        let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
-        earth.setAttribute("rotation", {
-            x: currentRotation.x,
-            y: currentRotation.y + deltaX * 0.5, // Weichere Drehung
-            z: currentRotation.z
-        });
-
-        // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
-        hintText.setAttribute("text", `opacity: ${opacity}`);
-        if (opacity === 0) hintText.setAttribute("visible", "false");
-
-        // 🌍 Erde langsam rauszoomen
-        // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
-scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
-
-        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
+        
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
+
+            document.querySelectorAll(".clickable").forEach(point => {
+                point.setAttribute("visible", "true");
+            });
+
+            console.log("🌍 Erde ausgeblendet, 2D-Karte & Szenenpunkte sichtbar!");
         }
     });
 
-    window.addEventListener("mouseup", () => {
-        isDragging = false;
-    });
+    function updateCo2Bar() {
+        let co2Color = co2Level > 70 ? "red" : co2Level > 40 ? "yellow" : "green";
+        co2Bar.setAttribute("material", `color: ${co2Color}`);
+        co2Bar.setAttribute("geometry", `width: ${Math.max(0.5, co2Level / 50)}`);
+    }
 
-    // 🖐 Touch-Unterstützung für Mobilgeräte
-    window.addEventListener("touchstart", (event) => {
-        isDragging = true;
-        lastX = event.touches[0].clientX;
-    });
+    document.querySelectorAll(".clickable").forEach(point => {
+        point.addEventListener("click", (event) => {
+            const scene = event.target.id.replace("scene-", "");
+            console.log(`🔴 Szene ${scene} gestartet!`);
 
-    window.addEventListener("touchmove", (event) => {
-        if (!isDragging) return;
+            co2Bar.setAttribute("visible", "true");
+            menu.setAttribute("visible", "true");
+            completedScenes[scene] = true;
+            event.target.setAttribute("material", "color", "gray");
 
-        let deltaX = event.touches[0].clientX - lastX;
-        lastX = event.touches[0].clientX;
-
-        let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
-        earth.setAttribute("rotation", {
-            x: currentRotation.x,
-            y: currentRotation.y + deltaX * 0.5,
-            z: currentRotation.z
+            if (Object.values(completedScenes).every(Boolean)) {
+                btnResults.setAttribute("visible", "true");
+            }
         });
-
-        // 🌟 Fortschritt fürs Verblassen des Textes (auch für Touch)
-        rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 500);
-        hintText.setAttribute("text", `opacity: ${opacity}`);
-        if (opacity === 0) hintText.setAttribute("visible", "false");
-
-        // 🌍 Erde langsam rauszoomen
-        scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
-        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
-
-        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
-        if (rotationProgress > 1000) {
-            earth.setAttribute("visible", "false");
-            campusMap.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
-        }
     });
 
-    window.addEventListener("touchend", () => {
-        isDragging = false;
+    btnResults.addEventListener("click", () => {
+        console.log("🏁 Berechnung starten");
     });
 });

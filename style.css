@@ -4,6 +4,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Einheitliche Schriftart für alle A-Frame Texte */
+a-entity[text] {
+    font: exo2bold;
+}
+
 a-entity {
     cursor: pointer;
 }
@@ -16,6 +21,6 @@ a-entity {
     width: 100vw;
     height: 100vh;
     background: transparent;
-    pointer-events: none; /* ✨ WICHTIG: Verhindert Blockieren von Klicks */
+    pointer-events: none;
     z-index: 10;
 }
