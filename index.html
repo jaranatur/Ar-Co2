@@ -33,51 +33,13 @@
                 visible="false">
             </a-entity>
 
-            <!-- 🔴 Interaktive Punkte für Szenen -->
-            <a-entity id="scene-bike" geometry="primitive: sphere; radius: 0.2"
-                material="color: red" position="-1 0 0" visible="false"
-                class="clickable">
-            </a-entity>
-
-            <a-entity id="scene-mensa" geometry="primitive: sphere; radius: 0.2"
-                material="color: red" position="0 0 0" visible="false"
-                class="clickable">
-            </a-entity>
-
-            <a-entity id="scene-third" geometry="primitive: sphere; radius: 0.2"
-                material="color: red" position="1 0 0" visible="false"
-                class="clickable">
-            </a-entity>
-
-            <!-- 📌 CO₂-Balken (nur in Szenen sichtbar) -->
-            <a-entity id="co2-bar" geometry="primitive: plane; height: 0.2; width: 2"
-                material="color: green" position="0 -1 0" visible="false">
-            </a-entity>
-
-            <!-- 📌 Menü für Navigation -->
-            <a-entity id="menu" position="0 -1.5 0" visible="false">
-                <a-entity id="btn-next" geometry="primitive: plane; height: 0.3; width: 0.8"
-                    material="color: blue" position="0 0 0"
-                    text="value: Weiter; align: center; color: white; width: 3;">
-                </a-entity>
-
-                <a-entity id="btn-back" geometry="primitive: plane; height: 0.3; width: 0.8"
-                    material="color: red" position="-1 0 0"
-                    text="value: Zurück; align: center; color: white; width: 3;">
-                </a-entity>
-
-                <a-entity id="btn-results" geometry="primitive: plane; height: 0.3; width: 0.8"
-                    material="color: yellow" position="1 0 0"
-                    text="value: Berechnen; align: center; color: black; width: 3;" visible="false">
-                </a-entity>
-            </a-entity>
-
             <!-- 📌 UX-optimierter Hinweistext mit Zeilenumbruch -->
             <a-entity id="hint-text" position="0 2.5 0" 
                   text="value: Drehe die Erde,\n um zu starten.; 
                        align: center; 
                        color: white; 
-                       width: 4;">
+                       width: 4; 
+                       font: exo2bold">
             </a-entity>
         </a-marker>
 
