@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
-    const campusMap = document.getElementById("campus-map"); // 2D-Karte
+    const campusMap = document.getElementById("campus-map");
+    const infoBox = document.getElementById("info-box");
+    const btnCloseInfo = document.getElementById("btn-close-info");
 
     let isDragging = false;
     let lastX = 0;
-    let rotationProgress = 0; // Speichert, wie viel gedreht wurde
+    let rotationProgress = 0;
     let scaleProgress = 1; // Startgröße für die Erde
 
     // 🌍 Globale Event-Listener für Maus- & Touchbewegung
@@ -35,16 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
         hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        // 🌍 Erde langsam rauszoomen
         // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
-scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+        scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
+            infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
+            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
         }
     });
 
@@ -85,11 +87,18 @@ earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`
         if (rotationProgress > 1000) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
+            infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
+            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
         }
     });
 
     window.addEventListener("touchend", () => {
         isDragging = false;
+    });
+
+    // ❌ Infotext schließen
+    btnCloseInfo.addEventListener("click", () => {
+        infoBox.setAttribute("visible", "false");
+        console.log("ℹ️ Infotext geschlossen.");
     });
 });
