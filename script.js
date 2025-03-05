@@ -18,23 +18,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("mousemove", (event) => {
         if (!isDragging) return;
-
+    
         let deltaX = event.clientX - lastX;
         lastX = event.clientX;
-
+    
         let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
         earth.setAttribute("rotation", {
             x: currentRotation.x,
-            y: currentRotation.y + deltaX * 0.5, // Weichere Drehung
+            y: currentRotation.y + deltaX * 0.5, 
             z: currentRotation.z
         });
-
+    
         // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
+        let opacity = Math.max(0, 1 - rotationProgress / 300); // Verblassen ist schneller (300 statt 500)
         hintText.setAttribute("text", `opacity: ${opacity}`);
-        if (opacity === 0) hintText.setAttribute("visible", "false");
-
+    
+        if (opacity === 0) { 
+            hintText.setAttribute("visible", "false"); 
+            earth.setAttribute("visible", "false"); // 🌍 Erde verschwindet direkt!
+            campusMap.setAttribute("visible", "true");
+            console.log("🌍 Erde sofort verschwunden, sobald der Text weg war!");
+        }
+    });
+    
         // 🌍 Erde langsam rauszoomen
         // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
 scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
