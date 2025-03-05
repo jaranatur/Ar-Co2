@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
         let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
-        hintText.setAttribute("text", opacity: ${opacity});
+        hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
         // 🌍 Erde langsam rauszoomen
         // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
 scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
+earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
         if (rotationProgress > 600) {
@@ -74,12 +74,12 @@ earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
         // 🌟 Fortschritt fürs Verblassen des Textes (auch für Touch)
         rotationProgress += Math.abs(deltaX);
         let opacity = Math.max(0, 1 - rotationProgress / 500);
-        hintText.setAttribute("text", opacity: ${opacity});
+        hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
         // 🌍 Erde langsam rauszoomen
         scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
-        earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
+        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
         if (rotationProgress > 1000) {
