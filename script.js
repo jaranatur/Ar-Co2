@@ -3,19 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
-    const campusMap = document.getElementById("campus-map");
+    const campusMap = document.getElementById("campus-map"); // 2D-Karte
 
     let isDragging = false;
     let lastX = 0;
-    let rotationProgress = 0;
+    let rotationProgress = 0; // Speichert, wie viel gedreht wurde
+    let scaleProgress = 1; // Startgröße für die Erde
 
-    // 🌍 Fix: Erde wieder drehbar machen!
+    // 🌍 Globale Event-Listener für Maus- & Touchbewegung
     window.addEventListener("mousedown", (event) => {
-        if (earth && (event.target.id === "earth" || event.target.closest("#earth-container"))) {
-            isDragging = true;
-            lastX = event.clientX;
-            console.log("🌀 Drehen gestartet!");
-        }
+        isDragging = true;
+        lastX = event.clientX;
     });
 
     window.addEventListener("mousemove", (event) => {
@@ -27,36 +25,37 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
         earth.setAttribute("rotation", {
             x: currentRotation.x,
-            y: currentRotation.y + deltaX * 0.5, 
+            y: currentRotation.y + deltaX * 0.5, // Weichere Drehung
             z: currentRotation.z
         });
 
         // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 300);
-        hintText.setAttribute("text", `opacity: ${opacity}`);
+        let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
+        hintText.setAttribute("text", opacity: ${opacity});
+        if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        // 🌍 Erde sofort verschwinden lassen, wenn der Text weg ist
-        if (opacity === 0 && earth.getAttribute("visible") !== "false") {
-            console.log("🌍 Erde sofort verschwunden!");
-            hintText.setAttribute("visible", "false");
+        // 🌍 Erde langsam rauszoomen
+        // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
+scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
+
+        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
+        if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
+            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
         }
     });
 
     window.addEventListener("mouseup", () => {
         isDragging = false;
-        console.log("⏹️ Drehen gestoppt!");
     });
 
-    // 🖐 Fix für Touch-Geräte
+    // 🖐 Touch-Unterstützung für Mobilgeräte
     window.addEventListener("touchstart", (event) => {
-        if (earth && (event.target.id === "earth" || event.target.closest("#earth-container"))) {
-            isDragging = true;
-            lastX = event.touches[0].clientX;
-            console.log("🌀 Touch-Drehen gestartet!");
-        }
+        isDragging = true;
+        lastX = event.touches[0].clientX;
     });
 
     window.addEventListener("touchmove", (event) => {
@@ -72,21 +71,25 @@ document.addEventListener("DOMContentLoaded", () => {
             z: currentRotation.z
         });
 
-        // 🌟 Fortschritt fürs Verblassen des Textes
+        // 🌟 Fortschritt fürs Verblassen des Textes (auch für Touch)
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 300);
-        hintText.setAttribute("text", `opacity: ${opacity}`);
+        let opacity = Math.max(0, 1 - rotationProgress / 500);
+        hintText.setAttribute("text", opacity: ${opacity});
+        if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        if (opacity === 0 && earth.getAttribute("visible") !== "false") {
-            console.log("🌍 Erde sofort verschwunden!");
-            hintText.setAttribute("visible", "false");
+        // 🌍 Erde langsam rauszoomen
+        scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
+        earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
+
+        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
+        if (rotationProgress > 1000) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
+            console.log("🌍 Erde ausgeblendet, 2D-Karte eingeblendet!");
         }
     });
 
     window.addEventListener("touchend", () => {
         isDragging = false;
-        console.log("⏹️ Touch-Drehen gestoppt!");
     });
 });
