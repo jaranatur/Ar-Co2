@@ -35,21 +35,22 @@
         
             <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
 <a-entity id="info-box" position="0 1 -1" visible="false">
-    <!-- Hintergrund der Info-Box (etwas nach hinten, um Überlappung zu vermeiden) -->
-    <a-plane height="1" width="2" color="#D8F3DC" opacity="0.9" position="0 0 0"></a-plane>
+    <!-- Hintergrund der Info-Box (leicht verbreitert) -->
+    <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
 
-    <!-- Infotext: Position leicht nach vorne verschoben -->
-    <a-entity position="0 0.35 0.05"  
+    <!-- Infotext: Größe angepasst & weiter nach vorne, damit kein Flackern -->
+    <a-entity position="0 0.35 0.06"  
         text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.; 
-              align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+              align: center; color: #1B4332; width: 2; font: exo2bold;">
     </a-entity>
 
-    <!-- Button: Leicht nach vorne bringen -->
-    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.35; width: 1.0"
-        material="color: #95D5B2" position="0 -0.35 0.05"
-        text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+    <!-- Button: Noch weiter nach vorne geschoben, um Flackern zu verhindern -->
+    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.35; width: 1.2"
+        material="color: #95D5B2" position="0 -0.35 0.08"
+        text="value: Verstanden; align: center; color: #1B4332; width: 2; font: exo2bold;">
     </a-entity>
 </a-entity>
+
 
 
         
