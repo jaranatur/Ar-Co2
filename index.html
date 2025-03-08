@@ -12,7 +12,7 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         
-        <!-- 📌 Assets für die Campus-Karte laden -->
+        <!-- 📌 Assets -->
         <a-assets>
             <img id="campusTexture" src="assets/campus-map.png">
         </a-assets>
@@ -26,7 +26,7 @@
                 </a-entity>
             </a-entity>
         
-            <!-- ❌ 2D-Karte wurde auskommentiert -->
+            <!-- ❌ 2D-Karte auskommentiert -->
             <!-- 
             <a-entity id="campus-map" geometry="primitive: plane; height: 3; width: 3"
                 material="shader: flat; src: #campusTexture"
@@ -50,7 +50,7 @@
                 </a-entity>
             </a-entity>
 
-            <!-- 📌 3 Schwebende Kugeln (versteckt bis Erde weg ist) -->
+            <!-- 📌 3 Kugeln für Szenen (versteckt bis Erde weg ist) -->
             <a-entity id="scene-selection" visible="false">
                 <a-sphere id="mobility-sphere" position="-1 1 -2" radius="0.3" color="#3498DB"></a-sphere>
                 <a-sphere id="food-sphere" position="0 1 -2" radius="0.3" color="#2ECC71"></a-sphere>
