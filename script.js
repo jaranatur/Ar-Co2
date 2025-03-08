@@ -94,22 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("touchend", () => { isDragging = false; });
 
-    // ❌ Infotext schließen & Kugeln einblenden (Fix!)
+    // ❌ Infotext schließen & Kugeln einblenden (Finaler Fix!)
     btnCloseInfo.addEventListener("click", () => {
         console.log("ℹ️ 'Verstanden' geklickt. Infobox wird geschlossen & Kugeln erscheinen.");
 
-        // 🔥 Infobox ausblenden
+        // 🔥 Infobox & Button ausblenden
         infoBox.setAttribute("visible", "false");
+        btnCloseInfo.setAttribute("visible", "false");
 
-        // 🔥 Kugeln einblenden
+        // 🔥 Kugeln erscheinen lassen
         sceneSelection.setAttribute("visible", "true");
-
-        // 🔥 Sicherstellen, dass der Button wirklich verschwindet
-        btnCloseInfo.parentNode.setAttribute("visible", "false");
     });
 
     // 🌍 Sicherstellen, dass Klicks auf 3D-Modelle zuverlässig funktionieren
-    window.addEventListener("click", (event) => {
+    document.querySelector("a-scene").addEventListener("click", (event) => {
         let targetId = event.target.id;
         console.log("👆 Klick auf:", targetId);
 
