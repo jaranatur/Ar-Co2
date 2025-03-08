@@ -24,3 +24,39 @@ a-entity {
     pointer-events: none;
     z-index: 10;
 }
+/* 📌 Info-Box mit Pastellgrün */
+#info-box {
+    background: #D8F3DC;
+    border-radius: 10px;
+    padding: 20px;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* 📝 Text größer & vor die Plane setzen */
+#info-box a-entity {
+    text-align: center;
+    color: #1B4332; /* Dunkelgrün */
+    font-family: exo2bold;
+    font-weight: bold;
+    font-size: 22px; /* Größer */
+    width: 2.5;
+    position: relative;
+    z-index: 2; /* Stellt sicher, dass der Text über der Plane ist */
+}
+
+/* 🎨 Button */
+#btn-close-info {
+    background: #95D5B2;
+    color: #1B4332; /* Dunkelgrün */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px; /* Größere Schrift */
+    transition: background 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+/* ✨ Hover Effekt */
+#btn-close-info:hover {
+    background: #74C69D; /* Etwas dunkleres Grün beim Hover */
+    box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
+}

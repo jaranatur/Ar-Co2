@@ -34,17 +34,23 @@
             </a-entity>
         
             <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
-            <a-entity id="info-box" position="0 1 -1" visible="false">
-                <a-plane height="1" width="2" color="black" opacity="0.8"></a-plane>
-                <a-entity position="0 0.3 0" 
-                    text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.; 
-                          align: center; color: white; width: 2;">
-                </a-entity>
-                <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.3; width: 0.8"
-                    material="color: red" position="0 -0.3 0"
-                    text="value: Verstanden; align: center; color: white; width: 2;">
-                </a-entity>
-            </a-entity>
+<a-entity id="info-box" position="0 1 -1" visible="false">
+    <!-- Hintergrund der Info-Box -->
+    <a-plane height="1" width="2" color="#D8F3DC" opacity="0.9"></a-plane>
+
+    <!-- Infotext mit größerer Schrift & leicht vor der Plane -->
+    <a-entity position="0 0.35 0.01"  <!-- 0.01 bringt den Text minimal nach vorne -->
+        text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.; 
+              align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+    </a-entity>
+
+    <!-- Button mit größerem Text & leicht vor dem Button -->
+    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.35; width: 1.0"
+        material="color: #95D5B2" position="0 -0.35 0"
+        text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold; position: 0 0 0.01;">
+    </a-entity>
+</a-entity>
+
         
             <!-- 📌 UX-optimierter Hinweistext mit Zeilenumbruch -->
             <a-entity id="hint-text" position="0 2.5 0" 
