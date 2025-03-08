@@ -33,7 +33,7 @@
                 visible="false">
             </a-entity>
         
-           <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
+<!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
 <a-entity id="info-box" position="0 1 -1" visible="false">
     <!-- Hintergrund der Info-Box (leicht verbreitert) -->
     <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
@@ -44,12 +44,18 @@
               align: center; color: #1B4332; width: 2; font: exo2bold;">
     </a-entity>
 
-    <!-- Button: Höher gesetzt & Text weiter nach vorne geschoben -->
-    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.35; width: 1.2"
-        material="color: #95D5B2" position="0 -0.25 0.08"
-        text="value: Verstanden; align: center; color: #1B4332; width: 2.2; font: exo2bold; position: 0 0 0.1;">
+    <!-- Button: Noch weiter nach vorne & höher gesetzt, damit Text klar bleibt -->
+    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
+        material="color: #95D5B2; transparent: true" position="0 -0.2 0.08">
+        
+        <!-- Text des Buttons separat & deutlich weiter nach vorne geschoben -->
+        <a-entity position="0 0 0.15"
+            text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+        </a-entity>
+
     </a-entity>
 </a-entity>
+
 
 
 
