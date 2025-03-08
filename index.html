@@ -46,17 +46,17 @@
               align: center; color: #1B4332; width: 2; font: exo2bold;">
     </a-entity>
 
-    <!-- Button: Noch weiter nach vorne & höher gesetzt, damit Text klar bleibt -->
-    <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
-        material="color: #95D5B2; transparent: true" position="0 -0.2 0.08">
-        
-        <!-- Text des Buttons leicht nach oben verschoben -->
-        <a-entity position="0 0.1 0.15"
-            text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
-        </a-entity>
+  <!-- Button: Noch weiter nach vorne & höher gesetzt, damit Text klar bleibt -->
+<a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
+material="color: #95D5B2; transparent: true" position="0 -0.2 0.08"
+event-set__click="_event: click; visible: false;">
 
-    </a-entity>
+<!-- Text des Buttons leicht nach vorne gezogen, damit kein Flackern -->
+<a-entity position="0 0 0.02"
+    text="value: Verstanden; align: center; color: #1B4332; width: 2.5;">
 </a-entity>
+</a-entity>
+
 
             <!-- 📌 3 Kugeln für Szenen (versteckt bis Erde weg ist) -->
             <a-entity id="scene-selection" visible="false">

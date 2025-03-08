@@ -7,10 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCloseInfo = document.getElementById("btn-close-info");
     const sceneSelection = document.getElementById("scene-selection");
 
-    const mobilitySphere = document.getElementById("mobility-sphere");
-    const foodSphere = document.getElementById("food-sphere");
-    const electronicsSphere = document.getElementById("electronics-sphere");
-
     let isDragging = false;
     let lastX = 0;
     let rotationProgress = 0;
@@ -100,24 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("👆 Klick erkannt auf:", targetId);
 
         // 📌 "Verstanden"-Button schließt Info-Box & zeigt Kugeln
-        if (targetId === "btn-close-info") {
+        if (targetId === "btn-close-info" || event.target.closest("#btn-close-info")) {
             console.log("ℹ️ 'Verstanden' geklickt. Infobox wird geschlossen & Kugeln erscheinen.");
-            infoBox.setAttribute("visible", "false");
-            sceneSelection.setAttribute("visible", "true");
+            document.getElementById("info-box").setAttribute("visible", "false");
+            document.getElementById("scene-selection").setAttribute("visible", "true");
         }
 
         // 🌍 Szenen-Wechsel bei Klick auf eine Kugel
         if (targetId === "mobility-sphere") {
             console.log("🚲 Mobilitätsszene gestartet!");
-            sceneSelection.setAttribute("visible", "false");
+            document.getElementById("scene-selection").setAttribute("visible", "false");
         }
         if (targetId === "food-sphere") {
             console.log("🍽 Ernährungsszene gestartet!");
-            sceneSelection.setAttribute("visible", "false");
+            document.getElementById("scene-selection").setAttribute("visible", "false");
         }
         if (targetId === "electronics-sphere") {
             console.log("📱 Elektronikszene gestartet!");
-            sceneSelection.setAttribute("visible", "false");
+            document.getElementById("scene-selection").setAttribute("visible", "false");
         }
     });
 });
