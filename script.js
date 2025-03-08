@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
-    // const campusMap = document.getElementById("campus-map"); // ❌ 2D-Karte auskommentiert
     const infoBox = document.getElementById("info-box");
     const btnCloseInfo = document.getElementById("btn-close-info");
     const sceneSelection = document.getElementById("scene-selection");
@@ -49,9 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Info-Box anzeigen
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
-            // campusMap.setAttribute("visible", "true"); // ❌ 2D-Karte bleibt aus
             infoBox.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
+            console.log("🌍 Erde verschwunden, Infotext eingeblendet!");
         }
     });
 
@@ -89,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Info-Box anzeigen
         if (rotationProgress > 1000) {
             earth.setAttribute("visible", "false");
-            // campusMap.setAttribute("visible", "true"); // ❌ 2D-Karte bleibt aus
             infoBox.setAttribute("visible", "true");
             console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
         }
@@ -99,13 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ❌ Infotext schließen & Kugeln einblenden
     btnCloseInfo.addEventListener("click", () => {
+        console.log("ℹ️ 'Verstanden' geklickt. Infobox wird geschlossen & Kugeln erscheinen.");
+
+        // 🔥 Infobox ausblenden
         infoBox.setAttribute("visible", "false");
+
+        // 🔥 Kugeln einblenden
         sceneSelection.setAttribute("visible", "true");
-
-        // 🔥 Verstanden-Button endgültig ausblenden
-        btnCloseInfo.parentNode.setAttribute("visible", "false");
-
-        console.log("ℹ️ Info-Box geschlossen, Kugeln erscheinen.");
     });
 
     // 🌍 Sicherstellen, dass Klicks auf 3D-Modelle zuverlässig funktionieren
