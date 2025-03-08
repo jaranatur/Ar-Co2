@@ -24,37 +24,3 @@ a-entity {
     pointer-events: none;
     z-index: 10;
 }
-
-/* 📌 Info Box Styling */
-#info-box {
-    background: rgba(34, 34, 34, 0.9); /* Darker background for better contrast */
-    border-radius: 10px;
-    padding: 20px;
-    transition: opacity 0.5s ease-in-out;
-}
-
-/* 📝 Improve text readability */
-#info-box a-entity {
-    text-align: center;
-    color: #F4F4F4; /* Softer white text */
-    font-family: "Arial", sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-    width: 2.5;
-}
-
-/* 🎨 Button Styling */
-#btn-close-info {
-    background: #FF5733; /* Modern orange button */
-    color: white;
-    border-radius: 5px;
-    padding: 8px;
-    transition: background 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-/* ✨ Hover & Glow Effect */
-#btn-close-info:hover {
-    background: #FF2E00; /* Darker orange when hovered */
-    box-shadow: 0px 0px 8px rgba(255, 87, 51, 0.8);
-}

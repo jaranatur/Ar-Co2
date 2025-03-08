@@ -32,27 +32,16 @@
                 position="0 0 0" rotation="-90 0 0"
                 visible="false">
             </a-entity>
-
-            <!-- 🔴 Markierungen für die 3 Szenen (sichtbar, aber nicht anklickbar) -->
-            <a-entity position="-0.5 0.02 0.5">
-                <a-circle color="yellow" radius="0.1"></a-circle>
-            </a-entity>
-            <a-entity position="0.3 0.02 0.8">
-                <a-circle color="yellow" radius="0.1"></a-circle>
-            </a-entity>
-            <a-entity position="-0.8 0.02 -0.5">
-                <a-circle color="yellow" radius="0.1"></a-circle>
-            </a-entity>
         
-            <!-- 📌 Infotext mit Button (verbessert & zentriert) -->
+            <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
             <a-entity id="info-box" position="0 1 -1" visible="false">
-                <a-plane height="1.2" width="2.2" color="black" opacity="0.9" radius="10"></a-plane>
-                <a-entity position="0 0.4 0" 
-                    text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.;
-                          align: center; color: white; width: 2.5; font: Arial; font-weight: bold;">
+                <a-plane height="1" width="2" color="black" opacity="0.8"></a-plane>
+                <a-entity position="0 0.3 0" 
+                    text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.; 
+                          align: center; color: white; width: 2;">
                 </a-entity>
-                <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.3; width: 1.2"
-                    material="color: #FF5733" position="0 -0.4 0"
+                <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.3; width: 0.8"
+                    material="color: red" position="0 -0.3 0"
                     text="value: Verstanden; align: center; color: white; width: 2;">
                 </a-entity>
             </a-entity>
@@ -67,6 +56,7 @@
             </a-entity>
         </a-marker>
         
+
         <!-- ❌ Fixierte Kamera -->
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>

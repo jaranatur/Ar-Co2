@@ -27,25 +27,26 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
         earth.setAttribute("rotation", {
             x: currentRotation.x,
-            y: currentRotation.y + deltaX * 0.5,
+            y: currentRotation.y + deltaX * 0.5, // Weichere Drehung
             z: currentRotation.z
         });
 
         // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
-        let opacity = Math.max(0, 1 - rotationProgress / 500);
-        hintText.setAttribute("text", `opacity: ${opacity}`);
+        let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
+        hintText.setAttribute("text", opacity: ${opacity});
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        // 🌍 Erde langsam rauszoomen
+        // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
         scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+        earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
-            showInfoBox();
+            infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
+            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
         }
     });
 
@@ -75,18 +76,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🌟 Fortschritt fürs Verblassen des Textes (auch für Touch)
         rotationProgress += Math.abs(deltaX);
         let opacity = Math.max(0, 1 - rotationProgress / 500);
-        hintText.setAttribute("text", `opacity: ${opacity}`);
+        hintText.setAttribute("text", opacity: ${opacity});
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
         // 🌍 Erde langsam rauszoomen
         scaleProgress = Math.max(0.5, 1 - rotationProgress / 1000);
-        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+        earth.setAttribute("scale", ${scaleProgress} ${scaleProgress} ${scaleProgress});
 
         // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Karte einblenden
         if (rotationProgress > 1000) {
             earth.setAttribute("visible", "false");
             campusMap.setAttribute("visible", "true");
-            showInfoBox();
+            infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
+            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
         }
     });
 
@@ -94,19 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
-    // 🌟 Smooth fade-in for info box
-    function showInfoBox() {
-        infoBox.setAttribute("visible", "true");
-        infoBox.setAttribute("animation", "property: opacity; from: 0; to: 1; dur: 500; easing: ease-in-out");
-        console.log("ℹ️ Info box shown with fade-in effect.");
-    }
-
-    // ❌ Fix: Close button now works with fade-out animation
+    // ❌ Infotext schließen
     btnCloseInfo.addEventListener("click", () => {
-        infoBox.setAttribute("animation", "property: opacity; from: 1; to: 0; dur: 300; easing: ease-out");
-        setTimeout(() => {
-            infoBox.setAttribute("visible", "false");
-        }, 300);
-        console.log("ℹ️ Info box closed.");
+        infoBox.setAttribute("visible", "false");
+        console.log("ℹ️ Infotext geschlossen.");
     });
 });
