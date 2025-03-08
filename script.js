@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let rotationProgress = 0;
     let scaleProgress = 1; // Startgröße für die Erde
 
-    // 🌍 Globale Event-Listener für Maus- & Touchbewegung
+    // 🌍 Event-Listener für Maus- & Touchbewegung (Erde drehen)
     window.addEventListener("mousedown", (event) => {
         isDragging = true;
         lastX = event.clientX;
@@ -94,30 +94,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("touchend", () => { isDragging = false; });
 
-    // ❌ Infotext schließen & Kugeln einblenden (Finaler Fix!)
-    btnCloseInfo.addEventListener("click", () => {
-        console.log("ℹ️ 'Verstanden' geklickt. Infobox wird geschlossen & Kugeln erscheinen.");
-
-        // 🔥 Infobox & Button ausblenden
-        infoBox.setAttribute("visible", "false");
-        btnCloseInfo.setAttribute("visible", "false");
-
-        // 🔥 Kugeln erscheinen lassen
-        sceneSelection.setAttribute("visible", "true");
-    });
-
-    // 🌍 Sicherstellen, dass Klicks auf 3D-Modelle zuverlässig funktionieren
-    document.querySelector("a-scene").addEventListener("click", (event) => {
+    // 🌍 Click-Handler für ALLE wichtigen Objekte
+    window.addEventListener("click", function (event) {
         let targetId = event.target.id;
-        console.log("👆 Klick auf:", targetId);
+        console.log("👆 Klick erkannt auf:", targetId);
 
+        // 📌 "Verstanden"-Button schließt Info-Box & zeigt Kugeln
+        if (targetId === "btn-close-info") {
+            console.log("ℹ️ 'Verstanden' geklickt. Infobox wird geschlossen & Kugeln erscheinen.");
+            infoBox.setAttribute("visible", "false");
+            sceneSelection.setAttribute("visible", "true");
+        }
+
+        // 🌍 Szenen-Wechsel bei Klick auf eine Kugel
         if (targetId === "mobility-sphere") {
             console.log("🚲 Mobilitätsszene gestartet!");
             sceneSelection.setAttribute("visible", "false");
-        } else if (targetId === "food-sphere") {
+        }
+        if (targetId === "food-sphere") {
             console.log("🍽 Ernährungsszene gestartet!");
             sceneSelection.setAttribute("visible", "false");
-        } else if (targetId === "electronics-sphere") {
+        }
+        if (targetId === "electronics-sphere") {
             console.log("📱 Elektronikszene gestartet!");
             sceneSelection.setAttribute("visible", "false");
         }
