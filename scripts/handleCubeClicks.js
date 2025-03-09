@@ -1,3 +1,5 @@
+import { sceneSelection } from './globals.js';
+
 export function handleCubeClicks() {
     const mobilityCube = document.getElementById("mobility-cube");
     const foodCube = document.getElementById("food-cube");

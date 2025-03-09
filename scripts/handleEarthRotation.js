@@ -1,8 +1,6 @@
+import { earth, hintText, infoBox, sceneSelection } from './globals.js';
+
 export function handleEarthRotation() {
-    const earth = document.getElementById("earth");
-    const hintText = document.getElementById("hint-text");
-    const infoBox = document.getElementById("info-box");
-    const sceneSelection = document.getElementById("scene-selection");
     let isDragging = false;
     let lastX = 0;
     let rotationProgress = 0;
