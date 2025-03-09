@@ -12,7 +12,7 @@
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
         
-        <!-- 📌 Assets für die Campus-Karte laden -->
+        <!-- 📌 Assets -->
         <a-assets>
             <img id="campusTexture" src="assets/campus-map.png">
         </a-assets>
@@ -25,47 +25,39 @@
                     animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
                 </a-entity>
             </a-entity>
-        
-            <!-- 📌 2D-Karte (versteckt, bis Zoom passiert) -->
-            <a-entity id="campus-map" geometry="primitive: plane; height: 3; width: 3"
-                material="shader: flat; src: #campusTexture"
-                position="0 0 0" rotation="-90 0 0"
-                visible="false">
-            </a-entity>
-        
+
             <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
             <a-entity id="info-box" position="0 1 -1" visible="false">
-                <!-- Hintergrund der Info-Box (leicht verbreitert) -->
                 <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
-
-                <!-- Infotext: Größe angepasst & weiter nach vorne, damit kein Flackern -->
                 <a-entity position="0 0.35 0.06"  
-                    text="value: Willkommen! Klicke auf alle 3 Punkte auf der Karte, um die Fragen zu beantworten. Danach kannst du dein CO₂-Ergebnis sehen.; 
-                        align: center; color: #1B4332; width: 2; font: exo2bold;">
+                    text="value: Willkommen! Klicke auf einen Würfel, um eine Szene zu starten.; 
+                          align: center; color: #1B4332; width: 2; font: exo2bold;">
                 </a-entity>
-
-                <!-- Button: Noch weiter nach vorne & höher gesetzt, damit Text klar bleibt -->
                 <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
                     material="color: #95D5B2; transparent: true" position="0 -0.2 0.08">
-                    
-                    <!-- Text des Buttons leicht nach oben verschoben -->
                     <a-entity position="0 0.1 0.15"
                         text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
                     </a-entity>
-
                 </a-entity>
             </a-entity>
 
-            <!-- 📌 UX-optimierter Hinweistext mit Zeilenumbruch -->
+            <!-- 📌 3 Würfel für Szenen-Auswahl (versteckt bis Info-Fenster geschlossen wird) -->
+            <a-entity id="scene-selection" visible="false">
+                <a-box id="mobility-cube" position="-1 1 -2" depth="0.5" height="0.5" width="0.5" color="#3498DB"></a-box>
+                <a-box id="food-cube" position="0 1 -2" depth="0.5" height="0.5" width="0.5" color="#2ECC71"></a-box>
+                <a-box id="electronics-cube" position="1 1 -2" depth="0.5" height="0.5" width="0.5" color="#E74C3C"></a-box>
+            </a-entity>
+
+            <!-- 📌 UX-optimierter Hinweistext -->
             <a-entity id="hint-text" position="0 2.5 0" 
-                text="value: Drehe die Erde,\n um zu starten.; 
-                    align: center; 
-                    color: white; 
-                    width: 4; 
-                    font: exo2bold">
+                  text="value: Drehe die Erde,\n um zu starten.; 
+                       align: center; 
+                       color: white; 
+                       width: 4; 
+                       font: exo2bold">
             </a-entity>
         </a-marker>
-        
+
         <!-- ❌ Fixierte Kamera -->
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>

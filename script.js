@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
-    const campusMap = document.getElementById("campus-map");
     const infoBox = document.getElementById("info-box");
     const sceneSelection = document.getElementById("scene-selection");
 
@@ -41,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
         scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
-        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Info-Box anzeigen
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
             infoBox.setAttribute("visible", "true");
@@ -105,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
-    // ❌ Infotext schließen durch Klick auf den Bildschirm
+    // ❌ Info-Fenster durch Klick schließen & Cubes anzeigen
     window.addEventListener("click", () => {
         console.log("👆 Klick erkannt, Info-Box wird sofort ausgeblendet.");
         infoBox.setAttribute("visible", "false");
