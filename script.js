@@ -5,13 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const hintText = document.getElementById("hint-text");
     const campusMap = document.getElementById("campus-map");
     const infoBox = document.getElementById("info-box");
-    const btnCloseInfo = document.getElementById("btn-close-info");
+    const sceneSelection = document.getElementById("scene-selection");
 
     let isDragging = false;
     let lastX = 0;
     let rotationProgress = 0;
     let scaleProgress = 1;
 
+    // 🌍 Event-Listener für Maus- & Touchbewegung (Erde drehen)
     window.addEventListener("mousedown", (event) => {
         isDragging = true;
         lastX = event.clientX;
@@ -30,19 +31,28 @@ document.addEventListener("DOMContentLoaded", () => {
             z: currentRotation.z
         });
 
+        // 🌟 Fortschritt fürs Verblassen des Textes
         rotationProgress += Math.abs(deltaX);
         let opacity = Math.max(0, 1 - rotationProgress / 500);
         hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
+        // 🌍 Erde langsam rauszoomen (bis auf 0.3)
         scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
+        // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Info-Box anzeigen
         if (rotationProgress > 600) {
             earth.setAttribute("visible", "false");
-            campusMap.setAttribute("visible", "true");
             infoBox.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
+            console.log("🌍 Erde verschwunden, Infotext eingeblendet!");
+
+            // ⏳ Info-Box wird nach 5 Sekunden automatisch geschlossen
+            setTimeout(() => {
+                console.log("ℹ️ Info-Box wird automatisch ausgeblendet.");
+                infoBox.setAttribute("visible", "false");
+                sceneSelection.setAttribute("visible", "true");
+            }, 5000);
         }
     });
 
@@ -50,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
+    // 🖐 Touch-Unterstützung für Mobilgeräte
     window.addEventListener("touchstart", (event) => {
         isDragging = true;
         lastX = event.touches[0].clientX;
@@ -78,9 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (rotationProgress > 1000) {
             earth.setAttribute("visible", "false");
-            campusMap.setAttribute("visible", "true");
             infoBox.setAttribute("visible", "true");
-            console.log("🌍 Erde ausgeblendet, 2D-Karte & Infotext eingeblendet!");
+            console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
+
+            // ⏳ Info-Box wird nach 5 Sekunden automatisch geschlossen
+            setTimeout(() => {
+                console.log("ℹ️ Info-Box wird automatisch ausgeblendet.");
+                infoBox.setAttribute("visible", "false");
+                sceneSelection.setAttribute("visible", "true");
+            }, 5000);
         }
     });
 
@@ -88,12 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
-    // ❌ Infotext schließen
-    window.addEventListener("click", (event) => {
-        console.log("Click event detected on: ", event.target.id); // Debugging-Log
-        if (event.target.id === "btn-close-info") {
-            infoBox.setAttribute("visible", "false");
-            console.log("ℹ️ Infotext geschlossen.");
-        }
+    // ❌ Infotext schließen durch Klick auf den Bildschirm
+    window.addEventListener("click", () => {
+        console.log("👆 Klick erkannt, Info-Box wird sofort ausgeblendet.");
+        infoBox.setAttribute("visible", "false");
+        sceneSelection.setAttribute("visible", "true");
     });
 });
