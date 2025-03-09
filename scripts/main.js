@@ -1,6 +1,6 @@
-import { initScene } from './scripts/initScene.js';
-import { handleEarthRotation } from './scripts/handleEarthRotation.js';
-import { handleCubeClicks } from './scripts/handleCubeClicks.js';
+import { initScene } from './initScene.js';
+import { handleEarthRotation } from './handleEarthRotation.js';
+import { handleCubeClicks } from './handleCubeClicks.js';
 
 
 document.addEventListener("DOMContentLoaded", () => {
