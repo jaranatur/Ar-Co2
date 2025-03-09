@@ -19,17 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
         co2Level = level;
         co2Bar.setAttribute("geometry", `height: ${0.01 + co2Level * 0.05}`);
         co2Bar.setAttribute("position", `0 ${-1 + co2Level * 0.025} 0.01`);
-
-        if (co2Level < 3) {
-            co2Bar.setAttribute("material", "color: green");
-        } else if (co2Level < 6) {
-            co2Bar.setAttribute("material", "color: yellow");
-        } else {
-            co2Bar.setAttribute("material", "color: red");
-        }
+        co2Bar.setAttribute("material", `color: ${co2Level < 3 ? "green" : co2Level < 6 ? "yellow" : "red"}`);
     }
 
-    // 🌍 Event-Listener für Maus- & Touchbewegung (Erde drehen)
+    // 🌍 **Event-Listener für Maus- & Touchbewegung (Erde drehen)**
     let isDragging = false;
     let lastX = 0;
     let rotationProgress = 0;
@@ -59,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        // 🌍 Erde langsam rauszoomen (bis auf 0.3)
+        // 🌍 Erde langsam rauszoomen
         scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
@@ -131,16 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let targetId = event.target.id;
         console.log("👆 Klick erkannt auf:", targetId);
 
-        // 📌 **Erde verschwinden lassen & Info-Box anzeigen**
-        if (targetId === "earth") {
-            console.log("🌍 Erde wurde angeklickt. Info-Box wird angezeigt.");
-            infoBox.setAttribute("visible", "true");
-            setTimeout(() => {
-                infoBox.setAttribute("visible", "false");
-                sceneSelection.setAttribute("visible", "true");
-            }, 5000);
-        }
-
         // 📌 **Mobilitäts-Würfel wurde geklickt**
         if (targetId === "mobility-cube" && !mobilityCompleted) {
             console.log("🚲 Mobilitätsfrage wird angezeigt.");
@@ -163,15 +146,29 @@ document.addEventListener("DOMContentLoaded", () => {
             returnButton.setAttribute("visible", "true");
         }
 
-        // 📌 **Zurück-Button für Mobilitätsszene**
+        // 📌 **Zurück zur Auswahl**
         if (targetId === "return-button") {
             console.log("↩️ Zurück zur Auswahl.");
             mobilityQuestion.setAttribute("visible", "false");
             sceneSelection.setAttribute("visible", "true");
-
-            // 🎨 Blauer Würfel wird grau (Zeigt an, dass diese Szene abgeschlossen ist)
-            mobilityCube.setAttribute("material", "color: gray");
+            mobilityCube.setAttribute("material", "color: gray"); // 🎨 Blauer Würfel wird grau
             mobilityCompleted = true;
         }
+    });
+
+    // 🌍 **A-Frame Click-Handler für Touch & Maus**
+    AFRAME.registerComponent("click-listener", {
+        init: function () {
+            this.el.addEventListener("click", (evt) => {
+                console.log("📌 A-Frame Click erkannt auf:", this.id);
+                window.dispatchEvent(new CustomEvent("click", { detail: { id: this.id } }));
+            });
+        }
+    });
+
+    // 🌍 **Click-Listener für A-Frame Objekte aktivieren**
+    mobilityCube.setAttribute("click-listener", "");
+    document.querySelectorAll(".clickable").forEach((el) => {
+        el.setAttribute("click-listener", "");
     });
 });
