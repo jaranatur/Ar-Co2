@@ -7,26 +7,17 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <script defer src="main.js"></script>
 </head>
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
-        
-        <!-- 📌 Assets -->
-        <a-assets>
-            <img id="campusTexture" src="assets/campus-map.png">
-        </a-assets>
-
         <a-marker preset="hiro">
-            <!-- 🌍 Drehbare Erde -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
                     position="0 0 0" scale="0.01 0.01 0.01"
                     animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
                 </a-entity>
             </a-entity>
-
-            <!-- 📌 Infotext mit Button (versteckt, bis Erde verschwunden ist) -->
             <a-entity id="info-box" position="0 1 -1" visible="false">
                 <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
                 <a-entity position="0 0.35 0.06"  
@@ -40,15 +31,11 @@
                     </a-entity>
                 </a-entity>
             </a-entity>
-
-            <!-- 📌 3 Würfel für Szenen-Auswahl (versteckt bis Info-Fenster geschlossen wird) -->
             <a-entity id="scene-selection" visible="false">
                 <a-box id="mobility-cube" position="-1 1 -2" depth="0.5" height="0.5" width="0.5" color="#3498DB"></a-box>
                 <a-box id="food-cube" position="0 1 -2" depth="0.5" height="0.5" width="0.5" color="#2ECC71"></a-box>
                 <a-box id="electronics-cube" position="1 1 -2" depth="0.5" height="0.5" width="0.5" color="#E74C3C"></a-box>
             </a-entity>
-
-            <!-- 📌 UX-optimierter Hinweistext -->
             <a-entity id="hint-text" position="0 2.5 0" 
                   text="value: Drehe die Erde,\n um zu starten.; 
                        align: center; 
@@ -57,8 +44,6 @@
                        font: exo2bold">
             </a-entity>
         </a-marker>
-
-        <!-- ❌ Fixierte Kamera -->
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 </body>
