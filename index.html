@@ -56,6 +56,45 @@
                        width: 4; 
                        font: exo2bold">
             </a-entity>
+
+            <!-- 📌 CO₂-Anzeige -->
+            <a-entity id="co2-bar-container" position="2 2 -2">
+                <a-plane width="0.2" height="2" color="gray"></a-plane>
+                <a-plane id="co2-bar" width="0.2" height="0.01" color="green" position="0 -0.99 0.01"></a-plane>
+            </a-entity>
+
+            <!-- 📌 Mobilitätsfrage (Versteckt, bis Würfel geklickt wird) -->
+            <a-entity id="mobility-question" position="0 1 -1" visible="false">
+                <a-plane height="1" width="2.5" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
+
+                <a-entity position="0 0.45 0.06"  
+                    text="value: Wie bist du heute unterwegs?; 
+                          align: center; color: #1B4332; width: 2.2; font: exo2bold;">
+                </a-entity>
+
+                <!-- 🚲 Fahrrad Modell -->
+                <a-entity id="bike-model" class="clickable" gltf-model="assets/bike.glb"
+                    position="-0.8 -0.3 0.1" scale="0.5 0.5 0.5">
+                </a-entity>
+
+                <!-- 🚌 Bus Modell -->
+                <a-entity id="bus-model" class="clickable" gltf-model="assets/bus.glb"
+                    position="0 -0.3 0.1" scale="0.5 0.5 0.5">
+                </a-entity>
+
+                <!-- 🚗 Auto Modell -->
+                <a-entity id="car-model" class="clickable" gltf-model="assets/car.glb"
+                    position="0.8 -0.3 0.1" scale="0.5 0.5 0.5">
+                </a-entity>
+
+                <!-- 📌 Zurück-Button -->
+                <a-entity id="return-button" geometry="primitive: plane; height: 0.4; width: 1.3"
+                    material="color: #95D5B2; transparent: true" position="0 -0.9 0.05" visible="false">
+                    <a-entity position="0 0.1 0.15"
+                        text="value: Zurück zur Auswahl; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+                    </a-entity>
+                </a-entity>
+            </a-entity>
         </a-marker>
 
         <!-- ❌ Fixierte Kamera -->
