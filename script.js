@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sceneSelection = document.getElementById("scene-selection");
     const mobilityQuestion = document.getElementById("mobility-question");
     const returnButton = document.getElementById("return-button");
-    const mobilityCube = document.getElementById("mobility-cube"); // Blauer Würfel
+    const mobilityCube = document.getElementById("mobility-cube");
     const co2Bar = document.getElementById("co2-bar");
 
     let co2Level = 0;
@@ -126,51 +126,52 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
-    // ❌ Info-Fenster durch Klick schließen & Cubes anzeigen
-    window.addEventListener("click", () => {
-        console.log("👆 Klick erkannt, Info-Box wird sofort ausgeblendet.");
-        infoBox.setAttribute("visible", "false");
-        sceneSelection.setAttribute("visible", "true");
-    });
+    // ❌ **GLOBALER CLICK-HANDLER für ALLE Würfel & Modelle**
+    window.addEventListener("click", (event) => {
+        let targetId = event.target.id;
+        console.log("👆 Klick erkannt auf:", targetId);
 
-    // 🎯 Klick-Listener für Mobilitätswürfel
-    mobilityCube.addEventListener("click", () => {
-        if (!mobilityCompleted) {
+        // 📌 **Erde verschwinden lassen & Info-Box anzeigen**
+        if (targetId === "earth") {
+            console.log("🌍 Erde wurde angeklickt. Info-Box wird angezeigt.");
+            infoBox.setAttribute("visible", "true");
+            setTimeout(() => {
+                infoBox.setAttribute("visible", "false");
+                sceneSelection.setAttribute("visible", "true");
+            }, 5000);
+        }
+
+        // 📌 **Mobilitäts-Würfel wurde geklickt**
+        if (targetId === "mobility-cube" && !mobilityCompleted) {
             console.log("🚲 Mobilitätsfrage wird angezeigt.");
             sceneSelection.setAttribute("visible", "false");
             mobilityQuestion.setAttribute("visible", "true");
         }
-    });
 
-    // 🎯 Klick-Listener für Mobilitätsoptionen
-    document.querySelectorAll('.clickable').forEach(model => {
-        model.addEventListener('click', (event) => {
-            const modelId = event.target.id;
+        // 📌 **Transport-Optionen wurden gewählt**
+        if (targetId === "bike-model") {
+            console.log("🚲 Fahrrad gewählt! CO₂ bleibt niedrig.");
+            updateCO2Bar(1);
+            returnButton.setAttribute("visible", "true");
+        } else if (targetId === "bus-model") {
+            console.log("🚌 Bus gewählt! CO₂ steigt etwas.");
+            updateCO2Bar(3);
+            returnButton.setAttribute("visible", "true");
+        } else if (targetId === "car-model") {
+            console.log("🚗 Auto gewählt! CO₂ steigt stark!");
+            updateCO2Bar(7);
+            returnButton.setAttribute("visible", "true");
+        }
 
-            if (modelId === 'bike-model') {
-                console.log("🚲 Fahrrad gewählt! CO₂ bleibt niedrig.");
-                updateCO2Bar(1);
-                returnButton.setAttribute("visible", "true");
-            } else if (modelId === 'bus-model') {
-                console.log("🚌 Bus gewählt! CO₂ steigt etwas.");
-                updateCO2Bar(3);
-                returnButton.setAttribute("visible", "true");
-            } else if (modelId === 'car-model') {
-                console.log("🚗 Auto gewählt! CO₂ steigt stark!");
-                updateCO2Bar(7);
-                returnButton.setAttribute("visible", "true");
-            }
-        });
-    });
+        // 📌 **Zurück-Button für Mobilitätsszene**
+        if (targetId === "return-button") {
+            console.log("↩️ Zurück zur Auswahl.");
+            mobilityQuestion.setAttribute("visible", "false");
+            sceneSelection.setAttribute("visible", "true");
 
-    // 🎯 Zurück-Button zur Auswahl
-    returnButton.addEventListener("click", () => {
-        console.log("↩️ Zurück zur Auswahl.");
-        mobilityQuestion.setAttribute("visible", "false");
-        sceneSelection.setAttribute("visible", "true");
-
-        // 🎨 Blauer Würfel wird grau (Zeigt an, dass diese Szene abgeschlossen ist)
-        mobilityCube.setAttribute("material", "color: gray");
-        mobilityCompleted = true;
+            // 🎨 Blauer Würfel wird grau (Zeigt an, dass diese Szene abgeschlossen ist)
+            mobilityCube.setAttribute("material", "color: gray");
+            mobilityCompleted = true;
+        }
     });
 });
