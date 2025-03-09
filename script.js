@@ -1,40 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ AR Szene geladen!");
 
-    // 🌍 Elemente abrufen
     const earth = document.getElementById("earth");
     const hintText = document.getElementById("hint-text");
     const infoBox = document.getElementById("info-box");
     const sceneSelection = document.getElementById("scene-selection");
-    const mobilityQuestion = document.getElementById("mobility-question");
-    const returnButton = document.getElementById("return-button");
-    const mobilityCube = document.getElementById("mobility-cube");
-    const co2Bar = document.getElementById("co2-bar");
 
-    let co2Level = 0;
-    let mobilityCompleted = false;
-
-    // 🌱 CO₂-Balken aktualisieren
-    function updateCO2Bar(level) {
-        co2Level = level;
-        co2Bar.setAttribute("geometry", `height: ${0.01 + co2Level * 0.05}`);
-        co2Bar.setAttribute("position", `0 ${-1 + co2Level * 0.025} 0.01`);
-
-        if (co2Level < 3) {
-            co2Bar.setAttribute("material", "color: green");
-        } else if (co2Level < 6) {
-            co2Bar.setAttribute("material", "color: yellow");
-        } else {
-            co2Bar.setAttribute("material", "color: red");
-        }
-    }
-
-    // 🌍 Event-Listener für Maus- & Touchbewegung (Erde drehen)
     let isDragging = false;
     let lastX = 0;
     let rotationProgress = 0;
     let scaleProgress = 1;
 
+    // 🌍 Event-Listener für Maus- & Touchbewegung (Erde drehen)
     window.addEventListener("mousedown", (event) => {
         isDragging = true;
         lastX = event.clientX;
@@ -126,52 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
         isDragging = false;
     });
 
-    // ❌ **GLOBALER CLICK-HANDLER für ALLE Würfel & Modelle**
-    window.addEventListener("click", (event) => {
-        let targetId = event.target.id;
-        console.log("👆 Klick erkannt auf:", targetId);
-
-        // 📌 **Erde verschwinden lassen & Info-Box anzeigen**
-        if (targetId === "earth") {
-            console.log("🌍 Erde wurde angeklickt. Info-Box wird angezeigt.");
-            infoBox.setAttribute("visible", "true");
-            setTimeout(() => {
-                infoBox.setAttribute("visible", "false");
-                sceneSelection.setAttribute("visible", "true");
-            }, 5000);
-        }
-
-        // 📌 **Mobilitäts-Würfel wurde geklickt**
-        if (targetId === "mobility-cube" && !mobilityCompleted) {
-            console.log("🚲 Mobilitätsfrage wird angezeigt.");
-            sceneSelection.setAttribute("visible", "false");
-            mobilityQuestion.setAttribute("visible", "true");
-        }
-
-        // 📌 **Transport-Optionen wurden gewählt**
-        if (targetId === "bike-model") {
-            console.log("🚲 Fahrrad gewählt! CO₂ bleibt niedrig.");
-            updateCO2Bar(1);
-            returnButton.setAttribute("visible", "true");
-        } else if (targetId === "bus-model") {
-            console.log("🚌 Bus gewählt! CO₂ steigt etwas.");
-            updateCO2Bar(3);
-            returnButton.setAttribute("visible", "true");
-        } else if (targetId === "car-model") {
-            console.log("🚗 Auto gewählt! CO₂ steigt stark!");
-            updateCO2Bar(7);
-            returnButton.setAttribute("visible", "true");
-        }
-
-        // 📌 **Zurück-Button für Mobilitätsszene**
-        if (targetId === "return-button") {
-            console.log("↩️ Zurück zur Auswahl.");
-            mobilityQuestion.setAttribute("visible", "false");
-            sceneSelection.setAttribute("visible", "true");
-
-            // 🎨 Blauer Würfel wird grau (Zeigt an, dass diese Szene abgeschlossen ist)
-            mobilityCube.setAttribute("material", "color: gray");
-            mobilityCompleted = true;
-        }
+    // ❌ Info-Fenster durch Klick schließen & Cubes anzeigen
+    window.addEventListener("click", () => {
+        console.log("👆 Klick erkannt, Info-Box wird sofort ausgeblendet.");
+        infoBox.setAttribute("visible", "false");
+        sceneSelection.setAttribute("visible", "true");
     });
 });
