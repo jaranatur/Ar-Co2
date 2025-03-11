@@ -81,3 +81,6 @@ a-entity {
     user-select: none;
     -webkit-user-select: none;
 }
+#earth {
+    pointer-events: auto !important;
+}
