@@ -40,22 +40,21 @@ export function handleEarthRotation() {
 
             console.log("📱 Drehe die Erde mit Touch: ", earth.getAttribute("rotation"));
 
+            // 🌟 Fortschritt fürs Verblassen des Textes
             rotationProgress += Math.abs(deltaX);
-            let opacity = Math.max(0, 1 - rotationProgress / 500);
+            let opacity = Math.max(0, 1 - rotationProgress / 500); // Nach 500 Einheiten ist der Text weg
             hintText.setAttribute("text", `opacity: ${opacity}`);
             if (opacity === 0) hintText.setAttribute("visible", "false");
 
-            scaleProgress = Math.max(0.5, 1 - rotationProgress / 800);
+            // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
+            scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
             earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
+            // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Infotext einblenden
             if (rotationProgress > 600) {
                 earth.setAttribute("visible", "false");
-                infoBox.setAttribute("visible", "true");
-
-                setTimeout(() => {
-                    infoBox.setAttribute("visible", "false");
-                    sceneSelection.setAttribute("visible", "true");
-                }, 5000);
+                infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
+                console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
             }
         });
 
@@ -63,13 +62,5 @@ export function handleEarthRotation() {
             console.log("📱 Touch End!");
             isDragging = false;
         });
-
-        // 🔄 Falls sich die Erde nicht dreht, initialisiere sie noch einmal
-        setTimeout(() => {
-            if (!isDragging) {
-                console.log("🔄 Automatische Rotation aktiv!");
-                earth.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 20000; easing: linear");
-            }
-        }, 3000);
     }, 100);
 }
