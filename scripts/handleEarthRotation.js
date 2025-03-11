@@ -60,4 +60,18 @@ export function handleEarthRotation() {
         console.log("📱 Touch End!");
         isDragging = false;
     });
+
+    // 🛠️ Info-Fenster schließen, wenn der Button angeklickt wird
+    document.addEventListener("DOMContentLoaded", () => {
+        const btnCloseInfo = document.getElementById("btn-close-info");
+
+        if (btnCloseInfo) {
+            btnCloseInfo.addEventListener("click", () => {
+                console.log("ℹ️ Info-Fenster wird geschlossen!");
+                infoBox.setAttribute("visible", "false");
+            });
+        } else {
+            console.error("❌ btnCloseInfo nicht gefunden!");
+        }
+    });
 }
