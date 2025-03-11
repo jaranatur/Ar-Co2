@@ -5,4 +5,6 @@ export function initGlobals() {
     hintText = document.getElementById("hint-text");
     infoBox = document.getElementById("info-box");
     sceneSelection = document.getElementById("scene-selection");
+
+    console.log("🌍 initGlobals aufgerufen! Earth:", earth);
 }
