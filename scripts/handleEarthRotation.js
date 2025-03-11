@@ -5,14 +5,28 @@ export function handleEarthRotation() {
     let lastX = 0;
     let rotationProgress = 0;
     let scaleProgress = 1;
+    let lastFrame = 0;
 
-    window.addEventListener("mousedown", (event) => {
+    console.log("🔄 handleEarthRotation gestartet, Earth:", earth);
+
+    if (!earth) {
+        console.error("⚠️ Fehler: 'earth' ist nicht definiert! Stelle sicher, dass initGlobals() aufgerufen wurde.");
+        return;
+    }
+
+    // Maussteuerung
+    earth.addEventListener("mousedown", (event) => {
+        console.log("🖱️ Mouse Down!");
         isDragging = true;
         lastX = event.clientX;
     });
 
     window.addEventListener("mousemove", (event) => {
         if (!isDragging) return;
+
+        let now = Date.now();
+        if (now - lastFrame < 16) return; // 60 FPS Limit
+        lastFrame = now;
 
         let deltaX = event.clientX - lastX;
         lastX = event.clientX;
@@ -24,12 +38,14 @@ export function handleEarthRotation() {
             z: currentRotation.z
         });
 
+        console.log("🎮 Drehe die Erde: ", earth.getAttribute("rotation"));
+
         rotationProgress += Math.abs(deltaX);
         let opacity = Math.max(0, 1 - rotationProgress / 500);
         hintText.setAttribute("text", `opacity: ${opacity}`);
         if (opacity === 0) hintText.setAttribute("visible", "false");
 
-        scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+        scaleProgress = Math.max(0.5, 1 - rotationProgress / 800);
         earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
         if (rotationProgress > 600) {
@@ -43,5 +59,36 @@ export function handleEarthRotation() {
         }
     });
 
-    window.addEventListener("mouseup", () => isDragging = false);
+    window.addEventListener("mouseup", () => {
+        console.log("🖱️ Mouse Up!");
+        isDragging = false;
+    });
+
+    // Touchsteuerung (für mobile Geräte)
+    earth.addEventListener("touchstart", (event) => {
+        console.log("📱 Touch Start!");
+        isDragging = true;
+        lastX = event.touches[0].clientX;
+    });
+
+    window.addEventListener("touchmove", (event) => {
+        if (!isDragging) return;
+
+        let deltaX = event.touches[0].clientX - lastX;
+        lastX = event.touches[0].clientX;
+
+        let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+        earth.setAttribute("rotation", {
+            x: currentRotation.x,
+            y: currentRotation.y + deltaX * 0.5,
+            z: currentRotation.z
+        });
+
+        console.log("📱 Drehe die Erde mit Touch: ", earth.getAttribute("rotation"));
+    });
+
+    window.addEventListener("touchend", () => {
+        console.log("📱 Touch End!");
+        isDragging = false;
+    });
 }
