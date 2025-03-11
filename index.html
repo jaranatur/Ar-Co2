@@ -8,10 +8,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
-    <!-- 🚀 Fix: Touch-Events nicht blockieren -->
+    <!-- 🚀 Fix: Erzwinge Touch-Events -->
     <script>
+        document.addEventListener("touchstart", (event) => {
+            event.preventDefault();
+        }, { passive: false });
+
         document.addEventListener("touchmove", (event) => {
-            event.preventDefault(); // Verhindert, dass Browser Touch-Events blockiert
+            event.preventDefault();
+            console.log("📱 Touch Move wird ausgelöst!"); // Debugging
         }, { passive: false });
     </script>
 
