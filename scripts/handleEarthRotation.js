@@ -8,64 +8,58 @@ export function handleEarthRotation() {
 
     console.log("✅ handleEarthRotation läuft!");
 
-    // Warte, bis die Erde geladen ist
-    const checkEarthLoaded = setInterval(() => {
-        if (!earth) {
-            console.log("⏳ Warte auf 'earth'...");
-            return;
+    if (!earth) {
+        console.error("❌ Fehler: 'earth' ist NULL! Ist initGlobals() aufgerufen worden?");
+        return;
+    }
+
+    console.log("🌍 Earth gefunden:", earth);
+
+    // ✅ Touchsteuerung (für mobile Geräte)
+    earth.addEventListener("touchstart", (event) => {
+        console.log("📱 Touch Start erkannt!");
+        isDragging = true;
+        lastX = event.touches[0].clientX;
+        event.preventDefault(); // Verhindert Scrollen auf mobilen Geräten
+    });
+
+    window.addEventListener("touchmove", (event) => {
+        if (!isDragging) return;
+
+        let deltaX = event.touches[0].clientX - lastX;
+        lastX = event.touches[0].clientX;
+
+        let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+        earth.setAttribute("rotation", {
+            x: currentRotation.x,
+            y: currentRotation.y + deltaX * 0.3, // Sanftere Drehung
+            z: currentRotation.z
+        });
+
+        rotationProgress += Math.abs(deltaX);
+        console.log("🔄 rotationProgress:", rotationProgress);
+
+        let opacity = Math.max(0, 1 - rotationProgress / 500);
+        hintText.setAttribute("text", `opacity: ${opacity}`);
+        if (opacity === 0) {
+            hintText.setAttribute("visible", "false");
+            console.log("📝 Hinweistext ausgeblendet!");
         }
-        clearInterval(checkEarthLoaded);
-        console.log("🌍 Earth gefunden:", earth);
 
-        // ✅ Touchsteuerung (für mobile Geräte)
-        earth.addEventListener("touchstart", (event) => {
-            console.log("📱 Touch Event erkannt!");
-            isDragging = true;
-            lastX = event.touches[0].clientX;
-            event.preventDefault(); // Verhindert Scrollen auf mobilen Geräten
-        });
+        scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+        earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
-        window.addEventListener("touchmove", (event) => {
-            if (!isDragging) return;
+        console.log("📏 Erde skaliert:", earth.getAttribute("scale"));
 
-            let deltaX = event.touches[0].clientX - lastX;
-            lastX = event.touches[0].clientX;
+        if (rotationProgress > 600) {
+            earth.setAttribute("visible", "false");
+            infoBox.setAttribute("visible", "true");
+            console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
+        }
+    });
 
-            let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
-            earth.setAttribute("rotation", {
-                x: currentRotation.x,
-                y: currentRotation.y + deltaX * 0.3, // Sanftere Drehung
-                z: currentRotation.z
-            });
-
-            rotationProgress += Math.abs(deltaX);
-            console.log("🔄 rotationProgress:", rotationProgress);
-
-            // 🌟 Fortschritt fürs Verblassen des Textes
-            let opacity = Math.max(0, 1 - rotationProgress / 500);
-            hintText.setAttribute("text", `opacity: ${opacity}`);
-            if (opacity === 0) {
-                hintText.setAttribute("visible", "false");
-                console.log("📝 Hinweistext ausgeblendet!");
-            }
-
-            // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
-            scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-            earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
-
-            console.log("📏 Erde skaliert:", earth.getAttribute("scale"));
-
-            // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Infotext einblenden
-            if (rotationProgress > 600) {
-                earth.setAttribute("visible", "false");
-                infoBox.setAttribute("visible", "true"); // 🔥 Infotext erscheint!
-                console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
-            }
-        });
-
-        window.addEventListener("touchend", () => {
-            console.log("📱 Touch End!");
-            isDragging = false;
-        });
-    }, 100);
+    window.addEventListener("touchend", () => {
+        console.log("📱 Touch End!");
+        isDragging = false;
+    });
 }
