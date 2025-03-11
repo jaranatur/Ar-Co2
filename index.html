@@ -7,8 +7,15 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="scripts/main.js"></script>
 
+    <!-- 🚀 Fix: Touch-Events nicht blockieren -->
+    <script>
+        document.addEventListener("touchmove", (event) => {
+            event.preventDefault(); // Verhindert, dass Browser Touch-Events blockiert
+        }, { passive: false });
+    </script>
+
+    <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
@@ -51,7 +58,5 @@
     <script>
         console.log("🚀 index.html wird ausgeführt!");
     </script>
-    
-
 </body>
 </html>
