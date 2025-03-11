@@ -83,4 +83,5 @@ a-entity {
 }
 #earth {
     pointer-events: auto !important;
+    touch-action: none !important;
 }
