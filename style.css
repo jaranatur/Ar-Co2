@@ -1,7 +1,9 @@
+/* 🖥️ Grundlegendes Styling */
 body {
     margin: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    touch-action: manipulation; /* Verhindert ungewolltes Scrollen bei Touch */
 }
 
 /* Einheitliche Schriftart für alle A-Frame Texte */
@@ -9,11 +11,12 @@ a-entity[text] {
     font: exo2bold;
 }
 
+/* 🎯 Zeiger anzeigen, falls es auf Desktop genutzt wird */
 a-entity {
     cursor: pointer;
 }
 
-/* Falls du ein Overlay für Klicks hast, sollte es Klicks nicht blockieren */
+/* 📌 Falls du ein Overlay für Klicks hast, stelle sicher, dass es keine Touch-Events blockiert */
 #click-overlay {
     position: fixed;
     top: 0;
@@ -24,7 +27,8 @@ a-entity {
     pointer-events: none;
     z-index: 10;
 }
-/* 📌 Info-Box mit Pastellgrün */
+
+/* 📝 Info-Box Styling */
 #info-box {
     background: #D8F3DC;
     border-radius: 10px;
@@ -32,31 +36,48 @@ a-entity {
     transition: opacity 0.5s ease-in-out;
 }
 
-/* 📝 Text größer & vor die Plane setzen */
+/* 🌍 Erde (sicherstellen, dass Touch-Events funktionieren) */
+#earth {
+    touch-action: manipulation !important;
+    pointer-events: auto !important;
+}
+
+/* 📝 Text in der Info-Box */
 #info-box a-entity {
     text-align: center;
     color: #1B4332; /* Dunkelgrün */
     font-family: exo2bold;
     font-weight: bold;
-    font-size: 22px; /* Größer */
+    font-size: 22px;
     width: 2.5;
     position: relative;
-    z-index: 2; /* Stellt sicher, dass der Text über der Plane ist */
+    z-index: 2;
 }
 
-/* 🎨 Button */
+/* 🎨 Schließen-Button */
 #btn-close-info {
     background: #95D5B2;
-    color: #1B4332; /* Dunkelgrün */
+    color: #1B4332;
     border-radius: 5px;
     padding: 10px;
-    font-size: 20px; /* Größere Schrift */
+    font-size: 20px;
     transition: background 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
 
-/* ✨ Hover Effekt */
+/* ✨ Hover Effekt für den Button (nur für Desktop) */
 #btn-close-info:hover {
-    background: #74C69D; /* Etwas dunkleres Grün beim Hover */
+    background: #74C69D;
     box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
+}
+
+/* ⚠️ Szenen-Auswahl sichtbar machen */
+#scene-selection {
+    display: block;
+}
+
+/* 📱 Mobile Fix: Kein Text-Selektieren bei Touch */
+* {
+    user-select: none;
+    -webkit-user-select: none;
 }

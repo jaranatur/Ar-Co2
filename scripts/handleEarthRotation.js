@@ -5,44 +5,40 @@ export function handleEarthRotation() {
     let lastX = 0;
     let rotationProgress = 0;
     let scaleProgress = 1;
-    let lastFrame = 0;
 
     console.log("🔄 handleEarthRotation gestartet!");
 
+    // Warte, bis die Erde geladen ist
     const checkEarthLoaded = setInterval(() => {
         if (!earth) {
             console.log("⏳ Warte auf 'earth'...");
             return;
         }
         clearInterval(checkEarthLoaded);
-
         console.log("✅ Earth ist geladen:", earth);
 
-        // Maussteuerung
-        earth.addEventListener("mousedown", (event) => {
-            console.log("🖱️ Mouse Down!");
+        // ✅ Touchsteuerung (für mobile Geräte)
+        earth.addEventListener("touchstart", (event) => {
+            console.log("📱 Touch Start!");
             isDragging = true;
-            lastX = event.clientX;
+            lastX = event.touches[0].clientX;
+            event.preventDefault(); // Verhindert Scrollen auf mobilen Geräten
         });
 
-        window.addEventListener("mousemove", (event) => {
+        window.addEventListener("touchmove", (event) => {
             if (!isDragging) return;
 
-            let now = Date.now();
-            if (now - lastFrame < 16) return; // 60 FPS Limit
-            lastFrame = now;
-
-            let deltaX = event.clientX - lastX;
-            lastX = event.clientX;
+            let deltaX = event.touches[0].clientX - lastX;
+            lastX = event.touches[0].clientX;
 
             let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
             earth.setAttribute("rotation", {
                 x: currentRotation.x,
-                y: currentRotation.y + deltaX * 0.5,
+                y: currentRotation.y + deltaX * 0.3, // Sanftere Drehung
                 z: currentRotation.z
             });
 
-            console.log("🎮 Drehe die Erde: ", earth.getAttribute("rotation"));
+            console.log("📱 Drehe die Erde mit Touch: ", earth.getAttribute("rotation"));
 
             rotationProgress += Math.abs(deltaX);
             let opacity = Math.max(0, 1 - rotationProgress / 500);
@@ -63,37 +59,17 @@ export function handleEarthRotation() {
             }
         });
 
-        window.addEventListener("mouseup", () => {
-            console.log("🖱️ Mouse Up!");
-            isDragging = false;
-        });
-
-        // Touchsteuerung (für mobile Geräte)
-        earth.addEventListener("touchstart", (event) => {
-            console.log("📱 Touch Start!");
-            isDragging = true;
-            lastX = event.touches[0].clientX;
-        });
-
-        window.addEventListener("touchmove", (event) => {
-            if (!isDragging) return;
-
-            let deltaX = event.touches[0].clientX - lastX;
-            lastX = event.touches[0].clientX;
-
-            let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
-            earth.setAttribute("rotation", {
-                x: currentRotation.x,
-                y: currentRotation.y + deltaX * 0.5,
-                z: currentRotation.z
-            });
-
-            console.log("📱 Drehe die Erde mit Touch: ", earth.getAttribute("rotation"));
-        });
-
         window.addEventListener("touchend", () => {
             console.log("📱 Touch End!");
             isDragging = false;
         });
+
+        // 🔄 Falls sich die Erde nicht dreht, initialisiere sie noch einmal
+        setTimeout(() => {
+            if (!isDragging) {
+                console.log("🔄 Automatische Rotation aktiv!");
+                earth.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 20000; easing: linear");
+            }
+        }, 3000);
     }, 100);
 }
