@@ -7,12 +7,15 @@ export function handleEarthRotation() {
     let scaleProgress = 1;
     let lastFrame = 0;
 
-    console.log("🔄 handleEarthRotation gestartet, Earth:", earth);
+    console.log("🔄 handleEarthRotation gestartet!");
 
+    // Prüfen, ob `earth` existiert (Fehlersuche)
     if (!earth) {
-        console.error("⚠️ Fehler: 'earth' ist nicht definiert! Stelle sicher, dass initGlobals() aufgerufen wurde.");
+        console.error("⚠️ Fehler: 'earth' ist undefined! Stelle sicher, dass initGlobals() aufgerufen wurde.");
         return;
     }
+
+    console.log("✅ Earth ist geladen:", earth);
 
     // Maussteuerung
     earth.addEventListener("mousedown", (event) => {

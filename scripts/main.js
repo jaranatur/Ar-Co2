@@ -4,8 +4,10 @@ import { handleEarthRotation } from './handleEarthRotation.js';
 import { handleCubeClicks } from './handleCubeClicks.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-    initGlobals(); // Stelle sicher, dass alle Variablen geladen sind
     console.log("✅ AR Szene geladen!");
+    
+    initGlobals();  // **WICHTIG: Variablen initialisieren**
+    
     initScene();
     handleEarthRotation();
     handleCubeClicks();
