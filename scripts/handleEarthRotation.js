@@ -8,7 +8,6 @@ export function handleEarthRotation() {
 
     console.log("✅ handleEarthRotation läuft!");
 
-    // Warte, bis die Erde geladen ist
     const checkEarthLoaded = setInterval(() => {
         if (!earth) {
             console.log("⏳ Warte auf 'earth'...");
@@ -17,11 +16,11 @@ export function handleEarthRotation() {
         clearInterval(checkEarthLoaded);
         console.log("🌍 Earth gefunden:", earth);
 
-        // ✅ Sicherstellen, dass Touch-Events nicht blockiert werden
-        earth.setAttribute("pointer-events", "auto");
-
-        // ✅ Touchsteuerung (für mobile Geräte)
-        earth.addEventListener("touchstart", (event) => {
+        // 🔥 Touch-Events auf `window` registrieren und prüfen, ob `earth` getroffen wurde
+        window.addEventListener("touchstart", (event) => {
+            let target = event.target.closest("#earth");
+            if (!target) return; // Falls nicht auf die Erde getippt wurde → ignorieren
+            
             console.log("📱 Touch Start erkannt!");
             isDragging = true;
             lastX = event.touches[0].clientX;
@@ -39,14 +38,13 @@ export function handleEarthRotation() {
             let currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
             earth.setAttribute("rotation", {
                 x: currentRotation.x,
-                y: currentRotation.y + deltaX * 0.3, // Sanftere Drehung
+                y: currentRotation.y + deltaX * 0.3,
                 z: currentRotation.z
             });
 
             rotationProgress += Math.abs(deltaX);
             console.log("🔄 rotationProgress:", rotationProgress);
 
-            // 🌟 Fortschritt fürs Verblassen des Textes
             let opacity = Math.max(0, 1 - rotationProgress / 500);
             hintText.setAttribute("text", `opacity: ${opacity}`);
             if (opacity === 0) {
@@ -54,12 +52,10 @@ export function handleEarthRotation() {
                 console.log("📝 Hinweistext ausgeblendet!");
             }
 
-            // 🌍 Erde langsam rauszoomen (bis auf 0.3 statt 0.5)
             scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
             earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
             console.log("📏 Erde skaliert:", earth.getAttribute("scale"));
 
-            // 🔥 Wenn genug gedreht wurde, Erde verschwinden lassen & Infotext einblenden
             if (rotationProgress > 600) {
                 earth.setAttribute("visible", "false");
                 infoBox.setAttribute("visible", "true");
