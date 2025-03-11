@@ -81,7 +81,11 @@ a-entity {
     user-select: none;
     -webkit-user-select: none;
 }
-/*#earth {
+#earth {
     pointer-events: auto !important;
     touch-action: none !important;
+}
+
+body {
+    touch-action: manipulation; /* Verhindert unnötige Blockaden */
 }
