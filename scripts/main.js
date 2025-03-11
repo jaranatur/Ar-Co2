@@ -6,9 +6,8 @@ import { handleCubeClicks } from './handleCubeClicks.js';
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ AR Szene geladen!");
     
-    initGlobals();  // **WICHTIG: Variablen initialisieren**
-    
-    initScene();
-    handleEarthRotation();
+    initGlobals();  // Stellt sicher, dass `earth` existiert
+    initScene();  
+    handleEarthRotation();  
     handleCubeClicks();
 });
