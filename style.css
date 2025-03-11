@@ -28,18 +28,19 @@ a-entity {
     z-index: 10;
 }
 
+/* 🌍 Erde: Touch-Interaktionen fixen */
+#earth {
+    pointer-events: auto !important;
+    touch-action: manipulation !important; /* Kein komplettes Blockieren von Touch */
+}
+
 /* 📝 Info-Box Styling */
 #info-box {
     background: #D8F3DC;
     border-radius: 10px;
     padding: 20px;
     transition: opacity 0.5s ease-in-out;
-}
-
-/* 🌍 Erde (sicherstellen, dass Touch-Events funktionieren) */
-#earth {
-    touch-action: manipulation !important;
-    pointer-events: auto !important;
+    pointer-events: auto; /* Stellt sicher, dass es anklickbar ist */
 }
 
 /* 📝 Text in der Info-Box */
@@ -63,6 +64,7 @@ a-entity {
     font-size: 20px;
     transition: background 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    pointer-events: auto; /* Fix: Stellt sicher, dass es klickbar bleibt */
 }
 
 /* ✨ Hover Effekt für den Button (nur für Desktop) */
@@ -81,11 +83,4 @@ a-entity {
     user-select: none;
     -webkit-user-select: none;
 }
-#earth {
-    pointer-events: auto !important;
-    touch-action: none !important;
-}
-
-body {
-    touch-action: manipulation; /* Verhindert unnötige Blockaden */
-}
+ 
