@@ -34,7 +34,19 @@
               console.warn("Orientation permission error", e);
             }
           }
-        }, { once: true });
+
+          // Schließe Info-Fenster bei beliebigem Touch & zeige Cubes
+          const infoBox = document.getElementById("info-box");
+          if (infoBox) {
+            infoBox.setAttribute("visible", "false");
+            console.log("ℹ️ Info-Fenster automatisch geschlossen durch Touchstart");
+          }
+          const cubes = document.getElementById("scene-selection");
+          if (cubes) {
+            cubes.setAttribute("visible", "true");
+            console.log("🧊 Szene-Cubes eingeblendet");
+          }
+        }, { once: false });
     </script>
 
     <script>
