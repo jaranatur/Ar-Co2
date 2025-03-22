@@ -85,3 +85,5 @@ a-entity {
     pointer-events: auto !important;
     touch-action: none !important;
 }
+
+/* Trigger Netlify build - no effect */
