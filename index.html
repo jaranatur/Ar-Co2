@@ -23,7 +23,8 @@
     <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best;">
+    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
+
         <a-marker preset="hiro">
             <a-entity id="earth-container">
                 <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
