@@ -18,6 +18,33 @@
             event.preventDefault();
             console.log("📱 Touch Move wird ausgelöst!");
         }, { passive: false });
+
+        // 🔐 iOS: Motion/Orientation Permission sauber anfordern
+        window.addEventListener("touchstart", async () => {
+            if (
+              typeof DeviceMotionEvent !== "undefined" &&
+              typeof DeviceMotionEvent.requestPermission === "function"
+            ) {
+              try {
+                const response = await DeviceMotionEvent.requestPermission();
+                console.log("🔐 Motion Permission:", response);
+              } catch (err) {
+                console.warn("Motion permission denied", err);
+              }
+            }
+
+            if (
+              typeof DeviceOrientationEvent !== "undefined" &&
+              typeof DeviceOrientationEvent.requestPermission === "function"
+            ) {
+              try {
+                const response = await DeviceOrientationEvent.requestPermission();
+                console.log("🧭 Orientation Permission:", response);
+              } catch (err) {
+                console.warn("Orientation permission denied", err);
+              }
+            }
+        }, { once: true });
     </script>
 
     <script type="module" src="scripts/main.js"></script>
@@ -64,12 +91,6 @@
 
     <script>
         console.log("🚀 index.html wird ausgeführt!");
-
-        // Optionales Timeout um das AR.js Permission-Modal zu entfernen
-        setTimeout(() => {
-            const popup = document.querySelector('.a-dialog-popup, .a-enter-ar-modal');
-            if (popup) popup.remove();
-        }, 2000);
     </script>
 </body>
 </html>
