@@ -8,7 +8,35 @@
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
-    <!-- 🚀 Fix: Erzwinge Touch-Events -->
+    <!-- 🚀 Fix: Erzwinge Touch-Events + Motion-Zugriff für iOS -->
+    <script>
+        document.addEventListener("touchstart", async () => {
+          if (
+            typeof DeviceMotionEvent !== "undefined" &&
+            typeof DeviceMotionEvent.requestPermission === "function"
+          ) {
+            try {
+              const res = await DeviceMotionEvent.requestPermission();
+              console.log("🔐 Motion permission:", res);
+            } catch (e) {
+              console.warn("Motion permission error", e);
+            }
+          }
+
+          if (
+            typeof DeviceOrientationEvent !== "undefined" &&
+            typeof DeviceOrientationEvent.requestPermission === "function"
+          ) {
+            try {
+              const res = await DeviceOrientationEvent.requestPermission();
+              console.log("🧭 Orientation permission:", res);
+            } catch (e) {
+              console.warn("Orientation permission error", e);
+            }
+          }
+        }, { once: true });
+    </script>
+
     <script>
         document.addEventListener("touchstart", (event) => {
             event.preventDefault();
@@ -18,40 +46,17 @@
             event.preventDefault();
             console.log("📱 Touch Move wird ausgelöst!");
         }, { passive: false });
-
-        // 🔐 iOS: Motion/Orientation Permission sauber anfordern
-        window.addEventListener("touchstart", async () => {
-            if (
-              typeof DeviceMotionEvent !== "undefined" &&
-              typeof DeviceMotionEvent.requestPermission === "function"
-            ) {
-              try {
-                const response = await DeviceMotionEvent.requestPermission();
-                console.log("🔐 Motion Permission:", response);
-              } catch (err) {
-                console.warn("Motion permission denied", err);
-              }
-            }
-
-            if (
-              typeof DeviceOrientationEvent !== "undefined" &&
-              typeof DeviceOrientationEvent.requestPermission === "function"
-            ) {
-              try {
-                const response = await DeviceOrientationEvent.requestPermission();
-                console.log("🧭 Orientation Permission:", response);
-              } catch (err) {
-                console.warn("Orientation permission denied", err);
-              }
-            }
-        }, { once: true });
     </script>
 
     <script type="module" src="scripts/main.js"></script>
     <meta name="disable-device-orientation" content="true">
 </head>
 <body>
-    <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
+    <a-scene 
+        embedded 
+        device-orientation-permission-ui="enabled: false" 
+        vr-mode-ui="enabled: false"
+        arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
 
         <a-marker preset="hiro">
             <a-entity id="earth-container">
