@@ -16,13 +16,12 @@
 
         document.addEventListener("touchmove", (event) => {
             event.preventDefault();
-            console.log("📱 Touch Move wird ausgelöst!"); // Debugging
+            console.log("📱 Touch Move wird ausgelöst!");
         }, { passive: false });
     </script>
 
     <script type="module" src="scripts/main.js"></script>
     <meta name="disable-device-orientation" content="true">
-
 </head>
 <body>
     <a-scene embedded arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
@@ -65,6 +64,12 @@
 
     <script>
         console.log("🚀 index.html wird ausgeführt!");
+
+        // Optionales Timeout um das AR.js Permission-Modal zu entfernen
+        setTimeout(() => {
+            const popup = document.querySelector('.a-dialog-popup, .a-enter-ar-modal');
+            if (popup) popup.remove();
+        }, 2000);
     </script>
 </body>
 </html>
