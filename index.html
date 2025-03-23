@@ -30,11 +30,13 @@
 
       <!-- Info-Fenster -->
       <a-entity id="info-box" position="0 1 -1" visible="false">
-        <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"
-                 animation__pulse="property: material.color;
-                                   from: #D8F3DC; to: #B7E4C7;
-                                   dir: alternate; dur: 1200; loop: true">
-        </a-plane>
+        <a-plane id="info-bg" height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"
+         class="clickable"
+         animation__pulse="property: material.color;
+                           from: #D8F3DC; to: #B7E4C7;
+                           dir: alternate; dur: 1000; loop: true">
+</a-plane>
+
 
         <a-entity position="0 0.35 0.06"
                   text="value: Willkommen! Wähle eine Szene, um zu starten.; align: center; color: #1B4332; width: 2; font: exo2bold;">

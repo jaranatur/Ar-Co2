@@ -32,22 +32,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   handleCubeClicks();
 
-  // 🌟 Klick auf das ganze Info-Fenster, nicht nur den Button
-  window.addEventListener("click", (e) => {
-    const infoBox = document.getElementById("info-box");
-    const sceneSelection = document.getElementById("scene-selection");
+  // 💥 Click-Listener auf A-Frame Szene selbst
+  const scene = document.querySelector("a-scene");
+  const infoBox = document.getElementById("info-box");
+  const sceneSelection = document.getElementById("scene-selection");
 
-    if (!infoBox || !sceneSelection) return;
+  scene.addEventListener("click", (e) => {
+    const target = e.target;
 
-    // Nur reagieren, wenn Infofenster sichtbar ist
-    if (infoBox.getAttribute("visible") === "true" && infoBox.contains(e.target)) {
-      console.log("✅ Info-Fenster wurde angeklickt – wird jetzt geschlossen.");
+    console.log("🎯 Geklickt auf:", target.id || target.tagName);
+
+    // Wenn auf das grüne Info-Panel geklickt wurde
+    if (infoBox.getAttribute("visible") === "true" && target.id === "info-bg") {
+      console.log("✅ Infofenster wird ausgeblendet, Szenenauswahl erscheint");
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
     }
   });
 
-  // Optional: Touchverhalten unterdrücken
+  // Verhindere Scrollen bei Touch
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
   }, { passive: false });
