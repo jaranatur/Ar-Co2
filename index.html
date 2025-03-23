@@ -65,7 +65,13 @@
     <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
   </a-scene>
 
-  <!-- ✅ WICHTIG: main.js ganz am Ende, damit alles geladen ist -->
+  <!-- 🌟 SUPERFIX-BUTTON -->
+  <button id="fix-button"
+          style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 12px 16px; background: #52b788; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold;">
+    Szenen anzeigen
+  </button>
+
+  <!-- ✅ WICHTIG: main.js ganz am Ende -->
   <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
