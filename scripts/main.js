@@ -3,46 +3,52 @@ import { initScene } from './initScene.js';
 import { handleEarthRotation } from './handleEarthRotation.js';
 import { handleCubeClicks } from './handleCubeClicks.js';
 
-// 🚀 Device-Motion-Zugriff automatisch anfordern
 function requestMotionPermission() {
-    if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
-        DeviceMotionEvent.requestPermission()
-            .then((response) => {
-                if (response === "granted") {
-                    console.log("📲 Bewegungssensor aktiviert!");
-                } else {
-                    console.warn("⚠️ Bewegungssensor verweigert!");
-                }
-            })
-            .catch(console.error);
-    } else {
-        console.log("✅ Keine zusätzliche Berechtigung nötig.");
-    }
+  if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
+    DeviceMotionEvent.requestPermission()
+      .then((response) => {
+        if (response === "granted") {
+          console.log("📲 Bewegungssensor aktiviert!");
+        } else {
+          console.warn("⚠️ Bewegungssensor verweigert!");
+        }
+      })
+      .catch(console.error);
+  } else {
+    console.log("✅ Keine zusätzliche Berechtigung nötig.");
+  }
 }
 
-// Warte auf erste Interaktion (Touch oder Klick), um Berechtigung anzufordern
 document.addEventListener("click", requestMotionPermission, { once: true });
 document.addEventListener("touchstart", requestMotionPermission, { once: true });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("✅ AR Szene geladen!");
+  console.log("✅ AR Szene geladen!");
 
-    await new Promise((resolve) => setTimeout(resolve, 500)); // Sicherheitspuffer
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-    initGlobals();  
-    initScene();
-    handleEarthRotation();
-    handleCubeClicks();
+  initGlobals();
+  initScene();
+  handleEarthRotation();
+  handleCubeClicks();
 
-    // Info-Box schließen und Modelle EINMALIG bei Klick anzeigen
-    const btnCloseInfo = document.getElementById("btn-close-info");
-    btnCloseInfo.addEventListener("click", () => {
-        document.getElementById("info-box").setAttribute("visible", "false");
-        document.getElementById("scene-selection").setAttribute("visible", "true");
-        console.log("ℹ️ Info-Fenster geschlossen, Szenenobjekte eingeblendet");
-    }, { once: true });
+  // 🌟 Klick auf das ganze Info-Fenster, nicht nur den Button
+  window.addEventListener("click", (e) => {
+    const infoBox = document.getElementById("info-box");
+    const sceneSelection = document.getElementById("scene-selection");
 
-    document.addEventListener("touchmove", (event) => {
-        event.preventDefault();
-    }, { passive: false });
+    if (!infoBox || !sceneSelection) return;
+
+    // Nur reagieren, wenn Infofenster sichtbar ist
+    if (infoBox.getAttribute("visible") === "true" && infoBox.contains(e.target)) {
+      console.log("✅ Info-Fenster wurde angeklickt – wird jetzt geschlossen.");
+      infoBox.setAttribute("visible", "false");
+      sceneSelection.setAttribute("visible", "true");
+    }
+  });
+
+  // Optional: Touchverhalten unterdrücken
+  document.addEventListener("touchmove", (event) => {
+    event.preventDefault();
+  }, { passive: false });
 });
