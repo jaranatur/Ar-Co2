@@ -32,22 +32,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   handleCubeClicks();
 
-  const scene = document.querySelector("a-scene");
   const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
 
-  // 💥 Click-Listener auf Szene
-  scene.addEventListener("click", (e) => {
+  // 💥 Globaler Klick auf alles im Fenster
+  window.addEventListener("click", (e) => {
     const target = e.target;
 
-    console.log("🎯 Geklickt auf:", target.id || target.tagName);
     console.log("🖱️ Globaler Klick erkannt!");
-    console.log("🔍 e.target:", e.target);
-    console.log("🧭 e.target.id:", e.target.id);
-    console.log("🎯 infoBox.contains(e.target):", infoBox && infoBox.contains(e.target));
+    console.log("🔍 e.target:", target);
+    console.log("🧭 e.target.id:", target.id);
+    console.log("🎯 infoBox.contains(e.target):", infoBox && infoBox.contains(target));
     console.log("👁️ Sichtbarkeit info-box:", infoBox && infoBox.getAttribute("visible"));
 
-    if (infoBox.getAttribute("visible") === "true" && target.id === "info-bg") {
+    if (infoBox.getAttribute("visible") === "true" && infoBox.contains(target)) {
       console.log("✅ Infofenster wird ausgeblendet, Szenenauswahl erscheint");
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
