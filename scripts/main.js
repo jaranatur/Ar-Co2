@@ -23,6 +23,7 @@ document.addEventListener("click", requestMotionPermission, { once: true });
 document.addEventListener("touchstart", requestMotionPermission, { once: true });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  console.log("🚀 main.js wurde geladen!"); // WICHTIG: Start-Log
   console.log("✅ AR Szene geladen!");
 
   await new Promise((resolve) => setTimeout(resolve, 500));
