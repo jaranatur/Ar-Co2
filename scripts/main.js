@@ -33,4 +33,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     initScene();
     handleEarthRotation();
     handleCubeClicks();
+
+    // 👉 NEU: Schließe Info-Box und zeige Cubes bei jedem ersten Touch
+    document.addEventListener("touchstart", () => {
+        const infoBox = document.getElementById("info-box");
+        const cubes = document.getElementById("scene-selection");
+
+        if (infoBox && cubes && infoBox.getAttribute("visible") !== "false") {
+            infoBox.setAttribute("visible", "false");
+            cubes.setAttribute("visible", "true");
+            console.log("ℹ️ Info-Fenster geschlossen, Cubes eingeblendet");
+        }
+    });
+
+    document.addEventListener("touchmove", (event) => {
+        event.preventDefault();
+    }, { passive: false });
 });

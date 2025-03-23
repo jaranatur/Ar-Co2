@@ -35,17 +35,13 @@
             }
           }
 
-          // Schließe Info-Fenster bei beliebigem Touch & zeige Cubes
+          // Nur Info-Fenster schließen, Cubes erscheinen hier NICHT mehr
           const infoBox = document.getElementById("info-box");
           if (infoBox) {
             infoBox.setAttribute("visible", "false");
             console.log("ℹ️ Info-Fenster automatisch geschlossen durch Touchstart");
           }
-          const cubes = document.getElementById("scene-selection");
-          if (cubes) {
-            cubes.setAttribute("visible", "true");
-            console.log("🧊 Szene-Cubes eingeblendet");
-          }
+
         }, { once: false });
     </script>
 
