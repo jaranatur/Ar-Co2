@@ -34,18 +34,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     handleEarthRotation();
     handleCubeClicks();
 
-    // 👉 NEU: Schließe Info-Box und zeige Cubes bei jedem ersten Touch
-    document.addEventListener("touchstart", () => {
-        const infoBox = document.getElementById("info-box");
-        const cubes = document.getElementById("scene-selection");
+    // 👉 Korrigiert: Info-Box schließen und Cubes EINMALIG bei Klick auf Button anzeigen
+    const btnCloseInfo = document.getElementById("btn-close-info");
+    if (btnCloseInfo) {
+        btnCloseInfo.addEventListener("click", () => {
+            const infoBox = document.getElementById("info-box");
+            const cubes = document.getElementById("scene-selection");
 
-        if (infoBox && cubes && infoBox.getAttribute("visible") !== "false") {
-            infoBox.setAttribute("visible", "false");
-            cubes.setAttribute("visible", "true");
-            console.log("ℹ️ Info-Fenster geschlossen, Cubes eingeblendet");
-        }
-    });
+            if (infoBox && cubes) {
+                infoBox.setAttribute("visible", "false");
+                cubes.setAttribute("visible", "true");
+                console.log("ℹ️ Info-Fenster geschlossen, Cubes eingeblendet");
+            }
+        }, { once: true });
+    }
 
+    // Optional: Touch-Move verhindern (zur besseren UX)
     document.addEventListener("touchmove", (event) => {
         event.preventDefault();
     }, { passive: false });
