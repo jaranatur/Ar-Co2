@@ -1,82 +1,41 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR Erde</title>
+
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
-
-    <!-- 🚀 Fix: Erzwinge Touch-Events + Motion-Zugriff für iOS -->
-    <script>
-        document.addEventListener("touchstart", async () => {
-          if (
-            typeof DeviceMotionEvent !== "undefined" &&
-            typeof DeviceMotionEvent.requestPermission === "function"
-          ) {
-            try {
-              const res = await DeviceMotionEvent.requestPermission();
-              console.log("🔐 Motion permission:", res);
-            } catch (e) {
-              console.warn("Motion permission error", e);
-            }
-          }
-
-          if (
-            typeof DeviceOrientationEvent !== "undefined" &&
-            typeof DeviceOrientationEvent.requestPermission === "function"
-          ) {
-            try {
-              const res = await DeviceOrientationEvent.requestPermission();
-              console.log("🧭 Orientation permission:", res);
-            } catch (e) {
-              console.warn("Orientation permission error", e);
-            }
-          }
-
-          // Nur Info-Fenster schließen, Cubes erscheinen hier NICHT mehr
-          const infoBox = document.getElementById("info-box");
-          if (infoBox) {
-            infoBox.setAttribute("visible", "false");
-            console.log("ℹ️ Info-Fenster automatisch geschlossen durch Touchstart");
-          }
-
-        }, { once: false });
-    </script>
-
-    <script>
-        document.addEventListener("touchstart", (event) => {
-            event.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener("touchmove", (event) => {
-            event.preventDefault();
-            console.log("📱 Touch Move wird ausgelöst!");
-        }, { passive: false });
-    </script>
 
     <script type="module" src="scripts/main.js"></script>
     <meta name="disable-device-orientation" content="true">
 </head>
+
 <body>
-    <a-scene 
-        embedded 
+    <a-scene embedded 
         device-orientation-permission-ui="enabled: false" 
         vr-mode-ui="enabled: false"
         arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
 
         <a-marker preset="hiro">
+            
+            <!-- Erde mit Animation -->
             <a-entity id="earth-container">
                 <a-entity id="earth" class="draggable" gltf-model="assets/earth.glb" 
                     position="0 0 0" scale="0.01 0.01 0.01"
                     animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
                 </a-entity>
             </a-entity>
+
+            <!-- Info-Fenster -->
             <a-entity id="info-box" position="0 1 -1" visible="false">
                 <a-plane height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"></a-plane>
                 <a-entity position="0 0.35 0.06"  
-                    text="value: Willkommen! Klicke auf einen Würfel, um eine Szene zu starten.; 
+                    text="value: Willkommen! Wähle eine Szene, um zu starten.; 
                           align: center; color: #1B4332; width: 2; font: exo2bold;">
                 </a-entity>
                 <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
@@ -86,24 +45,31 @@
                     </a-entity>
                 </a-entity>
             </a-entity>
+
+            <!-- Szene Auswahl (Bike, Salat, Wasser) -->
             <a-entity id="scene-selection" visible="false">
-                <a-box id="mobility-cube" position="-1 1 -2" depth="0.5" height="0.5" width="0.5" color="#3498DB"></a-box>
-                <a-box id="food-cube" position="0 1 -2" depth="0.5" height="0.5" width="0.5" color="#2ECC71"></a-box>
-                <a-box id="electronics-cube" position="1 1 -2" depth="0.5" height="0.5" width="0.5" color="#E74C3C"></a-box>
+                <a-entity id="scene-bike" gltf-model="assets/bike.glb" position="-1 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
+                <a-entity id="scene-salad" gltf-model="assets/salad.glb" position="0 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
+                <a-entity id="scene-water" gltf-model="assets/water.glb" position="1 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
             </a-entity>
+
+            <!-- Hinweistext -->
             <a-entity id="hint-text" position="0 2.5 0" 
-                  text="value: Drehe die Erde,\n um zu starten.; 
+                text="value: Drehe die Erde,\n um zu starten.; 
                        align: center; 
                        color: white; 
                        width: 4; 
                        font: exo2bold">
             </a-entity>
+
         </a-marker>
+
         <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
     </a-scene>
 
     <script>
         console.log("🚀 index.html wird ausgeführt!");
     </script>
+
 </body>
 </html>

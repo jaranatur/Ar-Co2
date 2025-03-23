@@ -29,27 +29,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await new Promise((resolve) => setTimeout(resolve, 500)); // Sicherheitspuffer
 
-    initGlobals();  // **Stelle sicher, dass die Variablen zuerst geladen werden**
+    initGlobals();  
     initScene();
     handleEarthRotation();
     handleCubeClicks();
 
-    // 👉 Korrigiert: Info-Box schließen und Cubes EINMALIG bei Klick auf Button anzeigen
+    // Info-Box schließen und Modelle EINMALIG bei Klick anzeigen
     const btnCloseInfo = document.getElementById("btn-close-info");
-    if (btnCloseInfo) {
-        btnCloseInfo.addEventListener("click", () => {
-            const infoBox = document.getElementById("info-box");
-            const cubes = document.getElementById("scene-selection");
+    btnCloseInfo.addEventListener("click", () => {
+        document.getElementById("info-box").setAttribute("visible", "false");
+        document.getElementById("scene-selection").setAttribute("visible", "true");
+        console.log("ℹ️ Info-Fenster geschlossen, Szenenobjekte eingeblendet");
+    }, { once: true });
 
-            if (infoBox && cubes) {
-                infoBox.setAttribute("visible", "false");
-                cubes.setAttribute("visible", "true");
-                console.log("ℹ️ Info-Fenster geschlossen, Cubes eingeblendet");
-            }
-        }, { once: true });
-    }
-
-    // Optional: Touch-Move verhindern (zur besseren UX)
     document.addEventListener("touchmove", (event) => {
         event.preventDefault();
     }, { passive: false });

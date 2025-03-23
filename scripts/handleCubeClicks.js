@@ -1,23 +1,23 @@
 import { sceneSelection } from './globals.js';
 
 export function handleCubeClicks() {
-    const mobilityCube = document.getElementById("mobility-cube");
-    const foodCube = document.getElementById("food-cube");
-    const electronicsCube = document.getElementById("electronics-cube");
+    const bikeScene = document.getElementById("scene-bike");
+    const saladScene = document.getElementById("scene-salad");
+    const waterScene = document.getElementById("scene-water");
 
-    mobilityCube.addEventListener("click", () => {
-        console.log("🚗 Mobilitätsszene wird geladen.");
-        loadScene('szene1.html');
+    bikeScene.addEventListener("click", () => {
+        console.log("🚴 Mobilitätsszene wird geladen.");
+        loadScene('scene1.html');
     });
 
-    foodCube.addEventListener("click", () => {
-        console.log("🍎 Ernährungsszene wird geladen.");
-        loadScene('szene2.html');
+    saladScene.addEventListener("click", () => {
+        console.log("🥗 Ernährungsszene wird geladen.");
+        loadScene('scene2.html');
     });
 
-    electronicsCube.addEventListener("click", () => {
-        console.log("📱 Elektronikszene wird geladen.");
-        loadScene('szene3.html');
+    waterScene.addEventListener("click", () => {
+        console.log("💧 Trinkflaschenszene wird geladen.");
+        loadScene('scene3.html');
     });
 }
 
