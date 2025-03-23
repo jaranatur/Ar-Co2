@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AR Erde</title>
 
+  <!-- A-Frame & AR.js -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
 
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="scripts/main.js"></script>
 </head>
 
 <body>
@@ -31,12 +32,9 @@
       <!-- Info-Fenster -->
       <a-entity id="info-box" position="0 1 -1" visible="false">
         <a-plane id="info-bg" height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"
-         class="clickable"
-         animation__pulse="property: material.color;
-                           from: #D8F3DC; to: #B7E4C7;
-                           dir: alternate; dur: 1000; loop: true">
-</a-plane>
-
+                 class="clickable"
+                 animation__pulse="property: material.color; from: #D8F3DC; to: #B7E4C7; dir: alternate; dur: 1000; loop: true">
+        </a-plane>
 
         <a-entity position="0 0.35 0.06"
                   text="value: Willkommen! Wähle eine Szene, um zu starten.; align: center; color: #1B4332; width: 2; font: exo2bold;">
@@ -66,5 +64,8 @@
 
     <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
   </a-scene>
+
+  <!-- ✅ Ganz am Ende: Jetzt wird main.js korrekt geladen -->
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
