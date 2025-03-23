@@ -65,13 +65,13 @@
     <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
   </a-scene>
 
-  <!-- 🌟 SUPERFIX-BUTTON -->
-  <button id="fix-button"
-          style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 12px 16px; background: #52b788; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold;">
-    Szenen anzeigen
+  <!-- 🔴 TESTBUTTON – zeigt einfach nur ein Alert -->
+  <button onclick="alert('🟢 HTML-Button funktioniert!')"
+          style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; padding: 12px 16px; background: #ff595e; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold;">
+    TEST MICH
   </button>
 
-  <!-- ✅ WICHTIG: main.js ganz am Ende -->
+  <!-- 💡 JS laden -->
   <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
