@@ -29,7 +29,7 @@
       </a-entity>
 
       <!-- Info-Fenster -->
-      <a-entity id="info-box" position="0 1 -1" visible="false">
+      <a-entity id="info-box" position="0 1 -1" visible="true">
         <a-plane id="info-bg" height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"
                  class="clickable"
                  animation__pulse="property: material.color; from: #D8F3DC; to: #B7E4C7; dir: alternate; dur: 1000; loop: true">
@@ -53,33 +53,34 @@
         <a-entity id="scene-bike" gltf-model="assets/bike.glb" position="-1 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
         <a-entity id="scene-salad" gltf-model="assets/salad.glb" position="0 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
         <a-entity id="scene-water" gltf-model="assets/water.glb" position="1 0.5 -2" scale="0.5 0.5 0.5"></a-entity>
-
-        <!-- Zurück-Button -->
-        <a-entity id="btn-back" geometry="primitive: plane; height: 0.3; width: 1"
-                  material="color: #FFDDD2; transparent: true" position="0 -0.5 -2"
-                  class="clickable">
-          <a-entity position="0 0.05 0.01"
-                    text="value: Zurück zur Erde; align: center; color: #6D6875; width: 2.5; font: exo2bold;">
-          </a-entity>
-        </a-entity>
-      </a-entity>
-
-      <!-- Hinweistext -->
-      <a-entity id="hint-text" position="0 2.5 0"
-                text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: exo2bold;">
       </a-entity>
     </a-marker>
 
-    <!-- ✅ Only one correct camera -->
-    <a-camera 
-      position="0 0 0"
-      look-controls="enabled: false"
-      cursor="rayOrigin: mouse"
-      raycaster="objects: .clickable">
-    </a-camera>
+    <a-camera cursor="rayOrigin: mouse" raycaster="objects: .clickable" look-controls="enabled: false"></a-camera>
   </a-scene>
 
-  <!-- WICHTIG: main.js ganz am Ende -->
+  <!-- JS-Module -->
   <script type="module" src="scripts/main.js"></script>
+
+  <!-- 💣 Hartes Info-Fenster-Schließen -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const infoBox = document.querySelector("#info-box");
+      const sceneSelection = document.querySelector("#scene-selection");
+
+      const killInfo = () => {
+        if (infoBox && sceneSelection && infoBox.getAttribute("visible") === "true") {
+          infoBox.setAttribute("visible", "false");
+          sceneSelection.setAttribute("visible", "true");
+          console.log("🔥 HARD CLOSE: Info weg, Szenenauswahl aktiv");
+          document.removeEventListener("touchstart", killInfo);
+          document.removeEventListener("click", killInfo);
+        }
+      };
+
+      document.addEventListener("touchstart", killInfo, { once: true });
+      document.addEventListener("click", killInfo, { once: true });
+    });
+  </script>
 </body>
 </html>
