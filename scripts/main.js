@@ -24,7 +24,6 @@ document.addEventListener("touchstart", requestMotionPermission, { once: true })
 
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("✅ AR Szene geladen!");
-  console.log("📦 main.js wurde geladen!");
 
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -33,18 +32,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   handleCubeClicks();
 
-  // 🎯 A-Frame Click Detection direkt über das Entity
-  const btnCloseInfo = document.getElementById("btn-close-info");
   const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
+  const infoBg = document.getElementById("info-bg");
 
-  btnCloseInfo.addEventListener("click", () => {
-    console.log("✅ Verstanden-Button wurde geklickt!");
+  infoBg.addEventListener("click", () => {
+    console.log("✅ Info-Hintergrund wurde geklickt!");
     infoBox.setAttribute("visible", "false");
     sceneSelection.setAttribute("visible", "true");
   });
 
-  // Verhindere Scrollen bei Touch
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
   }, { passive: false });
