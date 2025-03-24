@@ -70,7 +70,8 @@
       </a-entity>
     </a-marker>
 
-    <a-entity camera position="0 0 0" look-controls-enabled="false"></a-entity>
+    <!-- ✅ Inserted: enables raycasting so touch works -->
+    <a-camera cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
   </a-scene>
 
   <!-- WICHTIG: main.js ganz am Ende -->
