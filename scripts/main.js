@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnBack = document.getElementById("btn-back");
   const earth = document.getElementById("earth");
 
-  // Info-Box schließen
   function closeInfoBox() {
     if (infoBox.getAttribute("visible") === "true") {
       infoBox.setAttribute("visible", "false");
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Szene zurück zur Erde
   function backToEarth() {
     infoBox.setAttribute("visible", "true");
     sceneSelection.setAttribute("visible", "false");
@@ -56,14 +54,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("🔙 Zurück zur Erde");
   }
 
-  // Hauptaktionen
-  infoBg.addEventListener("click", closeInfoBox);
-  btnClose.addEventListener("click", closeInfoBox);
-  btnBack.addEventListener("click", backToEarth);
+  // Standard Events (falls Raycasting funktioniert)
+  infoBg?.addEventListener("click", closeInfoBox);
+  btnClose?.addEventListener("click", closeInfoBox);
+  btnBack?.addEventListener("click", backToEarth);
 
-  // 🩹 Fallback: Touch überall auf das Info-Fenster wirkt
-  infoBox.addEventListener("touchstart", closeInfoBox);
-  infoBox.addEventListener("click", closeInfoBox);
+  // 💣 ULTIMATIVER NOTFALL-FIX: beim ersten Touch auf dem Screen = Info weg
+  document.addEventListener("touchstart", () => {
+    try {
+      infoBox.setAttribute("visible", "false");
+      sceneSelection.setAttribute("visible", "true");
+      console.log("💥 Info-Box entfernt. Szenenauswahl ist da.");
+    } catch (e) {
+      console.error("❌ Touch-Bypass fehlgeschlagen", e);
+    }
+  }, { once: true });
 
   // Verhindere Scrollen bei Touch
   document.addEventListener("touchmove", (event) => {
