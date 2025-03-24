@@ -49,18 +49,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   infoBg?.addEventListener("click", closeInfoBox);
   infoBox?.addEventListener("click", closeInfoBox);
 
-  const observer = new MutationObserver(() => {
-    if (infoBox.getAttribute("visible") === "true") {
-      console.log("🕒 Info sichtbar – Starte Auto-Close");
-      setTimeout(() => {
-        infoBox.setAttribute("visible", "false");
-        sceneSelection.setAttribute("visible", "true");
-        console.log("✅ Info automatisch geschlossen → Szene sichtbar");
-      }, 2000);
-    }
+  // 🔍 MutationObserver mit Logging
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      const visible = infoBox.getAttribute("visible");
+      console.log("👀 infoBox sichtbar:", visible);
+      if (visible === "true") {
+        console.log("🕒 Info sichtbar – starte Timeout zum Schließen");
+        setTimeout(() => {
+          const stillVisible = infoBox.getAttribute("visible");
+          if (stillVisible === "true") {
+            infoBox.setAttribute("visible", "false");
+            sceneSelection.setAttribute("visible", "true");
+            console.log("✅ Info automatisch geschlossen → Szene sichtbar");
+          } else {
+            console.log("⛔ Info war schon nicht mehr sichtbar");
+          }
+        }, 2000);
+      }
+    });
   });
 
-  observer.observe(infoBox, { attributes: true, attributeFilter: ['visible'] });
+  if (infoBox) {
+    console.log("🧩 Observer aktiv – warte auf Sichtbarkeitswechsel");
+    observer.observe(infoBox, { attributes: true, attributeFilter: ['visible'] });
+  } else {
+    console.warn("❌ infoBox nicht gefunden");
+  }
 
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
