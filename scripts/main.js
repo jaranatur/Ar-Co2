@@ -49,12 +49,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   infoBg?.addEventListener("click", closeInfoBox);
   infoBox?.addEventListener("click", closeInfoBox);
 
-  // 🔍 Beobachte ob infoBox sichtbar wird → aktiviere Tap-Zuhörer
   const observer = new MutationObserver(() => {
     if (infoBox.getAttribute("visible") === "true") {
-      document.addEventListener("click", closeInfoBox, { once: true });
-      document.addEventListener("touchstart", closeInfoBox, { once: true });
-      console.log("🕵️ Tap-Listener aktiv – warte auf Interaktion");
+      console.log("🕒 Info sichtbar – Starte Auto-Close");
+      setTimeout(() => {
+        infoBox.setAttribute("visible", "false");
+        sceneSelection.setAttribute("visible", "true");
+        console.log("✅ Info automatisch geschlossen → Szene sichtbar");
+      }, 2000);
     }
   });
 
