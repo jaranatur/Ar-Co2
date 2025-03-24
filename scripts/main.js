@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnBack = document.getElementById("btn-back");
   const earth = document.getElementById("earth");
 
-  // Klick auf das grüne Panel (info-bg) oder Button
+  // Info-Box schließen
   function closeInfoBox() {
     if (infoBox.getAttribute("visible") === "true") {
       infoBox.setAttribute("visible", "false");
@@ -48,15 +48,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  infoBg.addEventListener("click", closeInfoBox);
-  btnClose.addEventListener("click", closeInfoBox);
-
-  btnBack.addEventListener("click", () => {
-    console.log("🔙 Zurück zur Erde");
+  // Szene zurück zur Erde
+  function backToEarth() {
     infoBox.setAttribute("visible", "true");
     sceneSelection.setAttribute("visible", "false");
     earth.setAttribute("visible", "true");
-  });
+    console.log("🔙 Zurück zur Erde");
+  }
+
+  // Hauptaktionen
+  infoBg.addEventListener("click", closeInfoBox);
+  btnClose.addEventListener("click", closeInfoBox);
+  btnBack.addEventListener("click", backToEarth);
+
+  // 🩹 Fallback: Touch überall auf das Info-Fenster wirkt
+  infoBox.addEventListener("touchstart", closeInfoBox);
+  infoBox.addEventListener("click", closeInfoBox);
 
   // Verhindere Scrollen bei Touch
   document.addEventListener("touchmove", (event) => {
