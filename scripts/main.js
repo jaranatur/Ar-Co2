@@ -36,24 +36,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sceneSelection = document.getElementById("scene-selection");
   const infoBg = document.getElementById("info-bg");
   const btnClose = document.getElementById("btn-close-info");
-  const earth = document.getElementById("earth");
 
   function closeInfoBox() {
     if (infoBox.getAttribute("visible") === "true") {
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
-      console.log("💥 Info-Box entfernt. Szenenauswahl eingeblendet!");
+      console.log("✅ Info-Box entfernt. Szene sichtbar.");
     }
   }
 
-  // Optional Buttons/Fallbacks
   btnClose?.addEventListener("click", closeInfoBox);
   infoBg?.addEventListener("click", closeInfoBox);
   infoBox?.addEventListener("click", closeInfoBox);
 
-  // 🔥 WICHTIG: Tippe irgendwo → Info weg
-  document.addEventListener("touchstart", closeInfoBox, { once: true });
-  document.addEventListener("click", closeInfoBox, { once: true });
+  // 🔍 Beobachte ob infoBox sichtbar wird → aktiviere Tap-Zuhörer
+  const observer = new MutationObserver(() => {
+    if (infoBox.getAttribute("visible") === "true") {
+      document.addEventListener("click", closeInfoBox, { once: true });
+      document.addEventListener("touchstart", closeInfoBox, { once: true });
+      console.log("🕵️ Tap-Listener aktiv – warte auf Interaktion");
+    }
+  });
+
+  observer.observe(infoBox, { attributes: true, attributeFilter: ['visible'] });
 
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
