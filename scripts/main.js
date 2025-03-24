@@ -52,18 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔄 POLLING statt Observer
   let autoClosed = false;
 
-  setInterval(() => {
-    if (!autoClosed && infoBox?.getAttribute("visible") === "true") {
-      console.log("🕒 Info sichtbar (via polling) – starte Timeout");
-      autoClosed = true;
-      setTimeout(() => {
-        infoBox.setAttribute("visible", "false");
-        sceneSelection.setAttribute("visible", "true");
-        console.log("✅ Info automatisch geschlossen → Szene sichtbar");
-      }, 2000);
-    }
-  }, 500);
-
+ 
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
   }, { passive: false });
