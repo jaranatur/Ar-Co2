@@ -36,41 +36,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sceneSelection = document.getElementById("scene-selection");
   const infoBg = document.getElementById("info-bg");
   const btnClose = document.getElementById("btn-close-info");
-  const btnBack = document.getElementById("btn-back");
   const earth = document.getElementById("earth");
 
   function closeInfoBox() {
     if (infoBox.getAttribute("visible") === "true") {
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
-      console.log("📦 Info-Box geschlossen, Szenenauswahl eingeblendet!");
+      console.log("💥 Info-Box entfernt. Szenenauswahl eingeblendet!");
     }
   }
 
-  function backToEarth() {
-    infoBox.setAttribute("visible", "true");
-    sceneSelection.setAttribute("visible", "false");
-    earth.setAttribute("visible", "true");
-    console.log("🔙 Zurück zur Erde");
-  }
-
-  // Standard Events (falls Raycasting funktioniert)
-  infoBg?.addEventListener("click", closeInfoBox);
+  // Optional Buttons/Fallbacks
   btnClose?.addEventListener("click", closeInfoBox);
-  btnBack?.addEventListener("click", backToEarth);
+  infoBg?.addEventListener("click", closeInfoBox);
+  infoBox?.addEventListener("click", closeInfoBox);
 
-  // 💣 ULTIMATIVER NOTFALL-FIX: beim ersten Touch auf dem Screen = Info weg
-  document.addEventListener("touchstart", () => {
-    try {
-      infoBox.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", "true");
-      console.log("💥 Info-Box entfernt. Szenenauswahl ist da.");
-    } catch (e) {
-      console.error("❌ Touch-Bypass fehlgeschlagen", e);
-    }
-  }, { once: true });
+  // 🔥 WICHTIG: Tippe irgendwo → Info weg
+  document.addEventListener("touchstart", closeInfoBox, { once: true });
+  document.addEventListener("click", closeInfoBox, { once: true });
 
-  // Verhindere Scrollen bei Touch
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
   }, { passive: false });
