@@ -54,20 +54,22 @@ export function handleEarthRotation() {
       infoBox.setAttribute("visible", "true");
       console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
 
-      // ⏱️ Sicherer Timeout → holt frische Elemente
-      setTimeout(() => {
+      // 💡 Schließe Info-Fenster bei erstem Tap
+      const closeOnTap = () => {
         const infoBoxEl = document.getElementById("info-box");
         const sceneSelectionEl = document.getElementById("scene-selection");
-
-        if (!infoBoxEl || !sceneSelectionEl) {
-          console.warn("❌ infoBox oder sceneSelection nicht gefunden bei Timeout!");
-          return;
-        }
+        if (!infoBoxEl || !sceneSelectionEl) return;
 
         infoBoxEl.setAttribute("visible", "false");
         sceneSelectionEl.setAttribute("visible", "true");
-        console.log("✅ Info automatisch geschlossen → Szene sichtbar");
-      }, 2000);
+        console.log("✅ Info durch Tap geschlossen → Szene sichtbar");
+
+        document.removeEventListener("click", closeOnTap);
+        document.removeEventListener("touchstart", closeOnTap);
+      };
+
+      document.addEventListener("click", closeOnTap, { once: true });
+      document.addEventListener("touchstart", closeOnTap, { once: true });
     }
   }, { passive: false });
 
