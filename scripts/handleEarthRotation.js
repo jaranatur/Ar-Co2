@@ -1,4 +1,4 @@
-import { earth, hintText, infoBox, sceneSelection } from './globals.js';
+import { earth, hintText, infoBox } from './globals.js';
 
 export function handleEarthRotation() {
   let isDragging = false;
@@ -54,11 +54,19 @@ export function handleEarthRotation() {
       infoBox.setAttribute("visible", "true");
       console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
 
-      // ⏱️ Automatisch nach 2 Sekunden schließen
+      // ⏱️ Sicherer Timeout → holt frische Elemente
       setTimeout(() => {
-        infoBox.setAttribute("visible", "false");
-        sceneSelection?.setAttribute("visible", "true");
-        console.log("✅ Info-Fenster automatisch geschlossen → Szene sichtbar");
+        const infoBoxEl = document.getElementById("info-box");
+        const sceneSelectionEl = document.getElementById("scene-selection");
+
+        if (!infoBoxEl || !sceneSelectionEl) {
+          console.warn("❌ infoBox oder sceneSelection nicht gefunden bei Timeout!");
+          return;
+        }
+
+        infoBoxEl.setAttribute("visible", "false");
+        sceneSelectionEl.setAttribute("visible", "true");
+        console.log("✅ Info automatisch geschlossen → Szene sichtbar");
       }, 2000);
     }
   }, { passive: false });
@@ -74,8 +82,10 @@ export function handleEarthRotation() {
     if (btnCloseInfo) {
       btnCloseInfo.addEventListener("click", () => {
         console.log("ℹ️ Info-Fenster wird manuell geschlossen!");
-        infoBox.setAttribute("visible", "false");
-        sceneSelection?.setAttribute("visible", "true");
+        const infoBoxEl = document.getElementById("info-box");
+        const sceneSelectionEl = document.getElementById("scene-selection");
+        infoBoxEl?.setAttribute("visible", "false");
+        sceneSelectionEl?.setAttribute("visible", "true");
       });
     } else {
       console.error("❌ btnCloseInfo nicht gefunden!");
