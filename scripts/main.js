@@ -2,6 +2,7 @@
 import { initGlobals } from './globals.js';
 import { initScene } from './initScene.js';
 import { handleEarthRotation } from './handleEarthRotation.js';
+import { bike } from './globals.js';
 
 function requestMotionPermission() {
   if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
@@ -31,10 +32,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   initScene();
   handleEarthRotation();
 
-  const bikeScene = document.querySelector('#scene-bike');
-
-  if (bikeScene) {
-    console.log("❌ 'scene-bike' nicht gefunden!");
+  const bikeScene = document.getElementById('scene-bike');
+  
+  if (bikeScene ) {
+    console.log("❌ 'scene-bike' gefunden!");
   } else {
     const goToMobilityScene = () => {
       console.log("🚴 Navigiere zur Mobilitätsszene");
