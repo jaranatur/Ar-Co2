@@ -57,13 +57,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   
     // Beispiel: Direkt ausführen (nur zu Testzwecken)
     // goToMobilityScene();
-  
-    document.addEventListener("touchstart", (event) => {
+  /**
+    bikeScene.addEventListener("touchstart", (event) => {
       console.log("📱 Touch erkannt auf Bike!");
       goToMobilityScene();
     });
   
-    /** 
+     
     bikeScene.addEventListener("click", (event) => {
       console.log("🖱️ Click erkannt auf Bike!");
       goToMobilityScene();
