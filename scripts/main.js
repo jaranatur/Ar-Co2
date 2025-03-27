@@ -33,6 +33,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
 
   const bikeScene = document.getElementById('scene-bike');
+  const testBox = document.getElementById("test-box");
+
+  if (testBox) {
+    console.log("✅ 'test box' gefunden!");
+
+    testBox.addEventListener("click", () => {
+      console.log("🟦 Box wurde geklickt!");
+    });
+  
+    testBox.addEventListener("touchstart", () => {
+      console.log("📱 Touch auf Box erkannt!");
+    });
+  }
   
   if (bikeScene) {
     console.log("✅ 'scene-bike' gefunden!");
@@ -50,10 +63,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       goToMobilityScene();
     });
   
+    /** 
     bikeScene.addEventListener("click", (event) => {
       console.log("🖱️ Click erkannt auf Bike!");
       goToMobilityScene();
     });
+    */
   
   } else {
     console.log("❌ 'scene-bike' NICHT gefunden!");

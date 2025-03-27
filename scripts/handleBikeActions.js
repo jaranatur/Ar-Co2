@@ -22,5 +22,4 @@ export function handleBikeAction() {
     event.preventDefault();
   }, { passive: false });
 
-  
 }
