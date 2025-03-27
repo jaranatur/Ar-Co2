@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const bikeScene = document.getElementById("scene-bike");
   bikeScene?.addEventListener('click', () => {
-    window.location.href = 'scenes/scene1.html'; // Navigiere zur Mobilitätsszene
+    console.log("Navigiere zur Mobilitätsszene");
+    window.location.href = '../scenes/scene1.html'; // Navigiere zur Mobilitätsszene, Pfad korrigiert
   });
 
   const infoBox = document.getElementById("info-box");
@@ -54,17 +55,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   infoBg?.addEventListener("click", closeInfoBox);
   infoBox?.addEventListener("click", closeInfoBox);
 
-  // 🔄 POLLING statt Observer
-  let autoClosed = false;
-
   // Hinzugefügter Code für globalen Click-Event-Listener
   window.addEventListener("click", function(event) {
-    let targetElement = event.target;
+    console.log("Klick erkannt auf: ", event.target); // Logge welches Element geklickt wurde
 
+    let targetElement = event.target;
     while (targetElement != null) {
+      console.log("Überprüfe Element: ", targetElement.id); // Logge die ID des aktuellen Elements
       if (targetElement.id === "scene-bike") {
-        console.log("Bike clicked, navigating to scene1.html");
-        window.location.href = '../scenes/scene1.html';  // Pfad aktualisiert
+        console.log("Fahrrad geklickt, navigiere zu scene1.html");
+        window.location.href = '../scenes/scene1.html'; // Navigiere zur Mobilitätsszene, Pfad korrigiert
         return;
       }
       targetElement = targetElement.parentElement;
