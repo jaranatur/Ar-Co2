@@ -34,32 +34,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const bikeScene = document.getElementById('scene-bike');
   
-  if (bikeScene ) {
-    console.log("❌ 'scene-bike' gefunden!");
-    goToMobilityScene();
-
-    bikeScene.addEventListener("touchstart", (event) => {
-      console.log("📱 Touch erkannt auf Bike!");
-      goToMobilityScene();
-    });
-    
+  if (bikeScene) {
+    console.log("✅ 'scene-bike' gefunden!");
+  
     const goToMobilityScene = () => {
       console.log("🚴 Navigiere zur Mobilitätsszene");
       window.location.href = 'scenes/scene1.html';
     };
-
-    // Touch for mobile
-    
-  } else{
-    console.log("nicht gefunden wuhuuu");
-    // Click for fallback
-    /** 
-    bikeScene.addEventListener('click', (e) => {
+  
+    // Beispiel: Direkt ausführen (nur zu Testzwecken)
+    // goToMobilityScene();
+  
+    bikeScene.addEventListener("touchstart", (event) => {
+      console.log("📱 Touch erkannt auf Bike!");
+      goToMobilityScene();
+    });
+  
+    bikeScene.addEventListener("click", (event) => {
       console.log("🖱️ Click erkannt auf Bike!");
       goToMobilityScene();
     });
-    */
+  
+  } else {
+    console.log("❌ 'scene-bike' NICHT gefunden!");
   }
+  
 
   const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
