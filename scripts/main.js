@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const bikeScene = document.querySelector('#scene-bike');
 
-  if (!bikeScene) {
-    console.error("❌ 'scene-bike' nicht gefunden!");
+  if (bikeScene) {
+    console.log("❌ 'scene-bike' nicht gefunden!");
   } else {
     const goToMobilityScene = () => {
       console.log("🚴 Navigiere zur Mobilitätsszene");
