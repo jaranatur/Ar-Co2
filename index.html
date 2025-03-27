@@ -1,92 +1,111 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Erde</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR Erde</title>
 
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
 
-  <link rel="stylesheet" href="style.css" />
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-  <a-scene embedded
-           device-orientation-permission-ui="enabled: false"
-           vr-mode-ui="enabled: false"
-           arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;">
-
-    <a-marker preset="hiro">
-      <a-entity id="earth-container">
-        <a-entity id="earth" gltf-model="assets/earth.glb"
-                  position="0 0 0" scale="0.01 0.01 0.01"
-                  animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
-        </a-entity>
-      </a-entity>
-
-      <a-entity id="info-box" position="0 1 -1" visible="false">
-        <a-plane id="info-bg" height="1" width="2.2" color="#D8F3DC" opacity="0.9" position="0 0 -0.01"
-                 class="clickable"
-                 animation__pulse="property: material.color; from: #D8F3DC; to: #B7E4C7; dir: alternate; dur: 1000; loop: true">
-        </a-plane>
-
-        <a-entity position="0 0.35 0.06"
-                  text="value: Willkommen!\n Klicke auf ein Objekt um eine Szene auszuwaehlen \n und  deinen CO₂-Fußabdruck zu sehen. ; align: center; color: #1B4332; width: 2; font: exo2bold;">
+  <body>
+    <a-scene
+      embedded
+      device-orientation-permission-ui="enabled: false"
+      vr-mode-ui="enabled: false"
+      arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;"
+    >
+      <a-marker preset="hiro">
+        <a-entity id="earth-container">
+          <a-entity
+            id="earth"
+            gltf-model="assets/earth.glb"
+            position="0 0 0"
+            scale="0.01 0.01 0.01"
+            animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic"
+          ></a-entity>
         </a-entity>
 
-        <a-entity id="btn-close-info" geometry="primitive: plane; height: 0.4; width: 1.3"
-                  material="color: #95D5B2; transparent: true" position="0 -0.2 0.08"
-                  class="clickable">
-          <a-entity position="0 0.1 0.15"
-                    text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;">
+        <a-entity id="info-box" position="0 1 -1" visible="false">
+          <a-plane
+            id="info-bg"
+            height="1"
+            width="2.2"
+            color="#D8F3DC"
+            opacity="0.9"
+            position="0 0 -0.01"
+            class="clickable"
+            animation__pulse="property: material.color; from: #D8F3DC; to: #B7E4C7; dir: alternate; dur: 1000; loop: true"
+          ></a-plane>
+
+          <a-entity
+            position="0 0.35 0.06"
+            text="value: Willkommen!\n Klicke auf ein Objekt um eine Szene auszuwaehlen \n und  deinen CO₂-Fußabdruck zu sehen. ; align: center; color: #1B4332; width: 2; font: exo2bold;"
+          ></a-entity>
+
+          <a-entity
+            id="btn-close-info"
+            geometry="primitive: plane; height: 0.4; width: 1.3"
+            material="color: #95D5B2; transparent: true"
+            position="0 -0.2 0.08"
+            class="clickable"
+          >
+            <a-plane
+            id="verstandenPlane"
+              position="0 0.1 0.15"
+              text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;"
+            ></a-plane>
           </a-entity>
         </a-entity>
-      </a-entity>
 
-      <a-entity id="scene-selection" visible="false">
-        <a-entity id="scene-salad"
-                  gltf-model="assets/salad.glb"
-                  position="-1.2 0 -2"
-                  scale="6 6 6"
-                  class="clickable"></a-entity>
-      
-        <a-entity id="scene-bike"
-                  gltf-model="assets/bike.glb"
-                  position="0 0 -2"
-                  scale="1.5 1.5 1.5 "
-                  class="clickable"></a-entity>
-               
-                  <a-box id="test-box"
-                   position="0 0.5 -2"
-                   scale=" 2 2 2 "
-                   color="#00B4D8"
-                   class="clickable">
-                  </a-box>
+        <a-entity id="scene-selection" visible="false">
+          <a-entity
+            id="scene-salad"
+            gltf-model="assets/salad.glb"
+            position="-1.2 0 -2"
+            scale="6 6 6"
+            class="clickable"
+          ></a-entity>
+          <a-entity
+            id="scene-bike"
+            gltf-model="assets/bike.glb"
+            position="0 0 -2"
+            scale="1.5 1.5 1.5 "
+            class="clickable"
+          ></a-entity>
+          <a-sphere
+            id="test-box"
+            position="0 0.5 -2"
+            scale=" 2 2 2 "
+            color="#00B4D8"
+            class="clickable"
+          ></a-sphere>
+          <a-entity
+            id="scene-water"
+            gltf-model="assets/water.glb"
+            position="0 0 0"
+            scale="1 1 1"
+            class="clickable"
+          ></a-entity>
+        </a-entity>
+        <a-entity
+          id="hint-text"
+          position="0 2.5 0"
+          text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: exo2bold;"
+        ></a-entity>
+      </a-marker>
 
-      
-        <a-entity id="scene-water"
-                  gltf-model="assets/water.glb"
-                  position="0 0 0"
-                  scale="1 1 1"
-                  class="clickable"></a-entity>
-      </a-entity>
-      
+      <a-camera
+        position="0 0 0"
+        look-controls="enabled: false"
+        cursor="rayOrigin: mouse"
+        raycaster="objects: .clickable"
+      ></a-camera>
+    </a-scene>
 
-      <a-entity id="hint-text" position="0 2.5 0"
-                text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: exo2bold;">
-      </a-entity>
-
-
-    </a-marker>
-
-    <a-camera position="0 0 0"
-              look-controls="enabled: false"
-              cursor="rayOrigin: mouse"
-              raycaster="objects: .clickable">
-    </a-camera>
-  </a-scene>
-
-  <script type="module" src="scripts/main.js"></script>
-</body>
+    <script type="module" src="scripts/main.js"></script>
+  </body>
 </html>

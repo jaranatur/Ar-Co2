@@ -37,13 +37,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (testBox) {
     console.log("✅ 'test box' gefunden!");
-
+    const goToMobilityScene = () => {
+      console.log("🚴 Navigiere zur Mobilitätsszene");
+      window.location.href = 'scenes/scene1.html';
+    };
     testBox.addEventListener("click", () => {
-      console.log("🟦 Box wurde geklickt!");
+      console.log("🟦 KUGEL wurde geklickt!");
     });
   
     testBox.addEventListener("touchstart", () => {
-      console.log("📱 Touch auf Box erkannt!");
+      console.log("📱 Touch auf KuGEL erkannt!");
+      goToMobilityScene();
+
     });
   }
   

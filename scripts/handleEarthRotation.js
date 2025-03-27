@@ -7,6 +7,7 @@ export function handleEarthRotation() {
   let scaleProgress = 1;
 
   let sceneTransitioned = false; // ✅ Prevent multiple executions
+  const verstandenPlane = document.getElementById("verstandenPlane");
 
   console.log("✅ handleEarthRotation läuft!");
 
@@ -84,7 +85,7 @@ export function handleEarthRotation() {
     const btnCloseInfo = document.getElementById("btn-close-info");
 
     if (btnCloseInfo) {
-      btnCloseInfo.addEventListener("click", () => {
+      verstandenPlane.addEventListener("click", () => {
         console.log("ℹ️ Info-Fenster wird manuell geschlossen!");
         const infoBoxEl = document.getElementById("info-box");
         const sceneSelectionEl = document.getElementById("scene-selection");
