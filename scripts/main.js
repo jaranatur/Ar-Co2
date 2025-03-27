@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const bikeScene = document.getElementById("scene-bike");
   bikeScene?.addEventListener('click', () => {
-    window.location.href = 'scene1.html'; // Navigiere zur Mobilitätsszene
+    window.location.href = 'scenes/scene1.html'; // Navigiere zur Mobilitätsszene
   });
 
   const infoBox = document.getElementById("info-box");
