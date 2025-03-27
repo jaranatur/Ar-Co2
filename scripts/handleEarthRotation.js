@@ -6,6 +6,8 @@ export function handleEarthRotation() {
   let rotationProgress = 0;
   let scaleProgress = 1;
 
+  let sceneTransitioned = false; // ✅ Prevent multiple executions
+
   console.log("✅ handleEarthRotation läuft!");
 
   document.addEventListener("touchstart", (event) => {
@@ -21,7 +23,7 @@ export function handleEarthRotation() {
   }, { passive: false });
 
   document.addEventListener("touchmove", (event) => {
-    if (!isDragging) return;
+    if (!isDragging || sceneTransitioned) return;
 
     console.log("📱 Touch Move erkannt!");
 
@@ -49,12 +51,12 @@ export function handleEarthRotation() {
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
     console.log("📏 Erde skaliert:", earth.getAttribute("scale"));
 
-    if (rotationProgress > 600) {
+    if (rotationProgress > 600 && !sceneTransitioned) {
+      sceneTransitioned = true; // ✅ prevent retrigger
       earth.setAttribute("visible", "false");
       infoBox.setAttribute("visible", "true");
       console.log("🌍 Erde ausgeblendet, Infotext eingeblendet!");
 
-      // 💡 Schließe Info-Fenster bei erstem Tap
       const closeOnTap = () => {
         const infoBoxEl = document.getElementById("info-box");
         const sceneSelectionEl = document.getElementById("scene-selection");
