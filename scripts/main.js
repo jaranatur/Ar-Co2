@@ -34,10 +34,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const bikeScene = document.getElementById('scene-bike');
   
-  if (!bikeScene ) {
-    console.log("❌ 'scene-bike' nicht gefunden!");
-  } else {
-    console.log("gefunden");
+  if (bikeScene ) {
+    console.log("❌ 'scene-bike' gefunden!");
+    goToMobilityScene();
+
+    bikeScene.addEventListener("touchstart", (event) => {
+      console.log("📱 Touch erkannt auf Bike!");
+      goToMobilityScene();
+    });
     
     const goToMobilityScene = () => {
       console.log("🚴 Navigiere zur Mobilitätsszene");
@@ -45,11 +49,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // Touch for mobile
-    bikeScene.addEventListener('touchstart', (e) => {
-      console.log("📱 Touch erkannt auf Bike!");
-      goToMobilityScene();
-    });
-
+    
+  } else{
+    console.log("nicht gefunden wuhuuu");
     // Click for fallback
     /** 
     bikeScene.addEventListener('click', (e) => {
