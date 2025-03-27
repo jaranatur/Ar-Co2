@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     while (targetElement != null) {
       if (targetElement.id === "scene-bike") {
         console.log("Bike clicked, navigating to scene1.html");
-        window.location.href = 'scenes/scene1.html';
+        window.location.href = '../scenes/scene1.html';  // Pfad aktualisiert
         return;
       }
       targetElement = targetElement.parentElement;
