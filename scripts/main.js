@@ -57,7 +57,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔄 POLLING statt Observer
   let autoClosed = false;
 
- 
+  // Hinzugefügter Code für globalen Click-Event-Listener
+  window.addEventListener("click", function(event) {
+    let targetElement = event.target;
+
+    while (targetElement != null) {
+      if (targetElement.id === "scene-bike") {
+        console.log("Bike clicked, navigating to scene1.html");
+        window.location.href = 'scenes/scene1.html';
+        return;
+      }
+      targetElement = targetElement.parentElement;
+    }
+  });
+
   document.addEventListener("touchmove", (event) => {
     event.preventDefault();
   }, { passive: false });
