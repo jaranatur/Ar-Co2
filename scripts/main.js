@@ -1,3 +1,4 @@
+// scripts/main.js
 import { initGlobals } from './globals.js';
 import { initScene } from './initScene.js';
 import { handleEarthRotation } from './handleEarthRotation.js';
@@ -30,18 +31,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   initScene();
   handleEarthRotation();
 
-  // Sicherstellen, dass das Fahrrad-Element korrekt angesprochen wird
-  const bikeScene = document.querySelector('[id="scene-bike"]');
+  const bikeScene = document.querySelector('#scene-bike');
+
   if (!bikeScene) {
-    console.error("Das Element mit der ID 'scene-bike' wurde nicht gefunden.");
+    console.error("❌ 'scene-bike' nicht gefunden!");
   } else {
-    bikeScene.addEventListener('click', () => {
-      console.log("Navigiere zur Mobilitätsszene");
-      window.location.href = 'scenes/scene1.html'; // Stelle sicher, dass der Pfad korrekt ist
+    const goToMobilityScene = () => {
+      console.log("🚴 Navigiere zur Mobilitätsszene");
+      window.location.href = 'scenes/scene1.html';
+    };
+
+    // Touch for mobile
+    bikeScene.addEventListener('touchstart', (e) => {
+      console.log("📱 Touch erkannt auf Bike!");
+      goToMobilityScene();
+    }, { passive: true });
+
+    // Click for fallback
+    bikeScene.addEventListener('click', (e) => {
+      console.log("🖱️ Click erkannt auf Bike!");
+      goToMobilityScene();
     });
   }
 
-  // Setup für Info-Box Schließen
   const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
   const btnClose = document.getElementById("btn-close-info");
@@ -55,6 +67,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     btnClose.addEventListener("click", closeInfoBox);
   } else {
-    console.error("Eines der notwendigen Elemente für die Info-Box ist nicht vorhanden.");
+    console.error("⚠️ Info-UI Elemente nicht vollständig geladen.");
   }
 });
