@@ -3,32 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Mobilitätsszene</title>
+
+  <!-- A-Frame & AR.js -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <link rel="stylesheet" href="../style.css" /> <!-- Pfad angepasst für CSS-Datei -->
+  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+
+  <!-- Optional CSS -->
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-  <a-scene>
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+    arjs="sourceType: webcam; detectionMode: mono; matrixCodeType: 3x3;"
+  >
+
+    <!-- Modelle -->
     <a-assets>
       <a-asset-item id="bikeModel" src="../assets/bike.glb"></a-asset-item>
-      <a-asset-item id="carModel" src="../assets/car.glb"></a-asset-item>
-      <a-asset-item id="busModel" src="../assets/bus.glb"></a-asset-item>
+      <a-asset-item id="carModel"  src="../assets/car.glb"></a-asset-item>
+      <a-asset-item id="busModel"  src="../assets/bus.glb"></a-asset-item>
     </a-assets>
 
-    <a-text value="Wie bist du heute zur Uni gekommen?" 
-            position="-1.5 2.5 -4" 
-            align="center" 
-            color="white" 
-            width="6"></a-text>
+    <!-- AR-Marker -->
+    <a-marker preset="hiro">
 
-    <a-entity gltf-model="#bikeModel" position="-2 0 -3" scale="1 1 1" class="clickable"></a-entity>
-    <a-entity gltf-model="#carModel" position="0 0 -3" scale="1 1 1" class="clickable"></a-entity>
-    <a-entity gltf-model="#busModel" position="2 0 -3" scale="1 1 1" class="clickable"></a-entity>
+      <!-- Frage-Text -->
+      <a-text 
+        value="Wie bist du heute zur Uni gekommen?"
+        position="0 1.8 0"
+        align="center"
+        color="white"
+        width="4"
+        font="https://cdn.aframe.io/fonts/Exo2Bold.fnt"
+      ></a-text>
+
+      <!-- Bike -->
+      <a-entity 
+        gltf-model="#bikeModel"
+        position="-1 0 0"
+        scale="0.5 0.5 0.5"
+        class="clickable"
+      ></a-entity>
+
+      <!-- Car -->
+      <a-entity 
+        gltf-model="#carModel"
+        position="0 0 0"
+        scale="0.5 0.5 0.5"
+        class="clickable"
+      ></a-entity>
+
+      <!-- Bus -->
+      <a-entity 
+        gltf-model="#busModel"
+        position="1 0 0"
+        scale="0.4 0.4 0.4"
+        class="clickable"
+      ></a-entity>
+
+    </a-marker>
+
+    <!-- Kamera (fix, kein Cursor) -->
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false"
+    ></a-camera>
   </a-scene>
 
+  <!-- Touch-/Click-Handling -->
   <script>
     document.querySelectorAll('.clickable').forEach(item => {
       item.addEventListener('click', () => {
-        window.location.href = '../index.html'; // Pfad angepasst, um zur Startseite zurückzukehren
+        window.location.href = '../index.html';
+      });
+      item.addEventListener('touchstart', () => {
+        window.location.href = '../index.html';
       });
     });
   </script>
