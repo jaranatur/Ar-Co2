@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobals();
   initScene();
   handleEarthRotation();
-  console.log("🛠️ Rufe handleBikeActions auf");
+  //console.log("🛠️ Rufe handleBikeActions auf");
   handleBikeActions();
   setupInfoBoxLogic();
 });
