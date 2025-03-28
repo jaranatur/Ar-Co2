@@ -1,39 +1,20 @@
 // scripts/scenes/handleBikeActions.js
 
 export function handleBikeActions() {
-  const bike = document.getElementById('scene-bike');
-  const testBox = document.getElementById('test-box');
+  const bikeButton = document.getElementById("bike-button");
 
-  if (bike) {
-    console.log("✅ 'scene-bike' gefunden!");
-
-    const goToMobilityScene = () => {
-      console.log("🚴 Navigiere zur Mobilitätsszene");
-      window.location.href = 'scenes/scene1.html';
-    };
-
-    bike.addEventListener("click", goToMobilityScene);
-    bike.addEventListener("touchstart", goToMobilityScene);
-  } else {
-    console.log("❌ 'scene-bike' NICHT gefunden!");
+  if (!bikeButton) {
+    console.error("❌ bike-button nicht gefunden!");
+    return;
   }
 
-  if (testBox) {
-    console.log("✅ 'test-box' gefunden!");
+  const goToScene1 = () => {
+    console.log("🚴 Kugel geklickt → Szene 1 wird geöffnet");
+    window.location.href = "scene1.html"; // oder scenes/scene1.html, je nach Pfad
+  };
 
-    const goToMobilityScene = () => {
-      console.log("🚴 Navigiere zur Mobilitätsszene");
-      window.location.href = 'scenes/scene1.html';
-    };
+  bikeButton.addEventListener("click", goToScene1);
+  bikeButton.addEventListener("touchstart", goToScene1);
 
-    testBox.addEventListener("click", () => {
-      console.log("🟦 KUGEL wurde geklickt!");
-      goToMobilityScene();
-    });
-
-    testBox.addEventListener("touchstart", () => {
-      console.log("📱 Touch auf Box erkannt!");
-      goToMobilityScene();
-    });
-  }
+  console.log("✅ Bike-Button Listener aktiv.");
 }
