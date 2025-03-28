@@ -34,13 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobals();
   initScene();
   handleEarthRotation();
-  handleBikeActions(); // ⬅️ Szene-spezifische Logik
+ // handleBikeActions(); // ⬅️ Szene-spezifische Logik
   setupInfoBoxLogic();
 });
 
 function setupInfoBoxLogic() {
   const infoBox = document.getElementById("info-box");
-  const sceneSelection = document.getElementById("scene-selection");
+  const sceneSelesction = document.getElementById("scene-selection");
   const btnClose = document.getElementById("btn-close-info");
 
   if (infoBox && sceneSelection && btnClose) {
