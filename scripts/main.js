@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function setupInfoBoxLogic() {
   const infoBox = document.getElementById("info-box");
-  const sceneSelesction = document.getElementById("scene-selection");
+  //const sceneSelesction = document.getElementById("scene-selection");
   const btnClose = document.getElementById("btn-close-info");
 
   if (infoBox && sceneSelection && btnClose) {
