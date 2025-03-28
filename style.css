@@ -28,6 +28,15 @@ a-entity {
     z-index: 10;
 }
 
+#tewt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 10;
+}
 /* 🌍 Erde: Touch-Interaktionen fixen */
 #earth {
     pointer-events: auto !important;
