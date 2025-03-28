@@ -80,16 +80,15 @@
             class="clickable"
           ></a-entity>
           <a-sphere
-
           id="bike-button"
-          position="1 1.5 -1.9" 
+          position="0.9 1.5 -1.9"
           radius="1"
-          color="#E0E0E0"
-          opacity="0.85"
+          color="#000000"
+          opacity="0.35"
           class="clickable"
-          animation="property: scale; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true; to: 0.22 0.22 0.22" 
-          scale="0.18 0.18 0.18" 
-        ></a-sphere>
+          scale="1 1 1"
+          material="emissive: #444444; emissiveIntensity: 0.6; transparent: true"
+        />
         
         <a-entity
   id="scene-water"
