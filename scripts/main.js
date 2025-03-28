@@ -2,7 +2,12 @@
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
-import { handleBikeActions } from './scenes/handleBikeActions.js'; // ⬅️ Import hinzugefügt
+import { handleBikeActions } from './scenes/handleBikeActions.js';
+
+
+
+handleBikeActions(); // ✅ Szene-spezifische Logik
+
 
 function requestMotionPermission() {
   if (
@@ -34,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobals();
   initScene();
   handleEarthRotation();
- // handleBikeActions(); // ⬅️ Szene-spezifische Logik
+  handleBikeActions();
   setupInfoBoxLogic();
 });
 
