@@ -1,11 +1,14 @@
 // scripts/main.js
-import { initGlobals } from './globals.js';
-import { initScene } from './initScene.js';
-import { handleEarthRotation } from './handleEarthRotation.js';
-import { bike } from './globals.js';
+import { initGlobals } from './common/globals.js';
+import { initScene } from './common/initScene.js';
+import { handleEarthRotation } from './common/handleEarthRotation.js';
+import { handleBikeActions } from './scenes/handleBikeActions.js'; // ⬅️ Import hinzugefügt
 
 function requestMotionPermission() {
-  if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
+  if (
+    typeof DeviceMotionEvent !== "undefined" &&
+    typeof DeviceMotionEvent.requestPermission === "function"
+  ) {
     DeviceMotionEvent.requestPermission()
       .then((response) => {
         if (response === "granted") {
@@ -31,55 +34,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobals();
   initScene();
   handleEarthRotation();
+  handleBikeActions(); // ⬅️ Szene-spezifische Logik
+  setupInfoBoxLogic();
+});
 
-  const bikeScene = document.getElementById('scene-bike');
-  const testBox = document.getElementById("test-box");
-
-  if (testBox) {
-    console.log("✅ 'test box' gefunden!");
-    const goToMobilityScene = () => {
-      console.log("🚴 Navigiere zur Mobilitätsszene");
-      window.location.href = 'scenes/scene1.html';
-    };
-    testBox.addEventListener("click", () => {
-      console.log("🟦 KUGEL wurde geklickt!");
-    });
-  
-    testBox.addEventListener("touchstart", () => {
-      console.log("📱 Touch auf KuGEL erkannt!");
-      goToMobilityScene();
-
-    });
-  }
-  
-  if (bikeScene) {
-    console.log("✅ 'scene-bike' gefunden!");
-  
-    const goToMobilityScene = () => {
-      console.log("🚴 Navigiere zur Mobilitätsszene");
-      window.location.href = 'scenes/scene1.html';
-    };
-  
-    // Beispiel: Direkt ausführen (nur zu Testzwecken)
-    // goToMobilityScene();
-  /**
-    bikeScene.addEventListener("touchstart", (event) => {
-      console.log("📱 Touch erkannt auf Bike!");
-      goToMobilityScene();
-    });
-  
-     
-    bikeScene.addEventListener("click", (event) => {
-      console.log("🖱️ Click erkannt auf Bike!");
-      goToMobilityScene();
-    });
-    */
-  
-  } else {
-    console.log("❌ 'scene-bike' NICHT gefunden!");
-  }
-  
-
+function setupInfoBoxLogic() {
   const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
   const btnClose = document.getElementById("btn-close-info");
@@ -90,9 +49,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       sceneSelection.setAttribute("visible", "true");
       console.log("✅ Info-Box entfernt. Szene sichtbar.");
     };
-
     btnClose.addEventListener("click", closeInfoBox);
   } else {
     console.error("⚠️ Info-UI Elemente nicht vollständig geladen.");
   }
-});
+}

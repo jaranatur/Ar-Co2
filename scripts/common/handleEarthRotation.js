@@ -1,4 +1,4 @@
-import { earth, hintText, infoBox } from './globals.js';
+import { earth, hintText, infoBox } from './common/globals.js';
 
 export function handleEarthRotation() {
   let isDragging = false;
