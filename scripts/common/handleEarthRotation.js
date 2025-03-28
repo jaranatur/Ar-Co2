@@ -38,7 +38,7 @@ export function handleEarthRotation() {
 
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
-    hintText.setAttribute("text", `opacity: ${opacity}`);
+    hintText.setAttribute("text", { opacity: opacity });
     if (opacity === 0) {
       hintText.setAttribute("visible", "false");
       console.log("📝 Hinweistext ausgeblendet!");
