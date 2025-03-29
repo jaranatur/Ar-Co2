@@ -95,14 +95,22 @@ a-entity {
 }
  /* dikka will nciht mehr*/
 
- .ui-btn {
+ #ui-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* optional: falls Buttons auf kleinen Screens umbrechen sollen */
+  }
+  
+  .ui-btn {
     font-size: 1.2em;
     padding: 10px 20px;
-    margin: 8px;
     border: none;
     border-radius: 10px;
     background-color: #52b788;
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+  
   
