@@ -1,8 +1,6 @@
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
-// ❌ no need for handleBikeActions anymore
-// import { handleBikeActions } from './scenes/handleBikeActions.js';
 
 function requestMotionPermission() {
   if (
@@ -34,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobals();
   initScene();
   handleEarthRotation();
-  setupInfoBoxLogic(); // ✅ now calls the updated version
+  setupInfoBoxLogic();
 });
 
 function setupInfoBoxLogic() {
@@ -48,11 +46,12 @@ function setupInfoBoxLogic() {
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
 
-      // ✅ Show 2D HTML UI
-      uiButtons.style.display = "block";
+      // ✅ Zeige die UI-Buttons erst jetzt
+      uiButtons.style.display = "flex";
 
-      console.log("✅ Info-Box entfernt. Szene sichtbar + UI Buttons angezeigt");
+      console.log("✅ Info-Box entfernt → Szene sichtbar → Buttons eingeblendet");
     };
+
     btnClose.addEventListener("click", closeInfoBox);
   } else {
     console.error("⚠️ Info-UI Elemente nicht vollständig geladen.");
