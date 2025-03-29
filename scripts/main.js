@@ -46,8 +46,9 @@ function setupInfoBoxLogic() {
       infoBox.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
 
-      // ✅ Zeige die UI-Buttons erst jetzt
-      uiButtons.style.display = "flex";
+      // ✅ Sichtbarkeit aktivieren mit sanftem Fade-In
+      uiButtons.style.visibility = "visible";
+      uiButtons.style.opacity = "1";
 
       console.log("✅ Info-Box entfernt → Szene sichtbar → Buttons eingeblendet");
     };
@@ -57,3 +58,5 @@ function setupInfoBoxLogic() {
     console.error("⚠️ Info-UI Elemente nicht vollständig geladen.");
   }
 }
+
+

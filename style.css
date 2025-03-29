@@ -97,7 +97,7 @@ a-entity {
 
  #ui-buttons {
     display: flex;
-    flex-wrap: nowrap;             /* Force single row */
+    flex-wrap: nowrap;
     gap: 12px;
     justify-content: center;
     align-items: center;
@@ -107,8 +107,12 @@ a-entity {
     transform: translateX(-50%);
     z-index: 999;
     max-width: 90vw;
-  }
   
+    /* 👇 Das fügt Unsichtbarkeit hinzu */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
   .ui-btn {
     flex: 1 1 auto;                 /* Let buttons resize as needed */
     white-space: nowrap;           /* Don't wrap text */
@@ -120,7 +124,6 @@ a-entity {
     font-size: 1.1em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
   
   
   
