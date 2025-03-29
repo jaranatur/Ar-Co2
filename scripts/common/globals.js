@@ -1,3 +1,4 @@
+// globals.js
 export let earth, hintText, infoBox, sceneSelection, bike;
 
 export function initGlobals() {

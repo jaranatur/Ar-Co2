@@ -1,3 +1,4 @@
+// initScene.js
 import { initGlobals } from './globals.js';
 
 export function initScene() {
