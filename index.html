@@ -102,11 +102,12 @@
     </a-scene>
 
     <!-- ✅ UI Buttons: 2D HTML Overlay (outside <a-scene>) -->
-    <div id="ui-buttons" style="display: none; position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%); z-index: 999;">
-      <button onclick="window.location.href='scenes/scene1.html'" class="ui-btn">🚲 Bike</button>
-      <button onclick="window.location.href='scenes/scene2.html'" class="ui-btn">🥗 Salad</button>
-      <button onclick="window.location.href='scenes/scene3.html'" class="ui-btn">💧 Water</button>
-    </div>
+      <div id="ui-buttons">
+        <button onclick="window.location.href='scenes/scene1.html'" class="ui-btn">🚲 Bike</button>
+        <button onclick="window.location.href='scenes/scene2.html'" class="ui-btn">🥗 Salad</button>
+        <button onclick="window.location.href='scenes/scene3.html'" class="ui-btn">💧 Water</button>
+      </div>
+      
 
     <script type="module" src="scripts/main.js"></script>
   </body>
