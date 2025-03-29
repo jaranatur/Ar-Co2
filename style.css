@@ -97,10 +97,12 @@ a-entity {
 
  #ui-buttons {
     display: flex;
+    flex-wrap: wrap;               /* ✔ allow wrap on small screens */
     gap: 12px;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* optional: falls Buttons auf kleinen Screens umbrechen sollen */
+    max-width: 90vw;               /* ✔ never overflow screen width */
+    margin: 0 auto;
   }
   
   .ui-btn {
@@ -111,6 +113,8 @@ a-entity {
     background-color: #52b788;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;                /* ✔ prevent buttons from shrinking too small */
   }
+  
   
   
