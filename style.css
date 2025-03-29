@@ -1,23 +1,24 @@
 /* 🖥️ Grundlegendes Styling */
 body {
+
     margin: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    touch-action: manipulation;
-    text-align: center;
-  }
-  
-  /* A-Frame Text */
-  a-entity[text] {
+    touch-action: manipulation; /* Verhindert ungewolltes Scrollen bei Touch */
+}
+
+/* Einheitliche Schriftart für alle A-Frame Texte */
+a-entity[text] {
     font: exo2bold;
-  }
-  
-  /* Interaktivität */
-  a-entity {
+}
+
+/* 🎯 Zeiger anzeigen, falls es auf Desktop genutzt wird */
+a-entity {
     cursor: pointer;
-  }
-  
-  #click-overlay {
+}
+
+/* 📌 Falls du ein Overlay für Klicks hast, stelle sicher, dass es keine Touch-Events blockiert */
+#click-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -26,9 +27,9 @@ body {
     background: transparent;
     pointer-events: none;
     z-index: 10;
-  }
-  
-  #tewt {
+}
+
+#tewt {
     position: absolute;
     top: 0;
     left: 0;
@@ -36,36 +37,36 @@ body {
     height: 100vh;
     background: transparent;
     z-index: 10;
-  }
-  
-  /* 🌍 Erde */
-  #earth {
+}
+/* 🌍 Erde: Touch-Interaktionen fixen */
+#earth {
     pointer-events: auto !important;
-    touch-action: manipulation !important;
-  }
-  
-  /* 📝 Info-Box */
-  #info-box {
+    touch-action: manipulation !important; /* Kein komplettes Blockieren von Touch */
+}
+
+/* 📝 Info-Box Styling */
+#info-box {
     background: #D8F3DC;
     border-radius: 10px;
     padding: 20px;
     transition: opacity 0.5s ease-in-out;
-    pointer-events: auto;
-  }
-  
-  #info-box a-entity {
+    pointer-events: auto; /* Stellt sicher, dass es anklickbar ist */
+}
+
+/* 📝 Text in der Info-Box */
+#info-box a-entity {
     text-align: center;
-    color: #1B4332;
+    color: #1B4332; /* Dunkelgrün */
     font-family: exo2bold;
     font-weight: bold;
     font-size: 22px;
     width: 2.5;
     position: relative;
     z-index: 2;
-  }
-  
-  /* Verstanden-Button */
-  #btn-close-info {
+}
+
+/* 🎨 Schließen-Button */
+#btn-close-info {
     background: #95D5B2;
     color: #1B4332;
     border-radius: 5px;
@@ -73,44 +74,53 @@ body {
     font-size: 20px;
     transition: background 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    pointer-events: auto;
-  }
-  
-  #btn-close-info:hover {
+    pointer-events: auto; /* Fix: Stellt sicher, dass es klickbar bleibt */
+}
+
+/* ✨ Hover Effekt für den Button (nur für Desktop) */
+#btn-close-info:hover {
     background: #74C69D;
     box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
-  }
-  
-  /* 📱 Buttons: NICHT display setzen! */
-  #ui-buttons {
-    flex-wrap: wrap;
+}
+
+/* ⚠️ Szenen-Auswahl sichtbar machen */
+#scene-selection {
+    display: block;
+}
+
+/* 📱 Mobile Fix: Kein Text-Selektieren bei Touch */
+* {
+    user-select: none;
+    -webkit-user-select: none;
+}
+ /* dikka will nciht mehr*/
+
+ #ui-buttons {
+    display: flex;
+    flex-wrap: nowrap;             /* Force single row */
     gap: 12px;
     justify-content: center;
     align-items: center;
-    max-width: 90vw;
     position: fixed;
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
+    max-width: 90vw;
   }
   
-  /* 🎨 Einzelne Buttons */
   .ui-btn {
-    font-size: 1.2em;
-    padding: 10px 20px;
+    flex: 1 1 auto;                 /* Let buttons resize as needed */
+    white-space: nowrap;           /* Don't wrap text */
+    padding: 10px 16px;
     border: none;
     border-radius: 10px;
     background-color: #52b788;
     color: white;
+    font-size: 1.1em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    flex-shrink: 0;
-    white-space: nowrap;
   }
   
-  /* Text nicht auswählbar */
-  * {
-    user-select: none;
-    -webkit-user-select: none;
-  }
+  
+  
   
