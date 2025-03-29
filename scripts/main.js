@@ -36,27 +36,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function setupInfoBoxLogic() {
-  const infoBox = document.getElementById("info-box");
   const sceneSelection = document.getElementById("scene-selection");
-  const btnClose = document.getElementById("btn-close-info");
   const uiButtons = document.getElementById("ui-buttons");
 
-  if (infoBox && sceneSelection && btnClose && uiButtons) {
-    const closeInfoBox = () => {
-      infoBox.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", "true");
+  if (sceneSelection && uiButtons) {
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "visible" &&
+          sceneSelection.getAttribute("visible") === "true"
+        ) {
+          uiButtons.style.visibility = "visible";
+          uiButtons.style.opacity = "1";
+          console.log("✅ scene-selection sichtbar → Buttons eingeblendet");
+        }
+      }
+    });
 
-      // ✅ Sichtbarkeit aktivieren mit sanftem Fade-In
-      uiButtons.style.visibility = "visible";
-      uiButtons.style.opacity = "1";
-
-      console.log("✅ Info-Box entfernt → Szene sichtbar → Buttons eingeblendet");
-    };
-
-    btnClose.addEventListener("click", closeInfoBox);
+    observer.observe(sceneSelection, { attributes: true });
   } else {
-    console.error("⚠️ Info-UI Elemente nicht vollständig geladen.");
+    console.error("❌ sceneSelection oder uiButtons nicht gefunden!");
   }
 }
+
 
 
