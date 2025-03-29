@@ -1,6 +1,3 @@
-
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -18,7 +15,7 @@
     <header>
       <h1>AR Erde</h1>
     </header>
-    
+
     <a-scene
       embedded
       device-orientation-permission-ui="enabled: false"
@@ -50,7 +47,7 @@
 
           <a-entity
             position="0 0.35 0.06"
-            text="value: Willkommen!\n Klicke auf ein Objekt um eine Szene auszuwaehlen \n und  deinen CO₂-Fußabdruck zu sehen. ; align: center; color: #1B4332; width: 2; font: exo2bold;"
+            text="value: Willkommen!\nKlicke auf ein Objekt, um eine Szene auszuwählen\nund deinen CO₂-Fußabdruck zu sehen.; align: center; color: #1B4332; width: 2; font: exo2bold;"
           ></a-entity>
 
           <a-entity
@@ -59,18 +56,10 @@
             material="color: #95D5B2; transparent: true"
             position="0 -0.2 0.08"
             class="clickable"
-          >
-            <!-- <a-plane
-            id="verstandenPlane"
-              position="0 0.1 0.15"
-              text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;"
-            ></a-plane> -->
-       
-          </a-entity>
+          ></a-entity>
         </a-entity>
 
         <a-entity id="scene-selection" visible="false">
-
           <a-entity
             id="scene-salad"
             gltf-model="assets/salad.glb"
@@ -83,48 +72,25 @@
             id="scene-bike"
             gltf-model="assets/bike.glb"
             position="0 0 -2"
-            scale="1.5 1.5 1.5 "
+            scale="1.5 1.5 1.5"
             class="clickable"
           ></a-entity>
 
-          
-            <!-- <a-plane
-            id="verstandenPlane"
-              position="0 0.1 0.15"
-              text="value: Verstanden; align: center; color: #1B4332; width: 2.5; font: exo2bold;"
-            ></a-plane> -->
-       
-          </a-entity>
-          <!-- <a-plane
-            id="bike-buttonn"
-            position="0.9 1.2 -1"
-            scale="1"
-            color="#000000"
-            opacity="0.9"
+          <a-entity
+            id="scene-water"
+            gltf-model="assets/water.glb"
+            position="1.2 0 -2"
+            scale="0.8 0.8 0.8"
             class="clickable"
-            scale="1 1 1"
-          ></a-plane> --> 
-          <!-- <a-entity
-          position="0.9 0.8 -1.9"
-          text="value: Tippe hier,\n um zur Szene 1 \nzu gelangen; align: center; color: white; width: 2.5; font: exo2bold;"
-        ></a-entity> -->
+          ></a-entity>
         </a-entity>
-   
-<a-entity
-  id="scene-water"
-  gltf-model="assets/water.glb"
-  position="1.2 0 -2"
-  scale="0.8 0.8 0.8"
-  class="clickable"
-></a-entity>
 
-<a-entity
-id="hint-text"
-position="0 2.5 -1"
-visible="true"
-text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt; opacity: 1;"
-></a-entity>
-
+        <a-entity
+          id="hint-text"
+          position="0 2.5 -1"
+          visible="true"
+          text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt; opacity: 1;"
+        ></a-entity>
       </a-marker>
 
       <a-camera
@@ -135,11 +101,12 @@ text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; widt
       ></a-camera>
     </a-scene>
 
-<div id="ui-buttons" style="display: none; position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%); z-index: 999;">
-  <button onclick="window.location.href='scenes/scene1.html'" class="ui-btn">🚲 Bike</button>
-  <button onclick="window.location.href='scenes/scene2.html'" class="ui-btn">🥗 Salad</button>
-  <button onclick="window.location.href='scenes/scene3.html'" class="ui-btn">💧 Water</button>
-</div>
+    <!-- ✅ UI Buttons: 2D HTML Overlay (outside <a-scene>) -->
+    <div id="ui-buttons" style="display: none; position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%); z-index: 999;">
+      <button onclick="window.location.href='scenes/scene1.html'" class="ui-btn">🚲 Bike</button>
+      <button onclick="window.location.href='scenes/scene2.html'" class="ui-btn">🥗 Salad</button>
+      <button onclick="window.location.href='scenes/scene3.html'" class="ui-btn">💧 Water</button>
+    </div>
 
     <script type="module" src="scripts/main.js"></script>
   </body>
