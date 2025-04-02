@@ -1,7 +1,8 @@
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
-import { setupOverlayObserver } from './common/setUpOverlay.js';
+import { setupOverlayObserver } from './common/setupOverlayObserver.js';
+
 
 
 function requestMotionPermission() {
