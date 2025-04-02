@@ -22,6 +22,13 @@
       vr-mode-ui="enabled: false"
       arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;"
     >
+
+      <!-- ⬇️ Assets für Pfeil-Icon -->
+      <a-assets>
+        <img id="arrow-icon" src="assets/arrow-down-white.png" />
+      </a-assets>
+
+      <!-- 📍 Marker -->
       <a-marker preset="hiro">
         <a-entity id="earth-container">
           <a-entity
@@ -33,18 +40,28 @@
           ></a-entity>
         </a-entity>
 
-        
+        <!-- 📦 Szene-Auswahl später sichtbar -->
         <a-entity id="scene-selection" visible="false"></a-entity>
 
-
+        <!-- 📝 Hinweistext -->
         <a-entity
           id="hint-text"
           position="0 2.5 -1"
           visible="true"
-          text="value: Drehe die Erde,\n um zu starten.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt; opacity: 1;"
+          text="value: Willkommen!\nDrehe die Erde,\num deine Nachhaltigkeit zu entdecken.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt; opacity: 1;"
+        ></a-entity>
+
+        <!-- 🔽 Pfeil über Erde -->
+        <a-entity
+          geometry="primitive: plane; height: 0.2; width: 0.2"
+          material="src: #arrow-icon; transparent: true; opacity: 0.8"
+          position="0 3 -1"
+          rotation="-90 0 0"
+          animation="property: position; dir: alternate; dur: 800; easing: easeInOutSine; loop: true; to: 0 3.2 -1"
         ></a-entity>
       </a-marker>
 
+      <!-- 🎥 Kamera -->
       <a-camera
         position="0 0 0"
         look-controls="enabled: false"
@@ -52,8 +69,6 @@
         raycaster="objects: .clickable"
       ></a-camera>
     </a-scene>
-
-
 
     <script type="module" src="scripts/main.js"></script>
   </body>
