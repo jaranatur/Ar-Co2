@@ -1,4 +1,4 @@
-export function setupOverlayObserver() {
+export function setUpOverlayObserver() {
     const sceneSelection = document.getElementById("scene-selection");
     const overlay = document.getElementById("input-overlay");
   
@@ -21,4 +21,3 @@ export function setupOverlayObserver() {
       console.error("❌ sceneSelection oder input-overlay nicht gefunden!");
     }
   }
-//   test
