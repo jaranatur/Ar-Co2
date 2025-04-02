@@ -42,7 +42,7 @@ export function handleEarthRotation() {
     hintText.setAttribute("text", { ...currentText, opacity });
 
     if (opacity === 0) {
-      hintText.setAttribute("visible", "false");
+      if (arrow) arrow.setAttribute("visible", "false");
       console.log("📝 Hinweistext ausgeblendet!");
     }
 

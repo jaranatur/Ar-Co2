@@ -1,5 +1,5 @@
 // globals.js
-export let earth, hintText, infoBox, sceneSelection, bike;
+export let earth, hintText, infoBox, sceneSelection, arrow;
 
 export function initGlobals() {
     console.log("🌍 initGlobals() wird ausgeführt...");
@@ -10,6 +10,7 @@ export function initGlobals() {
     infoBox = document.getElementById("info-box");
     sceneSelection = document.getElementById("scene-selection");
     bike = document.getElementById("scene-bike");
+    arrow = document.getElementById("arrow");
 
     if (!earth) {
         console.error("❌ Fehler: 'earth' konnte nicht gefunden werden! Warte 500ms und versuche erneut...");
