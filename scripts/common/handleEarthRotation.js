@@ -59,7 +59,8 @@ export function handleEarthRotation() {
     if (rotationProgress > 600 && !sceneTransitioned) {
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", "true");
+      sceneSelection.setAttribute("visible", true); // A-Frame sichtbar
+sceneSelection.setAttribute("data-visible", "true"); // Extra HTML-Attr. fürs DOM
       console.log("🌍 Erde verschwunden → Overlay startet");
     }
   };
