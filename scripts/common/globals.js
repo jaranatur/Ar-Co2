@@ -8,7 +8,8 @@ export function initGlobals() {
     earth = document.getElementById("earth");
     hintText = document.getElementById("hint-text");
     sceneSelection = document.getElementById("scene-selection");
-    arrow = document.getElementById("arrow");
+    arrow = document.getElementById("arrow-icon-entity");
+
 
     if (!earth) {
         console.error("❌ Fehler: 'earth' konnte nicht gefunden werden! Warte 500ms und versuche erneut...");
