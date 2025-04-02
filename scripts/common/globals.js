@@ -1,5 +1,5 @@
 // globals.js
-export let earth, hintText, infoBox, sceneSelection, arrow;
+export let earth, hintText, sceneSelection, arrow;
 
 export function initGlobals() {
     console.log("🌍 initGlobals() wird ausgeführt...");
@@ -7,7 +7,6 @@ export function initGlobals() {
     // Elemente abrufen und prüfen
     earth = document.getElementById("earth");
     hintText = document.getElementById("hint-text");
-    infoBox = document.getElementById("info-box");
     sceneSelection = document.getElementById("scene-selection");
     arrow = document.getElementById("arrow");
 
