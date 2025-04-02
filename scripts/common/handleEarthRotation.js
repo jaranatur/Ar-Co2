@@ -39,7 +39,8 @@ export function handleEarthRotation() {
     hintText.setAttribute("text", { ...currentText, opacity });
 
     // ➕ Pfeil ausblenden, wenn Text komplett transparent
-    if (opacity <= 0 && arrow) {
+    if (opacity < 0.05 && arrow) {
+
       hintText.setAttribute("visible", "false");
       arrow.setAttribute("visible", "false");
       console.log("🔕 Hinweis & Pfeil ausgeblendet");

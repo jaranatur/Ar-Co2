@@ -11,7 +11,7 @@ export function setupOverlayObserver() {
             sceneSelection.getAttribute("visible") === "true"
           ) {
             overlay.style.display = "flex";
-            console.log("📊 Eingabe-Overlay eingeblendet");
+            console.log("📊 Overlay eingeblendet");
           }
         }
       });
