@@ -10,11 +10,7 @@ export function handleEarthRotation() {
   console.log("✅ handleEarthRotation läuft!");
 
   const onTouchStart = (event) => {
-    if (!earth) {
-      console.error("⚠️ 'earth' ist NULL! Wurde initGlobals() aufgerufen?");
-      return;
-    }
-
+    if (!earth) return;
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
@@ -26,6 +22,7 @@ export function handleEarthRotation() {
     let deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
 
+    // ➕ Drehen
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
       x: currentRotation.x,
@@ -33,25 +30,31 @@ export function handleEarthRotation() {
       z: currentRotation.z
     });
 
+    // ➕ Fortschritt berechnen
     rotationProgress += Math.abs(deltaX);
+
+    // ➕ Text-Transparenz anpassen
     const opacity = Math.max(0, 1 - rotationProgress / 500);
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
 
-    if (opacity === 0) {
+    // ➕ Pfeil ausblenden, wenn Text komplett transparent
+    if (opacity <= 0 && arrow) {
       hintText.setAttribute("visible", "false");
-      if (arrow) arrow.setAttribute("visible", "false");
-      console.log("📝 Hinweistext & Pfeil ausgeblendet!");
+      arrow.setAttribute("visible", "false");
+      console.log("🔕 Hinweis & Pfeil ausgeblendet");
     }
 
+    // ➕ Erde skalieren
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
-    if (rotationProgress > 100 && !sceneTransitioned) {
+    // ➕ Wenn genug gedreht wurde, Szene starten
+    if (rotationProgress > 600 && !sceneTransitioned) {
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", "true");
-      console.log("🌍 Erde versteckt → sceneSelection sichtbar → Overlay erscheint");
+      console.log("🌍 Erde verschwunden → Overlay startet");
     }
   };
 
