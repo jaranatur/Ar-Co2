@@ -1,4 +1,4 @@
-export function setUpOverlayObserver() {
+export function setupOverlayObserver() {
     const sceneSelection = document.getElementById("scene-selection");
     const overlay = document.getElementById("input-overlay");
   
