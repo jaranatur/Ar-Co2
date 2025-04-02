@@ -35,30 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupInfoBoxLogic();
 });
 
-function setupInfoBoxLogic() {
-  const sceneSelection = document.getElementById("scene-selection");
-  const uiButtons = document.getElementById("ui-buttons");
-
-  if (sceneSelection && uiButtons) {
-    const observer = new MutationObserver((mutationsList) => {
-      for (const mutation of mutationsList) {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "visible" &&
-          sceneSelection.getAttribute("visible") === "true"
-        ) {
-          uiButtons.style.visibility = "visible";
-          uiButtons.style.opacity = "1";
-          console.log("✅ scene-selection sichtbar → Buttons eingeblendet");
-        }
-      }
-    });
-
-    observer.observe(sceneSelection, { attributes: true });
-  } else {
-    console.error("❌ sceneSelection oder uiButtons nicht gefunden!");
-  }
-}
 
 
 

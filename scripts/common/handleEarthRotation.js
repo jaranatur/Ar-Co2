@@ -1,4 +1,3 @@
-// scripts/common/handleEarthRotation.js
 import { earth, hintText, infoBox } from './globals.js';
 
 export function handleEarthRotation() {
@@ -9,6 +8,7 @@ export function handleEarthRotation() {
   let sceneTransitioned = false;
 
   const verstandenPlane = document.getElementById("verstandenPlane");
+  const AUTO_CLOSE_ENABLED = true; // <- HIER kannst du jederzeit wechseln
 
   console.log("✅ handleEarthRotation läuft!");
 
@@ -55,8 +55,20 @@ export function handleEarthRotation() {
       infoBox.setAttribute("visible", "true");
       console.log("🌍 Erde ausgeblendet, InfoBox sichtbar");
 
-      document.addEventListener("click", closeInfoBoxOnTap, { once: true });
-      document.addEventListener("touchstart", closeInfoBoxOnTap, { once: true });
+      if (AUTO_CLOSE_ENABLED) {
+        setTimeout(() => {
+          const infoBoxEl = document.getElementById("info-box");
+          const sceneSelectionEl = document.getElementById("scene-selection");
+          if (infoBoxEl && sceneSelectionEl) {
+            infoBoxEl.setAttribute("visible", "false");
+            sceneSelectionEl.setAttribute("visible", "true");
+            console.log("⏱ Info automatisch geschlossen → Szene sichtbar");
+          }
+        }, 4000); // 4 Sekunden sichtbar
+      } else {
+        document.addEventListener("click", closeInfoBoxOnTap, { once: true });
+        document.addEventListener("touchstart", closeInfoBoxOnTap, { once: true });
+      }
     }
   };
 
