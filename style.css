@@ -153,4 +153,10 @@ a-entity {
   }
   
   
-  
+  input,
+select,
+button,
+label {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
