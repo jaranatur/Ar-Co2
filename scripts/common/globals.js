@@ -9,7 +9,6 @@ export function initGlobals() {
     hintText = document.getElementById("hint-text");
     infoBox = document.getElementById("info-box");
     sceneSelection = document.getElementById("scene-selection");
-    bike = document.getElementById("scene-bike");
     arrow = document.getElementById("arrow");
 
     if (!earth) {
