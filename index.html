@@ -74,6 +74,54 @@
       ></a-camera>
     </a-scene>
 
+
+<!-- 🌱 HTML-Overlay für Eingaben (zuerst ausgeblendet) -->
+<div id="input-overlay" style="display: none;">
+  <div class="input-card">
+    <h2>Deine Nachhaltigkeits-Infos</h2>
+
+    <!-- Entfernung -->
+    <label for="distance">Wie weit wohnst du von der HSD entfernt? (in km)</label>
+    <input type="range" id="distance" name="distance" min="0" max="50" step="1" value="5" />
+    <span id="distance-value">5 km</span>
+
+    <!-- Verkehrsmittel -->
+    <label for="transport">Wie kommst du zur Uni?</label>
+    <select id="transport" name="transport">
+      <option value="auto">🚗 Auto (allein)</option>
+      <option value="carpool">🤝 Fahrgemeinschaft</option>
+      <option value="public">🚌 ÖPNV</option>
+      <option value="bike">🚲 Fahrrad</option>
+      <option value="walk">🚶 Zu Fuß</option>
+    </select>
+
+    <!-- Ernährung -->
+    <label for="diet">Wie ernährst du dich hauptsächlich?</label>
+    <select id="diet" name="diet">
+      <option value="meat-daily">🍖 Fleisch (täglich)</option>
+      <option value="meat-rare">🥩 Fleisch (selten)</option>
+      <option value="vegetarian">🥗 Vegetarisch</option>
+      <option value="vegan">🌱 Vegan</option>
+    </select>
+
+    <!-- Wasserverpackung -->
+    <label for="water">Welche Wasserverpackung nutzt du am häufigsten?</label>
+    <select id="water" name="water">
+      <option value="plastic">🧴 Plastik-Einweg</option>
+      <option value="glass-disposable">🍾 Glas-Einweg</option>
+      <option value="glass-returnable">🔁 Glas-Mehrweg</option>
+      <option value="tap-bottle">🚰 Leitungswasser (mit Flasche)</option>
+      <option value="tap-glass">🥛 Leitungswasser (Glas)</option>
+    </select>
+
+    <!-- Button -->
+    <button id="calculate-btn">✅ Bilanz berechnen</button>
+  </div>
+</div>
+
+
+
+
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>

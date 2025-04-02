@@ -94,35 +94,62 @@ a-entity {
     -webkit-user-select: none;
 }
  /* dikka will nciht mehr*/
-
- #ui-buttons {
+ #input-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
-    flex-wrap: nowrap;
-    gap: 12px;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 999;
-    max-width: 90vw;
-  
-    /* 👇 Das fügt Unsichtbarkeit hinzu */
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    padding: 1rem;
+    box-sizing: border-box;
   }
-  .ui-btn {
-    flex: 1 1 auto;                 /* Let buttons resize as needed */
-    white-space: nowrap;           /* Don't wrap text */
-    padding: 10px 16px;
-    border: none;
-    border-radius: 10px;
+  
+  .input-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-family: sans-serif;
+  }
+  
+  .input-card h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .input-card label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  
+  .input-card select,
+  .input-card input[type="range"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .input-card button {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0.8rem;
     background-color: #52b788;
     color: white;
-    font-size: 1.1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
   }
   
   
