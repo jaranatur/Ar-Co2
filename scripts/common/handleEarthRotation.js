@@ -39,12 +39,17 @@ export function handleEarthRotation() {
     hintText.setAttribute("text", { ...currentText, opacity });
 
     // ➕ Pfeil ausblenden, wenn Text komplett transparent
-    if (opacity < 0.05 && arrow) {
-
-      hintText.setAttribute("visible", "false");
-      arrow.setAttribute("visible", "false");
-      console.log("🔕 Hinweis & Pfeil ausgeblendet");
+    if (opacity < 0.2) {
+      if (hintText.getAttribute("visible") !== "false") {
+        hintText.setAttribute("visible", "false");
+      }
+      if (arrow && arrow.getAttribute("visible") !== "false") {
+        arrow.setAttribute("visible", "false");
+        console.log("⬇️ Pfeil ausgeblendet");
+      }
     }
+    
+    
 
     // ➕ Erde skalieren
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
