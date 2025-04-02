@@ -160,3 +160,8 @@ label {
   user-select: auto !important;
   -webkit-user-select: auto !important;
 }
+
+a-scene.overlay-active {
+    pointer-events: none !important;
+  }
+  
