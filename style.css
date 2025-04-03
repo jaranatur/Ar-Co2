@@ -1,159 +1,79 @@
 /* 🖥️ Grundlegendes Styling */
 body {
-
-    margin: 0;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    touch-action: manipulation; /* Verhindert ungewolltes Scrollen bei Touch */
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  touch-action: manipulation;
 }
 
-/* Einheitliche Schriftart für alle A-Frame Texte */
+/* Einheitliche Schriftart für A-Frame Texte */
 a-entity[text] {
-    font: exo2bold;
+  font: exo2bold;
 }
 
-/* 🎯 Zeiger anzeigen, falls es auf Desktop genutzt wird */
+/* 🎯 Desktop-Zeiger */
 a-entity {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-/* 📌 Falls du ein Overlay für Klicks hast, stelle sicher, dass es keine Touch-Events blockiert */
-#click-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: transparent;
-    pointer-events: none;
-    z-index: 10;
-}
-
-#tewt {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: transparent;
-    z-index: 10;
-}
-/* 🌍 Erde: Touch-Interaktionen fixen */
+/* 🌍 Erde: Touch-Interaktionen */
 #earth {
-    pointer-events: auto !important;
-    touch-action: manipulation !important; /* Kein komplettes Blockieren von Touch */
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
 }
 
 /* 📝 Info-Box Styling */
 #info-box {
-    background: #D8F3DC;
-    border-radius: 10px;
-    padding: 20px;
-    transition: opacity 0.5s ease-in-out;
-    pointer-events: auto; /* Stellt sicher, dass es anklickbar ist */
+  background: #d8f3dc;
+  border-radius: 10px;
+  padding: 20px;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: auto;
 }
 
 /* 📝 Text in der Info-Box */
 #info-box a-entity {
-    text-align: center;
-    color: #1B4332; /* Dunkelgrün */
-    font-family: exo2bold;
-    font-weight: bold;
-    font-size: 22px;
-    width: 2.5;
-    position: relative;
-    z-index: 2;
+  text-align: center;
+  color: #1b4332;
+  font-family: exo2bold;
+  font-weight: bold;
+  font-size: 22px;
+  width: 2.5;
+  position: relative;
+  z-index: 2;
 }
 
 /* 🎨 Schließen-Button */
 #btn-close-info {
-    background: #95D5B2;
-    color: #1B4332;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 20px;
-    transition: background 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    pointer-events: auto; /* Fix: Stellt sicher, dass es klickbar bleibt */
+  background: #95d5b2;
+  color: #1b4332;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  transition: background 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
-/* ✨ Hover Effekt für den Button (nur für Desktop) */
+/* ✨ Hover Effekt für Desktop */
 #btn-close-info:hover {
-    background: #74C69D;
-    box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
+  background: #74c69d;
+  box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
 }
 
-/* ⚠️ Szenen-Auswahl sichtbar machen */
+/* ⚠️ Szenen-Auswahl */
 #scene-selection {
-    display: block;
+  display: block;
 }
 
-/* 📱 Mobile Fix: Kein Text-Selektieren bei Touch */
+/* 📱 Verhindert Auswahl auf Touch */
 * {
-    user-select: none;
-    -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
- /* dikka will nciht mehr*/
- #input-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    padding: 1rem;
-    box-sizing: border-box;
-  }
-  
-  .input-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    font-family: sans-serif;
-  }
-  
-  .input-card h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  
-  .input-card label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-  }
-  
-  .input-card select,
-  .input-card input[type="range"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.25rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-  }
-  
-  .input-card button {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #52b788;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-  
-  
-  input,
+
+/* 🧠 Selektierbare Formfelder */
+input,
 select,
 button,
 label {
@@ -161,26 +81,70 @@ label {
   -webkit-user-select: auto !important;
 }
 
-a-scene.overlay-active {
-    pointer-events: none !important;
-  }
-  
+/* 📌 HTML Input-Overlay (zentriert) */
+#input-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
 
-  a-scene.overlay-active {
-    pointer-events: none !important;
-  }
+/* 📋 Karte innerhalb des Overlays */
+.input-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: sans-serif;
+}
 
-  #input-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    pointer-events: auto;
-    background-color: rgba(0,0,0,0.5); /* optional backdrop */
-  }
-  a-scene, canvas {
-    pointer-events: none !important;
-  }
-  
+.input-card h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.input-card label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.input-card select,
+.input-card input[type="range"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.input-card button {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #52b788;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* 🔧 A-Frame: Deaktiviere Touch, wenn HTML aktiv */
+a-scene,
+canvas {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
