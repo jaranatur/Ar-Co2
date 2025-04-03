@@ -150,6 +150,10 @@ canvas {
 }
 
 #back-btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #ccc;
   color: #333;
   padding: 0.6rem 1.2rem;
@@ -157,4 +161,5 @@ canvas {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  display: none;
 }
