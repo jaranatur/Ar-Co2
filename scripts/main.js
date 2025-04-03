@@ -39,17 +39,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-
 window.addEventListener("load", () => {
+  // 🟢 Fix canvas
   const canvas = document.querySelector("a-scene canvas");
-
   if (canvas) {
     console.log("✅ Canvas gefunden & fix wird angewendet.");
-    canvas.style.top = "0";
-    canvas.style.left = "0";
     canvas.style.zIndex = "1";
     canvas.style.pointerEvents = "none";
   } else {
     console.warn("⚠️ Kein A-Frame Canvas gefunden!");
   }
+
+  // 🧪 Debug overlay
+  const overlay = document.getElementById("input-overlay");
+
+  overlay.addEventListener("touchstart", (e) => {
+    console.log("👆 touchstart received by overlay");
+    overlay.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+  });
+
+  overlay.addEventListener("click", () => {
+    console.log("🖱️ click received by overlay");
+    alert("✅ Overlay clicked!");
+  });
+
+  document.addEventListener("touchstart", (e) => {
+    const target = document.elementFromPoint(
+      e.touches[0].clientX,
+      e.touches[0].clientY
+    );
+    console.log("👆 Touch target:", target?.id || target?.tagName);
+  });
 });
