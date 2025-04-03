@@ -45,7 +45,6 @@ window.addEventListener("load", () => {
 
   if (canvas) {
     console.log("✅ Canvas gefunden & fix wird angewendet.");
-    canvas.style.position = "fixed";
     canvas.style.top = "0";
     canvas.style.left = "0";
     canvas.style.zIndex = "1";
