@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   setupOverlayObserver();
 
-  // ✅ Slider label update
   const distanceSlider = document.getElementById("distance");
   const distanceValue = document.getElementById("distance-value");
 
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateValue();
   }
 
-  // ✅ Calculate button handler
   const calculateBtn = document.getElementById("calculate-btn");
 
   if (calculateBtn) {
@@ -79,6 +77,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("result-trees").textContent =
         `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
     }
+  }
+
+  const backButton = document.getElementById("back-button");
+
+  if (backButton) {
+    backButton.addEventListener("click", () => {
+      const card = document.querySelector(".input-card");
+      const resultBox = document.getElementById("result-box");
+
+      if (card && resultBox) {
+        card.style.display = "block";
+        resultBox.style.display = "none";
+      }
+    });
   }
 });
 
