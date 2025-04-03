@@ -3,10 +3,9 @@ export function setupOverlayObserver() {
 
   const sceneSelection = document.getElementById("scene-selection");
   const overlay = document.getElementById("input-overlay");
-  const aScene = document.querySelector("a-scene");
 
-  if (!sceneSelection || !overlay || !aScene) {
-    console.error("❌ sceneSelection, overlay oder <a-scene> NICHT gefunden!");
+  if (!sceneSelection || !overlay) {
+    console.error("❌ sceneSelection oder input-overlay NICHT gefunden!");
     return;
   }
 
@@ -21,8 +20,7 @@ export function setupOverlayObserver() {
 
         if (visible === "true") {
           overlay.style.display = "flex";
-          aScene.classList.add("overlay-active"); // 👉 blockiert A-Frame
-          console.log("📊 Overlay eingeblendet & A-Frame deaktiviert");
+          console.log("📊 Overlay eingeblendet");
         }
       }
     }

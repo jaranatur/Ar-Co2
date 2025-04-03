@@ -169,4 +169,18 @@ a-scene.overlay-active {
   a-scene.overlay-active {
     pointer-events: none !important;
   }
+
+  #input-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: auto;
+    background-color: rgba(0,0,0,0.5); /* optional backdrop */
+  }
+  a-scene, canvas {
+    pointer-events: none !important;
+  }
   
