@@ -40,5 +40,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
+window.addEventListener("load", () => {
+  const canvas = document.querySelector("a-scene canvas");
 
-
+  if (canvas) {
+    console.log("✅ Canvas gefunden & fix wird angewendet.");
+    canvas.style.position = "fixed";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.zIndex = "1";
+    canvas.style.pointerEvents = "none";
+  } else {
+    console.warn("⚠️ Kein A-Frame Canvas gefunden!");
+  }
+});
