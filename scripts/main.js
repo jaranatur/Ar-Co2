@@ -2,6 +2,7 @@ import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
+import { calculateFootprint } from './common/calculate.js';
 
 function requestMotionPermission() {
   if (
@@ -45,6 +46,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
     distanceSlider.addEventListener("input", updateValue);
     updateValue();
+  }
+
+  // ✅ Calculate button handler
+  const calculateBtn = document.getElementById("calculate-btn");
+
+  if (calculateBtn) {
+    calculateBtn.addEventListener("click", () => {
+      const distance = parseInt(document.getElementById("distance").value, 10);
+      const transport = document.getElementById("transport").value;
+      const diet = document.getElementById("diet").value;
+      const water = document.getElementById("water").value;
+
+      const result = calculateFootprint({ distance, transport, diet, water });
+
+      showResultOverlay(result);
+    });
+  }
+
+  function showResultOverlay(result) {
+    const card = document.querySelector(".input-card");
+    const resultBox = document.getElementById("result-box");
+
+    if (card && resultBox) {
+      card.style.display = "none";
+      resultBox.style.display = "block";
+
+      document.getElementById("result-summary").textContent =
+        `Du verursachst etwa ${result.totalKg} kg CO₂`;
+      document.getElementById("result-equivalent").textContent =
+        result.equivalent;
+      document.getElementById("result-trees").textContent =
+        `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+    }
   }
 });
 
