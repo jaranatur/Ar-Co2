@@ -3,8 +3,6 @@ import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 
-
-
 function requestMotionPermission() {
   if (
     typeof DeviceMotionEvent !== "undefined" &&
@@ -37,6 +35,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   setupOverlayObserver();
 
+  // ✅ Slider label update
+  const distanceSlider = document.getElementById("distance");
+  const distanceValue = document.getElementById("distance-value");
+
+  if (distanceSlider && distanceValue) {
+    const updateValue = () => {
+      distanceValue.textContent = `${distanceSlider.value} km`;
+    };
+    distanceSlider.addEventListener("input", updateValue);
+    updateValue();
+  }
 });
 
 window.addEventListener("load", () => {
@@ -45,7 +54,4 @@ window.addEventListener("load", () => {
     canvas.style.zIndex = "1";
     canvas.style.pointerEvents = "none";
   }
-
-
 });
-
