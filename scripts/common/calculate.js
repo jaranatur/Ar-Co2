@@ -1,6 +1,3 @@
-
-
-
 export function calculateFootprint({ distance, transport, diet, water }) {
     let total = 0;
   
@@ -55,11 +52,31 @@ export function calculateFootprint({ distance, transport, diet, water }) {
         break;
     }
   
-    // ✈️ Fun equivalent & 🌳 tree offset
     return {
       totalKg: total.toFixed(2),
       equivalent: "≈ Flug Berlin → Rom",
       trees: Math.ceil(total / 21)
     };
+  }
+  
+  // ➕ Show result in overlay
+  export function displayResult(result) {
+    const overlay = document.getElementById("input-overlay");
+    const resultEl = document.createElement("div");
+    resultEl.id = "result-box";
+    resultEl.innerHTML = `
+      <h3>🌍 Deine CO₂-Bilanz:</h3>
+      <p><strong>${result.totalKg} kg CO₂</strong></p>
+      <p>${result.equivalent}</p>
+      <p>🌳 Du müsstest ca. ${result.trees} Bäume pflanzen</p>
+      <button id="back-btn" style="margin-top: 1rem;">🔙 Zurück zur Eingabe</button>
+    `;
+    overlay.appendChild(resultEl);
+  
+    // 🎯 Show "Zurück" button
+    document.getElementById("back-btn").addEventListener("click", () => {
+      resultEl.remove();
+      overlay.scrollTop = 0; // optional
+    });
   }
   
