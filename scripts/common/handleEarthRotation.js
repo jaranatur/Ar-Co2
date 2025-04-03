@@ -11,6 +11,10 @@ export function handleEarthRotation() {
 
   const onTouchStart = (event) => {
     if (!earth) return;
+
+    // ✅ Ignore touches inside overlay
+    if (event.target.closest("#input-overlay")) return;
+
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
@@ -22,7 +26,6 @@ export function handleEarthRotation() {
     let deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
 
-    // ➕ Drehen
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
       x: currentRotation.x,
@@ -30,15 +33,12 @@ export function handleEarthRotation() {
       z: currentRotation.z
     });
 
-    // ➕ Fortschritt berechnen
     rotationProgress += Math.abs(deltaX);
 
-    // ➕ Text-Transparenz anpassen
     const opacity = Math.max(0, 1 - rotationProgress / 500);
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
 
-    // ➕ Pfeil ausblenden, wenn Text komplett transparent
     if (opacity < 0.2) {
       if (hintText.getAttribute("visible") !== "false") {
         hintText.setAttribute("visible", "false");
@@ -48,19 +48,15 @@ export function handleEarthRotation() {
         console.log("⬇️ Pfeil ausgeblendet");
       }
     }
-    
-    
 
-    // ➕ Erde skalieren
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
-    // ➕ Wenn genug gedreht wurde, Szene starten
     if (rotationProgress > 600 && !sceneTransitioned) {
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", true); // A-Frame sichtbar
-sceneSelection.setAttribute("data-visible", "true"); // Extra HTML-Attr. fürs DOM
+      sceneSelection.setAttribute("visible", true);
+      sceneSelection.setAttribute("data-visible", "true");
       console.log("🌍 Erde verschwunden → Overlay startet");
     }
   };
