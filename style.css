@@ -165,3 +165,8 @@ a-scene.overlay-active {
     pointer-events: none !important;
   }
   
+
+  a-scene.overlay-active {
+    pointer-events: none !important;
+  }
+  
