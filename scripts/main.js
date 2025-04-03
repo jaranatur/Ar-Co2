@@ -65,10 +65,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");
     const resultBox = document.getElementById("result-box");
+    const backBtn = document.getElementById("back-btn");
 
-    if (card && resultBox) {
+    if (card && resultBox && backBtn) {
       card.style.display = "none";
       resultBox.style.display = "block";
+      backBtn.style.display = "inline-block";
 
       document.getElementById("result-summary").textContent =
         `Du verursachst etwa ${result.totalKg} kg CO₂`;
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  const backButton = document.getElementById("back-button");
+  const backButton = document.getElementById("back-btn");
 
   if (backButton) {
     backButton.addEventListener("click", () => {
@@ -89,6 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (card && resultBox) {
         card.style.display = "block";
         resultBox.style.display = "none";
+        backButton.style.display = "none";
       }
     });
   }
