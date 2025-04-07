@@ -175,10 +175,10 @@ function showPlane() {
   plane.setAttribute("gltf-model", "#plane-model");
 
   // 👉 Startposition rechts oben, Rotation: leicht geneigt
-  plane.setAttribute("position", "2 2 0");
-  plane.setAttribute("scale", "0.8 0.8 0.8");
-  plane.setAttribute("rotation", "0 -90 10"); // von der Seite, leicht geneigt
-
+  plane.setAttribute("position", "0 1.5 -1");
+  plane.setAttribute("rotation", "0 180 0"); // falls es „von hinten“ ist
+  plane.setAttribute("scale", "0.5 0.5 0.5");
+  
   plane.setAttribute("animation", {
     property: "position",
     to: "-2 1.5 0",
