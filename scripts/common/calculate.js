@@ -1,3 +1,5 @@
+//calculate.js
+
 export function calculateFootprint({ distance, transport, diet, water }) {
     let total = 0;
   

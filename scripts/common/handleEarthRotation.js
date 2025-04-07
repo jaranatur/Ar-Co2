@@ -1,3 +1,4 @@
+//handleEarthRotation.js
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
