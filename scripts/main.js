@@ -122,20 +122,20 @@ function showTrees(result) {
     const tree = document.createElement("a-entity");
     tree.setAttribute("gltf-model", "#tree-model");
 
-    // Position weiter hinten & näher an der Mitte
+    // Position leicht nach hinten
     const angle = (i / treeCount) * Math.PI * 2;
-    const radius = 0.2 + Math.random() * 0.1;
+    const radius = 0.25 + Math.random() * 0.15;
     const x = Math.cos(angle) * radius;
-    const z = -0.5 + Math.sin(angle) * radius; // ➡️ leicht nach hinten
+    const z = -0.5 + Math.sin(angle) * radius;
 
-    const scale = (0.1 + Math.random() * 0.05).toFixed(2); // kleine Variation
+    const scale = (0.25 + Math.random() * 0.1).toFixed(2); // größerer Baum
 
     tree.setAttribute("position", `${x} 0 ${z}`);
     tree.setAttribute("scale", "0.001 0.001 0.001");
     tree.setAttribute("animation", {
       property: "scale",
       to: `${scale} ${scale} ${scale}`,
-      dur: 2500, // ⏳ langsamere Animation
+      dur: 4000, // ⏳ langsamer
       easing: "easeOutElastic"
     });
 
