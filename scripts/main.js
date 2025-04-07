@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       // ➕ Bäume in AR anzeigen
       showTrees(result);
+      setTimeout(() => showPlane(), 3000); 
     }
   }
   
@@ -143,4 +144,21 @@ function showTrees(result) {
   }
 
   marker.appendChild(container);
+}
+function showPlane() {
+  const marker = document.querySelector("a-marker");
+
+  const plane = document.createElement("a-entity");
+  plane.setAttribute("gltf-model", "#plane-model");
+  plane.setAttribute("position", "3 1 0");
+  plane.setAttribute("scale", "0.5 0.5 0.5");
+
+  plane.setAttribute("animation", {
+    property: "position",
+    to: "-3 1 0",
+    dur: 5000,
+    easing: "easeInOutSine"
+  });
+
+  marker.appendChild(plane);
 }
