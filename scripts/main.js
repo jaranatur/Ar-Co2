@@ -177,7 +177,7 @@ function showPlane() {
   // 👉 Startposition rechts oben, Rotation: leicht geneigt
   plane.setAttribute("position", "0 1.5 -1");
   plane.setAttribute("rotation", "0 180 0"); // falls es „von hinten“ ist
-  plane.setAttribute("scale", "0.5 0.5 0.5");
+  plane.setAttribute("scale", "4 4 4");
   
   plane.setAttribute("animation", {
     property: "position",
