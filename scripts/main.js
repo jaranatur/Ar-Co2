@@ -147,26 +147,23 @@ function showTrees(result) {
 }
 function showPlane() {
   const marker = document.querySelector("a-marker");
-  const oldPlane = document.getElementById("plane-entity");
-  if (oldPlane) oldPlane.remove(); // vorheriges löschen
 
   const plane = document.createElement("a-entity");
-  plane.setAttribute("id", "plane-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  // ✈️ Position oben + Rotation (von oben sichtbar)
-  plane.setAttribute("position", "-2 2 -0.5");
-  plane.setAttribute("rotation", "-90 0 0"); // von oben sichtbar
-  plane.setAttribute("scale", "0.3 0.3 0.3");
+  // 👉 Startposition rechts oben, Rotation: leicht geneigt
+  plane.setAttribute("position", "2 1.5 0");
+  plane.setAttribute("scale", "0.8 0.8 0.8");
+  plane.setAttribute("rotation", "0 -90 10"); // von der Seite, leicht geneigt
 
-  // ➡️ Animation von links oben nach rechts oben
   plane.setAttribute("animation", {
     property: "position",
-    to: "2 2 -0.5",
-    dur: 5000,
+    to: "-2 1.5 0",
+    dur: 7000,
     easing: "easeInOutSine"
   });
 
   marker.appendChild(plane);
 }
+
 
