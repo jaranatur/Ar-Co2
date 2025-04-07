@@ -72,40 +72,40 @@ document.addEventListener("DOMContentLoaded", async () => {
       resultBox.style.display = "block";
       backBtn.style.display = "inline-block";
   
-      // Clear previous text
       document.getElementById("result-summary").textContent = "";
       document.getElementById("result-equivalent").textContent = "";
       document.getElementById("result-trees").textContent = "";
   
-      // 🧾 1. Zeige CO₂-Gesamt
+      // 1️⃣ CO₂-Gesamtwert
       setTimeout(() => {
         document.getElementById("result-summary").textContent =
           `Du verursachst etwa ${result.totalKg} kg CO₂`;
       }, 0);
   
-      // 🌳 2. Baum-Vergleich
-      setTimeout(() => {
-        document.getElementById("result-trees").textContent =
-          `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
-      }, 1000);
-  
-      // 🪴 3. Baum-Animation
-      setTimeout(() => {
-        showTrees(result);
-      }, 2000);
-  
-      // ✈️ 4. Flugzeugtext
+      // 2️⃣ Flugzeug-Vergleich (Text)
       setTimeout(() => {
         document.getElementById("result-equivalent").textContent =
           result.equivalent;
-      }, 4000);
+      }, 2500);
   
-      // 🛫 5. Flugzeug fliegt
+      // 3️⃣ Flugzeug-Animation
       setTimeout(() => {
         showPlane();
       }, 5000);
+  
+      // 4️⃣ Baum-Vergleich (Text)
+      setTimeout(() => {
+        document.getElementById("result-trees").textContent =
+          `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+      }, 8000);
+  
+      // 5️⃣ Baum-Animation (AR)
+      setTimeout(() => {
+        showTrees(result);
+      }, 10500);
     }
   }
+  
   
   
 
