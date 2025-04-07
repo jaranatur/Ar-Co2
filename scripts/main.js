@@ -66,20 +66,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     const card = document.querySelector(".input-card");
     const resultBox = document.getElementById("result-box");
     const backBtn = document.getElementById("back-btn");
-
+  
     if (card && resultBox && backBtn) {
       card.style.display = "none";
       resultBox.style.display = "block";
       backBtn.style.display = "inline-block";
-
+  
       document.getElementById("result-summary").textContent =
         `Du verursachst etwa ${result.totalKg} kg CO₂`;
       document.getElementById("result-equivalent").textContent =
         result.equivalent;
       document.getElementById("result-trees").textContent =
         `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+      
+      // ➕ Bäume in AR anzeigen
+      showTrees(result);
     }
   }
+  
 
   const backButton = document.getElementById("back-btn");
 
@@ -104,3 +108,33 @@ window.addEventListener("load", () => {
     canvas.style.pointerEvents = "none";
   }
 });
+
+function showTrees(result) {
+  const marker = document.querySelector("a-marker");
+  const oldContainer = document.getElementById("tree-container");
+  if (oldContainer) oldContainer.remove(); // alte löschen, falls vorhanden
+
+  const container = document.createElement("a-entity");
+  container.setAttribute("id", "tree-container");
+
+  const treeCount = Math.min(result.trees, 20); // Maximal 20 Bäume
+
+  for (let i = 0; i < treeCount; i++) {
+    const tree = document.createElement("a-entity");
+    tree.setAttribute("gltf-model", "#tree-model");
+
+    // Zufällige Position rund um Marker
+    const angle = (i / treeCount) * Math.PI * 2;
+    const radius = 1 + Math.random() * 0.5;
+    const x = Math.cos(angle) * radius;
+    const z = Math.sin(angle) * radius;
+
+    tree.setAttribute("position", `${x} 0 ${z}`);
+    tree.setAttribute("scale", "0.3 0.3 0.3");
+    container.appendChild(tree);
+  }
+
+  marker.appendChild(container);
+}
+
+
