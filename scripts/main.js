@@ -72,18 +72,41 @@ document.addEventListener("DOMContentLoaded", async () => {
       resultBox.style.display = "block";
       backBtn.style.display = "inline-block";
   
-      document.getElementById("result-summary").textContent =
-        `Du verursachst etwa ${result.totalKg} kg CO₂`;
-      document.getElementById("result-equivalent").textContent =
-        result.equivalent;
-      document.getElementById("result-trees").textContent =
-        `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
-      
-      // ➕ Bäume in AR anzeigen
-      showTrees(result);
-      setTimeout(() => showPlane(), 3000); 
+      // Clear previous text
+      document.getElementById("result-summary").textContent = "";
+      document.getElementById("result-equivalent").textContent = "";
+      document.getElementById("result-trees").textContent = "";
+  
+      // 🧾 1. Zeige CO₂-Gesamt
+      setTimeout(() => {
+        document.getElementById("result-summary").textContent =
+          `Du verursachst etwa ${result.totalKg} kg CO₂`;
+      }, 0);
+  
+      // 🌳 2. Baum-Vergleich
+      setTimeout(() => {
+        document.getElementById("result-trees").textContent =
+          `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+      }, 1000);
+  
+      // 🪴 3. Baum-Animation
+      setTimeout(() => {
+        showTrees(result);
+      }, 2000);
+  
+      // ✈️ 4. Flugzeugtext
+      setTimeout(() => {
+        document.getElementById("result-equivalent").textContent =
+          result.equivalent;
+      }, 4000);
+  
+      // 🛫 5. Flugzeug fliegt
+      setTimeout(() => {
+        showPlane();
+      }, 5000);
     }
   }
+  
   
 
   const backButton = document.getElementById("back-btn");
@@ -152,7 +175,7 @@ function showPlane() {
   plane.setAttribute("gltf-model", "#plane-model");
 
   // 👉 Startposition rechts oben, Rotation: leicht geneigt
-  plane.setAttribute("position", "2 1.5 0");
+  plane.setAttribute("position", "2 2 0");
   plane.setAttribute("scale", "0.8 0.8 0.8");
   plane.setAttribute("rotation", "0 -90 10"); // von der Seite, leicht geneigt
 

@@ -164,3 +164,10 @@ canvas {
   cursor: pointer;
   display: none;
 }
+#result-box {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
