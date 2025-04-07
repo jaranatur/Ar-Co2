@@ -112,29 +112,41 @@ window.addEventListener("load", () => {
 function showTrees(result) {
   const marker = document.querySelector("a-marker");
   const oldContainer = document.getElementById("tree-container");
-  if (oldContainer) oldContainer.remove(); // alte löschen, falls vorhanden
+  if (oldContainer) oldContainer.remove();
 
   const container = document.createElement("a-entity");
   container.setAttribute("id", "tree-container");
 
-  const treeCount = Math.min(result.trees, 20); // Maximal 20 Bäume
+  const treeCount = Math.min(result.trees, 20);
 
   for (let i = 0; i < treeCount; i++) {
     const tree = document.createElement("a-entity");
     tree.setAttribute("gltf-model", "#tree-model");
 
-    // Zufällige Position rund um Marker
+    // 🌀 kleinere Radius, näher zur Mitte
     const angle = (i / treeCount) * Math.PI * 2;
-    const radius = 1 + Math.random() * 0.5;
+    const radius = 0.4 + Math.random() * 0.3; // enger um Marker
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
 
+    // 🎯 kleiner & variiert
+    const scale = (0.15 + Math.random() * 0.1).toFixed(2);
+
+    // 🪴 Wachstumsanimation
     tree.setAttribute("position", `${x} 0 ${z}`);
-    tree.setAttribute("scale", "0.3 0.3 0.3");
+    tree.setAttribute("scale", `0.001 0.001 0.001`); // Startpunkt
+    tree.setAttribute("animation__grow", {
+      property: "scale",
+      to: `${scale} ${scale} ${scale}`,
+      dur: 1200 + Math.random() * 500,
+      easing: "easeOutElastic"
+    });
+
     container.appendChild(tree);
   }
 
   marker.appendChild(container);
 }
+
 
 
