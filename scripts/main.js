@@ -108,7 +108,6 @@ window.addEventListener("load", () => {
     canvas.style.pointerEvents = "none";
   }
 });
-
 function showTrees(result) {
   const marker = document.querySelector("a-marker");
   const oldContainer = document.getElementById("tree-container");
@@ -123,22 +122,20 @@ function showTrees(result) {
     const tree = document.createElement("a-entity");
     tree.setAttribute("gltf-model", "#tree-model");
 
-    // 🌀 kleinere Radius, näher zur Mitte
+    // Position weiter hinten & näher an der Mitte
     const angle = (i / treeCount) * Math.PI * 2;
-    const radius = 0.4 + Math.random() * 0.3; // enger um Marker
+    const radius = 0.2 + Math.random() * 0.1;
     const x = Math.cos(angle) * radius;
-    const z = Math.sin(angle) * radius;
+    const z = -0.5 + Math.sin(angle) * radius; // ➡️ leicht nach hinten
 
-    // 🎯 kleiner & variiert
-    const scale = (0.15 + Math.random() * 0.1).toFixed(2);
+    const scale = (0.1 + Math.random() * 0.05).toFixed(2); // kleine Variation
 
-    // 🪴 Wachstumsanimation
     tree.setAttribute("position", `${x} 0 ${z}`);
-    tree.setAttribute("scale", `0.001 0.001 0.001`); // Startpunkt
-    tree.setAttribute("animation__grow", {
+    tree.setAttribute("scale", "0.001 0.001 0.001");
+    tree.setAttribute("animation", {
       property: "scale",
       to: `${scale} ${scale} ${scale}`,
-      dur: 1200 + Math.random() * 500,
+      dur: 2500, // ⏳ langsamere Animation
       easing: "easeOutElastic"
     });
 
@@ -147,6 +144,3 @@ function showTrees(result) {
 
   marker.appendChild(container);
 }
-
-
-
