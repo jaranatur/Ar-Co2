@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     resultBox.style.display = "block";
     backBtn.style.display = "none";
   
-    // 1️⃣ Sofort sichtbar
+    // 1️⃣ Sofort CO₂-Wert anzeigen
     const summary = document.getElementById("summary-box");
     summary.textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
     summary.style.opacity = 1;
@@ -84,16 +84,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       showPlane();
     }, 3000);
   
-    // 3️⃣ Baumanzahl (nach 5.5s)
+    // 3️⃣ Baumanzahl & Buttons (nach 6.5s)
     setTimeout(() => {
       const trees = document.getElementById("trees-box");
       trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
       trees.style.opacity = 1;
       showTrees(result);
+  
+      // ✅ Jetzt alle 3 Buttons anzeigen
       backBtn.style.display = "inline-block";
-    }, 6500); // ⏳ mehr Abstand zum Flugzeug
-    
+      document.getElementById("btn-hsd").style.display = "inline-block";
+      document.getElementById("btn-fact").style.display = "inline-block";
+    }, 6500);
   }
+  
   
  
   
