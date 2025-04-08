@@ -121,13 +121,12 @@
     <button id="calculate-btn">✅ Bilanz berechnen</button>
   </div>
   <!-- 🔍 Result Box (hidden by default) -->
-<div id="result-box" style="display: none; text-align: center;">
-  <h2>🌍 Dein CO₂-Fußabdruck</h2>
-  <p id="result-summary" class="result-box-text"></p>
-  <p id="result-equivalent" class="result-box-text"></p>
-  <p id="result-trees" class="result-box-text"></p>
+  <div id="result-box" style="display: none; text-align: center;">
+    <div id="summary-box" class="result-section"></div>
+    <div id="equivalent-box" class="result-section"></div>
+    <div id="trees-box" class="result-section"></div>
+  </div>
   
-</div>
 <!-- 🔁 Zurück-Button -->
 <!-- 🔙 Back Button (initially hidden) -->
 <button id="back-btn" style="display: none; margin-top: 1.5rem;">🔙 Zurück</button>

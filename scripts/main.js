@@ -67,44 +67,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     const resultBox = document.getElementById("result-box");
     const backBtn = document.getElementById("back-btn");
   
-    if (card && resultBox && backBtn) {
-      card.style.display = "none";
-      resultBox.style.display = "block";
+    card.style.display = "none";
+    resultBox.style.display = "block";
+    backBtn.style.display = "none";
+  
+    // 1️⃣ CO₂-Wert
+    setTimeout(() => {
+      document.getElementById("summary-box").textContent =
+        `Du verursachst etwa ${result.totalKg} kg CO₂`;
+    }, 1000);
+  
+    // 2️⃣ Flugzeug-Vergleich
+    setTimeout(() => {
+      document.getElementById("equivalent-box").textContent = result.equivalent;
+      showPlane();
+    }, 3000);
+  
+    // 3️⃣ Baum-Info
+    setTimeout(() => {
+      document.getElementById("trees-box").textContent =
+        `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+      showTrees(result);
       backBtn.style.display = "inline-block";
-  
-      document.getElementById("result-summary").textContent = "";
-      document.getElementById("result-equivalent").textContent = "";
-      document.getElementById("result-trees").textContent = "";
-  
-      // 1️⃣ CO₂-Gesamtwert
-      setTimeout(() => {
-        document.getElementById("result-summary").textContent =
-          `Du verursachst etwa ${result.totalKg} kg CO₂`;
-      }, 0);
-  
-      // 2️⃣ Flugzeug-Vergleich (Text)
-      setTimeout(() => {
-        document.getElementById("result-equivalent").textContent =
-          result.equivalent;
-      }, 2500);
-  
-      // 3️⃣ Flugzeug-Animation
-      setTimeout(() => {
-        showPlane();
-      }, 5000);
-  
-      // 4️⃣ Baum-Vergleich (Text)
-      setTimeout(() => {
-        document.getElementById("result-trees").textContent =
-          `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
-      }, 8000);
-  
-      // 5️⃣ Baum-Animation (AR)
-      setTimeout(() => {
-        showTrees(result);
-      }, 10500);
-    }
+    }, 5500);
   }
+ 
   
   
   
@@ -174,21 +161,20 @@ function showPlane() {
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  // ✅ Start links oben, Seitenansicht beibehalten
-  plane.setAttribute("position", "-2 2.2 -1");
-  plane.setAttribute("rotation", "0 90 0"); // Seitenansicht
-  plane.setAttribute("scale", "1.2 1.2 1.2");
+  plane.setAttribute("position", "-2 2.6 -1");     // ⬆️ höher
+  plane.setAttribute("rotation", "0 90 0");        // ⇨ Seitenansicht
+  plane.setAttribute("scale", "0.9 0.9 0.9");      // ⬇️ kleiner
 
-  // 🚀 Fluganimation: langsamer und sichtbar über Marker fliegen
   plane.setAttribute("animation", {
     property: "position",
-    to: "2 2.2 -1",
-    dur: 7000, // langsamer
+    to: "2 2.6 -1",
+    dur: 7000,
     easing: "easeInOutSine"
   });
 
   marker.appendChild(plane);
 }
+
 
 
 
