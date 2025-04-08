@@ -148,56 +148,57 @@ canvas {
   pointer-events: none !important;
   z-index: 0 !important;
 }
-
-
-  #btn-hsd, #btn-fact, #back-btn {
-    position: relative;
-    margin: 0.4rem auto;
-    display: block;
-    background-color: #ccc;
-    color: #333;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 10000;
-  }
-  
-
+/* Ergebnisbox oben */
 #result-box {
   position: absolute;
-  top: 1rem;                      /* ⬆️ höher im Bild */
+  top: 1rem;
   width: 100%;
   text-align: center;
   z-index: 10;
 }
 
-.result-box-text {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 0.4rem 0.8rem;         /* ⬇️ kompakter */
-  border-radius: 10px;           /* ⬇️ etwas kleiner */
-  margin-bottom: 0.4rem;         /* ⬇️ weniger Abstand */
-  font-weight: 500;
-  font-size: 1rem;
-  display: inline-block;
-  width: auto;
-}
-
+/* Einzelne Textzeilen */
 .result-section {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
-  padding: 0.4rem 0.8rem;         /* ⬇️ kompakter */
-  font-size: 1rem;               /* ⬇️ kleinerer Text */
-  line-height: 1.35;             /* dichterer Zeilenabstand */
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  line-height: 1.35;
   display: inline-block;
   width: auto;
-  margin-bottom: 0.4rem;         /* ⬇️ Boxen näher zusammen */
+  margin-bottom: 0.4rem;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
-/* Nur erste Box sichtbar zu Beginn */
+/* Nur erste Box sofort sichtbar */
 #summary-box {
   opacity: 1 !important;
+}
+
+/* Button-Container fix unten */
+#button-group {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 9999;
+  display: none; /* Anfangs verstecken */
+}
+
+/* Einheitliches Button-Styling */
+#back-btn,
+#btn-hsd,
+#btn-fact {
+  background-color: #ccc;
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); /* 🖤 dezente Umrandung */
 }

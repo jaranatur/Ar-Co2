@@ -90,12 +90,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
       trees.style.opacity = 1;
       showTrees(result);
-  
-      // ✅ Jetzt alle 3 Buttons anzeigen
-      backBtn.style.display = "inline-block";
-      document.getElementById("btn-hsd").style.display = "inline-block";
-      document.getElementById("btn-fact").style.display = "inline-block";
-    }, 6500);
+    
+      // Buttons anzeigen (jetzt später!)
+      document.getElementById("button-group").style.display = "flex";
+    }, 7500);
+    
   }
   
   
