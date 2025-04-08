@@ -92,12 +92,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       showTrees(result);
     
       const buttonGroup = document.getElementById("button-group");
-  if (buttonGroup) {
-    buttonGroup.style.display = "flex";
-  } else {
-    console.warn("⚠️ #button-group nicht gefunden!");
-  }
-}, 7500);
+      const backBtn = document.getElementById("back-btn"); // 👈 ergänzen
+      if (buttonGroup) {
+        buttonGroup.style.display = "flex";
+      }
+      if (backBtn) {
+        backBtn.style.display = "inline-block"; // 👈 zurück anzeigen!
+      }
+    }, 7500);
     
   }
   
