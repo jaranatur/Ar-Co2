@@ -175,30 +175,28 @@ canvas {
 #summary-box {
   opacity: 1 !important;
 }
-
-/* Button-Container fix unten */
 #button-group {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: 1.2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 0.6rem;
   z-index: 9999;
-  display: none; /* Anfangs verstecken */
 }
 
-/* Einheitliches Button-Styling */
-#back-btn,
-#btn-hsd,
-#btn-fact {
+#button-group button {
   background-color: #ccc;
   color: #333;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+  padding: 0.4rem 0.8rem;       /* ⬅️ flacher */
+  font-size: 0.95rem;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); /* 🖤 dezente Umrandung */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2); /* dezente Umrandung */
+  min-width: 100px;            /* gleichmäßige Breite */
+  max-width: 140px;
+  white-space: normal;         /* Text umbrechen */
+  text-align: center;
 }
