@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       trees.style.opacity = 1;
       showTrees(result);
       backBtn.style.display = "inline-block";
-    }, 5500);
+    }, 6500); // ⏳ mehr Abstand zum Flugzeug
+    
   }
   
  
@@ -164,14 +165,14 @@ function showPlane() {
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  plane.setAttribute("position", "-2 2.6 -1");     // ⬆️ höher
-  plane.setAttribute("rotation", "0 90 0");        // ⇨ Seitenansicht
-  plane.setAttribute("scale", "0.9 0.9 0.9");      // ⬇️ kleiner
+  plane.setAttribute("position", "-2 2.6 -1");     // Start weiter links
+  plane.setAttribute("rotation", "0 90 0");
+  plane.setAttribute("scale", "0.6 0.6 0.6");      // ⬇️ kleiner
 
   plane.setAttribute("animation", {
     property: "position",
-    to: "2 2.6 -1",
-    dur: 7000,
+    to: "5 2.6 -1",          // ⬅️ weiter rechts raus
+    dur: 3000,               // ⏩ schneller
     easing: "easeInOutSine"
   });
 

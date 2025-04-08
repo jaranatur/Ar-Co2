@@ -180,16 +180,18 @@ canvas {
 }
 
 .result-section {
-  background: rgba(255, 255, 255, 0.85); /* weißer Hintergrund */
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
   padding: 0.8rem 1rem;
-  font-size: 1.2rem;
-  display: inline-block;       /* nur so breit wie Text */
+  font-size: 1.05rem;       /* kleiner */
+  line-height: 1.4;         /* besser lesbar */
+  display: inline-block;
   width: auto;
   margin: 1rem auto;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
+
 
 /* Nur die erste Box ist sofort sichtbar */
 #summary-box {
