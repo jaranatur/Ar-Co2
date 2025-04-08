@@ -171,3 +171,10 @@ canvas {
   text-align: center;
   z-index: 10;
 }
+.result-box-text {
+  background-color: rgba(255, 255, 255, 0.85); /* Weiß, leicht transparent */
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 0.7rem;
+  font-weight: 500;
+}
