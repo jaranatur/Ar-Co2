@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       const water = document.getElementById("water").value;
 
       const result = calculateFootprint({ distance, transport, diet, water });
-
+      const oldTreeContainer = document.getElementById("tree-container");
+      if (oldTreeContainer) oldTreeContainer.remove();
+      
       showResultOverlay(result);
     });
   }
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     card.style.display = "none";
     resultBox.style.display = "block";
-    backBtn.style.display = "none";
+    // backBtn.style.display = "none";
 
     const summary = document.getElementById("summary-box");
     summary.textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
