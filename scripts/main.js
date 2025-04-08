@@ -175,19 +175,26 @@ function showPlane() {
   plane.setAttribute("gltf-model", "#plane-model");
 
   // 👉 Startposition rechts oben, Rotation: leicht geneigt
-plane.setAttribute("position", "-2 1.5 -1");       // Start weiter links
-plane.setAttribute("rotation", "0 90 0");          // Seitenansicht
-plane.setAttribute("scale", "1.5 1.5 1.5");        // Realistischer Maßstab
-
-plane.setAttribute("animation", {
-  property: "position",
-  to: "2 1.5 -1",                                  // Fliegt nach rechts
-  dur: 6000,
-  easing: "easeInOutSine"
-});
-
-
-  marker.appendChild(plane);
-}
+  plane.setAttribute("position", "-2 2.2 -1");             // höher starten
+  plane.setAttribute("rotation", "0 90 0");                // Seitenansicht
+  plane.setAttribute("scale", "1.2 1.2 1.2");              // kleiner
+  
+  // 🚀 Fluganimation (schneller)
+  plane.setAttribute("animation", {
+    property: "position",
+    to: "2 2.2 -1",
+    dur: 4000,
+    easing: "easeInOutSine"
+  });
+  
+  // 🌀 Schwebe-Effekt (hoch/runter)
+  plane.setAttribute("animation__float", {
+    property: "position",
+    dir: "alternate",
+    dur: 1000,
+    loop: true,
+    to: "-2 2.4 -1"
+  });
+  
 
 
