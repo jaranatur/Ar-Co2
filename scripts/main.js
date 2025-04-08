@@ -174,29 +174,30 @@ function showPlane() {
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  // 👉 Startposition rechts oben, Rotation: leicht geneigt
-  plane.setAttribute("position", "-2 2.2 -1");             // höher starten
-  plane.setAttribute("rotation", "0 90 0");                // Seitenansicht
-  plane.setAttribute("scale", "1.2 1.2 1.2");              // kleiner
-  
-  // 🚀 Fluganimation (schneller)
-  plane.setAttribute("animation", {
+  // 🎯 Klein & oben
+  plane.setAttribute("scale", "0.6 0.6 0.6");
+  plane.setAttribute("position", "-2 3 -1");
+  plane.setAttribute("rotation", "0 90 0");
+
+  // 🚀 Flugbewegung zügig über Szene (keine Loop)
+  plane.setAttribute("animation__fly", {
     property: "position",
-    to: "2 2.2 -1",
-    dur: 4000,
+    to: "2 3 -1",
+    dur: 2000,
     easing: "easeInOutSine"
   });
-  
-  // 🌀 Schwebe-Effekt (hoch/runter)
+
+  // ✨ Zusätzliches leichtes Schweben (dezent)
   plane.setAttribute("animation__float", {
     property: "position",
     dir: "alternate",
-    dur: 1000,
+    dur: 800,
     loop: true,
-    to: "-2 2.4 -1"
+    to: "-2 3.1 -1"
   });
 
   marker.appendChild(plane);
 }
+
 
 
