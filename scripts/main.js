@@ -117,8 +117,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (card && resultBox) {
         card.style.display = "block";
         resultBox.style.display = "none";
-        backButton.style.display = "none";
+        document.getElementById("button-group").style.display = "none";
       }
+      
     });
   }
 });
