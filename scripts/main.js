@@ -12,7 +12,7 @@ function requestMotionPermission() {
     DeviceMotionEvent.requestPermission()
       .then((response) => {
         if (response === "granted") {
-          console.log("📲 Bewegungssensor aktiviert!");
+          console.log("📲wwas  Bewegungssensor aktiviert!");
         } else {
           console.warn("⚠️ Bewegungssensor verweigert!");
         }
@@ -71,26 +71,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     resultBox.style.display = "block";
     backBtn.style.display = "none";
   
-    // 1️⃣ CO₂-Wert
-    setTimeout(() => {
-      document.getElementById("summary-box").textContent =
-        `Du verursachst etwa ${result.totalKg} kg CO₂`;
-    }, 1000);
+    // 1️⃣ Sofort sichtbar
+    const summary = document.getElementById("summary-box");
+    summary.textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
+    summary.style.opacity = 1;
   
-    // 2️⃣ Flugzeug-Vergleich
+    // 2️⃣ Flugzeug-Vergleich (nach 3s)
     setTimeout(() => {
-      document.getElementById("equivalent-box").textContent = result.equivalent;
+      const eq = document.getElementById("equivalent-box");
+      eq.textContent = result.equivalent;
+      eq.style.opacity = 1;
       showPlane();
     }, 3000);
   
-    // 3️⃣ Baum-Info
+    // 3️⃣ Baumanzahl (nach 5.5s)
     setTimeout(() => {
-      document.getElementById("trees-box").textContent =
-        `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich`;
+      const trees = document.getElementById("trees-box");
+      trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
+      trees.style.opacity = 1;
       showTrees(result);
       backBtn.style.display = "inline-block";
     }, 5500);
   }
+  
  
   
   
