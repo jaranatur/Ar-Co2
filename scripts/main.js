@@ -175,16 +175,17 @@ function showPlane() {
   plane.setAttribute("gltf-model", "#plane-model");
 
   // 👉 Startposition rechts oben, Rotation: leicht geneigt
-  plane.setAttribute("position", "0 1.5 -1");
-  plane.setAttribute("rotation", "0 180 0"); // falls es „von hinten“ ist
-  plane.setAttribute("scale", "4 4 4");
-  
-  plane.setAttribute("animation", {
-    property: "position",
-    to: "-2 1.5 0",
-    dur: 7000,
-    easing: "easeInOutSine"
-  });
+plane.setAttribute("position", "-2 1.5 -1");       // Start weiter links
+plane.setAttribute("rotation", "0 90 0");          // Seitenansicht
+plane.setAttribute("scale", "1.5 1.5 1.5");        // Realistischer Maßstab
+
+plane.setAttribute("animation", {
+  property: "position",
+  to: "2 1.5 -1",                                  // Fliegt nach rechts
+  dur: 6000,
+  easing: "easeInOutSine"
+});
+
 
   marker.appendChild(plane);
 }
