@@ -91,9 +91,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       trees.style.opacity = 1;
       showTrees(result);
     
-      // Buttons anzeigen (jetzt später!)
-      document.getElementById("button-group").style.display = "flex";
-    }, 7500);
+      const buttonGroup = document.getElementById("button-group");
+  if (buttonGroup) {
+    buttonGroup.style.display = "flex";
+  } else {
+    console.warn("⚠️ #button-group nicht gefunden!");
+  }
+}, 7500);
     
   }
   
@@ -153,9 +157,10 @@ function showTrees(result) {
     tree.setAttribute("animation", {
       property: "scale",
       to: `${scale} ${scale} ${scale}`,
-      dur: 4000, // ⏳ langsamer
+      dur: 7000,              // ⬅️ war 4000, jetzt langsamer
       easing: "easeOutElastic"
     });
+    
 
     container.appendChild(tree);
   }
