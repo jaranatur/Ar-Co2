@@ -195,6 +195,8 @@ function showPlane() {
     loop: true,
     to: "-2 2.4 -1"
   });
+
+  marker.appendChild(plane);
 }
 
 
