@@ -1,3 +1,4 @@
+<!-- 🔁 index.html FIXED -->
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -23,14 +24,13 @@
       arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;"
     >
 
-      <!-- ⬇️ Assets für Pfeil-Icon -->
+      <!-- ⬇️ Assets -->
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
         <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
       </a-assets>
-      
-      
+
       <!-- 📍 Marker -->
       <a-marker preset="hiro">
         <a-entity id="earth-container">
@@ -43,10 +43,9 @@
           ></a-entity>
         </a-entity>
 
-        <!-- 📦 Szene-Auswahl später sichtbar -->
         <a-entity id="scene-selection" visible="false"></a-entity>
 
-        <!-- 📝 Hinweistext -->
+        <!-- 📝 Willkommenstext -->
         <a-entity
           id="hint-text"
           position="0 2.5 -1"
@@ -56,16 +55,14 @@
 
         <!-- 🔽 Pfeil über Erde -->
         <a-entity
-        animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
-        id="arrow-icon-entity"
-  geometry="primitive: plane; height: 0.9; width: 0.9"
-  material="src: #arrow-icon; transparent: true; opacity: 0.8"
-  position="0 1.7 -1"
-  rotation="-90 0 0"
-  animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
-  animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;"
-></a-entity>
-
+          id="arrow-icon-entity"
+          geometry="primitive: plane; height: 0.9; width: 0.9"
+          material="src: #arrow-icon; transparent: true; opacity: 0.8"
+          position="0 1.7 -1"
+          rotation="-90 0 0"
+          animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
+          animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;"
+        ></a-entity>
       </a-marker>
 
       <!-- 🎥 Kamera -->
@@ -77,74 +74,60 @@
       ></a-camera>
     </a-scene>
 
+    <!-- 🌱 Overlay -->
+    <div id="input-overlay" style="display: none;">
+      <div class="input-card">
+        <h2>Deine Nachhaltigkeits-Infos</h2>
 
-<!-- 🌱 HTML-Overlay für Eingaben (zuerst ausgeblendet) -->
-<div id="input-overlay" style="display: none;">
-  <div class="input-card">
-    <h2>Deine Nachhaltigkeits-Infos</h2>
+        <!-- Fragen -->
+        <label for="distance">Wie weit wohnst du von der HSD entfernt? (in km)</label>
+        <input type="range" id="distance" name="distance" min="0" max="50" step="1" value="5" />
+        <span id="distance-value">5 km</span>
 
-    <!-- Entfernung -->
-    <label for="distance">Wie weit wohnst du von der HSD entfernt? (in km)</label>
-    <input type="range" id="distance" name="distance" min="0" max="50" step="1" value="5" />
-    <span id="distance-value">5 km</span>
+        <label for="transport">Wie kommst du zur Uni?</label>
+        <select id="transport" name="transport">
+          <option value="auto">🚗 Auto (allein)</option>
+          <option value="carpool">🤝 Fahrgemeinschaft</option>
+          <option value="public">🚌 ÖPNV</option>
+          <option value="bike">🚲 Fahrrad</option>
+          <option value="walk">🚶 Zu Fuß</option>
+        </select>
 
-    <!-- Verkehrsmittel -->
-    <label for="transport">Wie kommst du zur Uni?</label>
-    <select id="transport" name="transport">
-      <option value="auto">🚗 Auto (allein)</option>
-      <option value="carpool">🤝 Fahrgemeinschaft</option>
-      <option value="public">🚌 ÖPNV</option>
-      <option value="bike">🚲 Fahrrad</option>
-      <option value="walk">🚶 Zu Fuß</option>
-    </select>
+        <label for="diet">Wie ernährst du dich hauptsächlich?</label>
+        <select id="diet" name="diet">
+          <option value="meat-daily">🍖 Fleisch (täglich)</option>
+          <option value="meat-rare">🥩 Fleisch (selten)</option>
+          <option value="vegetarian">🥗 Vegetarisch</option>
+          <option value="vegan">🌱 Vegan</option>
+        </select>
 
-    <!-- Ernährung -->
-    <label for="diet">Wie ernährst du dich hauptsächlich?</label>
-    <select id="diet" name="diet">
-      <option value="meat-daily">🍖 Fleisch (täglich)</option>
-      <option value="meat-rare">🥩 Fleisch (selten)</option>
-      <option value="vegetarian">🥗 Vegetarisch</option>
-      <option value="vegan">🌱 Vegan</option>
-    </select>
+        <label for="water">Welche Wasserverpackung nutzt du am häufigsten?</label>
+        <select id="water" name="water">
+          <option value="plastic">🧴 Plastik-Einweg</option>
+          <option value="glass-disposable">🍾 Glas-Einweg</option>
+          <option value="glass-returnable">🔁 Glas-Mehrweg</option>
+          <option value="tap-bottle">🚰 Leitungswasser (mit Flasche)</option>
+          <option value="tap-glass">🥛 Leitungswasser (Glas)</option>
+        </select>
 
-    <!-- Wasserverpackung -->
-    <label for="water">Welche Wasserverpackung nutzt du am häufigsten?</label>
-    <select id="water" name="water">
-      <option value="plastic">🧴 Plastik-Einweg</option>
-      <option value="glass-disposable">🍾 Glas-Einweg</option>
-      <option value="glass-returnable">🔁 Glas-Mehrweg</option>
-      <option value="tap-bottle">🚰 Leitungswasser (mit Flasche)</option>
-      <option value="tap-glass">🥛 Leitungswasser (Glas)</option>
-    </select>
+        <button id="calculate-btn">✅ Bilanz berechnen</button>
+      </div>
 
-    <!-- Button -->
-    <button id="calculate-btn">✅ Bilanz berechnen</button>
-  </div>
-  <!-- 🔍 Result Box (hidden by default) -->
-  <div id="result-box" style="display: none; text-align: center;">
-    <div id="summary-box" class="result-section"></div>
-    <div id="equivalent-box" class="result-section"></div>
-    <div id="trees-box" class="result-section"></div>
-  </div>
-  
-<!-- 🔁 Zurück-Button -->
-<!-- 🔙 Back Button (initially hidden) -->
-<button id="back-btn" style="display: none; margin-top: 1.5rem;">🔙 Zurück</button>
+      <!-- Ergebnisse -->
+      <div id="result-box" style="display: none; text-align: center;">
+        <div id="summary-box" class="result-section"></div>
+        <div id="equivalent-box" class="result-section"></div>
+        <div id="trees-box" class="result-section"></div>
+      </div>
+    </div>
 
-<!-- 🏫 HSD-Modus -->
-<button id="btn-hsd" style="display: none; margin-top: 1rem;">🏫 HSD-Szenario</button>
-
-<!-- 💡 Fun Fact -->
-<button id="btn-fact" style="display: none; margin-top: 1rem;">💡 Wusstest du schon?</button>
-
-</div>
-
-
+    <!-- ✅ Fixierte Button-Leiste ganz am Ende -->
+    <div id="button-group" style="display: none;">
+      <button id="back-btn">🔙 Zurück</button>
+      <button id="btn-hsd">🏫 HSD-Szenario</button>
+      <button id="btn-fact">💡 Wusstest du schon?</button>
+    </div>
 
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
-
-
-
-<!-- dummer test -->
