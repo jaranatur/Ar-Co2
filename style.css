@@ -163,37 +163,39 @@ canvas {
   border-radius: 10px;
   cursor: pointer;
   display: none;
-}
-#result-box {
+}#result-box {
   position: absolute;
-  top: 2rem;
+  top: 1rem;                      /* ⬆️ höher im Bild */
   width: 100%;
   text-align: center;
   z-index: 10;
 }
+
 .result-box-text {
-  background-color: rgba(255, 255, 255, 0.85); /* Weiß, leicht transparent */
-  padding: 0.8rem 1rem;
-  border-radius: 12px;
-  margin-bottom: 0.7rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 0.4rem 0.8rem;         /* ⬇️ kompakter */
+  border-radius: 10px;           /* ⬇️ etwas kleiner */
+  margin-bottom: 0.4rem;         /* ⬇️ weniger Abstand */
   font-weight: 500;
+  font-size: 1rem;
+  display: inline-block;
+  width: auto;
 }
 
 .result-section {
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
-  font-size: 1.05rem;       /* kleiner */
-  line-height: 1.4;         /* besser lesbar */
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;         /* ⬇️ kompakter */
+  font-size: 1rem;               /* ⬇️ kleinerer Text */
+  line-height: 1.35;             /* dichterer Zeilenabstand */
   display: inline-block;
   width: auto;
-  margin: 1rem auto;
+  margin-bottom: 0.4rem;         /* ⬇️ Boxen näher zusammen */
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
-
-/* Nur die erste Box ist sofort sichtbar */
+/* Nur erste Box sichtbar zu Beginn */
 #summary-box {
   opacity: 1 !important;
 }

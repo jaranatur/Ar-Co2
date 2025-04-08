@@ -165,19 +165,19 @@ function showPlane() {
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  plane.setAttribute("position", "-2 2.6 -1");     // Start weiter links
+  plane.setAttribute("position", "-2 2.6 -1");
   plane.setAttribute("rotation", "0 90 0");
-  plane.setAttribute("scale", "0.6 0.6 0.6");      // ⬇️ kleiner
-
+  plane.setAttribute("scale", "0.4 0.4 0.4");    // kleiner
   plane.setAttribute("animation", {
     property: "position",
-    to: "5 2.6 -1",          // ⬅️ weiter rechts raus
-    dur: 3000,               // ⏩ schneller
+    to: "5 2.6 -1",                              // ganz raus
+    dur: 5000,                                   // ⬅️ etwas langsamer
     easing: "easeInOutSine"
   });
 
   marker.appendChild(plane);
 }
+
 
 
 
