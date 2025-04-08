@@ -174,30 +174,22 @@ function showPlane() {
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
 
-  // 🎯 Klein & oben
+  // ✅ Klein & oben
   plane.setAttribute("scale", "0.6 0.6 0.6");
-  plane.setAttribute("position", "-2 3 -1");
-  plane.setAttribute("rotation", "0 90 0");
+  plane.setAttribute("position", "-4 3 -1"); // weiter links starten
+  plane.setAttribute("rotation", "0 0 0");   // gerade ausgerichtet
 
-  // 🚀 Flugbewegung zügig über Szene (keine Loop)
-  plane.setAttribute("animation__fly", {
+  // ✈️ Deutliche Bewegung von links nach rechts, schnell
+  plane.setAttribute("animation", {
     property: "position",
-    to: "2 3 -1",
-    dur: 2000,
+    to: "4 3 -1",        // weiter nach rechts fliegen
+    dur: 1800,           // zügig in ~1.8s
     easing: "easeInOutSine"
-  });
-
-  // ✨ Zusätzliches leichtes Schweben (dezent)
-  plane.setAttribute("animation__float", {
-    property: "position",
-    dir: "alternate",
-    dur: 800,
-    loop: true,
-    to: "-2 3.1 -1"
   });
 
   marker.appendChild(plane);
 }
+
 
 
 
