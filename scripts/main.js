@@ -28,7 +28,6 @@ document.addEventListener("touchstart", requestMotionPermission, { once: true })
 
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("✅ main.js wurde geladen!");
-
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   initGlobals();
@@ -38,7 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const distanceSlider = document.getElementById("distance");
   const distanceValue = document.getElementById("distance-value");
-  const backBtn = document.getElementById("back-btn"); // 👈 EINHEITLICH verwenden
+  const backBtn = document.getElementById("back-btn");
+  const buttonGroup = document.getElementById("button-group");
 
   if (distanceSlider && distanceValue) {
     const updateValue = () => {
@@ -57,22 +57,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       const diet = document.getElementById("diet").value;
       const water = document.getElementById("water").value;
 
-      const result = calculateFootprint({ distance, transport, diet, water });
+      // 🌲 Vorherige Bäume entfernen
       const oldTreeContainer = document.getElementById("tree-container");
       if (oldTreeContainer) oldTreeContainer.remove();
-      
+
+      const result = calculateFootprint({ distance, transport, diet, water });
       showResultOverlay(result);
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      const card = document.querySelector(".input-card");
+      const resultBox = document.getElementById("result-box");
+
+      if (card && resultBox && buttonGroup) {
+        card.style.display = "block";
+        resultBox.style.display = "none";
+        buttonGroup.style.display = "none";
+      }
     });
   }
 
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");
     const resultBox = document.getElementById("result-box");
-    const buttonGroup = document.getElementById("button-group");
 
     card.style.display = "none";
     resultBox.style.display = "block";
-    // backBtn.style.display = "none";
 
     const summary = document.getElementById("summary-box");
     summary.textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
@@ -92,22 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       showTrees(result);
 
       if (buttonGroup) buttonGroup.style.display = "flex";
-      if (backBtn) backBtn.style.display = "inline-block";
     }, 8500);
-  }
-
-  if (backBtn) {
-    backBtn.addEventListener("click", () => {
-      const card = document.querySelector(".input-card");
-      const resultBox = document.getElementById("result-box");
-      const buttonGroup = document.getElementById("button-group");
-
-      if (card && resultBox && buttonGroup) {
-        card.style.display = "block";
-        resultBox.style.display = "none";
-        buttonGroup.style.display = "none";
-      }
-    });
   }
 });
 
