@@ -70,14 +70,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     backBtn.addEventListener("click", () => {
       const card = document.querySelector(".input-card");
       const resultBox = document.getElementById("result-box");
-
-      if (card && resultBox && buttonGroup) {
-        card.style.display = "block";
-        resultBox.style.display = "none";
-        buttonGroup.style.display = "none";
+  
+      // ✅ UI zurücksetzen
+      if (card) card.style.display = "block";
+      if (resultBox) resultBox.style.display = "none";
+      if (buttonGroup) buttonGroup.style.display = "none";
+  
+      // ✅ Texte wieder ausblenden
+      const summary = document.getElementById("summary-box");
+      const eq = document.getElementById("equivalent-box");
+      const trees = document.getElementById("trees-box");
+      if (summary) summary.style.opacity = 0;
+      if (eq) eq.style.opacity = 0;
+      if (trees) trees.style.opacity = 0;
+  
+      // ✅ Bäume entfernen
+      const treeContainer = document.getElementById("tree-container");
+      if (treeContainer) treeContainer.remove();
+  
+      // ✅ Flugzeug entfernen (optional)
+      const marker = document.querySelector("a-marker");
+      if (marker) {
+        const planes = marker.querySelectorAll('[gltf-model="#plane-model"]');
+        planes.forEach(p => p.remove());
       }
     });
   }
+  
 
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");
