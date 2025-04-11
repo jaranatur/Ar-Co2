@@ -1,4 +1,3 @@
-<!-- 🔁 index.html FIXED -->
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -23,15 +22,12 @@
       vr-mode-ui="enabled: false"
       arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; displayDeviceOrientationPermissionPrompt: false; deviceOrientationEnabled: false;"
     >
-
-      <!-- ⬇️ Assets -->
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
         <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
       </a-assets>
 
-      <!-- 📍 Marker -->
       <a-marker preset="hiro">
         <a-entity id="earth-container">
           <a-entity
@@ -45,7 +41,6 @@
 
         <a-entity id="scene-selection" visible="false"></a-entity>
 
-        <!-- 📝 Willkommenstext -->
         <a-entity
           id="hint-text"
           position="0 2.5 -1"
@@ -53,7 +48,6 @@
           text="value: Willkommen!\nDrehe die Erde,\num deine Nachhaltigkeit zu entdecken :) ; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt; opacity: 1;"
         ></a-entity>
 
-        <!-- 🔽 Pfeil über Erde -->
         <a-entity
           id="arrow-icon-entity"
           geometry="primitive: plane; height: 0.9; width: 0.9"
@@ -65,7 +59,6 @@
         ></a-entity>
       </a-marker>
 
-      <!-- 🎥 Kamera -->
       <a-camera
         position="0 0 0"
         look-controls="enabled: false"
@@ -79,12 +72,23 @@
       <div class="input-card">
         <h2>Deine Nachhaltigkeits-Infos</h2>
 
-        <!-- Fragen -->
-        <label for="distance">Wie weit wohnst du von der HSD entfernt? (in km)</label>
+        <!-- 🏫 Anwesenheitstage -->
+        <label for="days">🗓️ Wie oft bist du pro Woche an der HSD?</label>
+        <select id="days" name="days">
+          <option value="1">1 Tag</option>
+          <option value="2">2 Tage</option>
+          <option value="3">3 Tage</option>
+          <option value="4">4 Tage</option>
+          <option value="5">5 Tage</option>
+        </select>
+
+        <!-- 📍 Entfernung -->
+        <label for="distance">📍 Wie weit wohnst du von der HSD entfernt? (in km)</label>
         <input type="range" id="distance" name="distance" min="0" max="50" step="1" value="5" />
         <span id="distance-value">5 km</span>
 
-        <label for="transport">Wie kommst du zur Uni?</label>
+        <!-- 🚙 Verkehrsmittel -->
+        <label for="transport">🚙 Wie kommst du meistens zur HSD?</label>
         <select id="transport" name="transport">
           <option value="auto">🚗 Auto (allein)</option>
           <option value="carpool">🤝 Fahrgemeinschaft</option>
@@ -93,23 +97,54 @@
           <option value="walk">🚶 Zu Fuß</option>
         </select>
 
-        <label for="diet">Wie ernährst du dich hauptsächlich?</label>
+        <!-- 🍽️ Mensa-Häufigkeit -->
+        <label for="meals">🍽️ Wie oft isst du pro Woche in der Mensa?</label>
+        <select id="meals" name="meals">
+          <option value="0">Nie</option>
+          <option value="1">1x</option>
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+          <option value="4">4x</option>
+          <option value="5">5x</option>
+        </select>
+        <!-- 🥦 Essverhalten -->
+        <label for="diet">🥦 Was isst du in der Mensa meistens?</label>
         <select id="diet" name="diet">
-          <option value="meat-daily">🍖 Fleisch (täglich)</option>
-          <option value="meat-rare">🥩 Fleisch (selten)</option>
+          <option value="meat-daily">🍖 Fleischgericht</option>
           <option value="vegetarian">🥗 Vegetarisch</option>
           <option value="vegan">🌱 Vegan</option>
         </select>
 
-        <label for="water">Welche Wasserverpackung nutzt du am häufigsten?</label>
+        <!-- 💧 Wasserverhalten -->
+        <label for="water">💧 Wie trinkst du an der HSD meistens Wasser?</label>
         <select id="water" name="water">
-          <option value="plastic">🧴 Plastik-Einweg</option>
-          <option value="glass-disposable">🍾 Glas-Einweg</option>
-          <option value="glass-returnable">🔁 Glas-Mehrweg</option>
-          <option value="tap-bottle">🚰 Leitungswasser (mit Flasche)</option>
-          <option value="tap-glass">🥛 Leitungswasser (Glas)</option>
+          <option value="bought">🧴 Ich kaufe Flaschen (egal ob Glas/Plastik)</option>
+          <option value="own-bottle">🔁 Ich bringe meine eigene Flasche mit</option>
+          <option value="glass">🥛 Ich trinke direkt (z. B. Glas, Tasse)</option>
         </select>
 
+        <!-- 📄 Papierverbrauch -->
+        <label for="paper">📄 Wie oft druckst du Uni-Material?</label>
+        <select id="paper" name="paper">
+          <option value="none">📱 Nie</option>
+          <option value="rare">📄 1x im Monat</option>
+          <option value="medium">🖨️ 1x pro Woche</option>
+          <option value="often">🧾 Mehrmals pro Woche</option>
+        </select>
+
+        <!-- 💻 Digitale Nutzung -->
+        <label for="screen">💻 Wie viele Stunden nutzt du täglich Zoom/Streaming/Online-Plattformen?</label>
+        <input type="range" id="screen" name="screen" min="0" max="10" step="1" value="2" />
+        <span id="screen-value">2 Stunden</span>
+
+        <!-- ✈️ Flugreise -->
+        <label for="abroad">✈️ Warst du auf einem Auslandssemester oder einer Studienreise?</label>
+        <select id="abroad" name="abroad">
+          <option value="no">❌ Nein</option>
+          <option value="yes">✈️ Ja</option>
+        </select>
+
+        <!-- 🧮 Bilanz -->
         <button id="calculate-btn">✅ Bilanz berechnen</button>
       </div>
 
@@ -121,7 +156,7 @@
       </div>
     </div>
 
-    <!-- ✅ Fixierte Button-Leiste ganz am Ende -->
+    <!-- ✅ Fixierte Button-Leiste -->
     <div id="button-group" style="display: none;">
       <button id="back-btn">🔙 Zurück</button>
       <button id="btn-hsd">🏫 HSD-Szenario</button>
