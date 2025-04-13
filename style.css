@@ -200,3 +200,11 @@ canvas {
   white-space: normal;         /* Text umbrechen */
   text-align: center;
 }
+
+ /* ✅ SCROLLBARES FORMULAR-AREA */
+.input-card {
+  max-height: 80vh;              /* begrenze die Höhe des Formulars */
+  overflow-y: auto;              /* mache es scrollbar bei Bedarf */
+  padding-right: 1rem;           /* damit Scrollbar Inhalte nicht überlappt */
+  scroll-behavior: smooth;       /* smooth scrollen */
+}
