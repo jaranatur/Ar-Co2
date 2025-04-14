@@ -4,35 +4,27 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
-// ✅ Bewegungssensor + Kamera (iOS-Kompatibilität)
-function requestPermissions() {
-  // Bewegungssensor (iOS)
+// 📲 Bewegungssensor & Kamera-Freigabe für iOS
+function requestMotionPermission() {
   if (
     typeof DeviceMotionEvent !== "undefined" &&
     typeof DeviceMotionEvent.requestPermission === "function"
   ) {
     DeviceMotionEvent.requestPermission()
-      .then(response => {
+      .then((response) => {
         if (response === "granted") {
-          console.log("✅ Bewegungssensor erlaubt");
+          console.log("📲 Bewegungssensor aktiviert!");
         } else {
-          console.warn("❌ Bewegungssensor verweigert");
+          console.warn("⚠️ Bewegungssensor verweigert!");
         }
       })
       .catch(console.error);
   } else {
-    console.log("✅ Keine Bewegungssensor-Erlaubnis nötig");
-  }
-
-  // Kamera-Zugriff triggern (manche Browser blockieren ohne Interaktion)
-  const scene = document.querySelector("a-scene");
-  if (scene && scene.enterVR) {
-    scene.enterVR(); // manche Geräte benötigen diesen Trigger
+    console.log("✅ Keine zusätzliche Berechtigung nötig.");
   }
 }
-
-document.addEventListener("click", requestPermissions, { once: true });
-document.addEventListener("touchstart", requestPermissions, { once: true });
+document.addEventListener("click", requestMotionPermission, { once: true });
+document.addEventListener("touchstart", requestMotionPermission, { once: true });
 
 // 🌍 Donut-Style CO₂-Anzeige live aktualisieren
 function updateLiveBall(totalKg) {
@@ -40,20 +32,21 @@ function updateLiveBall(totalKg) {
   const meter = document.getElementById("donut-meter");
   const value = ball.querySelector(".co2-value");
 
-  const percent = Math.min((totalKg / 100) * 100, 100);
+  const percent = Math.min((totalKg / 100) * 100, 100); // max 100%
   meter.setAttribute("stroke-dasharray", `${percent} ${100 - percent}`);
   value.textContent = `${Math.round(totalKg)} kg`;
 
   const kg = parseFloat(totalKg);
   if (kg < 50) {
-    meter.setAttribute("stroke", "#52b788");
+    meter.setAttribute("stroke", "#52b788"); // grün
   } else if (kg <= 100) {
-    meter.setAttribute("stroke", "#f4a261");
+    meter.setAttribute("stroke", "#f4a261"); // gelb
   } else {
-    meter.setAttribute("stroke", "#e76f51");
+    meter.setAttribute("stroke", "#e76f51"); // rot
   }
 }
 
+// 🎯 Donut nur sichtbar, wenn Overlay aktiv ist
 const overlayObserver = new MutationObserver(() => {
   const overlay = document.querySelector(".input-card");
   const co2Indicator = document.getElementById("co2-indicator");
@@ -66,26 +59,16 @@ const overlayObserver = new MutationObserver(() => {
 overlayObserver.observe(document.body, { attributes: true, subtree: true });
 
 function collectInputs() {
-  const distance = parseInt(document.getElementById("distance").value, 10);
-  const transport = document.getElementById("transport").value;
-  const daysPerWeek = parseInt(document.getElementById("days").value, 10);
-  const mealsPerWeek = parseInt(document.getElementById("meals").value, 10);
-  const diet = document.getElementById("diet").value;
-  const water = document.getElementById("water").value;
-  const paper = document.getElementById("paper").value;
-  const screenHoursPerDay = parseFloat(document.getElementById("screen").value);
-  const abroad = document.getElementById("abroad").value === "yes";
-
   return {
-    distance,
-    transport,
-    daysPerWeek,
-    mealsPerWeek,
-    diet,
-    water,
-    paper,
-    screenHoursPerDay,
-    abroad
+    distance: parseInt(document.getElementById("distance").value, 10),
+    transport: document.getElementById("transport").value,
+    daysPerWeek: parseInt(document.getElementById("days").value, 10),
+    mealsPerWeek: parseInt(document.getElementById("meals").value, 10),
+    diet: document.getElementById("diet").value,
+    water: document.getElementById("water").value,
+    paper: document.getElementById("paper").value,
+    screenHoursPerDay: parseFloat(document.getElementById("screen").value),
+    abroad: document.getElementById("abroad").value === "yes"
   };
 }
 
@@ -122,7 +105,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const calculateBtn = document.getElementById("calculate-btn");
-
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
       const inputs = collectInputs();
@@ -136,7 +118,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     backBtn.addEventListener("click", () => {
       const card = document.querySelector(".input-card");
       const resultBox = document.getElementById("result-box");
-
       if (card) card.style.display = "block";
       if (resultBox) resultBox.style.display = "none";
       if (buttonGroup) buttonGroup.style.display = "none";
@@ -162,7 +143,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");
     const resultBox = document.getElementById("result-box");
-
     card.style.display = "none";
     resultBox.style.display = "block";
 
@@ -181,9 +161,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const trees = document.getElementById("trees-box");
       trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
       trees.style.opacity = 1;
-      showTrees(result);
-
       if (buttonGroup) buttonGroup.style.display = "flex";
+      showTrees(result);
     }, 8500);
   }
 });
@@ -197,17 +176,14 @@ function showTrees(result) {
   container.setAttribute("id", "tree-container");
 
   const treeCount = Math.min(result.trees, 20);
-
   for (let i = 0; i < treeCount; i++) {
     const tree = document.createElement("a-entity");
     tree.setAttribute("gltf-model", "#tree-model");
-
     const angle = (i / treeCount) * Math.PI * 2;
     const radius = 0.25 + Math.random() * 0.15;
     const x = Math.cos(angle) * radius;
     const z = -0.5 + Math.sin(angle) * radius;
     const scale = (0.25 + Math.random() * 0.1).toFixed(2);
-
     tree.setAttribute("position", `${x} 0 ${z}`);
     tree.setAttribute("scale", "0.001 0.001 0.001");
     tree.setAttribute("animation", {
@@ -216,7 +192,6 @@ function showTrees(result) {
       dur: 7000,
       easing: "easeOutElastic"
     });
-
     container.appendChild(tree);
   }
 
@@ -225,7 +200,6 @@ function showTrees(result) {
 
 function showPlane() {
   const marker = document.querySelector("a-marker");
-
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
   plane.setAttribute("position", "-2 2.6 -1");
@@ -237,6 +211,5 @@ function showPlane() {
     dur: 5000,
     easing: "easeInOutSine"
   });
-
   marker.appendChild(plane);
 }
