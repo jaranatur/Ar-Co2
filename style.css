@@ -200,17 +200,22 @@ canvas {
   white-space: normal;         /* Text umbrechen */
   text-align: center;
 }
-
- /* ✅ SCROLLBARES FORMULAR – nur vertikal */
- .input-card {
-  max-height: 75vh;                 /* etwas weniger, damit unten Platz bleibt */
+.input-card {
+  max-height: 75vh;                 /* genug Platz für Inhalte */
   overflow-y: auto;                 /* nur vertikales Scrollen erlauben */
   overflow-x: hidden;               /* horizontales Scrollen unterdrücken */
   padding-right: 1rem;
-  padding-bottom: 6rem;            /* genug Abstand für Button */
+  padding-bottom: 6rem;             /* Abstand nach unten für Button */
   scroll-behavior: smooth;
-  box-sizing: border-box;          /* Padding wird korrekt mitgerechnet */
-  word-wrap: break-word;           /* lange Wörter umbrechen */
-  overflow-wrap: break-word;       /* zusätzliche Sicherheit für Text */
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  margin-top: 2vh;                 /* weniger Abstand oben */
+  margin-bottom: 4vh;              /* mehr Abstand unten */
+  
+  width: 95%;                      /* Breiter, aber mit etwas Rand */
+  max-width: 480px;                /* aber nicht zu groß auf großen Bildschirmen */
 }
+
 
