@@ -4,23 +4,37 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
-// 🌍 CO₂-Ball live aktualisieren
+// 🌍 Donut-Style CO₂-Anzeige live aktualisieren
 function updateLiveBall(totalKg) {
-  const ball = document.getElementById("co2-ball");
+  const ball = document.getElementById("co2-indicator");
+  const meter = document.getElementById("donut-meter");
   const value = ball.querySelector(".co2-value");
 
-  value.textContent = `${totalKg} kg`;
+  const percent = Math.min((totalKg / 100) * 100, 100); // max 100%
+  meter.setAttribute("stroke-dasharray", `${percent} ${100 - percent}`);
+  value.textContent = `${Math.round(totalKg)} kg`;
 
   const kg = parseFloat(totalKg);
   if (kg < 50) {
-    ball.style.backgroundColor = "#52b788"; // grün
+    meter.setAttribute("stroke", "#52b788"); // grün
   } else if (kg <= 100) {
-    ball.style.backgroundColor = "#f4a261"; // gelb
+    meter.setAttribute("stroke", "#f4a261"); // gelb
   } else {
-    ball.style.backgroundColor = "#e76f51"; // rot
+    meter.setAttribute("stroke", "#e76f51"); // rot
   }
 }
 
+// 🎯 Nur sichtbar, wenn Overlay aktiv ist
+const overlayObserver = new MutationObserver(() => {
+  const overlay = document.querySelector(".input-card");
+  const co2Indicator = document.getElementById("co2-indicator");
+  if (overlay && overlay.style.display === "block") {
+    co2Indicator.classList.remove("hidden");
+  } else {
+    co2Indicator.classList.add("hidden");
+  }
+});
+overlayObserver.observe(document.body, { attributes: true, subtree: true });
 
 function collectInputs() {
   const distance = parseInt(document.getElementById("distance").value, 10);
@@ -92,8 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? `${hours} Std ${minutes}`
         : `${hours} Stunden`;
 
-      // 💡 Live-Footprint aktualisieren
-      const inputs = collectInputs(); // vorausgesetzt collectInputs wird ergänzt
+      const inputs = collectInputs();
       const result = calculateFootprint(inputs);
       updateLiveBall(result.totalKg);
     };
@@ -107,6 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     calculateBtn.addEventListener("click", () => {
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
+      updateLiveBall(result.totalKg);
       showResultOverlay(result);
     });
   }
