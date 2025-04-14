@@ -10,7 +10,7 @@ function updateLiveBall(totalKg) {
   const meter = document.getElementById("donut-meter");
   const value = ball.querySelector(".co2-value");
 
-  const percent = Math.min((totalKg / 100) * 100, 100); // max 100%
+  const percent = Math.min((totalKg / 100) * 100, 100);
   meter.setAttribute("stroke-dasharray", `${percent} ${100 - percent}`);
   value.textContent = `${Math.round(totalKg)} kg`;
 
@@ -24,7 +24,7 @@ function updateLiveBall(totalKg) {
   }
 }
 
-// 🎯 Nur sichtbar, wenn Overlay aktiv ist
+// 🎯 CO₂-Ball nur sichtbar wenn Overlay sichtbar
 const overlayObserver = new MutationObserver(() => {
   const overlay = document.querySelector(".input-card");
   const co2Indicator = document.getElementById("co2-indicator");
@@ -86,10 +86,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("✅ main.js wurde geladen!");
   await new Promise((resolve) => setTimeout(resolve, 500));
 
+  // 👉 Erst Szene & 3D-Logik
   initGlobals();
   initScene();
   handleEarthRotation();
+
+  // 👉 Dann Overlay-Logik
   setupOverlayObserver();
+
+  // 👉 Donut-Ball initial auf 0 setzen
+  updateLiveBall(0);
 
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
@@ -178,14 +184,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (buttonGroup) buttonGroup.style.display = "flex";
     }, 8500);
-  }
-});
-
-window.addEventListener("load", () => {
-  const canvas = document.querySelector("a-scene canvas");
-  if (canvas) {
-    canvas.style.zIndex = "1";
-    canvas.style.pointerEvents = "none";
   }
 });
 
