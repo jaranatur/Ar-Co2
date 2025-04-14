@@ -35,17 +35,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   setupOverlayObserver();
 
-  const distanceSlider = document.getElementById("distance");
-  const distanceValue = document.getElementById("distance-value");
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
 
-  if (distanceSlider && distanceValue) {
-    const updateValue = () => {
-      distanceValue.textContent = `${distanceSlider.value} km`;
+  // 💻 Streaming-Slider live anzeigen
+  const screenSlider = document.getElementById("screen");
+  const screenValue = document.getElementById("screen-value");
+
+  if (screenSlider && screenValue) {
+    const updateScreenValue = () => {
+      const val = parseFloat(screenSlider.value);
+      const hours = Math.floor(val);
+      const minutes = (val % 1 === 0.5) ? "30 Minuten" : "";
+      screenValue.textContent = minutes
+        ? `${hours} Std ${minutes}`
+        : `${hours} Stunden`;
     };
-    distanceSlider.addEventListener("input", updateValue);
-    updateValue();
+    screenSlider.addEventListener("input", updateScreenValue);
+    updateScreenValue();
   }
 
   const calculateBtn = document.getElementById("calculate-btn");
@@ -57,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const diet = document.getElementById("diet").value;
       const water = document.getElementById("water").value;
 
-      // 🌲 Vorherige Bäume entfernen
+      // 🌲 Bäume vorher entfernen
       const oldTreeContainer = document.getElementById("tree-container");
       if (oldTreeContainer) oldTreeContainer.remove();
 
@@ -70,25 +77,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     backBtn.addEventListener("click", () => {
       const card = document.querySelector(".input-card");
       const resultBox = document.getElementById("result-box");
-  
-      // ✅ UI zurücksetzen
+
       if (card) card.style.display = "block";
       if (resultBox) resultBox.style.display = "none";
       if (buttonGroup) buttonGroup.style.display = "none";
-  
-      // ✅ Texte wieder ausblenden
+
       const summary = document.getElementById("summary-box");
       const eq = document.getElementById("equivalent-box");
       const trees = document.getElementById("trees-box");
       if (summary) summary.style.opacity = 0;
       if (eq) eq.style.opacity = 0;
       if (trees) trees.style.opacity = 0;
-  
-      // ✅ Bäume entfernen
+
       const treeContainer = document.getElementById("tree-container");
       if (treeContainer) treeContainer.remove();
-  
-      // ✅ Flugzeug entfernen (optional)
+
       const marker = document.querySelector("a-marker");
       if (marker) {
         const planes = marker.querySelectorAll('[gltf-model="#plane-model"]');
@@ -96,7 +99,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   }
-  
 
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");

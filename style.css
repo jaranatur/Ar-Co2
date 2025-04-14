@@ -208,5 +208,8 @@ canvas {
   overflow-x: hidden;             /* horizontal verhindern */
   padding-right: 1rem;
   scroll-behavior: smooth;
+  padding-bottom: 3.5rem; /* ⬅️ mehr Abstand nach unten */
+  
+  
 }
 
