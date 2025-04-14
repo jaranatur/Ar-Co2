@@ -4,48 +4,7 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
-// 🌍 CO₂-Ball live aktualisieren
-function updateLiveBall(totalKg) {
-  const ball = document.getElementById("co2-ball");
-  const value = ball.querySelector(".co2-value");
-
-  value.textContent = `${totalKg} kg`;
-
-  const kg = parseFloat(totalKg);
-  if (kg < 50) {
-    ball.style.backgroundColor = "#52b788"; // grün
-  } else if (kg <= 100) {
-    ball.style.backgroundColor = "#f4a261"; // gelb
-  } else {
-    ball.style.backgroundColor = "#e76f51"; // rot
-  }
-}
-
-
-function collectInputs() {
-  const distance = parseInt(document.getElementById("distance").value, 10);
-  const transport = document.getElementById("transport").value;
-  const daysPerWeek = parseInt(document.getElementById("days").value, 10);
-  const mealsPerWeek = parseInt(document.getElementById("meals").value, 10);
-  const diet = document.getElementById("diet").value;
-  const water = document.getElementById("water").value;
-  const paper = document.getElementById("paper").value;
-  const screenHoursPerDay = parseFloat(document.getElementById("screen").value);
-  const abroad = document.getElementById("abroad").value === "yes";
-
-  return {
-    distance,
-    transport,
-    daysPerWeek,
-    mealsPerWeek,
-    diet,
-    water,
-    paper,
-    screenHoursPerDay,
-    abroad
-  };
-}
-
+// 🟢 Kamera-Zugriff für mobile Geräte aktivieren
 function requestMotionPermission() {
   if (
     typeof DeviceMotionEvent !== "undefined" &&
@@ -68,9 +27,60 @@ function requestMotionPermission() {
 document.addEventListener("click", requestMotionPermission, { once: true });
 document.addEventListener("touchstart", requestMotionPermission, { once: true });
 
+// 🟢 CO₂-Donut aktualisieren
+function updateLiveBall(totalKg) {
+  const ball = document.getElementById("co2-indicator");
+  const meter = document.getElementById("donut-meter");
+  const value = ball?.querySelector(".co2-value");
+
+  if (!ball || !meter || !value) return;
+
+  const percent = Math.min((totalKg / 100) * 100, 100);
+  meter.setAttribute("stroke-dasharray", `${percent} ${100 - percent}`);
+  value.textContent = `${Math.round(totalKg)} kg`;
+
+  const kg = parseFloat(totalKg);
+  if (kg < 50) {
+    meter.setAttribute("stroke", "#52b788"); // grün
+  } else if (kg <= 100) {
+    meter.setAttribute("stroke", "#f4a261"); // gelb
+  } else {
+    meter.setAttribute("stroke", "#e76f51"); // rot
+  }
+}
+
+// 🔁 Sichtbarkeit des Donuts nur im Overlay
+const overlayObserver = new MutationObserver(() => {
+  const overlay = document.querySelector(".input-card");
+  const co2Indicator = document.getElementById("co2-indicator");
+  if (!co2Indicator) return;
+  if (overlay && overlay.style.display === "block") {
+    co2Indicator.classList.remove("hidden");
+  } else {
+    co2Indicator.classList.add("hidden");
+  }
+});
+overlayObserver.observe(document.body, { attributes: true, subtree: true });
+
+// 🟢 Eingaben sammeln
+function collectInputs() {
+  return {
+    distance: parseInt(document.getElementById("distance").value, 10),
+    transport: document.getElementById("transport").value,
+    daysPerWeek: parseInt(document.getElementById("days").value, 10),
+    mealsPerWeek: parseInt(document.getElementById("meals").value, 10),
+    diet: document.getElementById("diet").value,
+    water: document.getElementById("water").value,
+    paper: document.getElementById("paper").value,
+    screenHoursPerDay: parseFloat(document.getElementById("screen").value),
+    abroad: document.getElementById("abroad").value === "yes",
+  };
+}
+
+// 🟢 Haupt-Init
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("✅ main.js wurde geladen!");
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((r) => setTimeout(r, 500));
 
   initGlobals();
   initScene();
@@ -79,7 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
-
   const screenSlider = document.getElementById("screen");
   const screenValue = document.getElementById("screen-value");
 
@@ -92,9 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? `${hours} Std ${minutes}`
         : `${hours} Stunden`;
 
-      // 💡 Live-Footprint aktualisieren
-      const inputs = collectInputs(); // vorausgesetzt collectInputs wird ergänzt
-      const result = calculateFootprint(inputs);
+      const result = calculateFootprint(collectInputs());
       updateLiveBall(result.totalKg);
     };
     screenSlider.addEventListener("input", updateScreenValue);
@@ -102,30 +109,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const calculateBtn = document.getElementById("calculate-btn");
-
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
-      const inputs = collectInputs();
-      const result = calculateFootprint(inputs);
+      const result = calculateFootprint(collectInputs());
+      updateLiveBall(result.totalKg);
       showResultOverlay(result);
     });
   }
 
   if (backBtn) {
     backBtn.addEventListener("click", () => {
-      const card = document.querySelector(".input-card");
-      const resultBox = document.getElementById("result-box");
+      document.querySelector(".input-card").style.display = "block";
+      document.getElementById("result-box").style.display = "none";
+      buttonGroup.style.display = "none";
 
-      if (card) card.style.display = "block";
-      if (resultBox) resultBox.style.display = "none";
-      if (buttonGroup) buttonGroup.style.display = "none";
-
-      const summary = document.getElementById("summary-box");
-      const eq = document.getElementById("equivalent-box");
-      const trees = document.getElementById("trees-box");
-      if (summary) summary.style.opacity = 0;
-      if (eq) eq.style.opacity = 0;
-      if (trees) trees.style.opacity = 0;
+      ["summary-box", "equivalent-box", "trees-box"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.style.opacity = 0;
+      });
 
       const treeContainer = document.getElementById("tree-container");
       if (treeContainer) treeContainer.remove();
@@ -133,48 +134,39 @@ document.addEventListener("DOMContentLoaded", async () => {
       const marker = document.querySelector("a-marker");
       if (marker) {
         const planes = marker.querySelectorAll('[gltf-model="#plane-model"]');
-        planes.forEach(p => p.remove());
+        planes.forEach((p) => p.remove());
       }
     });
   }
-
-  function showResultOverlay(result) {
-    const card = document.querySelector(".input-card");
-    const resultBox = document.getElementById("result-box");
-
-    card.style.display = "none";
-    resultBox.style.display = "block";
-
-    const summary = document.getElementById("summary-box");
-    summary.textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
-    summary.style.opacity = 1;
-
-    setTimeout(() => {
-      const eq = document.getElementById("equivalent-box");
-      eq.textContent = result.equivalent;
-      eq.style.opacity = 1;
-      showPlane();
-    }, 3000);
-
-    setTimeout(() => {
-      const trees = document.getElementById("trees-box");
-      trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
-      trees.style.opacity = 1;
-      showTrees(result);
-
-      if (buttonGroup) buttonGroup.style.display = "flex";
-    }, 8500);
-  }
 });
 
-window.addEventListener("load", () => {
-  const canvas = document.querySelector("a-scene canvas");
-  if (canvas) {
-    canvas.style.zIndex = "1";
-    canvas.style.pointerEvents = "none";
-  }
-});
+// 🎯 Ergebnisse anzeigen
+function showResultOverlay(result) {
+  const card = document.querySelector(".input-card");
+  const resultBox = document.getElementById("result-box");
 
+  card.style.display = "none";
+  resultBox.style.display = "block";
+
+  document.getElementById("summary-box").textContent = `Dein CO₂-Ausstoß beträgt etwa ${result.totalKg} kg pro Jahr.`;
+  document.getElementById("summary-box").style.opacity = 1;
+
+  setTimeout(() => {
+    document.getElementById("equivalent-box").textContent = result.equivalent;
+    document.getElementById("equivalent-box").style.opacity = 1;
+    showPlane();
+  }, 3000);
+
+  setTimeout(() => {
+    document.getElementById("trees-box").textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? "e" : ""} zum Ausgleich.`;
+    document.getElementById("trees-box").style.opacity = 1;
+
+    document.getElementById("button-group").style.display = "flex";
+    showTrees(result);
+  }, 8500);
+}
+
+// 🌳 Baum-Animation
 function showTrees(result) {
   const marker = document.querySelector("a-marker");
   const oldContainer = document.getElementById("tree-container");
@@ -184,7 +176,6 @@ function showTrees(result) {
   container.setAttribute("id", "tree-container");
 
   const treeCount = Math.min(result.trees, 20);
-
   for (let i = 0; i < treeCount; i++) {
     const tree = document.createElement("a-entity");
     tree.setAttribute("gltf-model", "#tree-model");
@@ -201,7 +192,7 @@ function showTrees(result) {
       property: "scale",
       to: `${scale} ${scale} ${scale}`,
       dur: 7000,
-      easing: "easeOutElastic"
+      easing: "easeOutElastic",
     });
 
     container.appendChild(tree);
@@ -210,9 +201,9 @@ function showTrees(result) {
   marker.appendChild(container);
 }
 
+// ✈️ Flugzeug-Animation
 function showPlane() {
   const marker = document.querySelector("a-marker");
-
   const plane = document.createElement("a-entity");
   plane.setAttribute("gltf-model", "#plane-model");
   plane.setAttribute("position", "-2 2.6 -1");
@@ -222,7 +213,7 @@ function showPlane() {
     property: "position",
     to: "5 2.6 -1",
     dur: 5000,
-    easing: "easeInOutSine"
+    easing: "easeInOutSine",
   });
 
   marker.appendChild(plane);
