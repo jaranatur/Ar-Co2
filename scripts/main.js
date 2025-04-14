@@ -4,6 +4,36 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
+// ✅ Bewegungssensor + Kamera (iOS-Kompatibilität)
+function requestPermissions() {
+  // Bewegungssensor (iOS)
+  if (
+    typeof DeviceMotionEvent !== "undefined" &&
+    typeof DeviceMotionEvent.requestPermission === "function"
+  ) {
+    DeviceMotionEvent.requestPermission()
+      .then(response => {
+        if (response === "granted") {
+          console.log("✅ Bewegungssensor erlaubt");
+        } else {
+          console.warn("❌ Bewegungssensor verweigert");
+        }
+      })
+      .catch(console.error);
+  } else {
+    console.log("✅ Keine Bewegungssensor-Erlaubnis nötig");
+  }
+
+  // Kamera-Zugriff triggern (manche Browser blockieren ohne Interaktion)
+  const scene = document.querySelector("a-scene");
+  if (scene && scene.enterVR) {
+    scene.enterVR(); // manche Geräte benötigen diesen Trigger
+  }
+}
+
+document.addEventListener("click", requestPermissions, { once: true });
+document.addEventListener("touchstart", requestPermissions, { once: true });
+
 // 🌍 Donut-Style CO₂-Anzeige live aktualisieren
 function updateLiveBall(totalKg) {
   const ball = document.getElementById("co2-indicator");
@@ -16,15 +46,14 @@ function updateLiveBall(totalKg) {
 
   const kg = parseFloat(totalKg);
   if (kg < 50) {
-    meter.setAttribute("stroke", "#52b788"); // grün
+    meter.setAttribute("stroke", "#52b788");
   } else if (kg <= 100) {
-    meter.setAttribute("stroke", "#f4a261"); // gelb
+    meter.setAttribute("stroke", "#f4a261");
   } else {
-    meter.setAttribute("stroke", "#e76f51"); // rot
+    meter.setAttribute("stroke", "#e76f51");
   }
 }
 
-// 🎯 CO₂-Ball nur sichtbar wenn Overlay sichtbar
 const overlayObserver = new MutationObserver(() => {
   const overlay = document.querySelector(".input-card");
   const co2Indicator = document.getElementById("co2-indicator");
@@ -60,42 +89,14 @@ function collectInputs() {
   };
 }
 
-function requestMotionPermission() {
-  if (
-    typeof DeviceMotionEvent !== "undefined" &&
-    typeof DeviceMotionEvent.requestPermission === "function"
-  ) {
-    DeviceMotionEvent.requestPermission()
-      .then((response) => {
-        if (response === "granted") {
-          console.log("📲 Bewegungssensor aktiviert!");
-        } else {
-          console.warn("⚠️ Bewegungssensor verweigert!");
-        }
-      })
-      .catch(console.error);
-  } else {
-    console.log("✅ Keine zusätzliche Berechtigung nötig.");
-  }
-}
-
-document.addEventListener("click", requestMotionPermission, { once: true });
-document.addEventListener("touchstart", requestMotionPermission, { once: true });
-
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("✅ main.js wurde geladen!");
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  // 👉 Erst Szene & 3D-Logik
   initGlobals();
   initScene();
   handleEarthRotation();
-
-  // 👉 Dann Overlay-Logik
   setupOverlayObserver();
-
-  // 👉 Donut-Ball initial auf 0 setzen
-  updateLiveBall(0);
 
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
