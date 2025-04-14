@@ -219,3 +219,26 @@ canvas {
 }
 
 
+.co2-ball {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transition: background-color 0.4s ease;
+}
+
+.co2-value {
+  text-align: center;
+  line-height: 1.2;
+}

@@ -4,6 +4,48 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
+// 🌍 CO₂-Ball live aktualisieren
+function updateLiveBall(totalKg) {
+  const ball = document.getElementById("co2-ball");
+  const value = ball.querySelector(".co2-value");
+
+  value.textContent = `${totalKg} kg`;
+
+  const kg = parseFloat(totalKg);
+  if (kg < 50) {
+    ball.style.backgroundColor = "#52b788"; // grün
+  } else if (kg <= 100) {
+    ball.style.backgroundColor = "#f4a261"; // gelb
+  } else {
+    ball.style.backgroundColor = "#e76f51"; // rot
+  }
+}
+
+
+function collectInputs() {
+  const distance = parseInt(document.getElementById("distance").value, 10);
+  const transport = document.getElementById("transport").value;
+  const daysPerWeek = parseInt(document.getElementById("days").value, 10);
+  const mealsPerWeek = parseInt(document.getElementById("meals").value, 10);
+  const diet = document.getElementById("diet").value;
+  const water = document.getElementById("water").value;
+  const paper = document.getElementById("paper").value;
+  const screenHoursPerDay = parseFloat(document.getElementById("screen").value);
+  const abroad = document.getElementById("abroad").value === "yes";
+
+  return {
+    distance,
+    transport,
+    daysPerWeek,
+    mealsPerWeek,
+    diet,
+    water,
+    paper,
+    screenHoursPerDay,
+    abroad
+  };
+}
+
 function requestMotionPermission() {
   if (
     typeof DeviceMotionEvent !== "undefined" &&
@@ -38,7 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
 
-  // 💻 Streaming-Slider live anzeigen
   const screenSlider = document.getElementById("screen");
   const screenValue = document.getElementById("screen-value");
 
@@ -50,6 +91,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       screenValue.textContent = minutes
         ? `${hours} Std ${minutes}`
         : `${hours} Stunden`;
+
+      // 💡 Live-Footprint aktualisieren
+      const inputs = collectInputs(); // vorausgesetzt collectInputs wird ergänzt
+      const result = calculateFootprint(inputs);
+      updateLiveBall(result.totalKg);
     };
     screenSlider.addEventListener("input", updateScreenValue);
     updateScreenValue();
@@ -59,16 +105,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
-      const distance = parseInt(document.getElementById("distance").value, 10);
-      const transport = document.getElementById("transport").value;
-      const diet = document.getElementById("diet").value;
-      const water = document.getElementById("water").value;
-
-      // 🌲 Bäume vorher entfernen
-      const oldTreeContainer = document.getElementById("tree-container");
-      if (oldTreeContainer) oldTreeContainer.remove();
-
-      const result = calculateFootprint({ distance, transport, diet, water });
+      const inputs = collectInputs();
+      const result = calculateFootprint(inputs);
       showResultOverlay(result);
     });
   }
