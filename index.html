@@ -83,22 +83,35 @@
         </select>
 
         <!-- 📍 Entfernung -->
-        <label for="distance">📍 Wie weit wohnst du von der HSD entfernt? (in km)</label>
-        <input type="range" id="distance" name="distance" min="0" max="50" step="1" value="5" />
-        <span id="distance-value">5 km</span>
+        <label for="distance">📍 Wie weit wohnst du von der HSD entfernt?</label>
+        <select id="distance" name="distance">
+          <option value="0">0 km</option>
+          <option value="1">1 km</option>
+          <option value="2">2 km</option>
+          <option value="3">3 km</option>
+          <option value="4">4 km</option>
+          <option value="5">5 km</option>
+          <option value="10">10 km</option>
+          <option value="15">15 km</option>
+          <option value="20">20 km</option>
+          <option value="25">25 km</option>
+          <option value="30">30 km</option>
+          <option value="40">40 km</option>
+          <option value="50">50 km</option>
+        </select>
 
         <!-- 🚙 Verkehrsmittel -->
-        <label for="transport">🚙 Wie kommst du meistens zur HSD?</label>
+        <label for="transport">🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?</label>
         <select id="transport" name="transport">
-          <option value="auto">🚗 Auto (allein)</option>
-          <option value="carpool">🤝 Fahrgemeinschaft</option>
-          <option value="public">🚌 ÖPNV</option>
+          <option value="auto">🚗 Mit dem Auto – allein</option>
+          <option value="carpool">🤝 Mitfahrgelegenheit / ich fahre andere</option>
+          <option value="public">🚌 Öffentliche Verkehrsmittel</option>
           <option value="bike">🚲 Fahrrad</option>
           <option value="walk">🚶 Zu Fuß</option>
         </select>
 
         <!-- 🍽️ Mensa-Häufigkeit -->
-        <label for="meals">🍽️ Wie oft isst du pro Woche in der Mensa?</label>
+        <label for="meals">🍽️ Wie oft gehst du typischerweise pro Woche in die Mensa essen?</label>
         <select id="meals" name="meals">
           <option value="0">Nie</option>
           <option value="1">1x</option>
@@ -107,20 +120,22 @@
           <option value="4">4x</option>
           <option value="5">5x</option>
         </select>
-        <!-- 🥦 Essverhalten -->
-        <label for="diet">🥦 Was isst du in der Mensa meistens?</label>
+
+        <!-- 🥦 Ernährung -->
+        <label for="diet">🍽️ Wie sieht deine Ernährung im Alltag meistens aus?</label>
         <select id="diet" name="diet">
-          <option value="meat-daily">🍖 Fleischgericht</option>
-          <option value="vegetarian">🥗 Vegetarisch</option>
-          <option value="vegan">🌱 Vegan</option>
+          <option value="meat-daily">🍖 Ich esse (fast) täglich Fleisch</option>
+          <option value="meat-rare">🥩 Ich esse nur selten Fleisch</option>
+          <option value="vegetarian">🥗 Ich esse vegetarisch (ohne Fleisch)</option>
+          <option value="vegan">🌱 Ich esse überwiegend vegan</option>
         </select>
 
         <!-- 💧 Wasserverhalten -->
-        <label for="water">💧 Wie trinkst du an der HSD meistens Wasser?</label>
+        <label for="water">💧 Wie versorgst du dich an der HSD meistens mit Wasser?</label>
         <select id="water" name="water">
-          <option value="bought">🧴 Ich kaufe Flaschen (egal ob Glas/Plastik)</option>
-          <option value="own-bottle">🔁 Ich bringe meine eigene Flasche mit</option>
-          <option value="glass">🥛 Ich trinke direkt (z. B. Glas, Tasse)</option>
+          <option value="plastic">🧴 Ich kaufe Einweg-Plastikflaschen</option>
+          <option value="glass">🍾 Ich kaufe Pfandflaschen (z. B. Glas-Mehrweg)</option>
+          <option value="refill">🔁 Ich fülle meine eigene Flasche auf (z. B. Zuhause oder an der Uni)</option>
         </select>
 
         <!-- 📄 Papierverbrauch -->

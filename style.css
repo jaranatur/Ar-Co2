@@ -201,10 +201,12 @@ canvas {
   text-align: center;
 }
 
- /* ✅ SCROLLBARES FORMULAR-AREA */
+ /* ✅ SCROLLBARES FORMULAR – nur vertikal */
 .input-card {
-  max-height: 80vh;              /* begrenze die Höhe des Formulars */
-  overflow-y: auto;              /* mache es scrollbar bei Bedarf */
-  padding-right: 1rem;           /* damit Scrollbar Inhalte nicht überlappt */
-  scroll-behavior: smooth;       /* smooth scrollen */
+  max-height: 80vh;
+  overflow-y: auto;               /* nur vertikal scrollen */
+  overflow-x: hidden;             /* horizontal verhindern */
+  padding-right: 1rem;
+  scroll-behavior: smooth;
 }
+
