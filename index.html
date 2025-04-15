@@ -30,6 +30,8 @@
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
         <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
+        <audio id="swipe-sound" src="assets/swipe.mp3" preload="auto"></audio>
+
       </a-assets>
 
       <a-marker preset="hiro">
@@ -40,8 +42,9 @@
         <a-entity id="scene-selection" visible="false"></a-entity>
 
         <a-entity id="hint-text" position="0 2.5 -1" visible="true"
-          text="value: Willkommen!\nDrehe die Erde,\num deine Nachhaltigkeit zu entdecken :) ; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
-        </a-entity>
+        text="value: Würdest du das HSD-Klimaziel schaffen?\nDreh die Erde – und finde es heraus.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
+      </a-entity>
+      
 
         <a-entity id="arrow-icon-entity"
           geometry="primitive: plane; height: 0.9; width: 0.9"

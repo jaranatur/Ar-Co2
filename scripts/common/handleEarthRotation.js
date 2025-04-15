@@ -1,4 +1,4 @@
-//handleEarthRotation.js
+// handleEarthRotation.js
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -7,6 +7,9 @@ export function handleEarthRotation() {
   let rotationProgress = 0;
   let scaleProgress = 1;
   let sceneTransitioned = false;
+
+  const swipeSound = document.getElementById("swipe-sound");
+  let hasPlayedSwipeSound = false;
 
   console.log("✅ handleEarthRotation läuft!");
 
@@ -35,6 +38,11 @@ export function handleEarthRotation() {
     });
 
     rotationProgress += Math.abs(deltaX);
+
+    if (rotationProgress > 20 && !hasPlayedSwipeSound) {
+      hasPlayedSwipeSound = true;
+      swipeSound?.play().catch(e => console.warn("🔇 Swipe-Sound konnte nicht abgespielt werden", e));
+    }
 
     const opacity = Math.max(0, 1 - rotationProgress / 500);
     const currentText = hintText.getAttribute("text") || {};
