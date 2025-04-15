@@ -1,4 +1,3 @@
-// handleEarthRotation.js
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -8,17 +7,10 @@ export function handleEarthRotation() {
   let scaleProgress = 1;
   let sceneTransitioned = false;
 
-  const swipeSound = document.getElementById("swipe-sound");
-  let hasPlayedSwipeSound = false;
-
-  console.log("✅ handleEarthRotation läuft!");
+  const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    if (!earth) return;
-
-    // ✅ Ignore touches inside overlay
-    if (event.target.closest("#input-overlay")) return;
-
+    if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
@@ -27,7 +19,7 @@ export function handleEarthRotation() {
   const onTouchMove = (event) => {
     if (!isDragging || sceneTransitioned || !earth) return;
 
-    let deltaX = event.touches[0].clientX - lastX;
+    const deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
 
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
@@ -38,24 +30,19 @@ export function handleEarthRotation() {
     });
 
     rotationProgress += Math.abs(deltaX);
-
-    if (rotationProgress > 20 && !hasPlayedSwipeSound) {
-      hasPlayedSwipeSound = true;
-      swipeSound?.play().catch(e => console.warn("🔇 Swipe-Sound konnte nicht abgespielt werden", e));
-    }
-
     const opacity = Math.max(0, 1 - rotationProgress / 500);
+
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
 
+    if (hintBg) {
+      hintBg.setAttribute("material", "opacity", 0.4 * opacity);
+    }
+
     if (opacity < 0.2) {
-      if (hintText.getAttribute("visible") !== "false") {
-        hintText.setAttribute("visible", "false");
-      }
-      if (arrow && arrow.getAttribute("visible") !== "false") {
-        arrow.setAttribute("visible", "false");
-        console.log("⬇️ Pfeil ausgeblendet");
-      }
+      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
+      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
+      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
@@ -66,7 +53,6 @@ export function handleEarthRotation() {
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
       sceneSelection.setAttribute("data-visible", "true");
-      console.log("🌍 Erde verschwunden → Overlay startet");
     }
   };
 
