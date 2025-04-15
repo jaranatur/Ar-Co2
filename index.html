@@ -71,7 +71,17 @@
       <div class="input-card">
         <h2>Deine Nachhaltigkeits-Infos</h2>
 
-        <!-- 🏫 Anwesenheitstage -->
+        <!-- CO₂-Ball -->
+        <div id="co2-indicator" class="hidden">
+          <svg viewBox="0 0 36 36" class="donut">
+            <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text x="50%" y="50%" class="co2-value">0 kg</text>
+            <text x="50%" y="65%" class="co2-max">/ 100 kg</text>
+          </svg>
+        </div>
+
+        <!-- Inputs -->
         <label for="days">🗓️ Wie oft bist du pro Woche an der HSD?</label>
         <select id="days" name="days">
           <option value="1">1 Tag</option>
@@ -81,7 +91,6 @@
           <option value="5">5 Tage</option>
         </select>
 
-        <!-- 📍 Entfernung -->
         <label for="distance">📍 Wie weit wohnst du von der HSD entfernt?</label>
         <select id="distance" name="distance">
           <option value="0">0 km</option>
@@ -99,7 +108,6 @@
           <option value="50">50 km</option>
         </select>
 
-        <!-- 🚙 Verkehrsmittel -->
         <label for="transport">🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?</label>
         <select id="transport" name="transport">
           <option value="auto">🚗 Mit dem Auto – allein</option>
@@ -109,7 +117,6 @@
           <option value="walk">🚶 Zu Fuß</option>
         </select>
 
-        <!-- 🍽️ Mensa-Häufigkeit -->
         <label for="meals">🍽️ Wie oft gehst du typischerweise pro Woche in die Mensa essen?</label>
         <select id="meals" name="meals">
           <option value="0">Nie</option>
@@ -120,7 +127,6 @@
           <option value="5">5x</option>
         </select>
 
-        <!-- 🥦 Ernährung -->
         <label for="diet">🍽️ Wie sieht deine Ernährung im Alltag meistens aus?</label>
         <select id="diet" name="diet">
           <option value="meat-daily">🍖 Ich esse (fast) täglich Fleisch</option>
@@ -129,7 +135,6 @@
           <option value="vegan">🌱 Ich esse überwiegend vegan</option>
         </select>
 
-        <!-- 💧 Wasserverhalten -->
         <label for="water">💧 Wie versorgst du dich an der HSD meistens mit Wasser?</label>
         <select id="water" name="water">
           <option value="plastic">🧴 Ich kaufe Einweg-Plastikflaschen</option>
@@ -137,7 +142,6 @@
           <option value="refill">🔁 Ich fülle meine eigene Flasche auf (z. B. Zuhause oder an der Uni)</option>
         </select>
 
-        <!-- 📄 Papierverbrauch -->
         <label for="paper">📄 Wie oft druckst du Uni-Material?</label>
         <select id="paper" name="paper">
           <option value="none">📱 Nie</option>
@@ -146,47 +150,25 @@
           <option value="often">🧾 Mehrmals pro Woche</option>
         </select>
 
-        <!-- 💻 Digitale Nutzung -->
-        <label for="screen">💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD (z. B. Teams, Moodle, ChatGPT, Recherche)?</label>
-        <input type="range" id="screen" name="screen" min="0.5" max="10" step="0.5" value="2" />
+        <label for="screen">💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD?</label>
+        <input type="range" id="screen" name="screen" min="0.5" max="10" step="0.5" value="2" aria-label="Digitale Nutzung in Stunden">
         <span id="screen-value">2 Stunden</span>
-        
 
-        <!-- ✈️ Flugreise -->
         <label for="abroad">✈️ Warst du auf einem Auslandssemester oder einer Studienreise?</label>
         <select id="abroad" name="abroad">
           <option value="no">❌ Nein</option>
           <option value="yes">✈️ Ja</option>
         </select>
 
-        <!-- 🧮 Bilanz -->
         <button id="calculate-btn">✅ Bilanz berechnen</button>
       </div>
 
-      <!-- Ergebnisse -->
       <div id="result-box" style="display: none; text-align: center;">
         <div id="summary-box" class="result-section"></div>
         <div id="equivalent-box" class="result-section"></div>
         <div id="trees-box" class="result-section"></div>
       </div>
     </div>
-
-<!-- 🌍 CO₂-Ball -->
-<div id="co2-indicator" class="hidden">
-  <svg viewBox="0 0 36 36" class="donut">
-    <path class="donut-bg"
-      d="M18 2.0845
-         a 15.9155 15.9155 0 0 1 0 31.831
-         a 15.9155 15.9155 0 0 1 0 -31.831"/>
-    <path id="donut-meter" class="donut-meter"
-      stroke-dasharray="0, 100"
-      d="M18 2.0845
-         a 15.9155 15.9155 0 0 1 0 31.831
-         a 15.9155 15.9155 0 0 1 0 -31.831"/>
-    <text x="50%" y="50%" text-anchor="middle" dy=".3em" class="co2-value">0 kg</text>
-  </svg>
-</div>
-
 
     <!-- ✅ Fixierte Button-Leiste -->
     <div id="button-group" style="display: none;">

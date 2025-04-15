@@ -111,6 +111,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     calculateBtn.addEventListener("click", () => {
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
+
+      // Donut ausblenden beim Ergebnis
+      document.getElementById("co2-indicator")?.classList.add("hidden");
       showResultOverlay(result);
     });
   }
