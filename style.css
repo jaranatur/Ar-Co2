@@ -79,7 +79,7 @@ label {
   height: 100vh;
   z-index: 9999;
   pointer-events: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -108,6 +108,7 @@ label {
   overflow-wrap: break-word;
   margin-top: 2vh;
   margin-bottom: 4vh;
+  position: relative;
 }
 
 .input-card h2 {
@@ -201,10 +202,15 @@ canvas {
 }
 
 #co2-indicator {
-  margin-bottom: 1.5rem;
-  width: 90px;
-  height: 90px;
-  align-self: center;
+  position: sticky;
+  top: 1rem;
+  right: 1rem;
+  float: right;
+  width: 100px;
+  height: 100px;
+  z-index: 1000;
+  margin-left: auto;
+  margin-bottom: 1rem;
 }
 
 .donut {
@@ -227,14 +233,14 @@ canvas {
 }
 
 .co2-value {
-  font-size: 4px;
+  font-size: 6px;
   fill: #333;
   text-anchor: middle;
   dominant-baseline: middle;
 }
 
 .co2-max {
-  font-size: 2px;
+  font-size: 4px;
   fill: #aaa;
   text-anchor: middle;
   dominant-baseline: middle;
