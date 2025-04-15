@@ -88,14 +88,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       const hours = Math.floor(val);
       const minutes = (val % 1 === 0.5) ? "30 Minuten" : "";
       screenValue.textContent = minutes ? `${hours} Std ${minutes}` : `${hours} Stunden`;
-
+  
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
       updateLiveBall(result.totalKg);
     };
+  
     screenSlider.addEventListener("input", updateScreenValue);
-    updateScreenValue();
+  
+    // ✅ CO₂-Kreis nur anzeigen, wenn Overlay sichtbar ist
+    const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
+    if (overlayVisible) {
+      updateScreenValue();
+    }
   }
+  
 
   const allInputs = document.querySelectorAll('#input-overlay select, #input-overlay input[type="range"]');
   allInputs.forEach(input => {
