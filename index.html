@@ -67,33 +67,92 @@
         </div>
 
         <div class="input-card-body">
-          <label for="days">🗓️ Wie oft bist du pro Woche an der HSD?</label>
-          <select id="days" name="days"> <option value="1">1 Tag</option> <option value="2">2 Tage</option> <option value="3">3 Tage</option> <option value="4">4 Tage</option> <option value="5">5 Tage</option> </select>
+          <!-- 🗓️ HSD-Tage -->
+<label for="days">🗓️ Wie oft bist du pro Woche an der HSD?</label>
+<select id="days" name="days">
+  <option value="1" selected>1 Tag</option>
+  <option value="2">2 Tage</option>
+  <option value="3">3 Tage</option>
+  <option value="4">4 Tage</option>
+  <option value="5">5 Tage</option>
+</select>
 
-          <label for="distance">📍 Wie weit wohnst du von der HSD entfernt?</label>
-          <select id="distance" name="distance"> <option value="0">0 km</option> <option value="1">1 km</option> <option value="2">2 km</option> <option value="3">3 km</option> <option value="4">4 km</option> <option value="5">5 km</option> <option value="10">10 km</option> <option value="15">15 km</option> <option value="20">20 km</option> <option value="25">25 km</option> <option value="30">30 km</option> <option value="40">40 km</option> <option value="50">50 km</option> </select>
+<!-- 📍 Entfernung -->
+<label for="distance">📍 Wie weit wohnst du von der HSD entfernt?</label>
+<select id="distance" name="distance">
+  <option value="0" selected>0 km</option>
+  <option value="1">1 km</option>
+  <option value="2">2 km</option>
+  <option value="3">3 km</option>
+  <option value="4">4 km</option>
+  <option value="5">5 km</option>
+  <option value="10">10 km</option>
+  <option value="15">15 km</option>
+  <option value="20">20 km</option>
+  <option value="25">25 km</option>
+  <option value="30">30 km</option>
+  <option value="40">40 km</option>
+  <option value="50">50 km</option>
+</select>
 
-          <label for="transport">🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?</label>
-          <select id="transport" name="transport"> <option value="auto">🚗 Mit dem Auto – allein</option> <option value="carpool">🤝 Mitfahrgelegenheit / ich fahre andere</option> <option value="public">🚌 Öffentliche Verkehrsmittel</option> <option value="bike">🚲 Fahrrad</option> <option value="walk">🚶 Zu Fuß</option> </select>
+<!-- 🚙 Verkehrsmittel -->
+<label for="transport">🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?</label>
+<select id="transport" name="transport">
+  <option value="auto">🚗 Mit dem Auto – allein</option>
+  <option value="carpool">🤝 Mitfahrgelegenheit / ich fahre andere</option>
+  <option value="public">🚌 Öffentliche Verkehrsmittel</option>
+  <option value="bike">🚲 Fahrrad</option>
+  <option value="walk" selected>🚶 Zu Fuß</option>
+</select>
 
-          <label for="meals">🍽️ Wie oft gehst du typischerweise pro Woche in die Mensa essen?</label>
-          <select id="meals" name="meals"> <option value="0">Nie</option> <option value="1">1x</option> <option value="2">2x</option> <option value="3">3x</option> <option value="4">4x</option> <option value="5">5x</option> </select>
+<!-- 🍽️ Mensa -->
+<label for="meals">🍽️ Wie oft gehst du typischerweise pro Woche in die Mensa essen?</label>
+<select id="meals" name="meals">
+  <option value="0" selected>Nie</option>
+  <option value="1">1x</option>
+  <option value="2">2x</option>
+  <option value="3">3x</option>
+  <option value="4">4x</option>
+  <option value="5">5x</option>
+</select>
 
-          <label for="diet">🍽️ Wie sieht deine Ernährung im Alltag meistens aus?</label>
-          <select id="diet" name="diet"> <option value="meat-daily">🍖 Ich esse (fast) täglich Fleisch</option> <option value="meat-rare">🥩 Ich esse nur selten Fleisch</option> <option value="vegetarian">🥗 Ich esse vegetarisch (ohne Fleisch)</option> <option value="vegan">🌱 Ich esse überwiegend vegan</option> </select>
+<!-- 🥦 Ernährung -->
+<label for="diet">🍽️ Wie sieht deine Ernährung im Alltag meistens aus?</label>
+<select id="diet" name="diet">
+  <option value="meat-daily">🍖 Ich esse (fast) täglich Fleisch</option>
+  <option value="meat-rare">🥩 Ich esse nur selten Fleisch</option>
+  <option value="vegetarian">🥗 Ich esse vegetarisch (ohne Fleisch)</option>
+  <option value="vegan" selected>🌱 Ich esse überwiegend vegan</option>
+</select>
 
-          <label for="water">💧 Wie versorgst du dich an der HSD meistens mit Wasser?</label>
-          <select id="water" name="water"> <option value="plastic">🧴 Ich kaufe Einweg-Plastikflaschen</option> <option value="glass">🍾 Ich kaufe Pfandflaschen</option> <option value="refill">🔁 Ich fülle meine eigene Flasche auf</option> </select>
+<!-- 💧 Wasser -->
+<label for="water">💧 Wie versorgst du dich an der HSD meistens mit Wasser?</label>
+<select id="water" name="water">
+  <option value="plastic">🧴 Ich kaufe Einweg-Plastikflaschen</option>
+  <option value="glass">🍾 Ich kaufe Pfandflaschen (z. B. Glas-Mehrweg)</option>
+  <option value="refill" selected>🔁 Ich fülle meine eigene Flasche auf (z. B. Zuhause oder an der Uni)</option>
+</select>
 
-          <label for="paper">📄 Wie oft druckst du Uni-Material?</label>
-          <select id="paper" name="paper"> <option value="none">📱 Nie</option> <option value="rare">📄 1x im Monat</option> <option value="medium">🖨️ 1x pro Woche</option> <option value="often">🧾 Mehrmals pro Woche</option> </select>
+<!-- 📄 Papier -->
+<label for="paper">📄 Wie oft druckst du Uni-Material?</label>
+<select id="paper" name="paper">
+  <option value="none" selected>📱 Nie</option>
+  <option value="rare">📄 1x im Monat</option>
+  <option value="medium">🖨️ 1x pro Woche</option>
+  <option value="often">🧾 Mehrmals pro Woche</option>
+</select>
 
-          <label for="screen">💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD?</label>
-          <input type="range" id="screen" name="screen" min="0.5" max="10" step="0.5" value="2" />
-          <span id="screen-value">2 Stunden</span>
+<!-- 💻 Bildschirmzeit -->
+<label for="screen">💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD?</label>
+<input type="range" id="screen" name="screen" min="0" max="10" step="0.5" value="0" />
+<span id="screen-value">0 Stunden</span>
 
-          <label for="abroad">✈️ Warst du auf einem Auslandssemester oder einer Studienreise?</label>
-          <select id="abroad" name="abroad"> <option value="no">❌ Nein</option> <option value="yes">✈️ Ja</option> </select>
+<!-- ✈️ Auslandsreise -->
+<label for="abroad">✈️ Warst du auf einem Auslandssemester oder einer Studienreise?</label>
+<select id="abroad" name="abroad">
+  <option value="no" selected>❌ Nein</option>
+  <option value="yes">✈️ Ja</option>
+</select>
 
           <button id="calculate-btn">✅ Bilanz berechnen</button>
         </div>
