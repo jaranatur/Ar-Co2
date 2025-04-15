@@ -1,48 +1,48 @@
+// ✅ Finalisierte main.js mit funktionierendem CO₂-Donut-Ball
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 
-// 🌍 CO₂-Ball live aktualisieren
 function updateLiveBall(totalKg) {
-  const ball = document.getElementById("co2-ball");
-  const value = ball.querySelector(".co2-value");
+  const indicator = document.getElementById("co2-indicator");
+  const donut = indicator.querySelector("#donut-meter");
+  const value = indicator.querySelector(".co2-value");
 
-  value.textContent = `${totalKg} kg`;
+  const kg = Math.round(totalKg);
+  const percent = Math.min(kg / 100, 1);
 
-  const kg = parseFloat(totalKg);
+  donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
+  value.textContent = `${kg} kg`;
+
   if (kg < 50) {
-    ball.style.backgroundColor = "#52b788"; // grün
+    donut.setAttribute("stroke", "#52b788");
   } else if (kg <= 100) {
-    ball.style.backgroundColor = "#f4a261"; // gelb
+    donut.setAttribute("stroke", "#f4a261");
   } else {
-    ball.style.backgroundColor = "#e76f51"; // rot
+    donut.setAttribute("stroke", "#e76f51");
+  }
+
+  const inputCard = document.querySelector(".input-card");
+  if (inputCard && window.getComputedStyle(inputCard).display !== "none") {
+    indicator.classList.remove("hidden");
+  } else {
+    indicator.classList.add("hidden");
   }
 }
 
-
 function collectInputs() {
-  const distance = parseInt(document.getElementById("distance").value, 10);
-  const transport = document.getElementById("transport").value;
-  const daysPerWeek = parseInt(document.getElementById("days").value, 10);
-  const mealsPerWeek = parseInt(document.getElementById("meals").value, 10);
-  const diet = document.getElementById("diet").value;
-  const water = document.getElementById("water").value;
-  const paper = document.getElementById("paper").value;
-  const screenHoursPerDay = parseFloat(document.getElementById("screen").value);
-  const abroad = document.getElementById("abroad").value === "yes";
-
   return {
-    distance,
-    transport,
-    daysPerWeek,
-    mealsPerWeek,
-    diet,
-    water,
-    paper,
-    screenHoursPerDay,
-    abroad
+    distance: parseInt(document.getElementById("distance").value, 10),
+    transport: document.getElementById("transport").value,
+    daysPerWeek: parseInt(document.getElementById("days").value, 10),
+    mealsPerWeek: parseInt(document.getElementById("meals").value, 10),
+    diet: document.getElementById("diet").value,
+    water: document.getElementById("water").value,
+    paper: document.getElementById("paper").value,
+    screenHoursPerDay: parseFloat(document.getElementById("screen").value),
+    abroad: document.getElementById("abroad").value === "yes"
   };
 }
 
@@ -69,7 +69,6 @@ document.addEventListener("click", requestMotionPermission, { once: true });
 document.addEventListener("touchstart", requestMotionPermission, { once: true });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("✅ main.js wurde geladen!");
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   initGlobals();
@@ -88,12 +87,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       const val = parseFloat(screenSlider.value);
       const hours = Math.floor(val);
       const minutes = (val % 1 === 0.5) ? "30 Minuten" : "";
-      screenValue.textContent = minutes
-        ? `${hours} Std ${minutes}`
-        : `${hours} Stunden`;
+      screenValue.textContent = minutes ? `${hours} Std ${minutes}` : `${hours} Stunden`;
 
-      // 💡 Live-Footprint aktualisieren
-      const inputs = collectInputs(); // vorausgesetzt collectInputs wird ergänzt
+      const inputs = collectInputs();
       const result = calculateFootprint(inputs);
       updateLiveBall(result.totalKg);
     };
@@ -101,8 +97,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateScreenValue();
   }
 
-  const calculateBtn = document.getElementById("calculate-btn");
+  const allInputs = document.querySelectorAll('#input-overlay select, #input-overlay input[type="range"]');
+  allInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      const inputs = collectInputs();
+      const result = calculateFootprint(inputs);
+      updateLiveBall(result.totalKg);
+    });
+  });
 
+  const calculateBtn = document.getElementById("calculate-btn");
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
       const inputs = collectInputs();
