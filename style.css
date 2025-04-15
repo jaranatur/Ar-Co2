@@ -79,7 +79,7 @@ label {
   height: 100vh;
   z-index: 9999;
   pointer-events: auto;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3); /* leicht transparenter */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -102,13 +102,13 @@ label {
   overflow-x: hidden;
   padding-right: 1rem;
   padding-bottom: 6rem;
+  padding-top: 6rem; /* Platz für Donut */
   scroll-behavior: smooth;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
   margin-top: 2vh;
   margin-bottom: 4vh;
-  position: relative;
 }
 
 .input-card h2 {
@@ -203,20 +203,20 @@ canvas {
 
 #co2-indicator {
   position: sticky;
-  top: 1rem;
-  right: 1rem;
-  float: right;
-  width: 100px;
-  height: 100px;
-  z-index: 1000;
+  top: 12px;
+  right: 12px;
+  width: 90px;
+  height: 90px;
+  align-self: flex-end;
   margin-left: auto;
   margin-bottom: 1rem;
+  z-index: 1000;
 }
 
 .donut {
   width: 100%;
   height: 100%;
-  transform: rotate(-90deg);
+  transform: none; /* nicht rotieren */
 }
 
 .donut-bg {
@@ -234,13 +234,14 @@ canvas {
 
 .co2-value {
   font-size: 6px;
+  font-weight: bold;
   fill: #333;
   text-anchor: middle;
   dominant-baseline: middle;
 }
 
 .co2-max {
-  font-size: 4px;
+  font-size: 3px;
   fill: #aaa;
   text-anchor: middle;
   dominant-baseline: middle;
