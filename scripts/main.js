@@ -1,3 +1,4 @@
+
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -71,6 +72,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   handleEarthRotation();
   setupOverlayObserver();
 
+  const initialInputs = collectInputs();
+  const initialResult = calculateFootprint(initialInputs);
+  updateLiveBall(initialResult.totalKg);
+
   const backBtn = document.getElementById("back-btn");
   const buttonGroup = document.getElementById("button-group");
 
@@ -137,12 +142,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         planes.forEach(p => p.remove());
       }
 
-      // ✅ Donut nach "Zurück" wieder anzeigen
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
       updateLiveBall(result.totalKg);
     });
   }
+
+  const overlay = document.getElementById("input-overlay");
+  const observer = new MutationObserver(() => {
+    const isVisible = window.getComputedStyle(overlay).display !== "none";
+    const inputs = collectInputs();
+    const result = calculateFootprint(inputs);
+    updateLiveBall(result.totalKg);
+  });
+  observer.observe(overlay, { attributes: true, attributeFilter: ['style'] });
 
   function showResultOverlay(result) {
     const card = document.querySelector(".input-card");
