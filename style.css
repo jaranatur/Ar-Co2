@@ -70,6 +70,8 @@ a-scene, canvas {
   display: none;
 }
 
+
+
 /* 🧊 Overlay */
 #input-overlay {
   position: fixed;
@@ -90,38 +92,45 @@ a-scene, canvas {
   scroll-behavior: smooth;
 }
 
-/* 🧩 Input-Karte */
 .input-card {
   background: white;
-  padding: 0;
   border-radius: 12px;
   width: 95%;
   max-width: 480px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
   max-height: 85vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   margin: 0 0 4vh 0;
+  box-sizing: border-box;
 }
 
-/* 🧷 Sticky Überschrift */
-/* 🧷 Sticky Überschrift */
-.input-card h2 {
+.input-card-header {
   position: sticky;
   top: 0;
   background: white;
   z-index: 2;
-  padding: 1.5rem 1rem 1.2rem;   /* ⬅️ Mehr Höhe */
-  font-size: 1.8rem;             /* ⬅️ Größere Schrift */
-  text-align: left;
-  margin: 0;
+  padding: 1.5rem 1rem 1.2rem;
   border-bottom: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
+
+.input-card-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  text-align: left;
+}
+
+.input-card-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem 1rem 6rem;
+  box-sizing: border-box;
+  flex: 1;
+}
+
 
 /* ✍️ Fragen / Inputs */
 .input-card label {
