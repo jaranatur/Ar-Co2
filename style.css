@@ -71,6 +71,7 @@ input, select, button, label {
 
 /* ⬇️ Overlay */
 #input-overlay {
+  
   position: fixed;
   top: 0;
   left: 0;
@@ -85,8 +86,26 @@ input, select, button, label {
   padding: 1vh 1rem 1rem; /* weniger weißer Rand oben */
   box-sizing: border-box;
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
+.input-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding: 1rem 1rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
 
 
 /* ⬇️ Karte */
