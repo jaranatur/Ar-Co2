@@ -1,4 +1,3 @@
-// ✅ Finalisierte main.js mit funktionierendem CO₂-Donut-Ball
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -24,12 +23,8 @@ function updateLiveBall(totalKg) {
     donut.setAttribute("stroke", "#e76f51");
   }
 
-  const inputCard = document.querySelector(".input-card");
-  if (inputCard && window.getComputedStyle(inputCard).display !== "none") {
-    indicator.classList.remove("hidden");
-  } else {
-    indicator.classList.add("hidden");
-  }
+  const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
+  indicator.classList.toggle("hidden", !overlayVisible);
 }
 
 function collectInputs() {
@@ -88,21 +83,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       const hours = Math.floor(val);
       const minutes = (val % 1 === 0.5) ? "30 Minuten" : "";
       screenValue.textContent = minutes ? `${hours} Std ${minutes}` : `${hours} Stunden`;
-  
+
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
       updateLiveBall(result.totalKg);
     };
-  
+
     screenSlider.addEventListener("input", updateScreenValue);
-  
-    // ✅ CO₂-Kreis nur anzeigen, wenn Overlay sichtbar ist
-    const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-    if (overlayVisible) {
-      updateScreenValue();
-    }
+    updateScreenValue();
   }
-  
 
   const allInputs = document.querySelectorAll('#input-overlay select, #input-overlay input[type="range"]');
   allInputs.forEach(input => {
@@ -118,8 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     calculateBtn.addEventListener("click", () => {
       const inputs = collectInputs();
       const result = calculateFootprint(inputs);
-
-      // Donut ausblenden beim Ergebnis
       document.getElementById("co2-indicator")?.classList.add("hidden");
       showResultOverlay(result);
     });
@@ -149,6 +136,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const planes = marker.querySelectorAll('[gltf-model="#plane-model"]');
         planes.forEach(p => p.remove());
       }
+
+      // ✅ Donut nach "Zurück" wieder anzeigen
+      const inputs = collectInputs();
+      const result = calculateFootprint(inputs);
+      updateLiveBall(result.totalKg);
     });
   }
 
@@ -175,7 +167,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       trees.textContent = `🌳 Dafür bräuchtest du ${result.trees} Baum${result.trees > 1 ? 'e' : ''} zum Ausgleich.`;
       trees.style.opacity = 1;
       showTrees(result);
-
       if (buttonGroup) buttonGroup.style.display = "flex";
     }, 8500);
   }
