@@ -1,4 +1,3 @@
-/* 🖥️ Grundlegendes Styling */
 body {
   margin: 0;
   overflow: hidden;
@@ -9,86 +8,88 @@ body {
 a-entity[text] {
   font: exo2bold;
 }
-
 a-entity {
   cursor: pointer;
 }
-
 #earth {
   pointer-events: auto !important;
   touch-action: manipulation !important;
-}
-
-#info-box {
-  background: #d8f3dc;
-  border-radius: 10px;
-  padding: 20px;
-  transition: opacity 0.5s ease-in-out;
-  pointer-events: auto;
-}
-
-#info-box a-entity {
-  text-align: center;
-  color: #1b4332;
-  font-family: exo2bold;
-  font-weight: bold;
-  font-size: 22px;
-  width: 2.5;
-  position: relative;
-  z-index: 2;
-}
-
-#btn-close-info {
-  background: #95d5b2;
-  color: #1b4332;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 20px;
-  transition: background 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-#btn-close-info:hover {
-  background: #74c69d;
-  box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
-}
-
-#scene-selection {
-  display: block;
 }
 
 * {
   user-select: none;
   -webkit-user-select: none;
 }
-
-input,
-select,
-button,
-label {
+input, select, button, label {
   user-select: auto !important;
   -webkit-user-select: auto !important;
 }
 
+/* ⬇️ CO₂-Kreis außerhalb & sticky */
+#co2-indicator {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 100px;
+  height: 100px;
+  z-index: 9999;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.donut {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+.donut-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3;
+}
+.donut-meter {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
+}
+.co2-value {
+  font-size: 7px;
+  fill: #333;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.co2-max {
+  font-size: 3px;
+  fill: #999;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.hidden {
+  display: none;
+}
+
+/* ⬇️ Overlay */
 #input-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
+  z-index: 9998;
   pointer-events: auto;
-  background-color: rgba(0, 0, 0, 0.3); /* leicht transparenter */
+  background-color: rgba(0, 0, 0, 0.15); /* sanftere Abdunklung */
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 3vh 1rem 1rem;
+  padding: 1vh 1rem 1rem; /* weniger weißer Rand oben */
   box-sizing: border-box;
   overflow-y: auto;
   scroll-behavior: smooth;
 }
 
+
+/* ⬇️ Karte */
 .input-card {
   background: white;
   padding: 2rem;
@@ -97,31 +98,26 @@ label {
   max-width: 480px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
-  max-height: 75vh;
+  max-height: 85vh;
   overflow-y: auto;
-  overflow-x: hidden;
   padding-right: 1rem;
   padding-bottom: 6rem;
-  padding-top: 6rem; /* Platz für Donut */
   scroll-behavior: smooth;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin-top: 2vh;
+  margin-top: 0;
   margin-bottom: 4vh;
 }
-
 .input-card h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  text-align: center;
 }
-
 .input-card label {
   display: block;
   margin-top: 1rem;
   font-weight: bold;
 }
-
 .input-card select,
 .input-card input[type="range"] {
   width: 100%;
@@ -131,7 +127,6 @@ label {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
-
 .input-card button {
   margin-top: 2rem;
   width: 100%;
@@ -144,12 +139,7 @@ label {
   cursor: pointer;
 }
 
-a-scene,
-canvas {
-  pointer-events: none !important;
-  z-index: 0 !important;
-}
-
+/* Ergebnisbox */
 #result-box {
   position: absolute;
   top: 1rem;
@@ -157,7 +147,6 @@ canvas {
   text-align: center;
   z-index: 10;
 }
-
 .result-section {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
@@ -170,11 +159,11 @@ canvas {
   opacity: 0;
   transition: opacity 0.6s ease;
 }
-
 #summary-box {
   opacity: 1 !important;
 }
 
+/* Button-Gruppe */
 #button-group {
   position: fixed;
   bottom: 1.2rem;
@@ -185,7 +174,6 @@ canvas {
   gap: 0.6rem;
   z-index: 9999;
 }
-
 #button-group button {
   background-color: #ccc;
   color: #333;
@@ -201,52 +189,9 @@ canvas {
   text-align: center;
 }
 
-#co2-indicator {
-  position: sticky;
-  top: 12px;
-  right: 12px;
-  width: 90px;
-  height: 90px;
-  align-self: flex-end;
-  margin-left: auto;
-  margin-bottom: 1rem;
-  z-index: 1000;
-}
-
-.donut {
-  width: 100%;
-  height: 100%;
-  transform: none; /* nicht rotieren */
-}
-
-.donut-bg {
-  fill: none;
-  stroke: #eee;
-  stroke-width: 3;
-}
-
-.donut-meter {
-  fill: none;
-  stroke-width: 3;
-  stroke-linecap: round;
-  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
-}
-
-.co2-value {
-  font-size: 6px;
-  font-weight: bold;
-  fill: #333;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-
-.co2-max {
-  font-size: 3px;
-  fill: #aaa;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-
-.hidden {
-  display: none;
+/* Szene deaktiviert Touch */
+a-scene,
+canvas {
+  pointer-events: none !important;
+  z-index: 0 !important;
 }

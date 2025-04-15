@@ -15,6 +15,24 @@
       <h1>AR Erde</h1>
     </header>
 
+      <!-- CO₂-Ball -->
+      <div id="co2-indicator" class="hidden">
+        <svg viewBox="0 0 36 36" class="donut">
+          <path class="donut-bg"
+            d="M18 2.0845
+               a 15.9155 15.9155 0 0 1 0 31.831
+               a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100"
+            d="M18 2.0845
+               a 15.9155 15.9155 0 0 1 0 31.831
+               a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          <text x="50%" y="50%" dy=".3em" class="co2-value"
+            text-anchor="middle" dominant-baseline="middle">0 kg</text>
+          <text x="50%" y="68%" dy=".3em" class="co2-max"
+            text-anchor="middle" dominant-baseline="middle">/ 100 kg</text>
+        </svg>
+      </div>
+
     <a-scene
       embedded
       device-orientation-permission-ui="enabled: false"
@@ -69,25 +87,10 @@
     <!-- 🌱 Overlay -->
     <div id="input-overlay" style="display: none;">
       <div class="input-card">
-        <h2>Deine Nachhaltigkeits-Infos</h2>
+        <h2 style="text-align: center;">Deine Nachhaltigkeits-Infos</h2>
 
-        <!-- CO₂-Ball -->
-        <div id="co2-indicator" class="hidden">
-          <svg viewBox="0 0 36 36" class="donut">
-            <path class="donut-bg"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-            <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-            <text x="50%" y="50%" dy=".3em" class="co2-value"
-              text-anchor="middle" dominant-baseline="middle">0 kg</text>
-            <text x="50%" y="68%" dy=".3em" class="co2-max"
-              text-anchor="middle" dominant-baseline="middle">/ 100 kg</text>
-          </svg>
-        </div>
+
+      
         
 
         <!-- Inputs -->
