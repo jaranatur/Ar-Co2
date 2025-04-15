@@ -6,23 +6,19 @@ body {
   touch-action: manipulation;
 }
 
-/* Einheitliche Schriftart für A-Frame Texte */
 a-entity[text] {
   font: exo2bold;
 }
 
-/* 🎯 Desktop-Zeiger */
 a-entity {
   cursor: pointer;
 }
 
-/* 🌍 Erde: Touch-Interaktionen */
 #earth {
   pointer-events: auto !important;
   touch-action: manipulation !important;
 }
 
-/* 📝 Info-Box Styling */
 #info-box {
   background: #d8f3dc;
   border-radius: 10px;
@@ -31,7 +27,6 @@ a-entity {
   pointer-events: auto;
 }
 
-/* 📝 Text in der Info-Box */
 #info-box a-entity {
   text-align: center;
   color: #1b4332;
@@ -43,7 +38,6 @@ a-entity {
   z-index: 2;
 }
 
-/* 🎨 Schließen-Button */
 #btn-close-info {
   background: #95d5b2;
   color: #1b4332;
@@ -55,24 +49,20 @@ a-entity {
   pointer-events: auto;
 }
 
-/* ✨ Hover Effekt für Desktop */
 #btn-close-info:hover {
   background: #74c69d;
   box-shadow: 0px 0px 8px rgba(149, 213, 178, 0.8);
 }
 
-/* ⚠️ Szenen-Auswahl */
 #scene-selection {
   display: block;
 }
 
-/* 📱 Verhindert Auswahl auf Touch */
 * {
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* 🧠 Selektierbare Formfelder */
 input,
 select,
 button,
@@ -81,7 +71,6 @@ label {
   -webkit-user-select: auto !important;
 }
 
-/* 📌 HTML Input-Overlay (zentriert) */
 #input-overlay {
   position: fixed;
   top: 0;
@@ -93,18 +82,19 @@ label {
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 1rem;
+  align-items: flex-start;
+  padding: 3vh 1rem 1rem;
   box-sizing: border-box;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
-/* 📋 Karte innerhalb des Overlays */
 .input-card {
   background: white;
   padding: 2rem;
   border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
+  width: 95%;
+  max-width: 480px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
   max-height: 75vh;
@@ -118,8 +108,6 @@ label {
   overflow-wrap: break-word;
   margin-top: 2vh;
   margin-bottom: 4vh;
-  width: 95%;
-  max-width: 480px;
 }
 
 .input-card h2 {
@@ -155,14 +143,12 @@ label {
   cursor: pointer;
 }
 
-/* 🔧 A-Frame: Deaktiviere Touch, wenn HTML aktiv */
 a-scene,
 canvas {
   pointer-events: none !important;
   z-index: 0 !important;
 }
 
-/* Ergebnisbox oben */
 #result-box {
   position: absolute;
   top: 1rem;
@@ -171,7 +157,6 @@ canvas {
   z-index: 10;
 }
 
-/* Einzelne Textzeilen */
 .result-section {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
@@ -185,7 +170,6 @@ canvas {
   transition: opacity 0.6s ease;
 }
 
-/* Nur erste Box sofort sichtbar */
 #summary-box {
   opacity: 1 !important;
 }
@@ -217,12 +201,10 @@ canvas {
 }
 
 #co2-indicator {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  margin-bottom: 1.5rem;
   width: 90px;
   height: 90px;
-  z-index: 999;
+  align-self: center;
 }
 
 .donut {
@@ -249,14 +231,13 @@ canvas {
   fill: #333;
   text-anchor: middle;
   dominant-baseline: middle;
-  transform: rotate(90deg);
 }
 
 .co2-max {
   font-size: 2px;
   fill: #aaa;
   text-anchor: middle;
-  transform: rotate(90deg);
+  dominant-baseline: middle;
 }
 
 .hidden {
