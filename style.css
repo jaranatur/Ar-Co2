@@ -1,3 +1,12 @@
+.a-enter-vr-button {
+  display: none !important;
+}
+
+.a-modal {
+  display: none !important;
+}
+
+
 /* 🖥️ Basis */
 html, body {
   margin: 0;
