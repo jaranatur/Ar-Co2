@@ -53,6 +53,9 @@ export function handleEarthRotation() {
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
       sceneSelection.setAttribute("data-visible", "true");
+
+      // 🔥 Event zum Starten der Fragen
+      document.dispatchEvent(new Event('start-questions'));
     }
   };
 
