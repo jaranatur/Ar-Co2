@@ -1,13 +1,6 @@
-import { initGlobals } from './common/globals.js';
-import { initScene } from './common/initScene.js';
-import { handleEarthRotation } from './common/handleEarthRotation.js';
-import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { startQuestionFlow } from './common/questionFlow.js';
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await new Promise(r => setTimeout(r, 500));
-  initGlobals();
-  initScene();
-  setupOverlayObserver();
-  startQuestionFlow(); // ⬅️ direkt starten
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("🚀 DOM geladen, starte Fragenflow...");
+  startQuestionFlow();
 });

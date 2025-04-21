@@ -1,34 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AR Erde</title>
-
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
-
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <h1>AR Erde</h1>
-    </header>
-
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="trackingMethod: best;">
-      <a-assets>
-        <img id="arrow-icon" src="assets/arrow-down-white.png" />
-        <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
-        <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
-      </a-assets>
-
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
-    </a-scene>
-
-    <!-- ✅ Fragencontainer war bisher nicht da -->
-    <div id="question-container"></div>
-
-    <script type="module" src="scripts/main.js"></script>
-    <script type="module" src="scripts/common/questionFlow.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fragenflow Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="question-container"></div>
+  <script type="module" src="scripts/main.js"></script>
+</body>
 </html>

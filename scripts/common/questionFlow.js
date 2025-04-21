@@ -1,6 +1,3 @@
-import { createDragHoldButton } from './dragAndHold.js';
-import { updateCO2Value } from './globals.js';
-
 const questions = [
   {
     id: 1,
@@ -18,12 +15,11 @@ const questions = [
 let currentQuestionIndex = 0;
 
 export function startQuestionFlow() {
+  console.log("🎬 Fragenflow startet...");
   renderQuestion(questions[currentQuestionIndex]);
 }
 
 function renderQuestion(question) {
-    console.log("📦 Frage wird gerendert:", question);
-
   const container = document.getElementById('question-container');
   container.style.display = 'flex';
   container.style.pointerEvents = 'auto';
@@ -38,7 +34,9 @@ function renderQuestion(question) {
   buttonWrapper.className = 'button-wrapper';
 
   question.options.forEach(option => {
-    const button = createDragHoldButton(option.label, () => handleAnswer(option.value));
+    const button = document.createElement('button');
+    button.innerText = option.label;
+    button.onclick = () => handleAnswer(option.value);
     buttonWrapper.appendChild(button);
   });
 
@@ -46,7 +44,7 @@ function renderQuestion(question) {
 }
 
 function handleAnswer(value) {
-  updateCO2Value(value);
+  console.log("📦 Antwort ausgewählt: ", value);
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
     renderQuestion(questions[currentQuestionIndex]);
