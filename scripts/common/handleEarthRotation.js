@@ -1,22 +1,23 @@
 import { hintText, arrow, sceneSelection } from './globals.js';
-import { startQuestionFlow } from './questionFlow.js';
 
 export function handleEarthRotation() {
-  const tryInit = () => {
-    const earth = document.getElementById("earth");
-
-    if (!earth || earth.object3D?.children.length === 0) {
-      setTimeout(tryInit, 100);
-      return;
-    }
-
-    initRotation(earth);
-  };
-
-  tryInit();
+  waitForEarthReady();
 }
 
-function initRotation(earth) {
+function waitForEarthReady() {
+  const earth = document.getElementById("earth");
+
+  if (!earth || !earth.object3D || earth.object3D.children.length === 0) {
+    console.log("⏳ Warte auf Earth...");
+    setTimeout(waitForEarthReady, 100);
+    return;
+  }
+
+  console.log("✅ Earth bereit:", earth);
+  setupEarthRotation(earth);
+}
+
+function setupEarthRotation(earth) {
   let isDragging = false;
   let lastX = 0;
   let rotationProgress = 0;
@@ -25,31 +26,33 @@ function initRotation(earth) {
 
   const hintBg = document.getElementById("hint-bg");
 
-  const onTouchStart = (e) => {
-    if (e.target.closest("#input-overlay")) return;
+  const onTouchStart = (event) => {
+    if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
-    lastX = e.touches[0].clientX;
-    e.preventDefault();
+    lastX = event.touches[0].clientX;
+    console.log("👆 Touch gestartet");
+    event.preventDefault();
   };
 
-  const onTouchMove = (e) => {
+  const onTouchMove = (event) => {
     if (!isDragging || sceneTransitioned) return;
 
-    const deltaX = e.touches[0].clientX - lastX;
-    lastX = e.touches[0].clientX;
+    const deltaX = event.touches[0].clientX - lastX;
+    lastX = event.touches[0].clientX;
 
-    const current = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+    const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
-      x: current.x,
-      y: current.y + deltaX * 0.3,
-      z: current.z
+      x: currentRotation.x,
+      y: currentRotation.y + deltaX * 0.3,
+      z: currentRotation.z
     });
 
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
-    const currentText = hintText.getAttribute("text") || {};
-    hintText.setAttribute("text", { ...currentText, opacity });
-    if (hintBg) hintBg.setAttribute("material", "opacity", 0.4 * opacity);
+
+    const currentText = hintText?.getAttribute("text") || {};
+    hintText?.setAttribute("text", { ...currentText, opacity });
+    hintBg?.setAttribute("material", "opacity", 0.4 * opacity);
 
     if (opacity < 0.2) {
       hintText?.setAttribute("visible", false);
@@ -61,19 +64,24 @@ function initRotation(earth) {
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
+      console.log("🌍 Rotation abgeschlossen, Szene wechselt...");
       sceneTransitioned = true;
-      earth.setAttribute("visible", false);
+      earth.setAttribute("visible", "false");
       sceneSelection?.setAttribute("visible", true);
       sceneSelection?.setAttribute("data-visible", "true");
-      startQuestionFlow();
+      // Noch kein Fragenflow: erstmal deaktiviert
+      // startQuestionFlow();
     }
   };
 
   const onTouchEnd = () => {
     isDragging = false;
+    console.log("✋ Touch beendet");
   };
 
   document.addEventListener("touchstart", onTouchStart, { passive: false });
   document.addEventListener("touchmove", onTouchMove, { passive: false });
   document.addEventListener("touchend", onTouchEnd);
+
+  console.log("✅ EarthRotation-Events aktiviert");
 }
