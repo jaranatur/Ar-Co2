@@ -16,11 +16,3 @@ document.addEventListener("start-questions", () => {
   console.log("📩 Fragenflow-Event empfangen");
   startQuestionFlow();
 });
-
-window.addEventListener("load", () => {
-  const canvas = document.querySelector("a-scene canvas");
-  if (canvas) {
-    canvas.style.pointerEvents = "auto";
-    canvas.style.zIndex = "1";
-  }
-});
