@@ -22,6 +22,8 @@ export function startQuestionFlow() {
 }
 
 function renderQuestion(question) {
+    console.log("📦 Frage wird gerendert:", question);
+
   const container = document.getElementById('question-container');
   container.style.display = 'flex';
   container.style.pointerEvents = 'auto';

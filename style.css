@@ -209,6 +209,8 @@ a-entity {
 #question-container {
   display: flex !important;
   pointer-events: auto !important;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   width: 100%;
@@ -217,7 +219,9 @@ a-entity {
   background: rgba(255,255,255,0.95);
   padding: 20px;
   text-align: center;
+  flex-direction: column;
 }
+
 #question-flow {
   position: fixed;
   top: 0;
