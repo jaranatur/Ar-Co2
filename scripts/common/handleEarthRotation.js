@@ -1,13 +1,10 @@
-import { hintText, arrow, sceneSelection } from './globals.js';
-import { startQuestionFlow } from './questionFlow.js';
+import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
   waitForEarthReady();
 }
 
 function waitForEarthReady() {
-  const earth = document.getElementById("earth");
-
   if (!earth || !earth.object3D || earth.object3D.children.length === 0) {
     console.log("⏳ Warte auf Earth...");
     setTimeout(waitForEarthReady, 100);
@@ -15,10 +12,10 @@ function waitForEarthReady() {
   }
 
   console.log("✅ Earth bereit:", earth);
-  setupEarthRotation(earth);
+  setupEarthRotation();
 }
 
-function setupEarthRotation(earth) {
+function setupEarthRotation() {
   let isDragging = false;
   let lastX = 0;
   let rotationProgress = 0;
@@ -29,14 +26,15 @@ function setupEarthRotation(earth) {
 
   const onTouchStart = (event) => {
     if (!earth || event.target.closest("#input-overlay")) return;
+    if (event.target.closest("#question-container")) return;
+
     isDragging = true;
     lastX = event.touches[0].clientX;
-    console.log("👆 Touch gestartet");
     event.preventDefault();
   };
 
   const onTouchMove = (event) => {
-    if (!isDragging || sceneTransitioned) return;
+    if (!isDragging || sceneTransitioned || !earth) return;
 
     const deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
@@ -65,27 +63,23 @@ function setupEarthRotation(earth) {
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🌍 Rotation abgeschlossen, Szene wechselt...");
+      console.log("🌍 Erde verschwindet – Fragen starten...");
       sceneTransitioned = true;
 
       earth.setAttribute("visible", "false");
       sceneSelection?.setAttribute("visible", true);
       sceneSelection?.setAttribute("data-visible", "true");
 
-      // ❗ Hier: Fragenflow starten
-      document.getElementById("question-container").style.display = "block";
-      startQuestionFlow();
+      // 👉 Fragen starten via globalem Event
+      document.dispatchEvent(new Event("start-questions"));
     }
   };
 
   const onTouchEnd = () => {
     isDragging = false;
-    console.log("✋ Touch beendet");
   };
 
   document.addEventListener("touchstart", onTouchStart, { passive: false });
   document.addEventListener("touchmove", onTouchMove, { passive: false });
   document.addEventListener("touchend", onTouchEnd);
-
-  console.log("✅ EarthRotation-Events aktiviert");
 }
