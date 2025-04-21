@@ -15,7 +15,6 @@ export function handleEarthRotation() {
     lastX = event.touches[0].clientX;
     event.preventDefault();
   };
-
   const onTouchMove = (event) => {
     if (!isDragging || sceneTransitioned || !earth) return;
 
