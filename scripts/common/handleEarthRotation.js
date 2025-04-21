@@ -11,28 +11,49 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    if (!earth || event.target.closest("#input-overlay")) return;
+    console.log("👆 Touchstart erkannt");
+    if (!earth) {
+      console.warn("⚠️ Kein Earth-Element gefunden");
+      return;
+    }
+    if (event.target.closest("#input-overlay")) {
+      console.log("🎛️ Touch wurde auf dem Overlay erkannt – ignoriert");
+      return;
+    }
+
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
   };
 
   const onTouchMove = (event) => {
-    if (!isDragging || sceneTransitioned || !earth) return;
+    if (!isDragging) return;
+    if (sceneTransitioned) {
+      console.log("🛑 Szene wurde bereits gewechselt");
+      return;
+    }
+    if (!earth) {
+      console.warn("⚠️ Earth nicht vorhanden bei touchmove");
+      return;
+    }
 
     const deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
 
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+    const newY = currentRotation.y + deltaX * 0.3;
     earth.setAttribute("rotation", {
       x: currentRotation.x,
-      y: currentRotation.y + deltaX * 0.3,
+      y: newY,
       z: currentRotation.z
     });
 
-    rotationProgress += Math.abs(deltaX);
-    const opacity = Math.max(0, 1 - rotationProgress / 500);
+    console.log("🌍 Drehe Erde – neue Y-Rotation:", newY);
 
+    rotationProgress += Math.abs(deltaX);
+    console.log("📊 Rotation fortschritt:", rotationProgress);
+
+    const opacity = Math.max(0, 1 - rotationProgress / 500);
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
 
@@ -41,26 +62,28 @@ export function handleEarthRotation() {
     }
 
     if (opacity < 0.2) {
-      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
-      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
-      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
+      hintText.setAttribute("visible", "false");
+      arrow?.setAttribute("visible", "false");
+      hintBg?.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
+    console.log("🔍 Skalierung:", scaleProgress);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
+      console.log("🚀 Schwelle erreicht – Starte Fragenflow!");
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
       sceneSelection.setAttribute("data-visible", "true");
 
-      // Fragenflow starten
       startQuestionFlow();
     }
   };
 
   const onTouchEnd = () => {
+    console.log("🛑 Touchend – Dragging beendet");
     isDragging = false;
   };
 
