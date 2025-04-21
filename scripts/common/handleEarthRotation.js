@@ -1,4 +1,5 @@
 import { hintText, arrow, sceneSelection } from './globals.js';
+import { startQuestionFlow } from './questionFlow.js';
 
 export function handleEarthRotation() {
   waitForEarthReady();
@@ -66,11 +67,14 @@ function setupEarthRotation(earth) {
     if (rotationProgress > 600 && !sceneTransitioned) {
       console.log("🌍 Rotation abgeschlossen, Szene wechselt...");
       sceneTransitioned = true;
+
       earth.setAttribute("visible", "false");
       sceneSelection?.setAttribute("visible", true);
       sceneSelection?.setAttribute("data-visible", "true");
-      // Noch kein Fragenflow: erstmal deaktiviert
-      // startQuestionFlow();
+
+      // ❗ Hier: Fragenflow starten
+      document.getElementById("question-container").style.display = "block";
+      startQuestionFlow();
     }
   };
 
