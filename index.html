@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -16,57 +15,17 @@
       <h1>AR Erde</h1>
     </header>
 
-    <!-- 🌍 CO₂-Kreisanzeige -->
-    <div id="co2-indicator" class="hidden">
-      <svg viewBox="0 0 36 36" class="donut">
-        <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        <text x="50%" y="50%" dy=".3em" class="co2-value" text-anchor="middle" dominant-baseline="middle">0 kg</text>
-        <text x="50%" y="68%" dy=".3em" class="co2-max" text-anchor="middle" dominant-baseline="middle">/ 100 kg</text>
-      </svg>
-    </div>
-
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="trackingMethod: best;">
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
         <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
-        <audio id="swipe-sound" src="assets/swipe.mp3" preload="auto"></audio>
       </a-assets>
-
-      <!-- <a-marker preset="hiro">
-        <a-entity id="earth-container">
-          <a-entity id="earth" gltf-model="assets/earth.glb" position="0 0 0" scale="0.01 0.01 0.01" animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic"></a-entity>
-        </a-entity>
-
-        <a-entity id="scene-selection" visible="false"></a-entity>
-
-        <a-entity id="hint-text" position="0 2.5 -1" visible="true"
-          text="value: Würdest du das HSD-Klimaziel schaffen?
-Dreh die Erde – und finde es heraus.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
-        </a-entity>
-
-        <a-entity id="hint-bg"
-          geometry="primitive: plane; height: auto; width: auto"
-          position="0 2.5 -1.01"
-          material="color: black; opacity: 0.4; transparent: true"
-          visible="true">
-        </a-entity>
-
-        <a-entity id="arrow-icon-entity"
-          geometry="primitive: plane; height: 0.9; width: 0.9"
-          material="src: #arrow-icon; transparent: true; opacity: 0.8"
-          position="0 1.7 -1"
-          rotation="-90 0 0"
-          animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
-          animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;">
-        </a-entity>
-      </a-marker> -->
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
     </a-scene>
 
-    <!-- 💬 Frage & CO₂-Balken -->
+    <!-- ✅ Fragencontainer war bisher nicht da -->
     <div id="question-container"></div>
 
     <script type="module" src="scripts/main.js"></script>
