@@ -1,0 +1,40 @@
+export function createDragHoldButton(label, onConfirm) {
+  const button = document.createElement('div');
+  button.className = 'drag-hold-button';
+  button.innerText = label;
+
+  const progressCircle = document.createElement('div');
+  progressCircle.className = 'progress-circle';
+  button.appendChild(progressCircle);
+
+  let timer = null;
+  let progress = 0;
+
+  function fill() {
+    progress += 1;
+    progressCircle.style.width = `${progress}%`;
+    progressCircle.style.height = `${progress}%`;
+
+    if (progress >= 100) {
+      clearInterval(timer);
+      onConfirm();
+    }
+  }
+
+  button.addEventListener('mousedown', () => {
+    progress = 0;
+    progressCircle.style.width = '0%';
+    progressCircle.style.height = '0%';
+    timer = setInterval(fill, 10);
+  });
+
+  ['mouseup', 'mouseleave'].forEach(event =>
+    button.addEventListener(event, () => {
+      clearInterval(timer);
+      progressCircle.style.width = '0%';
+      progressCircle.style.height = '0%';
+    })
+  );
+
+  return button;
+}

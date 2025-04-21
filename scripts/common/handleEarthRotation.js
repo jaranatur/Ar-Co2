@@ -1,4 +1,5 @@
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
+import { startQuestionFlow } from './questionFlow.js';
 
 export function handleEarthRotation() {
   let isDragging = false;
@@ -54,8 +55,8 @@ export function handleEarthRotation() {
       sceneSelection.setAttribute("visible", true);
       sceneSelection.setAttribute("data-visible", "true");
 
-      // 🔥 Event zum Starten der Fragen
-      document.dispatchEvent(new Event('start-questions'));
+      // Fragenflow starten
+      startQuestionFlow();
     }
   };
 
