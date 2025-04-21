@@ -1,3 +1,4 @@
+// scripts/handleEarthRotation.js
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -10,16 +11,17 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    if (!earth || event.target.closest("#input-overlay")) return;
+    if (!earth) return;
     isDragging = true;
-    lastX = event.touches[0].clientX;
-    event.preventDefault();
+    lastX = event.touches ? event.touches[0].clientX : event.clientX;
   };
+
   const onTouchMove = (event) => {
     if (!isDragging || sceneTransitioned || !earth) return;
 
-    const deltaX = event.touches[0].clientX - lastX;
-    lastX = event.touches[0].clientX;
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    const deltaX = clientX - lastX;
+    lastX = clientX;
 
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
@@ -30,18 +32,13 @@ export function handleEarthRotation() {
 
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
-
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
-
-    if (hintBg) {
-      hintBg.setAttribute("material", "opacity", 0.4 * opacity);
-    }
-
+    if (hintBg) hintBg.setAttribute("material", "opacity", 0.4 * opacity);
     if (opacity < 0.2) {
-      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
-      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
-      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
+      hintText.setAttribute("visible", false);
+      arrow?.setAttribute("visible", false);
+      hintBg?.setAttribute("visible", false);
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
@@ -60,9 +57,11 @@ export function handleEarthRotation() {
     }
   };
 
-  const onTouchEnd = () => {
-    isDragging = false;
-  };
+  const onTouchEnd = () => isDragging = false;
+
+  document.addEventListener("mousedown", onTouchStart);
+  document.addEventListener("mousemove", onTouchMove);
+  document.addEventListener("mouseup", onTouchEnd);
 
   document.addEventListener("touchstart", onTouchStart, { passive: false });
   document.addEventListener("touchmove", onTouchMove, { passive: false });
