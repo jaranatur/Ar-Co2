@@ -1,26 +1,22 @@
-// scripts/common/handleEarthRotation.js
-
-import { earth, hintText, arrow, sceneSelection } from './globals.js';
+import { hintText, arrow, sceneSelection } from './globals.js';
 import { startQuestionFlow } from './questionFlow.js';
 
 export function handleEarthRotation() {
   const tryInit = () => {
-    const earthElem = document.getElementById("earth");
+    const earth = document.getElementById("earth");
 
-    if (!earthElem || earthElem.object3D.children.length === 0) {
-      console.log("🕒 Erde nicht bereit – warte...");
-      setTimeout(tryInit, 200);
+    if (!earth || earth.object3D?.children.length === 0) {
+      setTimeout(tryInit, 100);
       return;
     }
 
-    console.log("✅ Erde gefunden, Rotation aktiv");
-    setupRotation(earthElem);
+    initRotation(earth);
   };
 
   tryInit();
 }
 
-function setupRotation(earth) {
+function initRotation(earth) {
   let isDragging = false;
   let lastX = 0;
   let rotationProgress = 0;
@@ -29,40 +25,36 @@ function setupRotation(earth) {
 
   const hintBg = document.getElementById("hint-bg");
 
-  const onTouchStart = (event) => {
-    if (!earth || event.target.closest("#input-overlay")) return;
+  const onTouchStart = (e) => {
+    if (e.target.closest("#input-overlay")) return;
     isDragging = true;
-    lastX = event.touches[0].clientX;
-    event.preventDefault();
+    lastX = e.touches[0].clientX;
+    e.preventDefault();
   };
 
-  const onTouchMove = (event) => {
-    if (!isDragging || sceneTransitioned || !earth) return;
+  const onTouchMove = (e) => {
+    if (!isDragging || sceneTransitioned) return;
 
-    const deltaX = event.touches[0].clientX - lastX;
-    lastX = event.touches[0].clientX;
+    const deltaX = e.touches[0].clientX - lastX;
+    lastX = e.touches[0].clientX;
 
-    const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+    const current = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
-      x: currentRotation.x,
-      y: currentRotation.y + deltaX * 0.3,
-      z: currentRotation.z
+      x: current.x,
+      y: current.y + deltaX * 0.3,
+      z: current.z
     });
 
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
-
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
-
-    if (hintBg) {
-      hintBg.setAttribute("material", "opacity", 0.4 * opacity);
-    }
+    if (hintBg) hintBg.setAttribute("material", "opacity", 0.4 * opacity);
 
     if (opacity < 0.2) {
-      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
-      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
-      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
+      hintText?.setAttribute("visible", false);
+      arrow?.setAttribute("visible", false);
+      hintBg?.setAttribute("visible", false);
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
@@ -70,11 +62,9 @@ function setupRotation(earth) {
 
     if (rotationProgress > 600 && !sceneTransitioned) {
       sceneTransitioned = true;
-      earth.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", true);
-      sceneSelection.setAttribute("data-visible", "true");
-
-      console.log("🚀 Fragefluss gestartet");
+      earth.setAttribute("visible", false);
+      sceneSelection?.setAttribute("visible", true);
+      sceneSelection?.setAttribute("data-visible", "true");
       startQuestionFlow();
     }
   };
