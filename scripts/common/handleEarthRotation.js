@@ -1,21 +1,6 @@
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
-  waitForEarthReady();
-}
-
-function waitForEarthReady() {
-  if (!earth || !earth.object3D || earth.object3D.children.length === 0) {
-    console.log("⏳ Warte auf Earth...");
-    setTimeout(waitForEarthReady, 100);
-    return;
-  }
-
-  console.log("✅ Earth bereit:", earth);
-  setupEarthRotation();
-}
-
-function setupEarthRotation() {
   let isDragging = false;
   let lastX = 0;
   let rotationProgress = 0;
@@ -26,8 +11,6 @@ function setupEarthRotation() {
 
   const onTouchStart = (event) => {
     if (!earth || event.target.closest("#input-overlay")) return;
-    if (event.target.closest("#question-container")) return;
-
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
@@ -49,29 +32,32 @@ function setupEarthRotation() {
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
 
-    const currentText = hintText?.getAttribute("text") || {};
-    hintText?.setAttribute("text", { ...currentText, opacity });
-    hintBg?.setAttribute("material", "opacity", 0.4 * opacity);
+    const currentText = hintText.getAttribute("text") || {};
+    hintText.setAttribute("text", { ...currentText, opacity });
+
+    if (hintBg) {
+      hintBg.setAttribute("material", "opacity", 0.4 * opacity);
+    }
 
     if (opacity < 0.2) {
-      hintText?.setAttribute("visible", false);
-      arrow?.setAttribute("visible", false);
-      hintBg?.setAttribute("visible", false);
+      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
+      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
+      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🌍 Erde verschwindet – Fragen starten...");
+      console.log("🌍 Earth wird versteckt, Frageflow startet!");
       sceneTransitioned = true;
-
       earth.setAttribute("visible", "false");
-      sceneSelection?.setAttribute("visible", true);
-      sceneSelection?.setAttribute("data-visible", "true");
+      sceneSelection.setAttribute("visible", true);
+      sceneSelection.setAttribute("data-visible", "true");
 
-      // 👉 Fragen starten via globalem Event
-      document.dispatchEvent(new Event("start-questions"));
+      setTimeout(() => {
+        document.dispatchEvent(new Event("start-questions"));
+      }, 500);
     }
   };
 

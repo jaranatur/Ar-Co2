@@ -1,18 +1,16 @@
-//questionFlow.js
 import { createDragHoldButton } from './dragAndHold.js';
-import { updateCO2Value, answers } from './globals.js';
+import { updateCO2Value } from './globals.js';
 
 const questions = [
   {
     id: 1,
-    key: 'daysPerWeek', // 🆕 Schlüssel für Antwortspeicherung
     text: '🗓️ Wie oft bist du pro Woche an der HSD?',
     options: [
-      { label: '1 Tag', value: 1 },
-      { label: '2 Tage', value: 2 },
-      { label: '3 Tage', value: 3 },
-      { label: '4 Tage', value: 4 },
-      { label: '5 Tage', value: 5 }
+      { label: '1 Tag', value: 5 },
+      { label: '2 Tage', value: 10 },
+      { label: '3 Tage', value: 15 },
+      { label: '4 Tage', value: 20 },
+      { label: '5 Tage', value: 25 }
     ]
   }
 ];
@@ -25,6 +23,8 @@ export function startQuestionFlow() {
 
 function renderQuestion(question) {
   const container = document.getElementById('question-container');
+  container.style.display = 'flex';
+  container.style.pointerEvents = 'auto';
   container.innerHTML = '';
 
   const questionDiv = document.createElement('div');
@@ -36,17 +36,15 @@ function renderQuestion(question) {
   buttonWrapper.className = 'button-wrapper';
 
   question.options.forEach(option => {
-    const button = createDragHoldButton(option.label, () => handleAnswer(question.key, option.value));
+    const button = createDragHoldButton(option.label, () => handleAnswer(option.value));
     buttonWrapper.appendChild(button);
   });
 
   container.appendChild(buttonWrapper);
 }
 
-function handleAnswer(key, value) {
-  answers[key] = value; // 🧠 Antwort speichern
-  updateCO2Value(value * 5); // z. B. 5 kg pro Tag, dummy-Wert
-
+function handleAnswer(value) {
+  updateCO2Value(value);
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
     renderQuestion(questions[currentQuestionIndex]);
