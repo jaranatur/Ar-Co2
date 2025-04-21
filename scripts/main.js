@@ -8,11 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await new Promise(r => setTimeout(r, 500));
   initGlobals();
   initScene();
-  // handleEarthRotation();
   setupOverlayObserver();
-});
-
-document.addEventListener("start-questions", () => {
-  console.log("📩 Fragenflow-Event empfangen");
-  startQuestionFlow();
+  startQuestionFlow(); // ⬅️ direkt starten
 });
