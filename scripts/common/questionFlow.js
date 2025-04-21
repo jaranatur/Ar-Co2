@@ -1,4 +1,3 @@
-// scripts/questionFlow.js
 import { createDragHoldButton } from './dragAndHold.js';
 import { updateCO2Value } from './globals.js';
 
@@ -19,7 +18,6 @@ const questions = [
 let currentQuestionIndex = 0;
 
 export function startQuestionFlow() {
-  console.log("▶️ startQuestionFlow gestartet");
   renderQuestion(questions[currentQuestionIndex]);
 }
 

@@ -1,4 +1,3 @@
-// scripts/handleEarthRotation.js
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -11,17 +10,18 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    if (!earth) return;
+    if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
-    lastX = event.touches ? event.touches[0].clientX : event.clientX;
+    lastX = event.touches[0].clientX;
+    console.log("👆 Touch erkannt");
+    event.preventDefault();
   };
 
   const onTouchMove = (event) => {
     if (!isDragging || sceneTransitioned || !earth) return;
 
-    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-    const deltaX = clientX - lastX;
-    lastX = clientX;
+    const deltaX = event.touches[0].clientX - lastX;
+    lastX = event.touches[0].clientX;
 
     const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
     earth.setAttribute("rotation", {
@@ -32,20 +32,23 @@ export function handleEarthRotation() {
 
     rotationProgress += Math.abs(deltaX);
     const opacity = Math.max(0, 1 - rotationProgress / 500);
+
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
+
     if (hintBg) hintBg.setAttribute("material", "opacity", 0.4 * opacity);
+
     if (opacity < 0.2) {
-      hintText.setAttribute("visible", false);
-      arrow?.setAttribute("visible", false);
-      hintBg?.setAttribute("visible", false);
+      hintText.setAttribute("visible", "false");
+      arrow?.setAttribute("visible", "false");
+      hintBg?.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🌍 Earth wird versteckt, Frageflow startet!");
+      console.log("🌍 Szene wechselt, Erde wird versteckt");
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
@@ -57,11 +60,9 @@ export function handleEarthRotation() {
     }
   };
 
-  const onTouchEnd = () => isDragging = false;
-
-  document.addEventListener("mousedown", onTouchStart);
-  document.addEventListener("mousemove", onTouchMove);
-  document.addEventListener("mouseup", onTouchEnd);
+  const onTouchEnd = () => {
+    isDragging = false;
+  };
 
   document.addEventListener("touchstart", onTouchStart, { passive: false });
   document.addEventListener("touchmove", onTouchMove, { passive: false });
