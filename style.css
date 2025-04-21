@@ -207,8 +207,8 @@ a-entity {
 
 /* ❓ Fragenflow */
 #question-container {
-  display: none;
-  pointer-events: none;
+  display: block !important;
+  pointer-events: auto !important;
   position: absolute;
   top: 0;
   width: 100%;

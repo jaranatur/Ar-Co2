@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await new Promise(r => setTimeout(r, 500));
   initGlobals();
   initScene();
-  handleEarthRotation();
+  // handleEarthRotation();
   setupOverlayObserver();
 });
 
