@@ -1,26 +1,219 @@
-.drag-hold-button {
-  position: relative;
-  padding: 20px;
-  border-radius: 50%;
-  background-color: #eee;
-  width: 100px;
-  height: 100px;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  user-select: none;
-  text-align: center;
+.a-enter-vr-button {
+  display: none !important;
 }
 
-.progress-circle {
-  position: absolute;
-  background: rgba(0, 128, 0, 0.3);
+.a-modal {
+  display: none !important;
+}
+
+
+/* 🖥️ Basis */
+html, body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  touch-action: manipulation;
+  user-select: none;
+}
+input, select, button, label {
+  user-select: auto !important;
+}
+
+/* 🌀 A-Frame */
+a-entity[text] {
+  font: exo2bold;
+}
+a-entity {
+  cursor: pointer;
+}
+#earth {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+a-scene, canvas {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* 🌍 CO₂-Kreis */
+#co2-indicator {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 100px;
+  height: 100px;
+  z-index: 9999;
+  background: white;
   border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.donut {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+.donut-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3;
+}
+.donut-meter {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
+}
+.co2-value {
+  font-size: 7px;
+  fill: #333;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.co2-max {
+  font-size: 3px;
+  fill: #999;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.hidden {
+  display: none;
+}
+
+
+
+/* 🧊 Overlay */
+#input-overlay {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 0%;
-  height: 0%;
-  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  pointer-events: auto;
+  background-color: rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1vh 1rem 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.input-card {
+  background: white;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 480px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: sans-serif;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 4vh 0;
+  box-sizing: border-box;
+}
+
+.input-card-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 2;
+  padding: 1.5rem 1rem 1.2rem;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.input-card-header h2 {
+  font-size: 1.4rem;
+  margin: 0;
+  text-align: left;
+}
+
+.input-card-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem 1rem 6rem;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+
+/* ✍️ Fragen / Inputs */
+.input-card label {
+  display: block;
+  margin: 1rem 1rem 0.25rem;
+  font-weight: bold;
+}
+.input-card select,
+.input-card input[type="range"] {
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.input-card button {
+  margin: 2rem 1rem 0;
+  width: calc(100% - 2rem);
+  padding: 0.8rem;
+  background-color: #52b788;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* 📊 Ergebnis */
+#result-box {
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+.result-section {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  line-height: 1.35;
+  display: inline-block;
+  width: auto;
+  margin-bottom: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#summary-box {
+  opacity: 1 !important;
+}
+
+/* 🔘 Button-Leiste */
+#button-group {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 9999;
+}
+#button-group button {
+  background-color: #ccc;
+  color: #333;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  min-width: 100px;
+  max-width: 140px;
+  white-space: normal;
+  text-align: center;
 }
