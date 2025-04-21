@@ -11,36 +11,35 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    console.log("👆 Touchstart erkannt");
     if (!earth) {
-      console.warn("⚠️ Kein Earth-Element gefunden");
+      console.warn("⚠️ earth nicht gefunden");
       return;
     }
+
     if (event.target.closest("#input-overlay")) {
-      console.log("🎛️ Touch wurde auf dem Overlay erkannt – ignoriert");
+      console.log("🛑 Touch auf Overlay – ignoriert");
       return;
     }
 
     isDragging = true;
     lastX = event.touches[0].clientX;
     event.preventDefault();
+
+    console.log("👆 Touchstart erkannt");
   };
 
   const onTouchMove = (event) => {
-    if (!isDragging) return;
-    if (sceneTransitioned) {
-      console.log("🛑 Szene wurde bereits gewechselt");
-      return;
-    }
-    if (!earth) {
-      console.warn("⚠️ Earth nicht vorhanden bei touchmove");
-      return;
-    }
+    if (!isDragging || sceneTransitioned || !earth) return;
 
     const deltaX = event.touches[0].clientX - lastX;
     lastX = event.touches[0].clientX;
 
-    const currentRotation = earth.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+    let currentRotation = earth.getAttribute("rotation");
+    if (!currentRotation || isNaN(currentRotation.y)) {
+      console.warn("⚠️ Ungültige Rotation – setze Fallback");
+      currentRotation = { x: 0, y: 0, z: 0 };
+    }
+
     const newY = currentRotation.y + deltaX * 0.3;
     earth.setAttribute("rotation", {
       x: currentRotation.x,
@@ -48,21 +47,20 @@ export function handleEarthRotation() {
       z: currentRotation.z
     });
 
-    console.log("🌍 Drehe Erde – neue Y-Rotation:", newY);
+    console.log("🌍 Rotation gesetzt:", newY);
 
     rotationProgress += Math.abs(deltaX);
-    console.log("📊 Rotation fortschritt:", rotationProgress);
-
     const opacity = Math.max(0, 1 - rotationProgress / 500);
-    const currentText = hintText.getAttribute("text") || {};
-    hintText.setAttribute("text", { ...currentText, opacity });
+
+    const currentText = hintText?.getAttribute("text") || {};
+    hintText?.setAttribute("text", { ...currentText, opacity });
 
     if (hintBg) {
       hintBg.setAttribute("material", "opacity", 0.4 * opacity);
     }
 
     if (opacity < 0.2) {
-      hintText.setAttribute("visible", "false");
+      hintText?.setAttribute("visible", "false");
       arrow?.setAttribute("visible", "false");
       hintBg?.setAttribute("visible", "false");
     }
@@ -72,19 +70,18 @@ export function handleEarthRotation() {
     console.log("🔍 Skalierung:", scaleProgress);
 
     if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🚀 Schwelle erreicht – Starte Fragenflow!");
+      console.log("🚀 Starte Fragenflow...");
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
-      sceneSelection.setAttribute("visible", true);
-      sceneSelection.setAttribute("data-visible", "true");
-
+      sceneSelection?.setAttribute("visible", true);
+      sceneSelection?.setAttribute("data-visible", "true");
       startQuestionFlow();
     }
   };
 
   const onTouchEnd = () => {
-    console.log("🛑 Touchend – Dragging beendet");
     isDragging = false;
+    console.log("🛑 Touchend");
   };
 
   document.addEventListener("touchstart", onTouchStart, { passive: false });
