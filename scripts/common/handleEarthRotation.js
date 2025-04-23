@@ -10,6 +10,7 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
+    console.log("🌀 Touchstart");
     if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
     lastX = event.touches[0].clientX;
@@ -40,22 +41,25 @@ export function handleEarthRotation() {
     }
 
     if (opacity < 0.2) {
-      hintText.setAttribute("visible", "false");
-      arrow?.setAttribute("visible", "false");
-      hintBg?.setAttribute("visible", "false");
+      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
+      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
+      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
+
     if (rotationProgress > 600 && !sceneTransitioned) {
+      console.log("🌍 Erde verschwindet, Frageflow startet");
       sceneTransitioned = true;
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
+      sceneSelection.setAttribute("data-visible", "true");
 
-      // Zeige das Overlay und aktiviere Fragenflow
-      document.getElementById("input-overlay").style.display = "block";
-      document.dispatchEvent(new Event("start-questions"));
+      setTimeout(() => {
+        document.dispatchEvent(new Event("start-questions"));
+      }, 500);
     }
   };
 
@@ -67,4 +71,3 @@ export function handleEarthRotation() {
   document.addEventListener("touchmove", onTouchMove, { passive: false });
   document.addEventListener("touchend", onTouchEnd);
 }
-s
