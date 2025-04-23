@@ -235,3 +235,8 @@ canvas {
 #nav-buttons button:hover {
   transform: scale(1.1);
 }
+
+#name-prompt {
+  position: fixed;
+  z-index: 10000; /* höher als der Canvas */
+}
