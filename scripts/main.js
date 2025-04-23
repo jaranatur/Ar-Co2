@@ -1,14 +1,12 @@
-//main.js
-
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
-import { setupOverlayObserver } from './common/setupOverlayObserver.js';
 import { calculateFootprint } from './common/calculate.js';
 import { questions } from './common/questions.js';
 
 let currentIndex = 0;
 let answers = {};
+let userName = "";
 
 function updateLiveBall(totalKg) {
   const indicator = document.getElementById("co2-indicator");
@@ -54,19 +52,14 @@ function renderQuestion(index) {
 
     select.addEventListener("input", () => {
       let value = select.value;
-
-      // ⛏️ Nur für bestimmte Felder in Zahl umwandeln
       if (["daysPerWeek", "distance", "mealsPerWeek"].includes(question.id)) {
         value = parseInt(value, 10);
       }
-
       answers[question.id] = value;
-
       const result = calculateFootprint(answers);
       updateLiveBall(result.totalKg);
     });
 
-    // 👇 Beim Rendern sofort den aktuellen Wert anzeigen
     if (answers[question.id]) {
       select.value = answers[question.id];
     }
@@ -91,7 +84,6 @@ function renderQuestion(index) {
       const val = parseFloat(slider.value);
       answers[question.id] = val;
       output.textContent = `${val} Stunden`;
-
       const result = calculateFootprint(answers);
       updateLiveBall(result.totalKg);
     });
@@ -104,41 +96,50 @@ function renderQuestion(index) {
 document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
-  // 💡 Hier CO₂-Tracker vorbereiten (alles auf 0 setzen)
+
+  // Live-Tracker vorbereiten
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
   updateLiveBall(0);
-  document.getElementById("co2-indicator").classList.remove("hidden");
 
+  // Zeige Name-Prompt zuerst
+  document.getElementById("name-prompt").style.display = "flex";
 
-  handleEarthRotation();
+  document.getElementById("start-btn").addEventListener("click", () => {
+    const nameInput = document.getElementById("user-name").value.trim();
+    if (nameInput) {
+      userName = nameInput;
+      document.getElementById("name-prompt").style.display = "none";
 
-  // 🧭 Neue Navigation (Links & Rechts)
-document.getElementById("prev-question").addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
+      // Erst nach Name-Eingabe darf gedreht werden
+      handleEarthRotation();
+    }
+  });
+
+  // Fragenflow nach Erddrehung starten
+  document.addEventListener("start-questions", () => {
+    document.getElementById("input-overlay").style.display = "block";
     renderQuestion(currentIndex);
-  }
-});
+    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+    document.getElementById("co2-indicator").classList.remove("hidden");
+  });
 
-document.getElementById("next-question").addEventListener("click", () => {
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    renderQuestion(currentIndex);
-  } else {
-    const result = calculateFootprint(answers);
-    document.getElementById("co2-indicator")?.classList.add("hidden");
-    showResultOverlay(result);
-  }
-});
+  // Navigation
+  document.getElementById("prev-question").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion(currentIndex);
+    }
+  });
 
-
- document.addEventListener("start-questions", () => {
-  console.log("🚀 Fragen-Flow startet");
-  document.getElementById("input-overlay").style.display = "block";
-  renderQuestion(currentIndex);
-  document.getElementById("co2-indicator").classList.remove("hidden");
-
-});
-
+  document.getElementById("next-question").addEventListener("click", () => {
+    if (currentIndex < questions.length - 1) {
+      currentIndex++;
+      renderQuestion(currentIndex);
+    } else {
+      const result = calculateFootprint(answers);
+      document.getElementById("co2-indicator")?.classList.add("hidden");
+      showResultOverlay(result);
+    }
+  });
 });
