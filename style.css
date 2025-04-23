@@ -37,10 +37,11 @@ a-scene, canvas {
 
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
-  position: fixed;
-  top: 160px; /* z. B. unter Fragekarte */
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin: 1rem auto;
+  top: auto; /* z. B. unter Fragekarte */
+  left:auto;
+  transform:none;
   width: 140px;
   height: 140px;
   z-index: 9999;
@@ -132,10 +133,12 @@ a-scene, canvas {
 }
 
 .input-card-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.1rem; /* kleiner */
   margin: 0;
-  text-align: left;
+  text-align: center;
+  line-height: 1.3;
 }
+
 
 .input-card-body {
   overflow-y: auto;

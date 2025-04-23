@@ -79,10 +79,12 @@ function renderQuestion(index) {
       const result = calculateFootprint(answers);
       updateLiveBall(result.totalKg);
     });
-
+    
     body.appendChild(slider);
     body.appendChild(output);
   }
+  const indicator = document.getElementById("co2-indicator");
+  body.appendChild(indicator)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -119,6 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Fragen-Flow startet");
   document.getElementById("input-overlay").style.display = "block";
   renderQuestion(currentIndex);
+  document.getElementById("co2-indicator").classList.remove("hidden");
+
 });
 
 });
