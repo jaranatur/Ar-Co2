@@ -1,3 +1,5 @@
+//main.js
+
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -86,11 +88,8 @@ function renderQuestion(index) {
 document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
-  handleEarthRotation(() => {
-    document.getElementById("input-overlay").style.display = "block";
-    renderQuestion(currentIndex);
-  });
-
+  handleEarthRotation();
+  
   document.getElementById("back-btn").addEventListener("click", () => {
     if (currentIndex > 0) {
       currentIndex--;
