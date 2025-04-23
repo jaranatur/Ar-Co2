@@ -88,6 +88,13 @@ function renderQuestion(index) {
 document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
+  // 💡 Hier CO₂-Tracker vorbereiten (alles auf 0 setzen)
+  const allInputIds = questions.map(q => q.id);
+  allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
+  updateLiveBall(0);
+  document.getElementById("co2-indicator").classList.remove("hidden");
+
+
   handleEarthRotation();
 
   document.getElementById("back-btn").addEventListener("click", () => {
