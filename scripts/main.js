@@ -84,7 +84,7 @@ function renderQuestion(index) {
     body.appendChild(output);
   }
   const indicator = document.getElementById("co2-indicator");
-  body.appendChild(indicator)
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {

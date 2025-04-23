@@ -37,7 +37,7 @@ a-scene, canvas {
 
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
-  position: relative;
+  position: static;
   margin: 1rem auto;
   top: auto; /* z. B. unter Fragekarte */
   left:auto;
