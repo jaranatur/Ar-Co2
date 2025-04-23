@@ -99,23 +99,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleEarthRotation();
 
-  document.getElementById("back-btn").addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderQuestion(currentIndex);
-    }
-  });
+  // 🧭 Neue Navigation (Links & Rechts)
+document.getElementById("prev-question").addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion(currentIndex);
+  }
+});
 
-  document.getElementById("btn-hsd").addEventListener("click", () => {
-    if (currentIndex < questions.length - 1) {
-      currentIndex++;
-      renderQuestion(currentIndex);
-    } else {
-      const result = calculateFootprint(answers);
-      document.getElementById("co2-indicator")?.classList.add("hidden");
-      showResultOverlay(result);
-    }
-  });
+document.getElementById("next-question").addEventListener("click", () => {
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion(currentIndex);
+  } else {
+    const result = calculateFootprint(answers);
+    document.getElementById("co2-indicator")?.classList.add("hidden");
+    showResultOverlay(result);
+  }
+});
+
 
  document.addEventListener("start-questions", () => {
   console.log("🚀 Fragen-Flow startet");
