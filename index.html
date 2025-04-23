@@ -57,52 +57,48 @@
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
     </a-scene>
 
-
-    <!-- 🌱 Overlay -->
-    <div id="input-overlay" style="display: none;">
-      <div class="input-card">
-        <div class="input-card-header">
-          <h2 style="text-align: center; line-height: 1.3;">
-            Deine Nachhaltigkeitsinfos
-          </h2>
-        </div>
-
-        <!-- 🧠 Dynamisch gerenderte Frage -->
-        <div class="input-card-body">
-          <!-- Wird durch renderQuestion() befüllt -->
-        </div>
-      </div>
-
-
-      <div id="co2-indicator" class="hidden">
-        <svg viewBox="0 0 36 36" class="donut">
-          <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-          <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-          <text x="50%" y="50%" dy=".3em" class="co2-value" text-anchor="middle" dominant-baseline="middle">0 kg</text>
-          <text x="50%" y="68%" dy=".3em" class="co2-max" text-anchor="middle" dominant-baseline="middle">/ 100 kg</text>
-        </svg>
-      </div>
-
-      <div id="nav-buttons">
-        <button id="prev-question">⬅️</button>
-        <button id="next-question">➡️</button>
-      </div>
-      
-
-
-      <!-- 📊 Ergebnisanzeige -->
-      <div id="result-box" style="display: none; text-align: center;">
-        <div id="summary-box" class="result-section"></div>
-        <div id="equivalent-box" class="result-section"></div>
-        <div id="trees-box" class="result-section"></div>
-      </div>
+<!-- 🌱 Overlay -->
+<div id="input-overlay" style="display: none;">
+  
+  <!-- Weiße Karte -->
+  <div class="input-card">
+    <div class="input-card-header">
+      <h2 style="text-align: center; line-height: 1.3;">
+        Deine Nachhaltigkeitsinfos
+      </h2>
     </div>
 
-    <!-- 🔘 Navigation
-    <div id="button-group" style="display: none;">
-      <button id="back-btn">🔙 Zurück</button>
-      <button id="btn-hsd">➡️ Weiter</button>
-    </div> -->
+    <!-- Dynamische Frage -->
+    <div class="input-card-body">
+      <!-- Wird durch renderQuestion() befüllt -->
+    </div>
+  </div>
+
+  <!-- ❗ Jetzt außerhalb der weißen Karte -->
+  <div id="co2-indicator" class="hidden">
+    <svg viewBox="0 0 36 36" class="donut">
+      <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <path id="donut-meter" class="donut-meter" stroke-dasharray="0, 100"
+        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <text x="50%" y="50%" dy=".3em" class="co2-value" text-anchor="middle" dominant-baseline="middle">0 kg</text>
+      <text x="50%" y="68%" dy=".3em" class="co2-max" text-anchor="middle" dominant-baseline="middle">/ 100 kg</text>
+    </svg>
+  </div>
+
+  <!-- Navigation -->
+  <div id="nav-buttons">
+    <button id="prev-question">⬅️</button>
+    <button id="next-question">➡️</button>
+  </div>
+
+  <!-- Ergebnisanzeige -->
+  <div id="result-box" style="display: none; text-align: center;">
+    <div id="summary-box" class="result-section"></div>
+    <div id="equivalent-box" class="result-section"></div>
+    <div id="trees-box" class="result-section"></div>
+  </div>
+</div>
+
 
     <script type="module" src="scripts/main.js"></script>
   </body>
