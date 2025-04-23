@@ -7,7 +7,6 @@
 
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
-
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -25,32 +24,33 @@
       </svg>
     </div>
 
+    <!-- 🌐 AR-Szene -->
     <a-scene embedded vr-mode-ui="enabled: false" arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <a-asset-item id="tree-model" src="assets/tree.glb"></a-asset-item>
         <a-asset-item id="plane-model" src="assets/plane.glb"></a-asset-item>
         <audio id="swipe-sound" src="assets/swipe.mp3" preload="auto"></audio>
-
       </a-assets>
 
       <a-marker preset="hiro">
         <a-entity id="earth-container">
-          <a-entity id="earth" gltf-model="assets/earth.glb" position="0 0 0" scale="0.01 0.01 0.01" animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic"></a-entity>
+          <a-entity id="earth" gltf-model="assets/earth.glb" position="0 0 0" scale="0.01 0.01 0.01"
+            animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
+          </a-entity>
         </a-entity>
 
         <a-entity id="scene-selection" visible="false"></a-entity>
 
         <a-entity id="hint-text" position="0 2.5 -1" visible="true"
-        text="value: Würdest du das HSD-Klimaziel schaffen?\nDreh die Erde – und finde es heraus.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
-      </a-entity>
-      <a-entity id="hint-bg"
-  geometry="primitive: plane; height: auto; width: auto"
-  position="0 2.5 -1.01"
-  material="color: black; opacity: 0.4; transparent: true"
-  visible="true">
-</a-entity>
-      
+          text="value: Würdest du das HSD-Klimaziel schaffen?\nDreh die Erde – und finde es heraus.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
+        </a-entity>
+        <a-entity id="hint-bg"
+          geometry="primitive: plane; height: auto; width: auto"
+          position="0 2.5 -1.01"
+          material="color: black; opacity: 0.4; transparent: true"
+          visible="true">
+        </a-entity>
 
         <a-entity id="arrow-icon-entity"
           geometry="primitive: plane; height: 0.9; width: 0.9"
@@ -72,101 +72,17 @@
           <h2 style="text-align: center;"> 
             Deine<br/>
             Nachhaltigkeits-<br/>
-             Infos</h2>
+            Infos
+          </h2>
         </div>
 
+        <!-- 🧠 Dynamisch gerenderte Frage -->
         <div class="input-card-body">
-          <!-- 🗓️ HSD-Tage -->
-<label for="days">🗓️ Wie oft bist du pro Woche an der HSD?</label>
-<select id="days" name="days">
-  <option value="1" selected>1 Tag</option>
-  <option value="2">2 Tage</option>
-  <option value="3">3 Tage</option>
-  <option value="4">4 Tage</option>
-  <option value="5">5 Tage</option>
-</select>
-
-<!-- 📍 Entfernung -->
-<label for="distance">📍 Wie weit wohnst du von der HSD entfernt?</label>
-<select id="distance" name="distance">
-  <option value="0" selected>0 km</option>
-  <option value="1">1 km</option>
-  <option value="2">2 km</option>
-  <option value="3">3 km</option>
-  <option value="4">4 km</option>
-  <option value="5">5 km</option>
-  <option value="10">10 km</option>
-  <option value="15">15 km</option>
-  <option value="20">20 km</option>
-  <option value="25">25 km</option>
-  <option value="30">30 km</option>
-  <option value="40">40 km</option>
-  <option value="50">50 km</option>
-</select>
-
-<!-- 🚙 Verkehrsmittel -->
-<label for="transport">🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?</label>
-<select id="transport" name="transport">
-  <option value="auto">🚗 Mit dem Auto – allein</option>
-  <option value="carpool">🤝 Mitfahrgelegenheit / ich fahre andere</option>
-  <option value="public">🚌 Öffentliche Verkehrsmittel</option>
-  <option value="bike">🚲 Fahrrad</option>
-  <option value="walk" selected>🚶 Zu Fuß</option>
-</select>
-
-<!-- 🍽️ Mensa -->
-<label for="meals">🍽️ Wie oft gehst du typischerweise pro Woche in die Mensa essen?</label>
-<select id="meals" name="meals">
-  <option value="0" selected>Nie</option>
-  <option value="1">1x</option>
-  <option value="2">2x</option>
-  <option value="3">3x</option>
-  <option value="4">4x</option>
-  <option value="5">5x</option>
-</select>
-
-<!-- 🥦 Ernährung -->
-<label for="diet">🍽️ Wie sieht deine Ernährung im Alltag meistens aus?</label>
-<select id="diet" name="diet">
-  <option value="meat-daily">🍖 Ich esse (fast) täglich Fleisch</option>
-  <option value="meat-rare">🥩 Ich esse nur selten Fleisch</option>
-  <option value="vegetarian">🥗 Ich esse vegetarisch (ohne Fleisch)</option>
-  <option value="vegan" selected>🌱 Ich esse überwiegend vegan</option>
-</select>
-
-<!-- 💧 Wasser -->
-<label for="water">💧 Wie versorgst du dich an der HSD meistens mit Wasser?</label>
-<select id="water" name="water">
-  <option value="plastic">🧴 Ich kaufe Einweg-Plastikflaschen</option>
-  <option value="glass">🍾 Ich kaufe Pfandflaschen (z. B. Glas-Mehrweg)</option>
-  <option value="refill" selected>🔁 Ich fülle meine eigene Flasche auf (z. B. Zuhause oder an der Uni)</option>
-</select>
-
-<!-- 📄 Papier -->
-<label for="paper">📄 Wie oft druckst du Uni-Material?</label>
-<select id="paper" name="paper">
-  <option value="none" selected>📱 Nie</option>
-  <option value="rare">📄 1x im Monat</option>
-  <option value="medium">🖨️ 1x pro Woche</option>
-  <option value="often">🧾 Mehrmals pro Woche</option>
-</select>
-
-<!-- 💻 Bildschirmzeit -->
-<label for="screen">💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD?</label>
-<input type="range" id="screen" name="screen" min="0" max="10" step="0.5" value="0" />
-<span id="screen-value">0 Stunden</span>
-
-<!-- ✈️ Auslandsreise -->
-<label for="abroad">✈️ Warst du auf einem Auslandssemester oder einer Studienreise?</label>
-<select id="abroad" name="abroad">
-  <option value="no" selected>❌ Nein</option>
-  <option value="yes">✈️ Ja</option>
-</select>
-
-          <button id="calculate-btn">✅ Bilanz berechnen</button>
+          <!-- Wird durch renderQuestion() befüllt -->
         </div>
       </div>
 
+      <!-- 📊 Ergebnisanzeige -->
       <div id="result-box" style="display: none; text-align: center;">
         <div id="summary-box" class="result-section"></div>
         <div id="equivalent-box" class="result-section"></div>
@@ -174,11 +90,10 @@
       </div>
     </div>
 
-    <!-- ✅ Buttons unten -->
+    <!-- 🔘 Navigation -->
     <div id="button-group" style="display: none;">
       <button id="back-btn">🔙 Zurück</button>
-      <button id="btn-hsd">🏫 HSD-Szenario</button>
-      <button id="btn-fact">💡 Wusstest du schon?</button>
+      <button id="btn-hsd">➡️ Weiter</button>
     </div>
 
     <script type="module" src="scripts/main.js"></script>

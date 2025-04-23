@@ -1,4 +1,4 @@
-//calculate.js
+// calculate.js
 export function calculateFootprint({
   distance,         // in km (einfach)
   transport,        // string: auto, carpool, public, bike, walk
@@ -7,24 +7,23 @@ export function calculateFootprint({
   diet,             // string: meat-daily, vegetarian, vegan
   water,            // string: plastic, glass, refill
   paper,            // string: none, monthly, weekly, often
-  screenHoursPerDay,// number: z. B. 2
-  abroad            // boolean: true/false
+  screenHoursPerDay // number: z. B. 2
 }) {
   let total = 0;
-  const weeksPerYear = 30;
-  const uniDaysPerYear = daysPerWeek * weeksPerYear;
+  const semesterWeeks = 30;
+  const uniDays = daysPerWeek * semesterWeeks;
 
   // 🚗 Mobilität
   const dailyDistance = distance * 2; // hin & zurück
   switch (transport) {
     case "auto":
-      total += dailyDistance * uniDaysPerYear * 0.189;
+      total += dailyDistance * uniDays * 0.189;
       break;
     case "carpool":
-      total += dailyDistance * uniDaysPerYear * 0.094;
+      total += dailyDistance * uniDays * 0.094;
       break;
     case "public":
-      total += dailyDistance * uniDaysPerYear * 0.064;
+      total += dailyDistance * uniDays * 0.064;
       break;
     default:
       // bike or walk = 0
@@ -44,15 +43,15 @@ export function calculateFootprint({
       mealFactor = 1.5;
       break;
   }
-  total += mealsPerWeek * weeksPerYear * mealFactor;
+  total += mealsPerWeek * semesterWeeks * mealFactor;
 
   // 💧 Wasser
   switch (water) {
     case "plastic":
-      total += uniDaysPerYear * 0.15;
+      total += uniDays * 0.15;
       break;
     case "glass":
-      total += uniDaysPerYear * 0.1;
+      total += uniDays * 0.1;
       break;
     case "refill":
       break; // 0 CO₂
@@ -61,25 +60,20 @@ export function calculateFootprint({
   // 📄 Papier
   switch (paper) {
     case "monthly":
-      total += 0.5 * 12;
+      total += 0.5 * (semesterWeeks / 4); // ca. 7.5 Monate
       break;
     case "weekly":
-      total += 0.5 * weeksPerYear;
+      total += 0.5 * semesterWeeks;
       break;
     case "often":
-      total += 1.5 * weeksPerYear;
+      total += 1.5 * semesterWeeks;
       break;
     default:
       break;
   }
 
   // 💻 Digitalverhalten
-  total += screenHoursPerDay * 5 * weeksPerYear * 0.2;
-
-  // ✈️ Reisen
-  if (abroad === true) {
-    total += 500; // pauschaler Wert
-  }
+  total += screenHoursPerDay * 5 * semesterWeeks * 0.2;
 
   // ✨ Ausgabe
   return {
