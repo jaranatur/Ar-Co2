@@ -1,3 +1,5 @@
+// main.js
+
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -97,32 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
 
-  // Live-Tracker vorbereiten
+  // Setze alle Antworten initial auf leere Werte bzw. 0
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
+
   updateLiveBall(0);
+  document.getElementById("co2-indicator").classList.remove("hidden");
 
-  // Zeige Name-Prompt zuerst
-  document.getElementById("name-prompt").style.display = "flex";
-
-  document.getElementById("start-btn").addEventListener("click", () => {
-    const nameInput = document.getElementById("user-name").value.trim();
-    if (nameInput) {
-      userName = nameInput;
-      document.getElementById("name-prompt").style.display = "none";
-
-      // Erst nach Name-Eingabe darf gedreht werden
-      handleEarthRotation();
-    }
-  });
-
-  // Fragenflow nach Erddrehung starten
-  document.addEventListener("start-questions", () => {
-    document.getElementById("input-overlay").style.display = "block";
-    renderQuestion(currentIndex);
-    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
-    document.getElementById("co2-indicator").classList.remove("hidden");
-  });
+  handleEarthRotation();
 
   // Navigation
   document.getElementById("prev-question").addEventListener("click", () => {
@@ -141,5 +125,23 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("co2-indicator")?.classList.add("hidden");
       showResultOverlay(result);
     }
+  });
+
+  // 👉 Start erst nach Erde-Dreh → Name prompt → Fragen
+  document.addEventListener("start-questions", () => {
+    console.log("🌍 Erde gedreht – Name wird abgefragt");
+    document.getElementById("name-prompt").style.display = "flex";
+
+    document.getElementById("start-btn").addEventListener("click", () => {
+      const nameInput = document.getElementById("user-name").value.trim();
+      if (nameInput) {
+        userName = nameInput;
+        document.getElementById("name-prompt").style.display = "none";
+        document.getElementById("input-overlay").style.display = "block";
+        document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+        renderQuestion(currentIndex);
+        document.getElementById("co2-indicator").classList.remove("hidden");
+      }
+    });
   });
 });
