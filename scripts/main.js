@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
   handleEarthRotation();
-  
+
   document.getElementById("back-btn").addEventListener("click", () => {
     if (currentIndex > 0) {
       currentIndex--;
@@ -108,8 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 🔁 Wenn die Erde gedreht wurde → Start der Fragen
-  document.addEventListener("start-questions", () => {
-    renderQuestion(currentIndex);
-  });
+ document.addEventListener("start-questions", () => {
+  console.log("🚀 Fragen-Flow startet");
+  document.getElementById("input-overlay").style.display = "block";
+  renderQuestion(currentIndex);
+});
+
 });

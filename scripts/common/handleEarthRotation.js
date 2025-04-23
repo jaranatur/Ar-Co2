@@ -1,3 +1,5 @@
+//handleEarthRotation.js
+
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -58,6 +60,7 @@ export function handleEarthRotation() {
       sceneSelection.setAttribute("data-visible", "true");
 
       setTimeout(() => {
+        console.log("🎯 Event wird gefeuert: start-questions"); // 
         document.dispatchEvent(new Event("start-questions"));
       }, 500);
     }
