@@ -36,7 +36,7 @@ a-scene {
 
 canvas {
   z-index: 0 !important;
-  pointer-events: auto !important; /* ← Das ist neu! */
+  pointer-events: none !important; /* ✅ richtig */
 }
 
 
@@ -235,8 +235,39 @@ canvas {
 #nav-buttons button:hover {
   transform: scale(1.1);
 }
-
 #name-prompt {
   position: fixed;
-  z-index: 10000; /* höher als der Canvas */
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 90%;
+  max-width: 320px;
+  pointer-events: auto; /* 👈 ganz wichtig! */
+}
+
+#name-prompt input {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+#name-prompt button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #52b788;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
