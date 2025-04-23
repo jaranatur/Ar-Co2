@@ -38,7 +38,7 @@ a-scene, canvas {
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 160px;
+  top: 240px; /* ⬇️ weiter unten */
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
@@ -103,6 +103,9 @@ a-scene, canvas {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .input-card {
@@ -197,16 +200,15 @@ a-scene, canvas {
   opacity: 1 !important;
 }
 
-
 /* 🎯 Navigation rechts & links vom Donut */
 #nav-buttons {
   position: fixed;
-  top: calc(160px + 70px); /* Donut-Top + halbe Höhe */
+  top: 270px; /* ⬆️ gleiche Höhe wie Donut-Mitte */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
-  width: 240px;
+  width: 320px; /* ➡️ mehr Abstand zwischen den Buttons */
   z-index: 9999;
 }
 
