@@ -16,7 +16,25 @@
 
 
 <!-- 🧑‍🎓 Name-Eingabe -->
-<div id="name-prompt" style="display: none; flex-direction: column; align-items: center; padding: 2rem;">
+
+<div id="name-prompt" style="
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+"
 
   <label for="user-name" style="font-size: 1.2rem; margin-bottom: 0.5rem;">Wie heißt du?</label>
   <input type="text" id="user-name" placeholder="Dein Vorname" style="padding: 0.6rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;" />

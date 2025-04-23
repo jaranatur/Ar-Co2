@@ -30,10 +30,15 @@ a-entity {
   pointer-events: auto !important;
   touch-action: manipulation !important;
 }
-a-scene, canvas {
-  pointer-events: none !important;
+a-scene {
   z-index: 0 !important;
 }
+
+canvas {
+  z-index: 0 !important;
+  pointer-events: auto !important; /* ← Das ist neu! */
+}
+
 
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
