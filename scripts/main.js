@@ -108,4 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
       showResultOverlay(result);
     }
   });
+
+  // 🔁 Wenn die Erde gedreht wurde → Start der Fragen
+  document.addEventListener("start-questions", () => {
+    renderQuestion(currentIndex);
+  });
 });
