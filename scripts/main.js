@@ -51,11 +51,26 @@ function renderQuestion(index) {
       option.textContent = opt;
       select.appendChild(option);
     });
+
     select.addEventListener("input", () => {
-      answers[question.id] = select.value;
+      let value = select.value;
+
+      // ⛏️ Nur für bestimmte Felder in Zahl umwandeln
+      if (["daysPerWeek", "distance", "mealsPerWeek"].includes(question.id)) {
+        value = parseInt(value, 10);
+      }
+
+      answers[question.id] = value;
+
       const result = calculateFootprint(answers);
       updateLiveBall(result.totalKg);
     });
+
+    // 👇 Beim Rendern sofort den aktuellen Wert anzeigen
+    if (answers[question.id]) {
+      select.value = answers[question.id];
+    }
+
     body.appendChild(select);
   }
 
@@ -65,26 +80,25 @@ function renderQuestion(index) {
     slider.min = question.min;
     slider.max = question.max;
     slider.step = question.step;
-    slider.value = question.value;
+    slider.value = answers[question.id] ?? question.value;
     slider.id = question.id;
 
     const output = document.createElement("span");
     output.id = "screen-value";
-    output.textContent = "0 Stunden";
+    output.textContent = `${slider.value} Stunden`;
 
     slider.addEventListener("input", () => {
       const val = parseFloat(slider.value);
       answers[question.id] = val;
       output.textContent = `${val} Stunden`;
+
       const result = calculateFootprint(answers);
       updateLiveBall(result.totalKg);
     });
-    
+
     body.appendChild(slider);
     body.appendChild(output);
   }
-  const indicator = document.getElementById("co2-indicator");
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
