@@ -1,11 +1,7 @@
-.a-enter-vr-button {
-  display: none !important;
-}
-
+.a-enter-vr-button,
 .a-modal {
   display: none !important;
 }
-
 
 /* 🖥️ Basis */
 html, body {
@@ -32,18 +28,17 @@ a-entity {
 }
 a-scene {
   z-index: 0 !important;
+  pointer-events: none !important;
 }
-
 canvas {
   z-index: 0 !important;
-  pointer-events: none !important; /* ✅ richtig */
+  pointer-events: none !important; /* Blockiert Touch-Klicks */
 }
-
 
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 240px; /* ⬇️ weiter unten */
+  top: 240px;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
@@ -59,7 +54,6 @@ canvas {
 .donut {
   width: 100%;
   height: 100%;
-  transform: rotate(0deg);
 }
 .donut-bg {
   fill: none;
@@ -88,9 +82,7 @@ canvas {
   display: none;
 }
 
-
-
-/* 🧊 Overlay */
+/* 🌱 Overlay */
 #input-overlay {
   position: fixed;
   top: 0;
@@ -108,11 +100,10 @@ canvas {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-
   overscroll-behavior: none;
-  /* touch-action: auto; */
 }
 
+/* 🧾 Weiße Karte */
 .input-card {
   background: rgba(255,255,255,0.92);
   border-radius: 12px;
@@ -127,7 +118,6 @@ canvas {
   margin: 0 0 4vh 0;
   box-sizing: border-box;
 }
-
 .input-card-header {
   position: sticky;
   top: 0;
@@ -137,15 +127,12 @@ canvas {
   border-bottom: 1px solid #eee;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-
 .input-card-header h2 {
-  font-size: 1.1rem; /* kleiner */
+  font-size: 1.1rem;
   margin: 0;
   text-align: center;
   line-height: 1.3;
 }
-
-
 .input-card-body {
   overflow-y: auto;
   overflow-x: hidden;
@@ -154,8 +141,7 @@ canvas {
   flex: 1;
 }
 
-
-/* ✍️ Fragen / Inputs */
+/* ✍️ Fragen */
 .input-card label {
   display: block;
   margin: 1rem 1rem 0.25rem;
@@ -197,7 +183,6 @@ canvas {
   font-size: 1rem;
   line-height: 1.35;
   display: inline-block;
-  width: auto;
   margin-bottom: 0.4rem;
   opacity: 0;
 }
@@ -205,18 +190,17 @@ canvas {
   opacity: 1 !important;
 }
 
-/* 🎯 Navigation rechts & links vom Donut */
+/* 🎯 Navigation */
 #nav-buttons {
   position: fixed;
-  top: 270px; /* ⬆️ gleiche Höhe wie Donut-Mitte */
+  top: 270px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
-  width: 320px; /* ➡️ mehr Abstand zwischen den Buttons */
+  width: 320px;
   z-index: 9999;
 }
-
 #nav-buttons button {
   width: 60px;
   height: 60px;
@@ -231,10 +215,11 @@ canvas {
   justify-content: center;
   transition: transform 0.2s ease;
 }
-
 #nav-buttons button:hover {
   transform: scale(1.1);
 }
+
+/* 🧑‍🎓 Namensfeld */
 #name-prompt {
   position: fixed;
   top: 20%;
@@ -251,9 +236,8 @@ canvas {
   gap: 1rem;
   width: 90%;
   max-width: 320px;
-  pointer-events: auto; /* 👈 ganz wichtig! */
+  pointer-events: auto !important;
 }
-
 #name-prompt input {
   padding: 0.6rem;
   font-size: 1rem;
@@ -261,7 +245,6 @@ canvas {
   border: 1px solid #ccc;
   width: 100%;
 }
-
 #name-prompt button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;

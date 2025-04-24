@@ -1,5 +1,3 @@
-//handleEarthRotation.js
-
 import { earth, hintText, arrow, sceneSelection } from './globals.js';
 
 export function handleEarthRotation() {
@@ -12,7 +10,6 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
-    console.log("🌀 Touchstart");
     if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
     lastX = event.touches[0].clientX;
@@ -43,26 +40,34 @@ export function handleEarthRotation() {
     }
 
     if (opacity < 0.2) {
-      if (hintText.getAttribute("visible") !== "false") hintText.setAttribute("visible", "false");
-      if (arrow?.getAttribute("visible") !== "false") arrow.setAttribute("visible", "false");
-      if (hintBg?.getAttribute("visible") !== "false") hintBg.setAttribute("visible", "false");
+      hintText.setAttribute("visible", "false");
+      arrow?.setAttribute("visible", "false");
+      hintBg?.setAttribute("visible", "false");
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
-
     if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🌍 Erde verschwindet, Frageflow startet");
+      console.log("🌍 Erde verschwindet – Namensfeld erscheint");
       sceneTransitioned = true;
+
+      // Erde ausblenden
       earth.setAttribute("visible", "false");
       sceneSelection.setAttribute("visible", true);
-      sceneSelection.setAttribute("data-visible", "true");
 
-      setTimeout(() => {
-        console.log("🎯 Event wird gefeuert: start-questions"); // 
-        document.dispatchEvent(new Event("start-questions"));
-      }, 500);
+      // Raycaster und Cursor deaktivieren
+      const camera = document.querySelector("a-camera");
+      if (camera) {
+        camera.setAttribute("raycaster", "enabled", false);
+        camera.setAttribute("cursor", "rayOrigin: mouse");
+      }
+
+      // Namensfeld anzeigen
+      const namePrompt = document.getElementById("name-prompt");
+      if (namePrompt) {
+        namePrompt.style.display = "flex";
+      }
     }
   };
 
