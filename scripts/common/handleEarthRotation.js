@@ -52,18 +52,22 @@ export function handleEarthRotation() {
       console.log("🌍 Erde verschwindet – Namensfeld erscheint");
       sceneTransitioned = true;
 
-      // Erde ausblenden
-      earth.setAttribute("visible", "false");
+      // ❌ Erde komplett aus dem DOM entfernen
+      if (earth && earth.parentNode) {
+        earth.parentNode.removeChild(earth);
+      }
+
+      // Szene sichtbar machen (falls du später was brauchst)
       sceneSelection.setAttribute("visible", true);
 
-      // Raycaster und Cursor deaktivieren
+      // ❌ Raycaster & Cursor deaktivieren (verhindert Touch-Blockaden)
       const camera = document.querySelector("a-camera");
       if (camera) {
         camera.setAttribute("raycaster", "enabled", false);
         camera.setAttribute("cursor", "rayOrigin: mouse");
       }
 
-      // Namensfeld anzeigen
+      // ✅ Namensfeld anzeigen
       const namePrompt = document.getElementById("name-prompt");
       if (namePrompt) {
         namePrompt.style.display = "flex";
