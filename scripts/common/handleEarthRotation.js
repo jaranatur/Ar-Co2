@@ -48,35 +48,36 @@ export function handleEarthRotation() {
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
     earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
 
+    // ✅ Wenn genug gedreht → Szene wechseln
     if (rotationProgress > 600 && !sceneTransitioned) {
       console.log("🌍 Erde verschwindet – Namensfeld erscheint");
       sceneTransitioned = true;
 
-      // Entferne die Erde aus dem DOM
+      // 🌍 Erde entfernen
       if (earth && earth.parentNode) {
         earth.parentNode.removeChild(earth);
       }
 
-      // Optional sichtbar schalten
+      // Szene aktivieren
       sceneSelection.setAttribute("visible", true);
 
-      // Raycaster deaktivieren (Touch-Fokus ermöglichen)
+      // 🧠 Raycaster & Cursor deaktivieren → HTML wieder nutzbar
       const camera = document.querySelector("a-camera");
       if (camera) {
-        camera.removeAttribute("raycaster"); // komplett entfernen
-        camera.removeAttribute("cursor");    // ebenfalls entfernen
+        camera.removeAttribute("raycaster");
+        camera.removeAttribute("cursor");
       }
 
-      // Nameingabe sichtbar machen
+      // 🧑‍🎓 Nameingabe anzeigen
       const namePrompt = document.getElementById("name-prompt");
       if (namePrompt) {
         namePrompt.style.display = "flex";
 
-        // ⬅️ Direkt Fokus setzen (für Mobilgeräte wichtig!)
+        // 🖐️ Fokus setzen für Mobile
         const inputField = document.getElementById("user-name");
         setTimeout(() => {
           inputField?.focus();
-        }, 200); // kleiner Delay für Safari/Android
+        }, 200);
       }
     }
   };
