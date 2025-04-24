@@ -110,7 +110,7 @@ canvas {
   scroll-behavior: smooth;
 
   overscroll-behavior: none;
-  touch-action: auto;
+  /* touch-action: auto; */
 }
 
 .input-card {
