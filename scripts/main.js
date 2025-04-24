@@ -19,8 +19,13 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
   value.textContent = `${kg} kg`;
 
-  const strokeColor = kg < 50 ? "#52b788" : kg <= 100 ? "#f4a261" : "#e76f51";
-  donut.setAttribute("stroke", strokeColor);
+  if (kg < 50) {
+    donut.setAttribute("stroke", "#52b788");
+  } else if (kg <= 100) {
+    donut.setAttribute("stroke", "#f4a261");
+  } else {
+    donut.setAttribute("stroke", "#e76f51");
+  }
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
   indicator.classList.toggle("hidden", !overlayVisible);
@@ -51,7 +56,8 @@ function renderQuestion(index) {
         value = parseInt(value, 10);
       }
       answers[question.id] = value;
-      updateLiveBall(calculateFootprint(answers).totalKg);
+      const result = calculateFootprint(answers);
+      updateLiveBall(result.totalKg);
     });
 
     if (answers[question.id]) {
@@ -78,7 +84,8 @@ function renderQuestion(index) {
       const val = parseFloat(slider.value);
       answers[question.id] = val;
       output.textContent = `${val} Stunden`;
-      updateLiveBall(calculateFootprint(answers).totalKg);
+      const result = calculateFootprint(answers);
+      updateLiveBall(result.totalKg);
     });
 
     body.appendChild(slider);
@@ -90,14 +97,34 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
 
+  // Live-Tracker vorbereiten
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
-
   updateLiveBall(0);
-  document.getElementById("co2-indicator").classList.remove("hidden");
 
-  handleEarthRotation();
+  // Zeige Name-Prompt zuerst
+  document.getElementById("name-prompt").style.display = "flex";
 
+  document.getElementById("start-btn").addEventListener("click", () => {
+    const nameInput = document.getElementById("user-name").value.trim();
+    if (nameInput) {
+      userName = nameInput;
+      document.getElementById("name-prompt").style.display = "none";
+
+      // Erst nach Name-Eingabe darf gedreht werden
+      handleEarthRotation();
+    }
+  });
+
+  // Fragenflow nach Erddrehung starten
+  document.addEventListener("start-questions", () => {
+    document.getElementById("input-overlay").style.display = "block";
+    renderQuestion(currentIndex);
+    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+    document.getElementById("co2-indicator").classList.remove("hidden");
+  });
+
+  // Navigation
   document.getElementById("prev-question").addEventListener("click", () => {
     if (currentIndex > 0) {
       currentIndex--;
@@ -114,28 +141,5 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("co2-indicator")?.classList.add("hidden");
       showResultOverlay(result);
     }
-  });
-
-  document.addEventListener("start-questions", () => {
-    console.log("🌍 Erde gedreht – Name wird abgefragt");
-    const prompt = document.getElementById("name-prompt");
-    prompt.style.display = "flex";
-
-    // ⬇️ Fokus setzen, damit Eingabe sofort möglich ist (wichtig für Touch)
-    setTimeout(() => {
-      document.getElementById("user-name").focus();
-    }, 100);
-
-    document.getElementById("start-btn").addEventListener("click", () => {
-      const nameInput = document.getElementById("user-name").value.trim();
-      if (nameInput) {
-        userName = nameInput;
-        prompt.style.display = "none";
-        document.getElementById("input-overlay").style.display = "block";
-        document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
-        renderQuestion(currentIndex);
-        document.getElementById("co2-indicator").classList.remove("hidden");
-      }
-    });
   });
 });
