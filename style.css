@@ -96,7 +96,6 @@ canvas {
   justify-content: center;
   align-items: flex-start;
   padding: 1vh 1rem 1rem;
-  box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -251,6 +250,50 @@ canvas {
   background-color: #52b788;
   color: white;
   border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#name-prompt {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+#name-prompt label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+#name-prompt input {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+#name-prompt button {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #52b788;
+  color: white;
   border-radius: 8px;
   cursor: pointer;
 }
