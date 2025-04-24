@@ -1,5 +1,3 @@
-// main.js
-
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -21,13 +19,8 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
   value.textContent = `${kg} kg`;
 
-  if (kg < 50) {
-    donut.setAttribute("stroke", "#52b788");
-  } else if (kg <= 100) {
-    donut.setAttribute("stroke", "#f4a261");
-  } else {
-    donut.setAttribute("stroke", "#e76f51");
-  }
+  const strokeColor = kg < 50 ? "#52b788" : kg <= 100 ? "#f4a261" : "#e76f51";
+  donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
   indicator.classList.toggle("hidden", !overlayVisible);
@@ -58,8 +51,7 @@ function renderQuestion(index) {
         value = parseInt(value, 10);
       }
       answers[question.id] = value;
-      const result = calculateFootprint(answers);
-      updateLiveBall(result.totalKg);
+      updateLiveBall(calculateFootprint(answers).totalKg);
     });
 
     if (answers[question.id]) {
@@ -86,8 +78,7 @@ function renderQuestion(index) {
       const val = parseFloat(slider.value);
       answers[question.id] = val;
       output.textContent = `${val} Stunden`;
-      const result = calculateFootprint(answers);
-      updateLiveBall(result.totalKg);
+      updateLiveBall(calculateFootprint(answers).totalKg);
     });
 
     body.appendChild(slider);
@@ -99,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
 
-  // Setze alle Antworten initial auf leere Werte bzw. 0
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
 
@@ -108,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleEarthRotation();
 
-  // Navigation
   document.getElementById("prev-question").addEventListener("click", () => {
     if (currentIndex > 0) {
       currentIndex--;
@@ -127,16 +116,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 👉 Start erst nach Erde-Dreh → Name prompt → Fragen
   document.addEventListener("start-questions", () => {
     console.log("🌍 Erde gedreht – Name wird abgefragt");
-    document.getElementById("name-prompt").style.display = "flex";
+    const prompt = document.getElementById("name-prompt");
+    prompt.style.display = "flex";
+
+    // ⬇️ Fokus setzen, damit Eingabe sofort möglich ist (wichtig für Touch)
+    setTimeout(() => {
+      document.getElementById("user-name").focus();
+    }, 100);
 
     document.getElementById("start-btn").addEventListener("click", () => {
       const nameInput = document.getElementById("user-name").value.trim();
       if (nameInput) {
         userName = nameInput;
-        document.getElementById("name-prompt").style.display = "none";
+        prompt.style.display = "none";
         document.getElementById("input-overlay").style.display = "block";
         document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
         renderQuestion(currentIndex);
