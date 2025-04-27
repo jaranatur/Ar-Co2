@@ -1,5 +1,3 @@
-// File: scripts/main.js
-
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -26,7 +24,7 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-  indicator.classList.toggle("hidden", !overlayVisible);
+  indicator.style.display = overlayVisible ? "flex" : "none";
 }
 
 function renderQuestion(index) {
@@ -99,11 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
   updateLiveBall(0);
 
-  // Hört auf start-questions Event!
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
     if (scene) {
-      scene.classList.add('no-interaction'); // Szene blockieren, damit keine Bewegung mehr möglich
+      scene.classList.add('no-interaction');
     }
 
     userName = document.getElementById("user-name").value.trim();
@@ -113,9 +110,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
-    document.getElementById("input-overlay").style.display = "flex"; // Achtung: "flex", nicht "block"
-    document.getElementById("co2-indicator").classList.remove("hidden");
+    document.getElementById("input-overlay").style.display = "flex";
     renderQuestion(currentIndex);
+
+    // Co2-Indikator sichtbar machen
+    setTimeout(() => {
+      const co2 = document.getElementById("co2-indicator");
+      if (co2) {
+        co2.style.opacity = "1";
+        co2.style.transform = "translateX(-50%) scale(1)";
+      }
+    }, 50);
+
+    // Observer für Live-Update
+    new MutationObserver(() => {
+      updateLiveBall(calculateFootprint(answers).totalKg);
+    }).observe(document.getElementById("input-overlay"), {
+      attributes: true,
+      attributeFilter: ["style"]
+    });
   });
 
   document.getElementById("prev-question").addEventListener("click", () => {
