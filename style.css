@@ -40,7 +40,7 @@ a-entity {
   transform: translateX(-50%);
   width: 140px;
   height: 140px;
-  z-index: 10001; /* Sicher höher als input-overlay */
+  z-index: 10002; /* Höher als Fragenbox */
   background: rgba(255,255,255,0.92);
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -58,10 +58,10 @@ a-entity {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.15);
   display: flex;
-  flex-direction: column; /* NEU: Damit zentriert und korrekt */
-  align-items: center; /* NEU: horizontal mittig */
-  justify-content: flex-start; /* NEU: oben starten */
-  padding-top: 10vh; /* NEU: schöner Abstand */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 5vh; /* NEU: höher starten */
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
