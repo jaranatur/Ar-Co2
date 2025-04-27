@@ -39,7 +39,7 @@ a-entity {
   transform: translateX(-50%);
   width: 140px;
   height: 140px;
-  z-index: 9999;
+  z-index: 10001; /* Höher als Fragenbox! */
   background: rgba(255,255,255,0.92);
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -47,6 +47,7 @@ a-entity {
   align-items: center;
   justify-content: center;
 }
+
 
 /* 🌱 Overlay */
 #input-overlay {
@@ -195,4 +196,9 @@ a-entity {
 /* Sicherstellen, dass versteckte Szene nichts blockiert */
 a-scene[hidden] {
   display: none !important;
+}
+.input-card {
+  width: 90%;
+  max-width: 480px;
+  margin: 0 auto 4vh auto; /* ✅ */
 }
