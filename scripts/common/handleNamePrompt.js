@@ -1,15 +1,18 @@
 export function setupNamePrompt() {
     const scene = document.querySelector('a-scene');
-    const canvas = document.querySelector('a-scene > canvas'); // GENAU das Canvas unter der Szene
+    const sceneParent = scene?.parentNode;
     const namePrompt = document.getElementById('name-prompt');
     const userNameInput = document.getElementById('user-name');
     const startButton = document.getElementById('start-btn');
     const inputOverlay = document.getElementById('input-overlay');
     const overlayTitle = inputOverlay.querySelector('.input-card-header h2');
   
+    let storedSceneHtml = '';
+  
     document.addEventListener('earth-rotated', () => {
-      if (canvas) {
-        canvas.style.display = 'none'; // <<< GANZ WICHTIG: Canvas richtig ausblenden!
+      if (scene && sceneParent) {
+        storedSceneHtml = scene.outerHTML; // Backup machen
+        sceneParent.removeChild(scene); // GANZE Szene entfernen
       }
   
       if (namePrompt) {
@@ -20,7 +23,7 @@ export function setupNamePrompt() {
         if (userNameInput) {
           userNameInput.focus();
         }
-      }, 300); // kleine mobile Kompatibilitätsverzögerung
+      }, 300);
     });
   
     startButton.addEventListener('click', (e) => {
@@ -37,16 +40,16 @@ export function setupNamePrompt() {
       // Namensfeld ausblenden
       namePrompt.style.display = 'none';
   
-      // Canvas wieder anzeigen, damit AR funktioniert
-      if (canvas) {
-        canvas.style.display = 'block'; 
-      }
-  
-      // Fragen-Overlay einblenden
+      // Fragen-Overlay anzeigen
       inputOverlay.style.display = 'flex';
   
       if (overlayTitle) {
         overlayTitle.textContent = `${name}s Nachhaltigkeitsinfos`;
+      }
+  
+      // Szenen-Neuaufbau, wenn du willst:
+      if (sceneParent && storedSceneHtml) {
+        sceneParent.insertAdjacentHTML('beforeend', storedSceneHtml);
       }
   
       const startQuestionsEvent = new Event('start-questions');
