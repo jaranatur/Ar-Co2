@@ -1,47 +1,71 @@
 export function setupNamePrompt() {
-    document.addEventListener('earth-rotated', () => {
-      const scene = document.querySelector('a-scene');
-      if (scene && scene.parentNode) {
-        scene.parentNode.removeChild(scene);
-      }
-  
-      // Alle Canvas-Elemente killen
-      document.querySelectorAll('canvas').forEach(canvas => {
-        if (canvas && canvas.parentNode) {
-          canvas.parentNode.removeChild(canvas);
-        }
-      });
-  
-      const namePrompt = document.getElementById('name-prompt');
-      const userNameInput = document.getElementById('user-name');
-  
-      if (namePrompt) {
-        namePrompt.style.display = 'flex';
-      }
-  
-      setTimeout(() => {
-        if (userNameInput) {
-          userNameInput.focus();
-        }
-      }, 300);
-    });
-  
-    document.getElementById('start-btn').addEventListener('click', (e) => {
-      e.preventDefault();
-  
-      const name = document.getElementById('user-name').value.trim();
-      if (!name) {
-        alert('Bitte gib deinen Namen ein.');
+    function initStartButton() {
+      const btn = document.getElementById('start-btn');
+      if (!btn) {
+        console.error('Start button not found!');
         return;
       }
   
-      window.userName = name;
+      const userNameInput = document.getElementById('user-name');
   
-      document.getElementById('name-prompt').style.display = 'none';
-      document.getElementById('input-overlay').style.display = 'flex';
+      // Touchstart für Mobile verbessern
+      if (userNameInput) {
+        userNameInput.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+          userNameInput.focus();
+        });
+      }
   
-      const startQuestionsEvent = new Event('start-questions');
-      document.dispatchEvent(startQuestionsEvent);
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = userNameInput.value.trim();
+        if (!name) {
+          alert('Bitte gib deinen Namen ein!');
+          return;
+        }
+        
+        window.userName = name;
+  
+        document.getElementById('name-prompt').style.display = 'none';
+        document.getElementById('input-overlay').style.display = 'flex';
+  
+        const startQuestionsEvent = new Event('start-questions');
+        document.dispatchEvent(startQuestionsEvent);
+      });
+  
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        btn.click(); // Trigger Klick
+      });
+    }
+  
+    document.addEventListener('earth-rotated', () => {
+      // 1. Canvas entfernen
+      document.querySelectorAll('canvas').forEach(canvas => {
+        canvas.parentNode?.removeChild(canvas);
+      });
+  
+      // 2. Erde entfernen
+      const earthContainer = document.getElementById('earth-container');
+      if (earthContainer && earthContainer.parentNode) {
+        earthContainer.parentNode.removeChild(earthContainer);
+      }
+  
+      // 3. Marker entfernen
+      const marker = document.querySelector('a-marker');
+      if (marker && marker.parentNode) {
+        marker.parentNode.removeChild(marker);
+      }
+  
+      // 4. Name-Prompt korrekt anzeigen
+      const namePrompt = document.getElementById('name-prompt');
+      if (namePrompt) {
+        namePrompt.style.cssText = 'display: flex !important; z-index: 10000 !important; pointer-events: all !important;';
+      }
+  
+      // 5. Start-Button initialisieren (mit Delay für Sicherheit)
+      setTimeout(initStartButton, 300);
     });
   }
   

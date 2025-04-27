@@ -218,7 +218,9 @@ canvas {
 }
 /* 🧑‍🎓 Namensfeld */
 #name-prompt {
-  display: none;
+  z-index: 10000 !important;
+  pointer-events: all !important;
+  display: none; /* Standardmäßig ausblenden */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -226,15 +228,36 @@ canvas {
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255,255,255,0.95);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  z-index: 9999;
-  width: 90%;
-  max-width: 320px;
-  text-align: center;
-  pointer-events: auto;
+}
+
+/* Sicherstellen, dass ausgeblendete a-scene nichts blockiert */
+a-scene[hidden] {
+  display: none !important;
+}
+#name-prompt {
+  z-index: 10000 !important;
+  pointer-events: all !important;
+  display: none; /* Standardmäßig ausblenden */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Sicherstellen, dass ausgeblendete a-scene nichts blockiert */
+a-scene[hidden] {
+  display: none !important;
 }
 
 #name-prompt label {
