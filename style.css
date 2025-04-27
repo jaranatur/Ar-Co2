@@ -1,16 +1,20 @@
-.a-enter-vr-button,
-.a-modal {
-  display: none !important;
+/* 🌍 Szene darf sich nicht bewegen, wenn .no-interaction gesetzt wird */
+a-scene.no-interaction {
+  pointer-events: none !important;
+  user-select: none !important;
+  touch-action: none !important;
 }
 
 /* 🖥️ Basis */
 html, body {
   margin: 0;
   overflow-x: hidden;
+  overflow-y: hidden; /* NEU: kein Scrollen auf Body */
   font-family: Arial, sans-serif;
   touch-action: manipulation;
   user-select: none;
 }
+
 input, select, button, label {
   user-select: auto !important;
 }
@@ -18,20 +22,9 @@ input, select, button, label {
 a-entity[text] {
   font: exo2bold;
 }
+
 a-entity {
   cursor: pointer;
-}
-#earth {
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-}
-a-scene {
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-canvas {
-  z-index: 0 !important;
-  pointer-events: none !important; /* Blockiert Touch-Klicks */
 }
 
 /* 🌍 CO₂-Kreis */
@@ -49,36 +42,6 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.donut {
-  width: 100%;
-  height: 100%;
-}
-.donut-bg {
-  fill: none;
-  stroke: #eee;
-  stroke-width: 3;
-}
-.donut-meter {
-  fill: none;
-  stroke-width: 5;
-  stroke-linecap: round;
-  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
-}
-.co2-value {
-  font-size: 7px;
-  fill: #333;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-.co2-max {
-  font-size: 3px;
-  fill: #999;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-.hidden {
-  display: none;
 }
 
 /* 🌱 Overlay */
@@ -105,7 +68,7 @@ canvas {
 .input-card {
   background: rgba(255,255,255,0.92);
   border-radius: 12px;
-  width: 95%;
+  width: 90%; /* NEU: 90% Breite */
   max-width: 480px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
@@ -113,9 +76,10 @@ canvas {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin: 0 0 4vh 0;
+  margin: 0 auto 4vh auto; /* NEU: zentriert links/rechts */
   box-sizing: border-box;
 }
+
 .input-card-header {
   position: sticky;
   top: 0;
@@ -125,12 +89,14 @@ canvas {
   border-bottom: 1px solid #eee;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
+
 .input-card-header h2 {
   font-size: 1.1rem;
   margin: 0;
   text-align: center;
   line-height: 1.3;
 }
+
 .input-card-body {
   overflow-y: auto;
   overflow-x: hidden;
@@ -145,6 +111,7 @@ canvas {
   margin: 1rem 1rem 0.25rem;
   font-weight: bold;
 }
+
 .input-card select,
 .input-card input[type="range"] {
   width: calc(100% - 2rem);
@@ -154,6 +121,7 @@ canvas {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+
 .input-card button {
   margin: 2rem 1rem 0;
   width: calc(100% - 2rem);
@@ -174,19 +142,6 @@ canvas {
   text-align: center;
   z-index: 10;
 }
-.result-section {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 10px;
-  padding: 0.4rem 0.8rem;
-  font-size: 1rem;
-  line-height: 1.35;
-  display: inline-block;
-  margin-bottom: 0.4rem;
-  opacity: 0;
-}
-#summary-box {
-  opacity: 1 !important;
-}
 
 /* 🎯 Navigation */
 #nav-buttons {
@@ -199,6 +154,7 @@ canvas {
   width: 320px;
   z-index: 9999;
 }
+
 #nav-buttons button {
   width: 60px;
   height: 60px;
@@ -213,14 +169,12 @@ canvas {
   justify-content: center;
   transition: transform 0.2s ease;
 }
-#nav-buttons button:hover {
-  transform: scale(1.1);
-}
+
 /* 🧑‍🎓 Namensfeld */
 #name-prompt {
   z-index: 10000 !important;
   pointer-events: all !important;
-  display: none; /* Standardmäßig ausblenden */
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -234,52 +188,7 @@ canvas {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Sicherstellen, dass ausgeblendete a-scene nichts blockiert */
+/* Sicherstellen, dass versteckte Szene nichts blockiert */
 a-scene[hidden] {
   display: none !important;
-}
-#name-prompt {
-  z-index: 10000 !important;
-  pointer-events: all !important;
-  display: none; /* Standardmäßig ausblenden */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Sicherstellen, dass ausgeblendete a-scene nichts blockiert */
-a-scene[hidden] {
-  display: none !important;
-}
-
-#name-prompt label {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-#name-prompt input {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-}
-
-#name-prompt button {
-  margin-top: 1rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  background-color: #52b788;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
 }

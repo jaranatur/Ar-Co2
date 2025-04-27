@@ -1,3 +1,5 @@
+// File: scripts/main.js
+
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -99,6 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Hört auf start-questions Event!
   document.addEventListener("start-questions", () => {
+    const scene = document.querySelector('a-scene');
+    if (scene) {
+      scene.classList.add('no-interaction'); // Szene blockieren, damit keine Bewegung mehr möglich
+    }
+
     userName = document.getElementById("user-name").value.trim();
     if (!userName) {
       alert("Bitte gib deinen Namen ein!");
