@@ -1,3 +1,7 @@
+.a-enter-vr-button,
+.a-modal {
+  display: none !important;
+}
 /* 🌍 Szene darf sich nicht bewegen, wenn .no-interaction gesetzt wird */
 a-scene.no-interaction {
   pointer-events: none !important;
