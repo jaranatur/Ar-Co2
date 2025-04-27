@@ -1,11 +1,9 @@
-// scripts/main.js
-
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { questions } from './common/questions.js';
-import { setupNamePrompt } from './common/handleNamePrompt.js'; // NEU!
+import { setupNamePrompt } from './common/handleNamePrompt.js'; // Wichtig!
 
 let currentIndex = 0;
 let answers = {};
@@ -92,24 +90,25 @@ function renderQuestion(index) {
 document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
-  handleEarthRotation(); // Startet mit der Erde
-  setupNamePrompt();     // NEU: Startet den Namenflow
+  handleEarthRotation();
+  setupNamePrompt(); // <- Sehr wichtig
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
   updateLiveBall(0);
 
-  // Nach Eingabe des Namens und Klick auf Weiter → Start Fragenflow
+  // Hört auf start-questions Event!
   document.addEventListener("start-questions", () => {
-    const nameInput = document.getElementById("user-name").value.trim();
-    if (nameInput) {
-      userName = nameInput;
-
-      document.getElementById("input-overlay").style.display = "block";
-      renderQuestion(currentIndex);
-      document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
-      document.getElementById("co2-indicator").classList.remove("hidden");
+    userName = document.getElementById("user-name").value.trim();
+    if (!userName) {
+      alert("Bitte gib deinen Namen ein!");
+      return;
     }
+
+    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+    document.getElementById("input-overlay").style.display = "flex"; // Achtung: "flex", nicht "block"
+    document.getElementById("co2-indicator").classList.remove("hidden");
+    renderQuestion(currentIndex);
   });
 
   document.getElementById("prev-question").addEventListener("click", () => {
