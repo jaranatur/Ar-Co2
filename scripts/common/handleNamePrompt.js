@@ -1,4 +1,3 @@
-
 // scripts/common/handleNamePrompt.js
 
 export function setupNamePrompt() {
@@ -9,34 +8,44 @@ export function setupNamePrompt() {
     const inputOverlay = document.getElementById('input-overlay');
     const overlayTitle = inputOverlay.querySelector('.input-card-header h2');
   
+    // Warten bis Erde gedreht wurde
     document.addEventListener('earth-rotated', () => {
       if (scene) {
-        scene.style.pointerEvents = 'none';
+        scene.style.pointerEvents = 'none'; // Szene blockieren
       }
       if (namePrompt) {
         namePrompt.style.display = 'flex';
-        userNameInput.focus();
+        setTimeout(() => userNameInput.focus(), 100); // sanftes Fokusieren
       }
     });
   
-    startButton.addEventListener('click', () => {
+    // Beim Klick auf „Weiter“
+    startButton.addEventListener('click', (e) => {
+      e.preventDefault();
+  
       const name = userNameInput.value.trim();
       if (name === '') {
         alert('Bitte gib deinen Namen ein.');
         return;
       }
   
+      // Name speichern (global)
+      window.userName = name;
+  
+      // Name-Feld verstecken
+      namePrompt.style.display = 'none';
+  
+      // Overlay mit Fragen zeigen
+      inputOverlay.style.display = 'flex';
+  
+      // Überschrift personalisieren
       if (overlayTitle) {
         overlayTitle.textContent = `${name}s Nachhaltigkeitsinfos`;
       }
   
-      if (namePrompt) {
-        namePrompt.style.display = 'none';
-      }
-      if (inputOverlay) {
-        inputOverlay.style.display = 'block';
-      }
-  
+      // Scene pointer-events nicht ändern!
+      
+      // Starte Fragen
       const firstQuestionEvent = new Event('start-questions');
       document.dispatchEvent(firstQuestionEvent);
     });
