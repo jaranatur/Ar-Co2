@@ -2,6 +2,7 @@
 .a-modal {
   display: none !important;
 }
+
 /* 🌍 Szene darf sich nicht bewegen, wenn .no-interaction gesetzt wird */
 a-scene.no-interaction {
   pointer-events: none !important;
@@ -13,7 +14,7 @@ a-scene.no-interaction {
 html, body {
   margin: 0;
   overflow-x: hidden;
-  overflow-y: hidden; /* NEU: kein Scrollen auf Body */
+  overflow-y: hidden;
   font-family: Arial, sans-serif;
   touch-action: manipulation;
   user-select: none;
@@ -39,7 +40,7 @@ a-entity {
   transform: translateX(-50%);
   width: 140px;
   height: 140px;
-  z-index: 10001; /* Höher als Fragenbox! */
+  z-index: 10001; /* Sicher höher als input-overlay */
   background: rgba(255,255,255,0.92);
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -48,7 +49,6 @@ a-entity {
   justify-content: center;
 }
 
-
 /* 🌱 Overlay */
 #input-overlay {
   position: fixed;
@@ -56,24 +56,25 @@ a-entity {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9998;
-  pointer-events: auto;
   background-color: rgba(0, 0, 0, 0.15);
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 1vh 1rem 1rem;
+  flex-direction: column; /* NEU: Damit zentriert und korrekt */
+  align-items: center; /* NEU: horizontal mittig */
+  justify-content: flex-start; /* NEU: oben starten */
+  padding-top: 10vh; /* NEU: schöner Abstand */
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
   overscroll-behavior: none;
+  z-index: 9998;
+  pointer-events: auto;
 }
 
 /* 🧾 Weiße Karte */
 .input-card {
   background: rgba(255,255,255,0.92);
   border-radius: 12px;
-  width: 90%; /* NEU: 90% Breite */
+  width: 90%;
   max-width: 480px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
@@ -81,7 +82,7 @@ a-entity {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 4vh auto; /* NEU: zentriert links/rechts */
+  margin: 0 0 4vh 0;
   box-sizing: border-box;
 }
 
@@ -148,6 +149,21 @@ a-entity {
   z-index: 10;
 }
 
+.result-section {
+  background: rgba(255,255,255,0.85);
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  line-height: 1.35;
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  opacity: 0;
+}
+
+#summary-box {
+  opacity: 1 !important;
+}
+
 /* 🎯 Navigation */
 #nav-buttons {
   position: fixed;
@@ -175,6 +191,10 @@ a-entity {
   transition: transform 0.2s ease;
 }
 
+#nav-buttons button:hover {
+  transform: scale(1.1);
+}
+
 /* 🧑‍🎓 Namensfeld */
 #name-prompt {
   z-index: 10000 !important;
@@ -196,9 +216,4 @@ a-entity {
 /* Sicherstellen, dass versteckte Szene nichts blockiert */
 a-scene[hidden] {
   display: none !important;
-}
-.input-card {
-  width: 90%;
-  max-width: 480px;
-  margin: 0 auto 4vh auto; /* ✅ */
 }
