@@ -15,7 +15,6 @@ input, select, button, label {
   user-select: auto !important;
 }
 
-/* 🌀 A-Frame */
 a-entity[text] {
   font: exo2bold;
 }
@@ -217,43 +216,7 @@ canvas {
 #nav-buttons button:hover {
   transform: scale(1.1);
 }
-
 /* 🧑‍🎓 Namensfeld */
-#name-prompt {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10000;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 90%;
-  max-width: 320px;
-  pointer-events: auto !important;
-}
-#name-prompt input {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-}
-#name-prompt button {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #52b788;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 #name-prompt {
   display: none;
   flex-direction: column;
@@ -291,9 +254,9 @@ canvas {
   margin-top: 1rem;
   padding: 0.6rem 1rem;
   font-size: 1rem;
-  border: none;
   background-color: #52b788;
   color: white;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
 }

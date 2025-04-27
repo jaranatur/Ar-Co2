@@ -1,9 +1,11 @@
+// scripts/main.js
 
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { questions } from './common/questions.js';
+import { setupNamePrompt } from './common/handleNamePrompt.js'; // NEU!
 
 let currentIndex = 0;
 let answers = {};
@@ -91,33 +93,23 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
   handleEarthRotation(); // Startet mit der Erde
+  setupNamePrompt();     // NEU: Startet den Namenflow
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
   updateLiveBall(0);
 
-  // Event nach Erddrehung → zeige Namensfeld
-  document.addEventListener("earth-rotated", () => {
-    const prompt = document.getElementById("name-prompt");
-    prompt.style.display = "flex";
+  // Nach Eingabe des Namens und Klick auf Weiter → Start Fragenflow
+  document.addEventListener("start-questions", () => {
+    const nameInput = document.getElementById("user-name").value.trim();
+    if (nameInput) {
+      userName = nameInput;
 
-    setTimeout(() => {
-      document.getElementById("user-name").focus();
-    }, 100);
-
-    document.getElementById("start-btn").addEventListener("click", () => {
-      const nameInput = document.getElementById("user-name").value.trim();
-      if (nameInput) {
-        userName = nameInput;
-        prompt.style.display = "none";
-
-        // Start Fragenflow
-        document.getElementById("input-overlay").style.display = "block";
-        renderQuestion(currentIndex);
-        document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
-        document.getElementById("co2-indicator").classList.remove("hidden");
-      }
-    });
+      document.getElementById("input-overlay").style.display = "block";
+      renderQuestion(currentIndex);
+      document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+      document.getElementById("co2-indicator").classList.remove("hidden");
+    }
   });
 
   document.getElementById("prev-question").addEventListener("click", () => {
