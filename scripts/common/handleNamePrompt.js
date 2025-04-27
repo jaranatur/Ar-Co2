@@ -1,13 +1,19 @@
 export function setupNamePrompt() {
-    const scene = document.querySelector('a-scene');
-    const namePrompt = document.getElementById('name-prompt');
-    const userNameInput = document.getElementById('user-name');
-    const startButton = document.getElementById('start-btn');
-  
     document.addEventListener('earth-rotated', () => {
+      const scene = document.querySelector('a-scene');
       if (scene && scene.parentNode) {
-        scene.parentNode.removeChild(scene); // Szene komplett löschen
+        scene.parentNode.removeChild(scene);
       }
+  
+      // Alle Canvas-Elemente killen
+      document.querySelectorAll('canvas').forEach(canvas => {
+        if (canvas && canvas.parentNode) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      });
+  
+      const namePrompt = document.getElementById('name-prompt');
+      const userNameInput = document.getElementById('user-name');
   
       if (namePrompt) {
         namePrompt.style.display = 'flex';
@@ -20,10 +26,10 @@ export function setupNamePrompt() {
       }, 300);
     });
   
-    startButton.addEventListener('click', (e) => {
+    document.getElementById('start-btn').addEventListener('click', (e) => {
       e.preventDefault();
   
-      const name = userNameInput.value.trim();
+      const name = document.getElementById('user-name').value.trim();
       if (!name) {
         alert('Bitte gib deinen Namen ein.');
         return;
@@ -31,7 +37,6 @@ export function setupNamePrompt() {
   
       window.userName = name;
   
-      // Danach kannst du dein Fragen-Overlay einblenden usw.
       document.getElementById('name-prompt').style.display = 'none';
       document.getElementById('input-overlay').style.display = 'flex';
   
