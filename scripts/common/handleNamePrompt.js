@@ -1,6 +1,6 @@
 export function setupNamePrompt() {
     const scene = document.querySelector('a-scene');
-    const canvas = document.querySelector('canvas');
+    const canvas = document.querySelector('a-scene > canvas');
     const namePrompt = document.getElementById('name-prompt');
     const userNameInput = document.getElementById('user-name');
     const startButton = document.getElementById('start-btn');
@@ -8,22 +8,18 @@ export function setupNamePrompt() {
     const overlayTitle = document.querySelector('.input-card-header h2');
   
     document.addEventListener('earth-rotated', () => {
-      if (scene) {
-        scene.style.pointerEvents = 'none'; // Nur Events blockieren
-      }
-      if (canvas) {
-        canvas.style.pointerEvents = 'none'; // Nur Events blockieren
+      if (canvas && canvas.parentNode) {
+        canvas.parentNode.removeChild(canvas); // <<< GANZ entfernen
       }
   
       if (namePrompt) {
         namePrompt.style.display = 'flex';
+        setTimeout(() => {
+          if (userNameInput) {
+            userNameInput.focus();
+          }
+        }, 300);
       }
-  
-      setTimeout(() => {
-        if (userNameInput) {
-          userNameInput.focus();
-        }
-      }, 300);
     });
   
     startButton.addEventListener('click', (e) => {
@@ -45,13 +41,6 @@ export function setupNamePrompt() {
       }
       if (overlayTitle) {
         overlayTitle.textContent = `${name}s Nachhaltigkeitsinfos`;
-      }
-  
-      if (scene) {
-        scene.style.pointerEvents = 'auto'; // Szene wieder berührbar!
-      }
-      if (canvas) {
-        canvas.style.pointerEvents = 'auto'; // Canvas wieder aktiv
       }
   
       const startQuestionsEvent = new Event('start-questions');
