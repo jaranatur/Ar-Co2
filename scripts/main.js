@@ -1,3 +1,5 @@
+// File: scripts/main.js
+
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
@@ -24,7 +26,7 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-  indicator.style.display = overlayVisible ? "flex" : "none";
+  indicator.style.opacity = overlayVisible ? "1" : "0"; // ✨ opacity statt display!
 }
 
 function renderQuestion(index) {
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
-  updateLiveBall(0);
+  updateLiveBall(0); // 🌟 schon zu Beginn initialisieren!
 
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
@@ -111,9 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
     document.getElementById("input-overlay").style.display = "flex";
+
+    updateLiveBall(0); // 🌟 direkt Co2-Kreis zeigen
+
     renderQuestion(currentIndex);
 
-    // Co2-Indikator sichtbar machen
     setTimeout(() => {
       const co2 = document.getElementById("co2-indicator");
       if (co2) {
@@ -122,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 50);
 
-    // Observer für Live-Update
     new MutationObserver(() => {
       updateLiveBall(calculateFootprint(answers).totalKg);
     }).observe(document.getElementById("input-overlay"), {
