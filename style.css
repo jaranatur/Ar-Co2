@@ -35,12 +35,12 @@ a-entity {
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 60%; /* NEU! Tiefer, näher an Buttons */
+  top: 270px; /* NEU: exakt auf Höhe der Navigations-Buttons */
   left: 50%;
   transform: translateX(-50%) scale(1);
   width: 140px;
   height: 140px;
-  z-index: 9999;
+  z-index: 10004;
   opacity: 1;
   background: rgba(255,255,255,0.92);
   border-radius: 50%;

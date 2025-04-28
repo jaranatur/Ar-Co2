@@ -17,7 +17,6 @@ function updateLiveBall(totalKg) {
   const value = indicator.querySelector(".co2-value");
 
   const kg = Math.round(totalKg);
-  const percent = Math.min(kg / 100, 1);
 
   donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
   value.textContent = `${kg} kg`;
