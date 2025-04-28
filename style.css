@@ -35,21 +35,22 @@ a-entity {
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 120px;
+  top: 60%; /* NEU! Tiefer, näher an Buttons */
   left: 50%;
-  transform: translateX(-50%) scale(1.2);
+  transform: translateX(-50%) scale(1);
   width: 140px;
   height: 140px;
-  z-index: 10004;
-  opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 9999;
+  opacity: 1;
   background: rgba(255,255,255,0.92);
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
 
 #donut-meter {
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -93,7 +94,7 @@ canvas.arjs-video {
 
 /* 🧾 Weiße Karte */
 .input-card {
-  margin-top: 8vh;
+  margin-top: 2vh; /* NEU! Kleiner Abstand nach oben */
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4vh;
@@ -109,6 +110,7 @@ canvas.arjs-video {
   flex-direction: column;
   box-sizing: border-box;
 }
+
 
 .input-card-header {
   position: sticky;

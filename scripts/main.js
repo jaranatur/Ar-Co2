@@ -26,7 +26,7 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-  indicator.style.opacity = overlayVisible ? "1" : "0"; // ✨ opacity statt display!
+  indicator.style.opacity = overlayVisible ? "1" : "0";
 }
 
 function renderQuestion(index) {
@@ -93,11 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initGlobals();
   initScene();
   handleEarthRotation();
-  setupNamePrompt(); // <- Sehr wichtig
+  setupNamePrompt();
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
-  updateLiveBall(0); // 🌟 schon zu Beginn initialisieren!
+  updateLiveBall(0);
 
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
@@ -113,9 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
     document.getElementById("input-overlay").style.display = "flex";
-
-    updateLiveBall(0); // 🌟 direkt Co2-Kreis zeigen
-
     renderQuestion(currentIndex);
 
     setTimeout(() => {
