@@ -5,7 +5,7 @@ import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { questions } from './common/questions.js';
-import { setupNamePrompt } from './common/handleNamePrompt.js'; // Wichtig!
+import { setupNamePrompt } from './common/handleNamePrompt.js';
 
 let currentIndex = 0;
 let answers = {};
@@ -26,7 +26,13 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-  indicator.style.opacity = overlayVisible ? "1" : "0";
+  if (overlayVisible) {
+    indicator.classList.remove('hidden');
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translateX(-50%) scale(1)";
+  } else {
+    indicator.classList.add('hidden');
+  }
 }
 
 function renderQuestion(index) {
@@ -113,6 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
     document.getElementById("input-overlay").style.display = "flex";
+    document.getElementById("co2-indicator").classList.remove('hidden');
+
     renderQuestion(currentIndex);
 
     setTimeout(() => {
