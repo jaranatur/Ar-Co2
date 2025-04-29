@@ -35,18 +35,17 @@ a-entity {
 
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
-  position: fixed !important;
-  bottom: 20px;
-  top: auto !important;
+  position: fixed;
+  top: 270px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
-  z-index: 100002 !important;
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transform: translateX(-50%) scale(1);
+  width: 100px; /* angepasst */
+  height: 100px; /* angepasst */
+  z-index: 10004;
+  opacity: 1;
   background: rgba(255, 255, 255, 0.92);
   border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,13 +72,9 @@ a-entity {
 }
 
 /* Verhindern, dass die AR-Kamera blockiert */
-canvas[data-aframe-canvas],
 canvas.arjs-video {
   display: none !important;
   visibility: hidden !important;
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
 }
 
 /* 🌱 Overlay */
@@ -98,10 +93,8 @@ canvas.arjs-video {
   overflow-x: hidden;
   scroll-behavior: smooth;
   overscroll-behavior: none;
-  z-index: 100001 !important;
+  z-index: 9998;
   pointer-events: auto;
-  transform: none !important;
-  contain: layout paint;
 }
 
 /* 🧾 Weiße Fragekarte */
@@ -234,7 +227,7 @@ canvas.arjs-video {
 
 /* 🧑‍🎓 Namensfeld */
 #name-prompt {
-  z-index: 100001 !important;
+  z-index: 10000 !important;
   pointer-events: all !important;
   display: none;
   flex-direction: column;
@@ -248,8 +241,6 @@ canvas.arjs-video {
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transform: none !important;
-  contain: layout paint;
 }
 
 /* Sicherstellen, dass versteckte AR-Szene nichts blockiert */
@@ -257,7 +248,15 @@ a-scene[hidden] {
   display: none !important;
 }
 
+
 a-scene {
   position: relative !important;
   z-index: 0 !important;
+}
+
+canvas.arjs-video {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  visibility: hidden !important;
 }

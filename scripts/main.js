@@ -21,8 +21,8 @@ function updateLiveBall(totalKg) {
   const kg = Math.round(totalKg);
   const percent = Math.min(kg / 100, 1);
 
-  donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
-  value.textContent = `${kg} kg`;
+  donut.setAttribute("stroke-dasharray", ${percent * 100}, 100);
+  value.textContent = ${kg} kg;
 
   const strokeColor = kg < 50 ? "#52b788" : kg <= 100 ? "#f4a261" : "#e76f51";
   donut.setAttribute("stroke", strokeColor);
@@ -35,6 +35,7 @@ function updateLiveBall(totalKg) {
     indicator.style.transform = "translateX(-50%) scale(1)";
   } else {
     indicator.style.display = "none";
+    indicator.style.opacity = "0";
   }
 }
 
@@ -86,12 +87,12 @@ function renderQuestion(index) {
 
     const output = document.createElement("span");
     output.id = "screen-value";
-    output.textContent = `${slider.value} Stunden`;
+    output.textContent = ${slider.value} Stunden;
 
     slider.addEventListener("input", () => {
       const val = parseFloat(slider.value);
       answers[question.id] = val;
-      output.textContent = `${val} Stunden`;
+      output.textContent = ${val} Stunden;
       updateLiveBall(calculateFootprint(answers).totalKg);
     });
 
@@ -101,9 +102,8 @@ function renderQuestion(index) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Tracker NICHT anzeigen am Anfang
-  document.getElementById("co2-indicator").style.display = "none";
-
+  document.getElementById("co2-indicator").style.display = "flex"; // NEU: von Anfang an sichtbar
+  
   initGlobals();
   initScene();
   handleEarthRotation();
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+    document.querySelector(".input-card-header h2").textContent = ${userName}s Nachhaltigkeitsinfos;
     document.getElementById("input-overlay").style.display = "flex";
 
     renderQuestion(currentIndex);
@@ -134,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       const co2 = document.getElementById("co2-indicator");
       if (co2) {
-        co2.style.display = "flex";
         co2.style.opacity = "1";
         co2.style.transform = "translateX(-50%) scale(1)";
       }
@@ -161,10 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderQuestion(currentIndex);
     } else {
       const result = calculateFootprint(answers);
-      document.getElementById("co2-indicator").style.display = "none";
-
-      // TODO: Du kannst hier ein Ergebnis anzeigen lassen
-      console.log("Fragebogen abgeschlossen:", result);
+      document.getElementById("co2-indicator")?.classList.add("hidden");
+      showResultOverlay(result);
     }
   });
 });
