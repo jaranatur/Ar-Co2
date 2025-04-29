@@ -48,12 +48,22 @@ function renderQuestion(index) {
   if (question.type === "select") {
     const select = document.createElement("select");
     select.id = question.id;
+
     question.options.forEach(opt => {
       const option = document.createElement("option");
-      option.value = opt;
-      option.textContent = opt;
+      if (typeof opt === "string") {
+        option.value = opt;
+        option.textContent = opt;
+      } else {
+        option.value = opt.value;
+        option.textContent = opt.label;
+      }
       select.appendChild(option);
     });
+    select.value = question.value ?? "";
+
+    
+
 
     select.addEventListener("input", () => {
       let value = select.value;
@@ -182,12 +192,22 @@ function renderSetup() {
     if (question.type === "select") {
       const select = document.createElement("select");
       select.id = question.id;
+
       question.options.forEach(opt => {
         const option = document.createElement("option");
-        option.value = opt;
-        option.textContent = opt;
+        if (typeof opt === "string") {
+          option.value = opt;
+          option.textContent = opt;
+        } else {
+          option.value = opt.value;
+          option.textContent = opt.label;
+        }
         select.appendChild(option);
       });
+      
+      select.value = question.value ?? "";
+
+
       questionWrapper.appendChild(select);
     }
 
