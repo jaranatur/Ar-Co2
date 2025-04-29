@@ -275,12 +275,12 @@ a-scene[hidden] {
 
 #feedback-text {
   position: absolute;
-  top: 390px; /* 🔁 Anpassen je nach CO2-Kreis-Platzierung */
+  top: 410px; /* 👈 Minimal tiefer als 390px */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   max-width: 480px;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   padding: 1rem 1rem 1.5rem;
@@ -289,19 +289,19 @@ a-scene[hidden] {
   text-align: left;
   box-sizing: border-box;
   display: none;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.6s ease; /* 👈 Sanfter & langsamer */
+  will-change: opacity, transform; /* 👈 Performance hint */
   z-index: 9999;
 }
-
-
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px); /* 👈 sanfter start tiefer */
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
