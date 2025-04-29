@@ -16,6 +16,8 @@ function updateLiveBall(totalKg) {
   const donut = indicator.querySelector("#donut-meter");
   const value = indicator.querySelector(".co2-value");
 
+  if (!indicator || !donut || !value) return;
+
   const kg = Math.round(totalKg);
   const percent = Math.min(kg / 100, 1);
 
@@ -26,18 +28,22 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
+
   if (overlayVisible) {
-    indicator.classList.remove('hidden');
+    indicator.style.display = "flex";
     indicator.style.opacity = "1";
     indicator.style.transform = "translateX(-50%) scale(1)";
   } else {
-    indicator.classList.add('hidden');
+    indicator.style.display = "none";
+    indicator.style.opacity = "0";
   }
 }
 
 function renderQuestion(index) {
   const question = questions[index];
   const body = document.querySelector(".input-card-body");
+  if (!question || !body) return;
+
   body.innerHTML = "";
 
   const label = document.createElement("label");
@@ -96,6 +102,8 @@ function renderQuestion(index) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("co2-indicator").style.display = "flex"; // NEU: von Anfang an sichtbar
+  
   initGlobals();
   initScene();
   handleEarthRotation();
@@ -103,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
+
   updateLiveBall(0);
 
   document.addEventListener("start-questions", () => {
@@ -119,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
     document.getElementById("input-overlay").style.display = "flex";
-    document.getElementById("co2-indicator").classList.remove('hidden');
 
     renderQuestion(currentIndex);
 
