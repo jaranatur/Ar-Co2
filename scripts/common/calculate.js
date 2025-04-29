@@ -1,13 +1,14 @@
 // calculate.js
+
 export function calculateFootprint({
   distance,         // in km (einfach)
-  transport,        // string: auto, carpool, public, bike, walk
-  daysPerWeek,      // wie oft an der HSD pro Woche (1–5)
-  mealsPerWeek,     // Mensa-Besuche pro Woche (0–5)
-  diet,             // string: meat-daily, vegetarian, vegan
-  water,            // string: plastic, glass, refill
-  paper,            // string: none, monthly, weekly, often
-  screenHoursPerDay // number: z. B. 2
+  transport,        // auto, carpool, public, bike, walk
+  daysPerWeek,      // wie oft pro Woche an der HSD
+  mealsPerWeek,     // Mensa-Besuche pro Woche
+  diet,             // meat-daily, meat-rare, vegetarian, vegan
+  water,            // plastic, glass, refill
+  paper,            // none, monthly, weekly, often
+  screenHoursPerDay // z. B. 3.5
 }) {
   let total = 0;
   const semesterWeeks = 30;
@@ -25,8 +26,10 @@ export function calculateFootprint({
     case "public":
       total += dailyDistance * uniDays * 0.064;
       break;
+    case "bike":
+    case "walk":
     default:
-      // bike or walk = 0
+      // kein CO₂
       break;
   }
 
@@ -36,11 +39,17 @@ export function calculateFootprint({
     case "meat-daily":
       mealFactor = 2.93;
       break;
+    case "meat-rare":
+      mealFactor = 2.2;
+      break;
     case "vegetarian":
       mealFactor = 1.93;
       break;
     case "vegan":
       mealFactor = 1.5;
+      break;
+    default:
+      mealFactor = 2.5; // Fallback-Wert, falls nichts ausgewählt wurde
       break;
   }
   total += mealsPerWeek * semesterWeeks * mealFactor;
@@ -54,13 +63,17 @@ export function calculateFootprint({
       total += uniDays * 0.1;
       break;
     case "refill":
-      break; // 0 CO₂
+    default:
+      // 0 CO₂
+      break;
   }
 
   // 📄 Papier
   switch (paper) {
+    case "none":
+      break; // kein CO₂
     case "monthly":
-      total += 0.5 * (semesterWeeks / 4); // ca. 7.5 Monate
+      total += 0.5 * (semesterWeeks / 4); // etwa 7.5
       break;
     case "weekly":
       total += 0.5 * semesterWeeks;
@@ -72,13 +85,13 @@ export function calculateFootprint({
       break;
   }
 
-  // 💻 Digitalverhalten
+  // 💻 Bildschirmzeit
   total += screenHoursPerDay * 5 * semesterWeeks * 0.2;
 
   // ✨ Ausgabe
   return {
-    totalKg: total.toFixed(1),
+    totalKg: parseFloat(total.toFixed(1)),
     equivalent: "≈ Flug Düsseldorf → Lissabon",
-    trees: Math.ceil(total / 21) // 1 Baum ≈ 21 kg CO₂ / Jahr
+    trees: Math.ceil(total / 21) // 1 Baum ≈ 21 kg CO₂
   };
 }
