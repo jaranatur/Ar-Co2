@@ -1,4 +1,3 @@
-/* Verstecke unnötige AR-Elemente */
 .a-enter-vr-button,
 .a-modal {
   display: none !important;
@@ -11,7 +10,7 @@ a-scene.no-interaction {
   touch-action: none !important;
 }
 
-/* 🖥️ Basis-Layout */
+/* 🖥️ Basis */
 html, body {
   margin: 0;
   overflow-x: hidden;
@@ -36,42 +35,38 @@ a-entity {
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 270px;
+  top: 270px; /* NEU: exakt auf Höhe der Navigations-Buttons */
   left: 50%;
   transform: translateX(-50%) scale(1);
-  width: 100px; /* angepasst */
-  height: 100px; /* angepasst */
+  width: 140px;
+  height: 140px;
   z-index: 10004;
   opacity: 1;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255,255,255,0.92);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+
 #donut-meter {
-  fill: none;
-  stroke: #52b788;
-  stroke-width: 2.8;
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: 50% 50%;
 }
 
 .co2-value {
-  font-size: 10px !important;
+  font-size: 5px !important;
   font-weight: bold;
-  fill: black;
 }
 
 .co2-max {
-  font-size: 5px !important;
-  fill: black;
+  font-size: 2.5px !important;
 }
 
-/* Verhindern, dass die AR-Kamera blockiert */
+/* Sicherstellen, dass AR-Canvas nicht blockiert */
 canvas.arjs-video {
   display: none !important;
   visibility: hidden !important;
@@ -97,15 +92,15 @@ canvas.arjs-video {
   pointer-events: auto;
 }
 
-/* 🧾 Weiße Fragekarte */
+/* 🧾 Weiße Karte */
 .input-card {
-  margin-top: 2vh;
+  margin-top: 2vh; /* NEU! Kleiner Abstand nach oben */
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4vh;
   width: 90%;
   max-width: 480px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255,255,255,0.92);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: sans-serif;
@@ -116,6 +111,7 @@ canvas.arjs-video {
   box-sizing: border-box;
 }
 
+
 .input-card-header {
   position: sticky;
   top: 0;
@@ -123,7 +119,7 @@ canvas.arjs-video {
   z-index: 2;
   padding: 1.5rem 1rem 1.2rem;
   border-bottom: 1px solid #eee;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
 .input-card-header h2 {
@@ -141,7 +137,7 @@ canvas.arjs-video {
   flex: 1;
 }
 
-/* ✍️ Eingabefelder */
+/* ✍️ Fragen */
 .input-card label {
   display: block;
   margin: 1rem 1rem 0.25rem;
@@ -180,7 +176,7 @@ canvas.arjs-video {
 }
 
 .result-section {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255,255,255,0.85);
   border-radius: 10px;
   padding: 0.4rem 0.8rem;
   font-size: 1rem;
@@ -213,7 +209,7 @@ canvas.arjs-video {
   font-size: 1.6rem;
   border: none;
   background-color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -237,26 +233,13 @@ canvas.arjs-video {
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255,255,255,0.95);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Sicherstellen, dass versteckte AR-Szene nichts blockiert */
+/* Sicherstellen, dass versteckte Szene nichts blockiert */
 a-scene[hidden] {
   display: none !important;
-}
-
-
-a-scene {
-  position: relative !important;
-  z-index: 0 !important;
-}
-
-canvas.arjs-video {
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  visibility: hidden !important;
 }
