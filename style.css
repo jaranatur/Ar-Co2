@@ -60,13 +60,20 @@ a-entity {
 .co2-value {
   font-size: 12px !important;
   font-weight: bold;
-  fill: black;
+  fill: black !important;
+  paint-order: stroke;
+  stroke: white;
+  stroke-width: 0.5;
 }
 
 .co2-max {
   font-size: 6px !important;
-  fill: black;
+  fill: black !important;
+  paint-order: stroke;
+  stroke: white;
+  stroke-width: 0.3;
 }
+
 
 
 /* Sicherstellen, dass AR-Canvas nicht blockiert */
