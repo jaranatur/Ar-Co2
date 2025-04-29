@@ -35,7 +35,6 @@ function updateLiveBall(totalKg) {
     indicator.style.transform = "translateX(-50%) scale(1)";
   } else {
     indicator.style.display = "none";
-    indicator.style.opacity = "0";
   }
 }
 
@@ -102,8 +101,9 @@ function renderQuestion(index) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("co2-indicator").style.display = "flex"; // NEU: von Anfang an sichtbar
-  
+  // Tracker NICHT anzeigen am Anfang
+  document.getElementById("co2-indicator").style.display = "none";
+
   initGlobals();
   initScene();
   handleEarthRotation();
@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       const co2 = document.getElementById("co2-indicator");
       if (co2) {
+        co2.style.display = "flex";
         co2.style.opacity = "1";
         co2.style.transform = "translateX(-50%) scale(1)";
       }
@@ -160,8 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
       renderQuestion(currentIndex);
     } else {
       const result = calculateFootprint(answers);
-      document.getElementById("co2-indicator")?.classList.add("hidden");
-      showResultOverlay(result);
+      document.getElementById("co2-indicator").style.display = "none";
+
+      // TODO: Du kannst hier ein Ergebnis anzeigen lassen
+      console.log("Fragebogen abgeschlossen:", result);
     }
   });
 });

@@ -12,7 +12,6 @@
 <body>
   <header>
     <h1>AR Erde</h1>
-  </header>
 
   <!-- 🧑‍🎓 Name-Eingabe -->
   <div id="name-prompt" style="display: none; flex-direction: column; align-items: center; padding: 2rem;">
@@ -24,10 +23,13 @@
   </div>
 
   <!-- 🌐 AR-Szene -->
-  <a-scene embedded 
-         vr-mode-ui="enabled: false" 
-         device-orientation-permission-ui="enabled: false" 
-         arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
+  <a-scene
+  embedded
+  renderer="xrEnabled: false; antialias: true; alpha: true"
+  vr-mode-ui="enabled: false"
+  arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best; maxDetectionRate: 60; patternRatio: 0.9"
+  style="z-index: -1 !important; position: absolute;">
+
 
     <a-assets>
       <img id="arrow-icon" src="assets/arrow-down-white.png" />
