@@ -274,9 +274,12 @@ a-scene[hidden] {
 }
 
 #feedback-text {
+  position: absolute;
+  top: 390px; /* 🔁 Anpassen je nach CO2-Kreis-Platzierung */
+  left: 50%;
+  transform: translateX(-50%);
   width: 90%;
   max-width: 480px;
-  margin: 12px auto 4vh; /* Abstand angepasst */
   background: rgba(255,255,255,0.92);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -287,7 +290,9 @@ a-scene[hidden] {
   box-sizing: border-box;
   display: none;
   animation: fadeIn 0.3s ease-in-out;
+  z-index: 9999;
 }
+
 
 
 @keyframes fadeIn {
