@@ -105,6 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
   handleEarthRotation();
   setupNamePrompt();
 
+  const navButtons = document.getElementById("nav-buttons");
+  if (navButtons) navButtons.style.display = "none";
+
+
   const allInputIds = mainQuestions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
 
@@ -224,4 +228,7 @@ function startMainFlow() {
   }
 
   renderQuestion(currentIndex);
+
+  const navButtons = document.getElementById("nav-buttons");
+  if (navButtons) navButtons.style.display = "flex";
 }
