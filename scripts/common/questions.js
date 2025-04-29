@@ -24,31 +24,55 @@ export const setupQuestions = [
 export const mainQuestions = [
   {
     id: "transport",
-    question: "🚙 Wie kommst du meistens zur HSD?",
+    question: "🚙 Wie kommst du meistens zur HSD – an den meisten Tagen?",
     type: "select",
-    options: ["auto", "carpool", "public", "bike", "walk"]
+    options: [
+      { value: "auto", label: "Mit dem Auto – allein" },
+      { value: "carpool", label: "Mitfahrgelegenheit / ich fahre andere" },
+      { value: "public", label: "Öffentliche Verkehrsmittel" },
+      { value: "bike", label: "Fahrrad" },
+      { value: "walk", label: "Zu Fuß" }
+    ],
+    value: "walk"
   },
   {
     id: "diet",
-    question: "🥦 Wie sieht deine Ernährung im Alltag aus?",
+    question: "🥦 Wie sieht deine Ernährung im Alltag meistens aus?",
     type: "select",
-    options: ["meat-daily", "meat-rare", "vegetarian", "vegan"]
+    options: [
+      { value: "meat-daily", label: "Ich esse (fast) täglich Fleisch" },
+      { value: "meat-rare", label: "Ich esse nur selten Fleisch" },
+      { value: "vegetarian", label: "Ich esse vegetarisch (ohne Fleisch)" },
+      { value: "vegan", label: "Ich esse überwiegend vegan" }
+    ],
+    value: "vegan"
   },
   {
     id: "water",
-    question: "💧Wie versorgst du dich mit Wasser?",
+    question: "💧 Wie versorgst du dich an der HSD meistens mit Wasser?",
     type: "select",
-    options: ["plastic", "glass", "refill"]
+    options: [
+      { value: "plastic", label: "Ich kaufe Einweg-Plastikflaschen" },
+      { value: "glass", label: "Ich kaufe Pfandflaschen (z. B. Glas-Mehrweg)" },
+      { value: "refill", label: "Ich fülle meine eigene Flasche auf (z. B. Zuhause oder an der Uni)" }
+    ],
+    value: "refill"
   },
   {
     id: "paper",
     question: "📄 Wie oft druckst du Uni-Material?",
     type: "select",
-    options: ["none", "rare", "medium", "often"]
+    options: [
+      { value: "none", label: "Nie" },
+      { value: "rare", label: "1x im Monat" },
+      { value: "medium", label: "1x pro Woche" },
+      { value: "often", label: "Mehrmals pro Woche" }
+    ],
+    value: "none"
   },
   {
     id: "screenHoursPerDay",
-    question: "💻 Wie viele Stunden nutzt du digitale Medien täglich?",
+    question: "💻 Wie viele Stunden nutzt du täglich digitale Medien für dein Studium an der HSD?",
     type: "slider",
     min: 0,
     max: 10,
@@ -56,3 +80,4 @@ export const mainQuestions = [
     value: 0
   }
 ];
+
