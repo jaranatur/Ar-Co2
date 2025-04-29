@@ -31,43 +31,41 @@ a-entity[text] {
 a-entity {
   cursor: pointer;
 }
-
-/* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 270px; /* NEU: exakt auf Höhe der Navigations-Buttons */
+  top: 270px;
   left: 50%;
   transform: translateX(-50%) scale(1);
   width: 140px;
   height: 140px;
   z-index: 10004;
-  opacity: 1;
-  background: rgba(255,255,255,0.92);
+  background: white;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+.donut {
+  width: 100%;
+  height: 100%;
+}
+
+.donut-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 2.8;
+}
 
 #donut-meter {
   fill: none;
-  stroke-width: 2.8;
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke-width: 8; /* dickerer Rand wie im Original */
+  transition: stroke-dasharray 0.5s ease;
   transform-origin: 50% 50%;
 }
 
-.co2-value, .co2-max {
-  fill: black;
-  font-size: 10px;
-  font-weight: bold;
-  paint-order: stroke;
-  stroke: white;
-  stroke-width: 0.4px;
-}
-/* 🔵 Farbwechsel nach CO₂-Level */
 .donut-meter.green {
   stroke: #52b788;
 }
@@ -76,6 +74,21 @@ a-entity {
 }
 .donut-meter.red {
   stroke: #e76f51;
+}
+
+.co2-value {
+  font-size: 18px;
+  font-weight: bold;
+  fill: black;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.co2-max {
+  font-size: 10px;
+  fill: #888;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 
 
