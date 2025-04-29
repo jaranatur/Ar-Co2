@@ -53,21 +53,31 @@ a-entity {
 
 
 #donut-meter {
+  fill: none;
+  stroke-width: 2.8;
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: 50% 50%;
 }
 
 .co2-value, .co2-max {
-  fill: white;
-  font-size: 12px;
-  font-family: Arial, sans-serif;
+  fill: black;
+  font-size: 10px;
   font-weight: bold;
-  text-anchor: middle;
-  dominant-baseline: middle;
   paint-order: stroke;
-  stroke: black;
-  stroke-width: 0.5px;
+  stroke: white;
+  stroke-width: 0.4px;
 }
+/* 🔵 Farbwechsel nach CO₂-Level */
+.donut-meter.green {
+  stroke: #52b788;
+}
+.donut-meter.orange {
+  stroke: #f4a261;
+}
+.donut-meter.red {
+  stroke: #e76f51;
+}
+
 
 
 

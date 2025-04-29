@@ -20,6 +20,11 @@ function updateLiveBall(totalKg) {
   const kg = Math.round(totalKg);
   const percent = Math.min(kg / 100, 1);
 
+  donut.classList.remove("green", "orange", "red");
+  if (kg < 50) donut.classList.add("green");
+  else if (kg <= 100) donut.classList.add("orange");
+  else donut.classList.add("red");
+
   donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
   value.textContent = `${kg} kg`;
   max.textContent = "/ 100 kg";
@@ -27,6 +32,7 @@ function updateLiveBall(totalKg) {
   const isVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
   indicator.style.display = isVisible ? "flex" : "none";
 }
+
 
 function renderQuestion(index) {
   const question = questions[index];
