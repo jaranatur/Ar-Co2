@@ -58,21 +58,16 @@ a-entity {
 }
 
 .co2-value {
-  font-size: 12px !important;
+  font-size: 10px;
   font-weight: bold;
-  fill: black !important;
-  paint-order: stroke;
-  stroke: white;
-  stroke-width: 0.5;
+  fill: black;
 }
 
 .co2-max {
-  font-size: 6px !important;
-  fill: black !important;
-  paint-order: stroke;
-  stroke: white;
-  stroke-width: 0.3;
+  font-size: 5px;
+  fill: black;
 }
+
 
 
 
