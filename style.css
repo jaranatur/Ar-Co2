@@ -57,16 +57,18 @@ a-entity {
   transform-origin: 50% 50%;
 }
 
-.co2-value {
-  font-size: 10px;
+.co2-value, .co2-max {
+  fill: white;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
   font-weight: bold;
-  fill: black;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  paint-order: stroke;
+  stroke: black;
+  stroke-width: 0.5px;
 }
 
-.co2-max {
-  font-size: 5px;
-  fill: black;
-}
 
 
 
