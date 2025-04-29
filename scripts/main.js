@@ -132,7 +132,8 @@ function showFeedback(questionId, selectedValue) {
 
   if (feedback && feedbackBox) {
     feedbackBox.innerText = feedback;
-    feedbackBox.style.display = "block";
+    feedbackBox.style.display = "block"; // Zeigen
+    feedbackBox.classList.add('active'); // <-- richtig
     feedbackBox.classList.remove('hidden');
   }
 }
@@ -140,11 +141,15 @@ function showFeedback(questionId, selectedValue) {
 function hideFeedback() {
   const feedbackBox = document.getElementById('feedback-text');
   if (feedbackBox) {
+    feedbackBox.classList.remove('active'); // <-- richtig
     feedbackBox.classList.add('hidden');
-    feedbackBox.classList.remove('visible');
-    feedbackBox.style.display = "none"; // ⬅️ WICHTIG
+    setTimeout(() => {
+      feedbackBox.style.display = "none"; // Erst nach der Animation verstecken
+    }, 600); // <-- passt zu deiner CSS-Transition (0.6s)
   }
 }
+
+
 
 
 

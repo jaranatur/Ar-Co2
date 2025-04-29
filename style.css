@@ -271,12 +271,11 @@ canvas.arjs-video {
 /* Sicherstellen, dass versteckte Szene nichts blockiert */
 a-scene[hidden] {
   display: none !important;
-}
-#feedback-text {
+}#feedback-text {
   position: absolute;
   top: 410px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 8px); /* initial Y-offset */
   width: 90%;
   max-width: 480px;
   background: rgba(255, 255, 255, 0.92);
@@ -287,22 +286,18 @@ a-scene[hidden] {
   font-size: 0.95rem;
   text-align: left;
   box-sizing: border-box;
-  opacity: 0; /* 👈 unsichtbar */
-  visibility: hidden; /* 👈 nicht klickbar */
+  opacity: 0;
+  visibility: hidden;
   transition: opacity 0.6s ease, transform 0.6s ease;
   will-change: opacity, transform;
   z-index: 9999;
 }
 
 #feedback-text.active {
-  opacity: 1; /* 👈 sichtbar */
+  opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0); /* 👈 oben */
+  transform: translate(-50%, 0); /* Animation Zielzustand */
 }
 
-/* Startzustand leicht nach unten */
-#feedback-text {
-  transform: translateX(-50%) translateY(8px);
-}
 
 
