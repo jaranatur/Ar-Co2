@@ -272,3 +272,30 @@ canvas.arjs-video {
 a-scene[hidden] {
   display: none !important;
 }
+
+#feedback-text {
+  width: 90%;
+  max-width: 480px;
+  margin: 2vh auto 4vh;
+  background: rgba(255,255,255,0.92);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 1rem 1rem 1.5rem;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  text-align: left;
+  box-sizing: border-box;
+  display: none; /* Wird über JS sichtbar gemacht */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

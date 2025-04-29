@@ -62,7 +62,12 @@ function renderQuestion(index) {
       }
       select.appendChild(option);
     });
-    select.value = question.value ?? "";
+    select.value = "";
+    if (select.querySelector('option[value=""]')) {
+      select.querySelector('option[value=""]').disabled = true;
+    }
+    
+
 
     
 
@@ -226,7 +231,12 @@ function renderSetup() {
         select.appendChild(option);
       });
       
-      select.value = question.value ?? "";
+      select.value = "";
+      if (select.querySelector('option[value=""]')) {
+        select.querySelector('option[value=""]').disabled = true;
+      }
+      
+
 
 
       questionWrapper.appendChild(select);
