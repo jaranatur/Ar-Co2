@@ -28,14 +28,9 @@ function updateLiveBall(totalKg) {
   donut.setAttribute("stroke", strokeColor);
 
   const overlayVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
-
-  if (overlayVisible) {
-    indicator.style.display = "flex";
-    indicator.style.opacity = "1";
-    indicator.style.transform = "translateX(-50%) scale(1)";
-  } else {
-    indicator.style.display = "none";
-  }
+  indicator.style.display = overlayVisible ? "flex" : "none";
+  indicator.style.opacity = overlayVisible ? "1" : "0";
+  indicator.style.transform = "translateX(-50%) scale(1)";
 }
 
 function renderQuestion(index) {
@@ -101,8 +96,13 @@ function renderQuestion(index) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const co2 = document.getElementById("co2-indicator");
-  if (co2) co2.style.display = "none";
+  // Tracker sichtbar machen (auch ohne Fragen)
+  const indicator = document.getElementById("co2-indicator");
+  if (indicator) {
+    indicator.style.display = "flex";
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translateX(-50%) scale(1)";
+  }
 
   initGlobals();
   initScene();
@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const allInputIds = questions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
-
   updateLiveBall(0);
 
   document.addEventListener("start-questions", () => {
@@ -129,12 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
     document.getElementById("input-overlay").style.display = "flex";
 
-    if (co2) {
-      co2.style.display = "flex";
-      co2.style.opacity = "1";
-      co2.style.transform = "translateX(-50%) scale(1)";
-    }
-
+    updateLiveBall(calculateFootprint(answers).totalKg);
     renderQuestion(currentIndex);
 
     new MutationObserver(() => {
@@ -158,8 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
       renderQuestion(currentIndex);
     } else {
       const result = calculateFootprint(answers);
-      if (co2) co2.style.display = "none";
-      console.log("Fragebogen abgeschlossen:", result);
+      const indicator = document.getElementById("co2-indicator");
+      if (indicator) {
+        indicator.style.display = "none";
+      }
+      showResultOverlay(result);
     }
   });
 });
