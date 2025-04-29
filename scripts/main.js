@@ -2,12 +2,13 @@ import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
 import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
-import { questions } from './common/questions.js';
+import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
 
 let currentIndex = 0;
 let answers = {};
 let userName = "";
+let currentQuestions = [];
 
 function updateLiveBall(totalKg) {
   const indicator = document.getElementById("co2-indicator");
@@ -33,9 +34,8 @@ function updateLiveBall(totalKg) {
   indicator.style.display = isVisible ? "flex" : "none";
 }
 
-
 function renderQuestion(index) {
-  const question = questions[index];
+  const question = currentQuestions[index];
   const body = document.querySelector(".input-card-body");
   if (!question || !body) return;
 
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleEarthRotation();
   setupNamePrompt();
 
-  const allInputIds = questions.map(q => q.id);
+  const allInputIds = mainQuestions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
 
   updateLiveBall(0);
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("input-overlay").style.display = "flex";
     if (co2) co2.style.display = "flex";
 
-    renderQuestion(currentIndex);
+    renderSetup(); // NEU: Setup-Seite zuerst anzeigen
 
     new MutationObserver(() => {
       updateLiveBall(calculateFootprint(answers).totalKg);
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("next-question").addEventListener("click", () => {
-    if (currentIndex < questions.length - 1) {
+    if (currentIndex < currentQuestions.length - 1) {
       currentIndex++;
       renderQuestion(currentIndex);
     } else {
@@ -154,3 +154,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function renderSetup() {
+  currentQuestions = setupQuestions;
+
+  const body = document.querySelector(".input-card-body");
+  if (!body) return;
+
+  body.innerHTML = "";
+
+  const header = document.createElement("h2");
+  header.textContent = "Starte hier:";
+  body.appendChild(header);
+
+  setupQuestions.forEach(question => {
+    const questionWrapper = document.createElement("div");
+    questionWrapper.className = "question-wrapper";
+
+    const label = document.createElement("label");
+    label.textContent = question.question;
+    questionWrapper.appendChild(label);
+
+    if (question.type === "select") {
+      const select = document.createElement("select");
+      select.id = question.id;
+      question.options.forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt;
+        option.textContent = opt;
+        select.appendChild(option);
+      });
+      questionWrapper.appendChild(select);
+    }
+
+    body.appendChild(questionWrapper);
+  });
+
+  const btn = document.createElement("button");
+  btn.textContent = "Weiter";
+  btn.addEventListener("click", () => {
+    setupQuestions.forEach(question => {
+      const input = document.getElementById(question.id);
+      if (input) {
+        let value = input.value;
+        if (["daysPerWeek", "distance", "mealsPerWeek"].includes(question.id)) {
+          value = parseInt(value, 10);
+        }
+        answers[question.id] = value;
+      }
+    });
+
+    startMainFlow();
+  });
+  body.appendChild(btn);
+
+  const indicator = document.getElementById("co2-indicator");
+  if (indicator) {
+    indicator.style.display = "none";
+  }
+}
+
+function startMainFlow() {
+  currentQuestions = mainQuestions;
+  currentIndex = 0;
+
+  const indicator = document.getElementById("co2-indicator");
+  if (indicator) {
+    indicator.style.display = "flex";
+  }
+
+  renderQuestion(currentIndex);
+}
