@@ -4,6 +4,8 @@ import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
+import { feedbackTexts } from './common/feedbackTexts.js';
+
 
 let currentIndex = 0;
 let answers = {};
@@ -72,6 +74,7 @@ function renderQuestion(index) {
       }
       answers[question.id] = value;
       updateLiveBall(calculateFootprint(answers).totalKg);
+      showFeedback(question.id, value);
     });
 
     if (answers[question.id]) {
@@ -99,12 +102,30 @@ function renderQuestion(index) {
       answers[question.id] = val;
       output.textContent = `${val} Stunden`;
       updateLiveBall(calculateFootprint(answers).totalKg);
+      showFeedback(question.id, val);
     });
 
     body.appendChild(slider);
     body.appendChild(output);
   }
 }
+
+function showFeedback(questionId, selectedValue) {
+  const feedbackBox = document.getElementById('feedback-text');
+  let feedback = '';
+
+  if (typeof feedbackTexts[questionId] === 'function') {
+    feedback = feedbackTexts[questionId](selectedValue);
+  } else if (typeof feedbackTexts[questionId] === 'object') {
+    feedback = feedbackTexts[questionId][selectedValue] || '';
+  }
+
+  if (feedback && feedbackBox) {
+    feedbackBox.innerText = feedback;
+    feedbackBox.classList.remove('hidden');
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const co2 = document.getElementById("co2-indicator");
