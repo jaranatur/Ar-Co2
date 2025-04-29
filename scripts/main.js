@@ -128,8 +128,10 @@ function showFeedback(questionId, selectedValue) {
   if (feedback && feedbackBox) {
     feedbackBox.innerText = feedback;
     feedbackBox.classList.remove('hidden');
+    feedbackBox.style.display = "block"; // 👈 WICHTIG! Jetzt wird es sichtbar!
   }
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
