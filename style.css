@@ -276,7 +276,7 @@ a-scene[hidden] {
 #feedback-text {
   width: 90%;
   max-width: 480px;
-  margin: 2vh auto 4vh;
+  margin: 12px auto 4vh; /* Abstand angepasst */
   background: rgba(255,255,255,0.92);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -285,9 +285,10 @@ a-scene[hidden] {
   font-size: 0.95rem;
   text-align: left;
   box-sizing: border-box;
-  display: none; /* Wird über JS sichtbar gemacht */
+  display: none;
   animation: fadeIn 0.3s ease-in-out;
 }
+
 
 @keyframes fadeIn {
   from {

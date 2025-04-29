@@ -37,6 +37,16 @@ function updateLiveBall(totalKg) {
 }
 
 function renderQuestion(index) {
+
+  const feedbackBox = document.getElementById('feedback-text');
+  if (feedbackBox) {
+    feedbackBox.innerText = "";
+    feedbackBox.style.display = "none";
+    feedbackBox.classList.add('hidden');
+  }
+  
+ 
+  
   const question = currentQuestions[index];
   const body = document.querySelector(".input-card-body");
   if (!question || !body) return;
