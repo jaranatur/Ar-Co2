@@ -1,6 +1,3 @@
-
-import { earth, hintText, arrow, sceneSelection } from './globals.js';
-
 export function handleEarthRotation() {
   let isDragging = false;
   let lastX = 0;
@@ -11,6 +8,7 @@ export function handleEarthRotation() {
   const hintBg = document.getElementById("hint-bg");
 
   const onTouchStart = (event) => {
+    const earth = document.getElementById("earth");
     if (!earth || event.target.closest("#input-overlay")) return;
     isDragging = true;
     lastX = event.touches[0].clientX;
@@ -18,6 +16,7 @@ export function handleEarthRotation() {
   };
 
   const onTouchMove = (event) => {
+    const earth = document.getElementById("earth");
     if (!isDragging || sceneTransitioned || !earth) return;
 
     const deltaX = event.touches[0].clientX - lastX;
@@ -31,42 +30,8 @@ export function handleEarthRotation() {
     });
 
     rotationProgress += Math.abs(deltaX);
-    const opacity = Math.max(0, 1 - rotationProgress / 500);
-
-    const currentText = hintText.getAttribute("text") || {};
-    hintText.setAttribute("text", { ...currentText, opacity });
-
-    if (hintBg) {
-      hintBg.setAttribute("material", "opacity", 0.4 * opacity);
-    }
-
-    if (opacity < 0.2) {
-      hintText.setAttribute("visible", "false");
-      arrow?.setAttribute("visible", "false");
-      hintBg?.setAttribute("visible", "false");
-    }
-
-    scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
-    earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
-
-    if (rotationProgress > 600 && !sceneTransitioned) {
-      console.log("🌍 Erde verschwindet – Nameingabe kommt jetzt");
-      sceneTransitioned = true;
-
-      if (earth && earth.parentNode) {
-        earth.parentNode.removeChild(earth);
-      }
-
-      sceneSelection.setAttribute("visible", true);
-
-      const camera = document.querySelector("a-camera");
-      if (camera) {
-        camera.removeAttribute("raycaster");
-        camera.removeAttribute("cursor");
-      }
-
-      document.dispatchEvent(new Event("earth-rotated"));
-    }
+    const opacity = Math.max(0, 1 - rotationProgress / 300);
+    if (hintBg) hintBg.setAttribute("material", "opacity", opacity);
   };
 
   const onTouchEnd = () => {
