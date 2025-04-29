@@ -58,13 +58,16 @@ a-entity {
 }
 
 .co2-value {
-  font-size: 5px !important;
+  font-size: 12px !important;
   font-weight: bold;
+  fill: black;
 }
 
 .co2-max {
-  font-size: 2.5px !important;
+  font-size: 6px !important;
+  fill: black;
 }
+
 
 /* Sicherstellen, dass AR-Canvas nicht blockiert */
 canvas.arjs-video {

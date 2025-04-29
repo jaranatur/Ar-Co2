@@ -13,14 +13,16 @@ function updateLiveBall(totalKg) {
   const indicator = document.getElementById("co2-indicator");
   const donut = indicator?.querySelector("#donut-meter");
   const value = indicator?.querySelector(".co2-value");
+  const max = indicator?.querySelector(".co2-max");
 
-  if (!indicator || !donut || !value) return;
+  if (!indicator || !donut || !value || !max) return;
 
   const kg = Math.round(totalKg);
   const percent = Math.min(kg / 100, 1);
 
   donut.setAttribute("stroke-dasharray", `${percent * 100}, 100`);
   value.textContent = `${kg} kg`;
+  max.textContent = "/ 100 kg";
 
   const isVisible = window.getComputedStyle(document.getElementById("input-overlay")).display !== "none";
   indicator.style.display = isVisible ? "flex" : "none";
