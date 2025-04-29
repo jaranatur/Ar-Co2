@@ -31,21 +31,21 @@ a-entity[text] {
 a-entity {
   cursor: pointer;
 }
+/* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 270px;
+  top: 240px;
   left: 50%;
-  transform: translateX(-50%) scale(1);
+  transform: translateX(-50%);
   width: 140px;
   height: 140px;
-  z-index: 10004;
-  background: white;
+  z-index: 9999;
+  background: rgba(255,255,255,0.92);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .donut {
@@ -56,15 +56,33 @@ a-entity {
 .donut-bg {
   fill: none;
   stroke: #eee;
-  stroke-width: 2.8;
+  stroke-width: 3;
 }
 
-#donut-meter {
+.donut-meter {
   fill: none;
-  stroke-width: 8; /* dickerer Rand wie im Original */
-  transition: stroke-dasharray 0.5s ease;
-  transform-origin: 50% 50%;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
 }
+
+/* 🔢 Text-Style wie früher */
+.co2-value {
+  font-size: 7px;
+  fill: #333;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.co2-max {
+  font-size: 3px;
+  fill: #999;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+
+
 
 .donut-meter.green {
   stroke: #52b788;
@@ -75,25 +93,6 @@ a-entity {
 .donut-meter.red {
   stroke: #e76f51;
 }
-
-.co2-value {
-  font-size: 18px;
-  font-weight: bold;
-  fill: black;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-
-.co2-max {
-  font-size: 10px;
-  fill: #888;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-
-
-
-
 
 
 /* Sicherstellen, dass AR-Canvas nicht blockiert */
