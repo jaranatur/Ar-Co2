@@ -272,10 +272,9 @@ canvas.arjs-video {
 a-scene[hidden] {
   display: none !important;
 }
-
 #feedback-text {
   position: absolute;
-  top: 410px; /* 👈 Minimal tiefer als 390px */
+  top: 410px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -288,20 +287,22 @@ a-scene[hidden] {
   font-size: 0.95rem;
   text-align: left;
   box-sizing: border-box;
-  display: none;
-  animation: fadeIn 0.6s ease; /* 👈 Sanfter & langsamer */
-  will-change: opacity, transform; /* 👈 Performance hint */
+  opacity: 0; /* 👈 unsichtbar */
+  visibility: hidden; /* 👈 nicht klickbar */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
   z-index: 9999;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px); /* 👈 sanfter start tiefer */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+#feedback-text.active {
+  opacity: 1; /* 👈 sichtbar */
+  visibility: visible;
+  transform: translateX(-50%) translateY(0); /* 👈 oben */
 }
+
+/* Startzustand leicht nach unten */
+#feedback-text {
+  transform: translateX(-50%) translateY(8px);
+}
+
 

@@ -38,12 +38,7 @@ function updateLiveBall(totalKg) {
 
 function renderQuestion(index) {
 
-  const feedbackBox = document.getElementById('feedback-text');
-  if (feedbackBox) {
-    feedbackBox.innerText = "";
-    feedbackBox.style.display = "none";
-    feedbackBox.classList.add('hidden');
-  }
+  hideFeedback()
   
  
   
@@ -137,10 +132,22 @@ function showFeedback(questionId, selectedValue) {
 
   if (feedback && feedbackBox) {
     feedbackBox.innerText = feedback;
+    feedbackBox.style.display = "block";
     feedbackBox.classList.remove('hidden');
-    feedbackBox.style.display = "block"; // 👈 WICHTIG! Jetzt wird es sichtbar!
   }
 }
+
+function hideFeedback() {
+  const feedbackBox = document.getElementById('feedback-text');
+  if (feedbackBox) {
+    feedbackBox.classList.add('hidden');
+    feedbackBox.classList.remove('visible');
+    feedbackBox.style.display = "none"; // ⬅️ WICHTIG
+  }
+}
+
+
+
 
 
 
