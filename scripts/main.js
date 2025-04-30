@@ -257,9 +257,23 @@ renderButton.addEventListener("click", () => {
   document.getElementById("feedback-text").style.display = "none";  
   document.getElementById("co2-indicator").style.display = "none";
 
-  renderGarden(answers); // wird später implementiert
-});
+  const marker = document.querySelector("a-marker");
+  if (!marker) {
+    console.error("❌ Kein Marker gefunden!");
+    return;
+  }
 
+  if (marker.object3D.visible) {
+    console.log("✅ Marker war schon sichtbar – direkt rendern.");
+    renderGarden(answers);
+  } else {
+    // Warte auf Sichtbarkeit
+    marker.addEventListener("markerFound", () => {
+      console.log("✅ Marker sichtbar → Garten wird gerendert.");
+      renderGarden(answers);
+    }, { once: true }); // Nur einmal ausführen!
+  }
+});
 
 function renderSetup() {
   currentQuestions = setupQuestions;
