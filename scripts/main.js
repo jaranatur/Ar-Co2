@@ -5,6 +5,7 @@ import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
+import { renderGarden } from './renderGarden.js';
 
 
 let currentIndex = 0;
@@ -250,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 renderButton.addEventListener("click", () => {
   renderButton.style.display = "none";
-  // renderGarden(answers); // wird später implementiert
+  renderGarden(answers); // wird später implementiert
 });
 
 

@@ -27,9 +27,32 @@
     <a-scene embedded vr-mode-ui="enabled: false" arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
-      
         <audio id="swipe-sound" src="assets/swipe.mp3" preload="auto"></audio>
+      
+        <!-- 🌳 Bäume -->
+        <a-asset-item id="tree-good" src="assets/tree-good.glb"></a-asset-item>
+        <a-asset-item id="tree-mid" src="assets/tree-mid.glb"></a-asset-item>
+        <a-asset-item id="tree-dead" src="assets/tree-dead.glb"></a-asset-item>
+      
+        <!-- 🌸 Blumen -->
+        <a-asset-item id="flower-big" src="assets/flower-big.glb"></a-asset-item>
+        <a-asset-item id="flower-tulip" src="assets/flower-tulip.glb"></a-asset-item>
+        <a-asset-item id="flower-dead" src="assets/flower-dead.glb"></a-asset-item>
+      
+        <!-- 💧 Wasser -->
+        <a-asset-item id="pond" src="assets/pond.glb"></a-asset-item>
+        <a-asset-item id="reed" src="assets/reed.glb"></a-asset-item>
+        <a-asset-item id="lily" src="assets/lily.glb"></a-asset-item>
+      
+        <!-- 🌿 Büsche -->
+        <a-asset-item id="bush-green" src="assets/bush-green.glb"></a-asset-item>
+        <a-asset-item id="bush-flower" src="assets/bush-flower.glb"></a-asset-item>
+        <a-asset-item id="bush-dead" src="assets/bush-dead.glb"></a-asset-item>
+      
+        <!-- ☁️ Wolke -->
+        <a-asset-item id="cloud" src="assets/cloud.glb"></a-asset-item>
       </a-assets>
+      
 
       <a-marker preset="hiro">
         <a-entity id="earth-container">
@@ -37,6 +60,10 @@
             animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
           </a-entity>
         </a-entity>
+
+        <a-entity id="garden-container" position="0 0 0"></a-entity>
+
+
 
         <a-entity id="scene-selection" visible="false"></a-entity>
 
