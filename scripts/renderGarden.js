@@ -1,10 +1,12 @@
 export function renderGarden(answers) {
-    const container = document.querySelector('#garden-container');
-  
-    if (!container) {
-      console.error('❌ Kein #garden-container gefunden!');
-      return;
-    }
+
+   const container = document.querySelector('#garden-container');
+if (!container) {
+  console.error("❌ Kein #garden-container gefunden!");
+} else {
+  console.log("✅ #garden-container gefunden und bereit.");
+}
+
   
     container.innerHTML = '';
     console.log('✅ Garten-Container geleert.');
