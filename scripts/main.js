@@ -251,6 +251,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 renderButton.addEventListener("click", () => {
   renderButton.style.display = "none";
+
+  document.querySelector(".input-card").style.display = "none";
+  document.getElementById("nav-buttons").style.display = "none";
+  document.getElementById("feedback-text").style.display = "none";
+
+
   renderGarden(answers); // wird später implementiert
 });
 
