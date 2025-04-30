@@ -301,3 +301,18 @@ a-scene[hidden] {
 
 
 
+
+#render-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.75em 1.5em;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#render-button:hover {
+  background-color: #388e3c;
+}

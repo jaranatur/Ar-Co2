@@ -12,6 +12,10 @@ let answers = {};
 let userName = "";
 let currentQuestions = [];
 
+const renderButton = document.getElementById("render-button");
+const nextButton = document.getElementById("next-question");
+
+
 function updateLiveBall(totalKg) {
   const indicator = document.getElementById("co2-indicator");
   const donut = indicator?.querySelector("#donut-meter");
@@ -117,8 +121,30 @@ function renderQuestion(index) {
 
     body.appendChild(slider);
     body.appendChild(output);
+
+  checkRenderReady();
   }
 }
+
+
+function checkRenderReady() {
+  const isLastQuestion = currentIndex === currentQuestions.length - 1;
+  const allAnswered = mainQuestions.every(q => {
+    const val = answers[q.id];
+    return val !== null && val !== undefined && val !== '';
+  });
+
+  if (isLastQuestion && allAnswered) {
+    renderButton.style.display = "block";
+    nextButton.style.display = "none";
+  } else {
+    renderButton.style.display = "none";
+    nextButton.style.display = "inline-block";
+  }
+}
+
+
+
 
 function showFeedback(questionId, selectedValue) {
   const feedbackBox = document.getElementById('feedback-text');
@@ -204,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentIndex > 0) {
       currentIndex--;
       renderQuestion(currentIndex);
+      checkRenderReady();
     }
   });
 
@@ -211,6 +238,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentIndex < currentQuestions.length - 1) {
       currentIndex++;
       renderQuestion(currentIndex);
+      checkRenderReady();
+
     } else {
       const result = calculateFootprint(answers);
       if (co2) co2.style.display = "none";
@@ -218,6 +247,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+renderButton.addEventListener("click", () => {
+  renderButton.style.display = "none";
+  // renderGarden(answers); // wird später implementiert
+});
+
 
 function renderSetup() {
   currentQuestions = setupQuestions;
