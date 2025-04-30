@@ -5,12 +5,13 @@ export function renderGarden(answers) {
     container.innerHTML = '';
   
     const treeMap = {
-      walk: ['tree-good', 'tree-good'],
-      bike: ['tree-good', 'tree-mid'],
-      public: ['tree-mid'],
-      carpool: ['tree-mid', 'tree-dead'],
-      auto: ['tree-dead']
-    };
+        walk: ['tree-good', 'tree-good'],
+        bike: ['tree-good', 'tree-good'],
+        public: ['tree-good'],
+        carpool: ['tree-dead'],
+        auto: ['tree-dead']
+      };
+      
     const trees = treeMap[answers.transport] || [];
     trees.forEach((id, i) => {
       const tree = document.createElement('a-entity');
