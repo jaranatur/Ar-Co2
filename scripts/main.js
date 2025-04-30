@@ -254,8 +254,8 @@ renderButton.addEventListener("click", () => {
 
   document.querySelector(".input-card").style.display = "none";
   document.getElementById("nav-buttons").style.display = "none";
-  document.getElementById("feedback-text").style.display = "none";
-
+  document.getElementById("feedback-text").style.display = "none";  
+  document.getElementById("co2-indicator").style.display = "none";
 
   renderGarden(answers); // wird später implementiert
 });
