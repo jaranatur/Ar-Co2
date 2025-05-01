@@ -55,14 +55,21 @@
       
 
 
-      <a-marker preset="hiro">
-        <a-entity id="earth-container">
-          <a-entity id="earth" gltf-model="assets/earth.glb" position="0 0 0" scale="0.01 0.01 0.01"
-            animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
-          </a-entity>
-        </a-entity>
+      <!-- 🌍 Markerfreie Startszene -->
+<a-entity id="earth-container" position="0 0.3 -1.5">
+  <a-entity
+    id="earth"
+    gltf-model="assets/earth.glb"
+    scale="0.01 0.01 0.01"
+    animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
+  </a-entity>
+</a-entity>
 
-        <a-entity id="garden-container" position="0 0 0"></a-entity>
+<!-- 🌱 Grüne Fläche -->
+<a-plane position="0 -0.3 -1.5" rotation="-90 0 0" width="2" height="2" color="#55aa55"></a-plane>
+
+<!-- 🪴 Gartencontainer -->
+<a-entity id="garden-container" position="0 0 -1.5"></a-entity>
 
 
 
@@ -86,7 +93,7 @@
           animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
           animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;">
         </a-entity>
-      </a-marker>
+      
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
     </a-scene>

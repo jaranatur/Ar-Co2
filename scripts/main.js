@@ -274,7 +274,6 @@ renderButton.addEventListener("click", () => {
     }, { once: true }); // Nur einmal ausführen!
   }
 });
-
 function renderSetup() {
   currentQuestions = setupQuestions;
 
