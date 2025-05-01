@@ -55,9 +55,8 @@
       
 
 
-      <!-- 🌍 Markerfreie Startszene -->
-<!-- 🌍 Markerfreie Startszene – optimiert für Tischsicht -->
-<a-entity id="earth-container" position="0 0.4 -2.2">
+<!-- 🌍 Erde schwebt leicht über der Fläche -->
+<a-entity id="earth-container" position="0 0.25 -2.4">
   <a-entity
     id="earth"
     gltf-model="assets/earth.glb"
@@ -66,11 +65,11 @@
   </a-entity>
 </a-entity>
 
-<!-- 🌱 Grüne Fläche – kompakt & voll sichtbar -->
-<a-plane position="0 -0.2 -2.2" rotation="-90 0 0" width="1.8" height="1.8" color="#55aa55"></a-plane>
+<!-- 🟩 Schmale, tiefgezogene grüne Fläche -->
+<a-plane position="0 -0.2 -2.4" rotation="-90 0 0" width="1.2" height="2.8" color="#55aa55"></a-plane>
 
-<!-- 🪴 Gartencontainer – gleiche Fläche wie Wiese -->
-<a-entity id="garden-container" position="0 0 -2.2"></a-entity>
+<!-- 🪴 Garten erscheint später genau dort -->
+<a-entity id="garden-container" position="0 0 -2.4"></a-entity>
 
 
 
