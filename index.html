@@ -51,11 +51,16 @@
       
         <!-- ☁️ Wolke -->
         <a-asset-item id="cloud" src="assets/cloud.glb"></a-asset-item>
+
+        <img id="grass-diffuse" src="assets/grass1-albedo3.png" />
+        <img id="grass-normal" src="assets/grass1-normal1-dx.png" />
+        <img id="grass-bump" src="assets/grass1-height.png" />
+
       </a-assets>
       
 
 
-<!-- 🌍 Erde leicht schwebend über dem "iPad"-Bereich  test-->
+<!-- 🌍 Erde leicht schwebend über dem "iPad"-Bereich  test
 <a-entity id="earth-container" position="0 0.5 -4">
   <a-entity
     id="earth"
@@ -64,22 +69,27 @@
     animation__grow="property: scale; to: 0.03 0.03 0.03; dur: 2000; easing: easeOutElastic"
 
   </a-entity>
-</a-entity>
+</a-entity> -->
 
 <!-- 🟩 Grüne Fläche exakt wie iPad-Größe & Abstand -->
-<a-plane 
-  position="0 -0.1 -4" 
-  rotation="-45 0 0" 
-  width="1.5" 
-  height="1.5" 
-  color="#55aa55">
-</a-plane>
 
 
 <!-- 🪴 Garten erscheint genau auf dieser Fläche -->
-<a-entity id="garden-container" position="0 0 -2.0"></a-entity>
 
-<a-entity id="garden-container" position="0 0 -2.4"></a-entity>
+
+<a-entity id="garden-container" position="0 0 -2.4">
+
+
+    <a-plane 
+      position="0 -0.1 0" 
+      rotation="-45 0 0" 
+      width="1.5" 
+      height="1.5" 
+      material="src: #grass-diffuse; normalMap: #grass-normal; bumpMap: #grass-bump; repeat: 2 2; roughness: 1; metalness: 0">
+    </a-plane>
+ 
+  
+</a-entity>
 
 
 

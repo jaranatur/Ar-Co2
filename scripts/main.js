@@ -1,6 +1,6 @@
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
-import { handleEarthRotation } from './common/handleEarthRotation.js';
+// import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initGlobals();
   initScene();
-  handleEarthRotation();
+  // handleEarthRotation();
   setupNamePrompt();
 
   const navButtons = document.getElementById("nav-buttons");
