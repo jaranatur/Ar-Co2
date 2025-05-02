@@ -60,35 +60,31 @@
       
 
 
-<!-- 🌍 Erde leicht schwebend über dem "iPad"-Bereich  test
-<a-entity id="earth-container" position="0 0.5 -4">
-  <a-entity
-    id="earth"
-  gltf-model="assets/earth.glb"
-  scale="0.005 0.005 0.005"
-    animation__grow="property: scale; to: 0.03 0.03 0.03; dur: 2000; easing: easeOutElastic"
+      <a-marker preset="hiro">
 
-  </a-entity>
-</a-entity> -->
-
-<!-- 🟩 Grüne Fläche exakt wie iPad-Größe & Abstand -->
-
-
-<!-- 🪴 Garten erscheint genau auf dieser Fläche -->
-
-
-<a-entity id="garden-container">
-
-    <a-plane 
-      position="0 -0.1 0" 
-      rotation="-60 0 0" 
-      width="0.2" 
-      height="0.4" 
-      material="src: #grass-diffuse; normalMap: #grass-normal; bumpMap: #grass-bump; repeat: 6 6; roughness: 1; metalness: 0">
-    </a-plane>
- 
-  
-</a-entity>
+        <!-- Erde über allem -->
+        <a-entity id="earth-container" position="0 0.2 0">
+          <a-entity
+            id="earth"
+            gltf-model="assets/earth.glb"
+            scale="0.25 0.25 0.25"
+            animation__grow="property: scale; to: 0.03 0.03 0.03; dur: 2000; easing: easeOutElastic">
+          </a-entity>
+        </a-entity>
+      
+        <!-- Garten-Container mit Wiese drin -->
+        <a-entity id="garden-container" position="0 0 0">
+          <a-plane 
+            position="0 0 0" 
+            rotation="-90 0 0" 
+            width="1" 
+            height="1" 
+            material="src: #grass-diffuse; normalMap: #grass-normal; bumpMap: #grass-bump; repeat: 2 2; roughness: 1; metalness: 0">
+          </a-plane>
+        </a-entity>
+      
+      </a-marker>
+      
 
 
 
