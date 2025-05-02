@@ -31,7 +31,7 @@ export function handleEarthRotation() {
     });
 
     rotationProgress += Math.abs(deltaX);
-    const opacity = Math.max(0, 1 - rotationProgress / 500);
+    const opacity = Math.max(0.01, 0.03 - rotationProgress / 800);
 
     const currentText = hintText.getAttribute("text") || {};
     hintText.setAttribute("text", { ...currentText, opacity });
