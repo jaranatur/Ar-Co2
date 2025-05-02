@@ -54,9 +54,11 @@ export function handleEarthRotation() {
       console.log("🌍 Erde verschwindet – Nameingabe kommt jetzt");
       sceneTransitioned = true;
 
-      if (earth && earth.parentNode) {
-        earth.parentNode.removeChild(earth);
-      }
+     // Statt komplett entfernen: einfach unsichtbar machen!
+if (earth) {
+  earth.setAttribute("visible", "false");
+}
+
 
       sceneSelection.setAttribute("visible", true);
 

@@ -362,3 +362,19 @@ function startMainFlow() {
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const marker = document.querySelector("a-marker");
+  if (!marker) return;
+
+  marker.setAttribute("emitevents", "true");
+
+  marker.addEventListener("markerLost", (e) => {
+    console.log("⚠️ Marker verloren – Szene bleibt sichtbar.");
+    // NICHTS tun – Szene bleibt sichtbar
+  });
+
+  marker.addEventListener("markerFound", (e) => {
+    console.log("✅ Marker wiedergefunden.");
+    // Optional: Animation oder Sound starten
+  });
+});
