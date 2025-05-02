@@ -47,6 +47,7 @@ export function handleEarthRotation() {
     }
 
     scaleProgress = Math.max(0.3, 1 - rotationProgress / 800);
+    earth.setAttribute("scale", `${scaleProgress} ${scaleProgress} ${scaleProgress}`);
    
 
     if (rotationProgress > 600 && !sceneTransitioned) {
