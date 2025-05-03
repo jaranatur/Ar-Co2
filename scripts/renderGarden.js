@@ -27,7 +27,7 @@ export function renderGarden(answers) {
     };
     
     const scaleMap = {
-      'tree-good': '0.25 0.25 0.25',
+      'tree-good': '0.2 0.2 0.2',
       'tree-dead': '20 20 20'
     };
     
@@ -43,27 +43,44 @@ export function renderGarden(answers) {
       console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
     });
     
+
+
+
+
+
+
+
   
-    // // 🌸 Blumen nach Ernährung
-    // const flowerMap = {
-    //   vegan: ['flower-big', 'flower-big'],
-    //   vegetarian: ['flower-tulip', 'flower-tulip'],
-    //   'meat-rare': ['flower-tulip'],
-    //   'meat-daily': ['flower-dead']
-    // };
+    // 🌸 Blumen nach Ernährung
+    const flowerMap = {
+      vegan: ['flower-big', 'flower-big'],
+      vegetarian: ['flower-tulip', 'flower-tulip'],
+      'meat-rare': ['flower-tulip'],
+      'meat-daily': ['flower-dead']
+    };
   
-    // const flowers = flowerMap[answers.diet];
-    // if (!flowers) console.warn('⚠️ Keine Blumen für Ernährung:', answers.diet);
+    const flowers = flowerMap[answers.diet];
+    if (!flowers) console.warn('⚠️ Keine Blumen für Ernährung:', answers.diet);
   
-    // flowers?.forEach((id, i) => {
-    //   const x = flowers.length === 1 ? 0 : -1 + i * 2;
-    //   const flower = document.createElement('a-entity');
-    //   flower.setAttribute('gltf-model', `#${id}`);
-    //   flower.setAttribute('position', `${x} 0 -3.5`);
-    //   flower.setAttribute('scale', '0.4 0.4 0.4');
-    //   container.appendChild(flower);
-    //   console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
-    // });
+    flowers?.forEach((id, i) => {
+      const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
+      const flower = document.createElement('a-entity');
+      flower.setAttribute('gltf-model', `#${id}`);
+      flower.setAttribute('position', `${x} 0 -3`);
+      flower.setAttribute('scale', '0.4 0.4 0.4');
+      container.appendChild(flower);
+      console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
+    });
+
+
+
+
+
+
+
+
+
+
   
     // // 💧 Teich
     // const pond = document.createElement('a-entity');
