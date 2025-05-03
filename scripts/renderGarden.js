@@ -132,7 +132,7 @@ export function renderGarden(answers) {
 // 📏 Skalen je Busch-ID
 const bushScaleMap = {
   'bush-green': '5 5 5',
-  'bush-flower': '100 100 100',
+  'bush-flower': '1 1 1',
   'bush-dead': '1  1 1'
 };
 
