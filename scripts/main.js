@@ -6,7 +6,7 @@ import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
 import { renderGarden } from './renderGarden.js';
-import { grassGrow } from "./renderGarden.js";
+// import { grassGrow } from "./renderGarden.js";
 
 let currentIndex = 0;
 let answers = {};
@@ -263,16 +263,17 @@ renderButton.addEventListener("click", () => {
 
   const garden = document.querySelector("#garden-container");
   if (garden) garden.setAttribute("visible", "true");
-  grassGrow(); // 🌱 Lässt die Wiese animiert wachsen
-  
 
-const marker = document.querySelector("a-marker");
-   if (!marker) {
-     console.error("❌ Kein Marker gefunden!");
-     return;
-   }
+  const grass = document.querySelector("#grass-plane");
+  if (grass) grass.setAttribute("visible", "true"); // <--- das ersetzt grassGrow()
 
-   if (marker.object3D.visible) {
+  const marker = document.querySelector("a-marker");
+  if (!marker) {
+    console.error("❌ Kein Marker gefunden!");
+    return;
+  }
+
+  if (marker.object3D.visible) {
     console.log("✅ Marker sichtbar – direkt rendern.");
     setTimeout(() => renderGarden(answers), 1200);
   } else {
@@ -281,8 +282,8 @@ const marker = document.querySelector("a-marker");
       setTimeout(() => renderGarden(answers), 1200);
     }, { once: true });
   }
-  
 });
+
 
 function renderSetup() {
   currentQuestions = setupQuestions;

@@ -1,24 +1,4 @@
-export function grassGrow() {
-  const grass = document.querySelector("#grass-plane");
-  if (!grass) return;
-
-  // Sichtbar machen und auf Anfangsgröße setzen
-  grass.setAttribute("visible", "true");
-  grass.setAttribute("scale", "0 0 0");
-
-  // Alte Animation löschen (für Wiederholung)
-  grass.removeAttribute("animation__grow");
-
-  // Neue Animation hinzufügen
-  grass.setAttribute("animation__grow", {
-    property: "scale",
-    to: "1 1 1",
-    dur: 1200,
-    easing: "easeOutElastic"
-  });
-
-  console.log("🌿 grassGrow() gestartet!");
-}
+// 
 
 export function renderGarden(answers) {
 
@@ -35,10 +15,10 @@ if (!container) {
   
     // 🌳 Bäume nach Transport
     const treeMap = {
-      walk: ['tree-big', 'tree-big'],
-      bike: ['tree-big', 'tree-big'],
-      public: ['tree-big'],
-      carpool: ['tree-big', 'tree-dead'],
+      walk: ['tree-good', 'tree-good'],
+      bike: ['tree-good', 'tree-good'],
+      public: ['tree-good'],
+      carpool: ['tree-good', 'tree-dead'],
       auto: ['tree-dead']
     };
   
@@ -147,4 +127,33 @@ if (!container) {
   
     // console.log('✅ Garten fertig gerendert.');
   }
+
+
+
+
+
+
+
+
   
+  //export function grassGrow() {
+    //   const grass = document.querySelector("#grass-plane");
+    //   if (!grass) return;
+    
+    //   // Sichtbar machen und auf Anfangsgröße setzen
+    //   grass.setAttribute("visible", "true");
+    //   grass.setAttribute("scale", "0 0 0");
+    
+    //   // Alte Animation löschen (für Wiederholung)
+    //   grass.removeAttribute("animation__grow");
+    
+    //   // Neue Animation hinzufügen
+    //   grass.setAttribute("animation__grow", {
+    //     property: "scale",
+    //     to: "1 1 1",
+    //     dur: 1200,
+    //     easing: "easeOutElastic"
+    //   });
+    
+    //   console.log("🌿 grassGrow() gestartet!");
+    // }
