@@ -188,8 +188,7 @@ bushes?.forEach((id, i) => {
 
 
 
-
-
+}
 
 
   
@@ -213,4 +212,4 @@ bushes?.forEach((id, i) => {
     //   });
     
     //   console.log("🌿 grassGrow() gestartet!");
-    // }
+    // 
