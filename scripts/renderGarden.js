@@ -131,7 +131,7 @@ export function renderGarden(answers) {
     
 // 📏 Skalen je Busch-ID
 const bushScaleMap = {
-  'bush-green': '1 1 1',
+  'bush-green': '0.7 0.7 0.7',
   'bush-flower': '1 1 1',
   'bush-dead': '1  1 1'
 };
@@ -143,7 +143,7 @@ bushes?.forEach((id, i) => {
   const x = bushes.length === 1 ? 0 : -1 + i * 2;
   const bush = document.createElement('a-entity');
   bush.setAttribute('gltf-model', `#${id}`);
-  bush.setAttribute('position', `${x} 0 -1.5`);
+  bush.setAttribute('position', `${x} 0 1.5`);
   
   // ✨ Skala aus der Map holen (Fallback: 0.4)
   const scale = bushScaleMap[id] || '0.4 0.4 0.4';
