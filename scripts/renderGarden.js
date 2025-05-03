@@ -160,29 +160,29 @@ bushes?.forEach((id, i) => {
 
   
     // // 🌞 oder ☁️
-    // const hours = parseFloat(answers.screenHoursPerDay);
-    // if (isNaN(hours)) {
-    //   console.warn('⚠️ Ungültiger screenHoursPerDay:', answers.screenHoursPerDay);
-    //   return;
-    // }
+  const hours = parseFloat(answers.screenHoursPerDay);
+   if (isNaN(hours)) {
+       console.warn('⚠️ Ungültiger screenHoursPerDay:', answers.screenHoursPerDay);
+      return;
+     }
   
-    // if (hours <= 2) {
-    //   const sun = document.createElement('a-entity');
-    //   sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 1');
-    //   sun.setAttribute('position', '0 4 -2');
-    //   container.appendChild(sun);
-    //   console.log('🌞 Sonne platziert.');
-    // } else {
-    //   const cloud = document.createElement('a-entity');
-    //   cloud.setAttribute('gltf-model', '#cloud');
-    //   cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
-    //   cloud.setAttribute('position', '0 4 -2');
-    //   cloud.setAttribute('scale', '0.8 0.8 0.8');
-    //   container.appendChild(cloud);
-    //   console.log('☁️ Wolke platziert.');
-    // }
+     if (hours <= 2) {
+       const sun = document.createElement('a-entity');
+       sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 1');
+       sun.setAttribute('position', '0 4 -2');
+       container.appendChild(sun);
+       console.log('🌞 Sonne platziert.');
+    } else {
+       const cloud = document.createElement('a-entity');
+       cloud.setAttribute('gltf-model', '#cloud');
+       cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
+       cloud.setAttribute('position', '0 4 -2');
+       cloud.setAttribute('scale', '0.8 0.8 0.8');
+       container.appendChild(cloud);
+       console.log('☁️ Wolke platziert.');
+   }
   
-    // console.log('✅ Garten fertig gerendert.');
+     console.log('✅ Garten fertig gerendert.');
   }
 
 
