@@ -1,6 +1,6 @@
 import { initGlobals } from './common/globals.js';
 import { initScene } from './common/initScene.js';
-import { handleEarthRotation } from './common/handleEarthRotation.js';
+// import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
@@ -189,8 +189,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initGlobals();
   initScene();
-  handleEarthRotation();
+  // handleEarthRotation();
   setupNamePrompt();
+
+  const namePrompt = document.getElementById("name-prompt");
+  if (namePrompt) namePrompt.style.display = "flex";
+
+  document.querySelector("#earth-container")?.setAttribute("visible", "false");
+  document.querySelector("#hint-text")?.setAttribute("visible", "false");
+  document.querySelector("#hint-bg")?.setAttribute("visible", "false");
+  document.querySelector("#arrow-icon-entity")?.setAttribute("visible", "false");
+
+  
 
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "none";
@@ -248,32 +258,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
 renderButton.addEventListener("click", () => {
   renderButton.style.display = "none";
 
   document.querySelector(".input-card").style.display = "none";
   document.getElementById("nav-buttons").style.display = "none";
-  document.getElementById("feedback-text").style.display = "none";  
+  document.getElementById("feedback-text").style.display = "none";
   document.getElementById("co2-indicator").style.display = "none";
 
+  // 📷 Hinweis anzeigen
+  const hint = document.getElementById("scan-hint");
+  if (hint) {
+    hint.style.display = "block";
+    setTimeout(() => {
+      hint.style.transition = "opacity 1s ease";
+      hint.style.opacity = "0";
+      setTimeout(() => hint.remove(), 1000);
+    }, 10000);
+  }
+
+  // 🟩 Garten & Wiese sichtbar machen
+  const garden = document.querySelector("#garden-container");
+  const grass = document.querySelector("#grass-plane");
+  if (garden) garden.setAttribute("visible", "true");
+  if (grass) grass.setAttribute("visible", "true");
+
+  // ⏳ Marker prüfen → dann rendern
   const marker = document.querySelector("a-marker");
-  if (!marker) {
     console.error("❌ Kein Marker gefunden!");
     return;
   }
 
   if (marker.object3D.visible) {
-    console.log("✅ Marker war schon sichtbar – direkt rendern.");
+    console.log("✅ Marker sichtbar – direkt rendern.");
     renderGarden(answers);
   } else {
-    // Warte auf Sichtbarkeit
     marker.addEventListener("markerFound", () => {
       console.log("✅ Marker sichtbar → Garten wird gerendert.");
       renderGarden(answers);
-    }, { once: true }); // Nur einmal ausführen!
+    }, { once: true });
   }
 });
+
 function renderSetup() {
   currentQuestions = setupQuestions;
 

@@ -63,24 +63,28 @@
       <a-marker preset="hiro">
 
         <!-- Erde über allem -->
-        <a-entity id="earth-container">
+        <!-- <a-entity id="earth-container">
           <a-entity id="earth" gltf-model="assets/earth.glb" position="0 2.5 0" scale="0.01 0.01 0.01"
             animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
           </a-entity>
-        </a-entity>
+        </a-entity> -->
 
 
         
       
         <!-- Garten-Container mit Wiese drin -->
-        <a-entity id="garden-container" position="0 0 -0.85">
+        <a-entity id="garden-container" position="0 0 -0.85" visible="false">
+    
+          <!-- 🌱 Wiese – anfangs unsichtbar -->
           <a-plane 
-            position="0 0 0" 
+            id="grass-plane"
+            visible="false"
             rotation="-90 0 0" 
             width="4" 
             height="3" 
             material="src: #grass-diffuse; normalMap: #grass-normal; bumpMap: #grass-bump; repeat: 2 2; roughness: 1; metalness: 0">
           </a-plane>
+        
         </a-entity>
       
       </a-marker>
@@ -88,7 +92,7 @@
 
 
 
-
+<!-- 
         <a-entity id="scene-selection" visible="false"></a-entity>
 
         <a-entity id="hint-text" position="0 2.5 -1" visible="true"
@@ -109,10 +113,12 @@
           animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
           animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;">
         </a-entity>
-      
+       -->
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
     </a-scene>
+
+
 
     <!-- 🌱 Overlay -->
     <div id="input-overlay" style="display: none;">
@@ -126,7 +132,6 @@
         <div class="input-card-body">
           <!-- Wird durch renderQuestion() befüllt -->
         </div>
-
       
         
       </div>
@@ -158,6 +163,13 @@
 <button id="render-button" style="display: none;">
   🌱 Gesamtbilanz anzeigen
 </button>
+
+<!-- 📷 Hinweistext zum Marker-Scannen -->
+<div id="scan-hint" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: #ffffffdd; padding: 1rem 2rem; border-radius: 10px; font-size: 1.2rem; font-weight: bold; z-index: 9999;
+  text-align: center;">
+  📷 Scanne jetzt den Marker, um deinen Garten zu sehen!
+</div>
 
 
       <!-- Ergebnisanzeige -->
