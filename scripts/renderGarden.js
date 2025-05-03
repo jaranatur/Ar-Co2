@@ -59,36 +59,42 @@ export function renderGarden(answers) {
       'meat-daily': ['flower-dead']
     };
   
-    const flowers = flowerMap[answers.diet];
-    if (!flowers) console.warn('⚠️ Keine Blumen für Ernährung:', answers.diet);
+  // 🌼 Skalierungen pro Modell
+    const flowerScaleMap = {
+  'flower-big': '0.2 0.2 0.2',
+  'flower-tulip': '0.06 0.06 0.06',
+  'flower-dead': '2 2 2'
+      };  
+
+      const flowers = flowerMap[answers.diet];
+      if (!flowers) console.warn('⚠️ Keine Blumen für Ernährung:', answers.diet);
+      
+      flowers?.forEach((id, i) => {
+        const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
+        const flower = document.createElement('a-entity');
+        flower.setAttribute('gltf-model', `#${id}`);
+        flower.setAttribute('position', `${x} 0 -0.5`);
+        flower.setAttribute('scale', flowerScaleMap[id] || '1 1 1');
+        container.appendChild(flower);
+        console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
+      });
+
+
+
+
+
+
+
+
+
   
-    flowers?.forEach((id, i) => {
-      const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
-      const flower = document.createElement('a-entity');
-      flower.setAttribute('gltf-model', `#${id}`);
-      flower.setAttribute('position', `${x} 0 -0.5`);
-      flower.setAttribute('scale', '2 2 2');
-      container.appendChild(flower);
-      console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
-    });
-
-
-
-
-
-
-
-
-
-
-  
-    // // 💧 Teich
-    // const pond = document.createElement('a-entity');
-    // pond.setAttribute('gltf-model', '#pond');
-    // pond.setAttribute('position', '0 0 -2.5');
-    // pond.setAttribute('scale', '0.7 0.7 0.7');
-    // container.appendChild(pond);
-    // console.log('💧 Teich platziert.');
+    // 💧 Teich
+    const pond = document.createElement('a-entity');
+    pond.setAttribute('gltf-model', '#pond');
+    pond.setAttribute('position', '0 0 0.5');
+    pond.setAttribute('scale', '0.7 0.7 0.7');
+    container.appendChild(pond);
+    console.log('💧 Teich platziert.');
   
     // // 🌾 Wasserpflanzen
     // if (answers.water === 'glass' || answers.water === 'refill') {
@@ -108,6 +114,10 @@ export function renderGarden(answers) {
     //   console.log('🌸 Seerose platziert.');
     // }
   
+
+
+
+
     // // 🌿 Büsche
     // const bushMap = {
     //   none: ['bush-green', 'bush-flower'],
