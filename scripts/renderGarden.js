@@ -92,9 +92,11 @@ export function renderGarden(answers) {
     const pond = document.createElement('a-entity');
     pond.setAttribute('gltf-model', '#pond');
     pond.setAttribute('position', '0 0.2 0.5');
-    pond.setAttribute('scale', '1 1 1');
+    pond.setAttribute('scale', '1.2 1.2 1.2');
+    pond.setAttribute('rotation', '0 90 0');
     container.appendChild(pond);
     console.log('💧 Teich platziert.');
+    
   
     // // 🌾 Wasserpflanzen
     // if (answers.water === 'glass' || answers.water === 'refill') {
