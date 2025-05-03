@@ -120,26 +120,44 @@ export function renderGarden(answers) {
 
 
 
-    // // 🌿 Büsche
-    // const bushMap = {
-    //   none: ['bush-green', 'bush-flower'],
-    //   rare: ['bush-green'],
-    //   medium: ['bush-dead'],
-    //   often: ['bush-dead']
-    // };
+    // 🌿 Büsche
+    const bushMap = {
+      none: ['bush-green', 'bush-flower'],
+      rare: ['bush-green'],
+      medium: ['bush-dead'],
+      often: ['bush-dead']
+    };
   
-    // const bushes = bushMap[answers.paper];
-    // if (!bushes) console.warn('⚠️ Keine Büsche für Papierverhalten:', answers.paper);
+    
+// 📏 Skalen je Busch-ID
+const bushScaleMap = {
+  'bush-green': '1 1 1',
+  'bush-flower': '1 1 1',
+  'bush-dead': '1  1 1'
+};
+
+const bushes = bushMap[answers.paper];
+if (!bushes) console.warn('⚠️ Keine Büsche für Papierverhalten:', answers.paper);
+
+bushes?.forEach((id, i) => {
+  const x = bushes.length === 1 ? 0 : -1 + i * 2;
+  const bush = document.createElement('a-entity');
+  bush.setAttribute('gltf-model', `#${id}`);
+  bush.setAttribute('position', `${x} 0 -1.5`);
   
-    // bushes?.forEach((id, i) => {
-    //   const x = bushes.length === 1 ? 0 : -1 + i * 2;
-    //   const bush = document.createElement('a-entity');
-    //   bush.setAttribute('gltf-model', `#${id}`);
-    //   bush.setAttribute('position', `${x} 0 -1.5`);
-    //   bush.setAttribute('scale', '0.4 0.4 0.4');
-    //   container.appendChild(bush);
-    //   console.log(`🌿 Busch #${i + 1} (${id}) platziert.`);
-    // });
+  // ✨ Skala aus der Map holen (Fallback: 0.4)
+  const scale = bushScaleMap[id] || '0.4 0.4 0.4';
+  bush.setAttribute('scale', scale);
+  
+  container.appendChild(bush);
+  console.log(`🌿 Busch #${i + 1} (${id}) platziert mit Skala ${scale}.`);
+});
+
+
+
+
+
+
   
     // // 🌞 oder ☁️
     // const hours = parseFloat(answers.screenHoursPerDay);
