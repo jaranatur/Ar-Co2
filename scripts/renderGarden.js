@@ -102,8 +102,8 @@ export function renderGarden(answers) {
     if (answers.water === 'glass' || answers.water === 'refill') {
       const reed = document.createElement('a-entity');
       reed.setAttribute('gltf-model', '#reed');
-      reed.setAttribute('position', '0.4 0.01 -2.4');
-      reed.setAttribute('scale', '0.3 0.3 0.3');
+      reed.setAttribute('position', '0.5 0.01 2');
+      reed.setAttribute('scale', '1 1 1');
       container.appendChild(reed);
       console.log('🌾 Schilf platziert.');
     }
