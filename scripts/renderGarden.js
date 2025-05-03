@@ -14,7 +14,7 @@ export function renderGarden(answers) {
     if (child.id !== 'grass-plane') container.removeChild(child);
   });
   
-    container.innerHTML = '';
+   
     console.log('✅ Garten-Container geleert.');
   
     // 🌳 Bäume nach Transport
@@ -32,7 +32,7 @@ export function renderGarden(answers) {
     trees?.forEach((id, i) => {
       const tree = document.createElement('a-entity');
       tree.setAttribute('gltf-model', `#${id}`);
-      tree.setAttribute('position', `${-1 + i * 2} 0 -4.5`);
+      tree.setAttribute('position', `${-1 + i * 2} 0 -1.5`);
       tree.setAttribute('scale', '0.25 0.25 0.25');
       container.appendChild(tree);
       console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
