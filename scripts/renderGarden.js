@@ -143,7 +143,7 @@ bushes?.forEach((id, i) => {
   const x = bushes.length === 1 ? 0 : -1 + i * 2;
   const bush = document.createElement('a-entity');
   bush.setAttribute('gltf-model', `#${id}`);
-  bush.setAttribute('position', `${x} 0 1.5`);
+  bush.setAttribute('position', `${x} 0 1.4`);
   
   // ✨ Skala aus der Map holen (Fallback: 0.4)
   const scale = bushScaleMap[id] || '0.4 0.4 0.4';
