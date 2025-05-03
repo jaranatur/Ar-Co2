@@ -102,7 +102,7 @@ export function renderGarden(answers) {
     if (answers.water === 'glass' || answers.water === 'refill') {
       const reed = document.createElement('a-entity');
       reed.setAttribute('gltf-model', '#reed');
-      reed.setAttribute('position', '1 0.01 0.5');
+      reed.setAttribute('position', '1 0.01 0.3');
       reed.setAttribute('scale', '1 1 1');
       container.appendChild(reed);
       console.log('🌾 Schilf platziert.');
@@ -110,7 +110,7 @@ export function renderGarden(answers) {
     if (answers.water === 'refill') {
       const lily = document.createElement('a-entity');
       lily.setAttribute('gltf-model', '#lily');
-      lily.setAttribute('position', '-1.2 0.01 0.5');
+      lily.setAttribute('position', '-1.3 0.08 0.3');
       lily.setAttribute('scale', '2 2 2');
       container.appendChild(lily);
       console.log('🌸 Seerose platziert.');
