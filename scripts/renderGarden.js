@@ -66,7 +66,7 @@ export function renderGarden(answers) {
       const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
       const flower = document.createElement('a-entity');
       flower.setAttribute('gltf-model', `#${id}`);
-      flower.setAttribute('position', `${x} 0 -3`);
+      flower.setAttribute('position', `${x} 0 -2.5`);
       flower.setAttribute('scale', '0.2 0.2 0.2');
       container.appendChild(flower);
       console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
