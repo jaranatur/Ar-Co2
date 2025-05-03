@@ -6,6 +6,7 @@ import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
 import { renderGarden } from './renderGarden.js';
+import { grassGrow } from "./renderGarden.js";
 
 let currentIndex = 0;
 let answers = {};
@@ -261,9 +262,9 @@ renderButton.addEventListener("click", () => {
   }
 
   const garden = document.querySelector("#garden-container");
-  const grass = document.querySelector("#grass-plane");
   if (garden) garden.setAttribute("visible", "true");
-  if (grass) grass.setAttribute("visible", "true");
+  grassGrow(); // 🌱 Lässt die Wiese animiert wachsen
+  
 
   // const marker = document.querySelector("a-marker");
   // if (!marker) {

@@ -76,17 +76,16 @@
         <a-entity id="garden-container" position="0 0 -0.85" visible="false">
     
           <!-- 🌱 Wiese – anfangs unsichtbar -->
-          <<a-plane 
-          id="grass-plane"
-          visible="false"
-          scale="0 0 0"
-          rotation="-90 0 0"
-          width="4"
-          height="3"
-          material="src: #grass-diffuse; normalMap: #grass-normal; bumpMap: #grass-bump; repeat: 2 2; roughness: 1; metalness: 0"
-          animation__grow="property: scale; from: 0 0 0; to: 1 1 1; dur: 1500; easing: easeOutElastic"
-        >
-        </a-plane>
+          <a-plane
+              id="grass-plane"
+              position="0 0 0"
+              rotation="-90 0 0"
+              scale="0 0 0"
+              width="4"
+              height="3"
+              material="src: #grass-diffuse; repeat: 2 2">
+          </a-plane>
+
         
         
         </a-entity>
