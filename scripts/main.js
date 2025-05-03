@@ -1,5 +1,5 @@
-import { initGlobals } from './common/globals.js';
-import { initScene } from './common/initScene.js';
+// import { initGlobals } from './common/globals.js';
+// import { initScene } from './common/initScene.js';
 // import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
@@ -164,8 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const co2 = document.getElementById("co2-indicator");
   if (co2) co2.style.display = "none";
 
-  initGlobals();
-  initScene();
+  // initGlobals();
+  // initScene();
   setupNamePrompt();
 
   const namePrompt = document.getElementById("name-prompt");
