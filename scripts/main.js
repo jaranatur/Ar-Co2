@@ -265,21 +265,21 @@ renderButton.addEventListener("click", () => {
   if (garden) garden.setAttribute("visible", "true");
   if (grass) grass.setAttribute("visible", "true");
 
-  const marker = document.querySelector("a-marker");
-  if (!marker) {
-    console.error("❌ Kein Marker gefunden!");
-    return;
-  }
+  // const marker = document.querySelector("a-marker");
+  // if (!marker) {
+  //   console.error("❌ Kein Marker gefunden!");
+  //   return;
+  // }
 
-  if (marker.object3D.visible) {
-    console.log("✅ Marker sichtbar – direkt rendern.");
-    renderGarden(answers);
-  } else {
-    marker.addEventListener("markerFound", () => {
-      console.log("✅ Marker sichtbar → Garten wird gerendert.");
-      renderGarden(answers);
-    }, { once: true });
-  }
+  // if (marker.object3D.visible) {
+  //   console.log("✅ Marker sichtbar – direkt rendern.");
+  //   renderGarden(answers);
+  // } else {
+  //   marker.addEventListener("markerFound", () => {
+  //     console.log("✅ Marker sichtbar → Garten wird gerendert.");
+  //     renderGarden(answers);
+  //   }, { once: true });
+  // }
 });
 
 function renderSetup() {
