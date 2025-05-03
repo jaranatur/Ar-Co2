@@ -33,7 +33,7 @@ export function renderGarden(answers) {
       const tree = document.createElement('a-entity');
       tree.setAttribute('gltf-model', `#${id}`);
       tree.setAttribute('position', `${-1 + i * 2} 0 -1.5`);
-      tree.setAttribute('scale', '15 15 15');
+      tree.setAttribute('scale', '20 20 20');
       container.appendChild(tree);
       console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
     });
