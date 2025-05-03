@@ -1,14 +1,18 @@
 // 
 
 export function renderGarden(answers) {
+  const container = document.querySelector('#garden-container');
+  if (!container) {
+    console.error("❌ Kein #garden-container gefunden!");
+    return;
+  }
 
-   const container = document.querySelector('#garden-container');
-if (!container) {
-  console.error("❌ Kein #garden-container gefunden!");
-} else {
   console.log("✅ #garden-container gefunden und bereit.");
-}
 
+  // 🔁 Nur Kinder außer der Wiese entfernen
+  [...container.children].forEach(child => {
+    if (child.id !== 'grass-plane') container.removeChild(child);
+  });
   
     container.innerHTML = '';
     console.log('✅ Garten-Container geleert.');
@@ -29,7 +33,7 @@ if (!container) {
       const tree = document.createElement('a-entity');
       tree.setAttribute('gltf-model', `#${id}`);
       tree.setAttribute('position', `${-1 + i * 2} 0 -4.5`);
-      tree.setAttribute('scale', '0.5 0.5 0.5');
+      tree.setAttribute('scale', '0.25 0.25 0.25');
       container.appendChild(tree);
       console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
     });
