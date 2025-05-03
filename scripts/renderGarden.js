@@ -98,23 +98,23 @@ export function renderGarden(answers) {
     console.log('💧 Teich platziert.');
     
   
-    // // 🌾 Wasserpflanzen
-    // if (answers.water === 'glass' || answers.water === 'refill') {
-    //   const reed = document.createElement('a-entity');
-    //   reed.setAttribute('gltf-model', '#reed');
-    //   reed.setAttribute('position', '0.4 0.01 -2.4');
-    //   reed.setAttribute('scale', '0.3 0.3 0.3');
-    //   container.appendChild(reed);
-    //   console.log('🌾 Schilf platziert.');
-    // }
-    // if (answers.water === 'refill') {
-    //   const lily = document.createElement('a-entity');
-    //   lily.setAttribute('gltf-model', '#lily');
-    //   lily.setAttribute('position', '-0.4 0.01 -2.6');
-    //   lily.setAttribute('scale', '0.3 0.3 0.3');
-    //   container.appendChild(lily);
-    //   console.log('🌸 Seerose platziert.');
-    // }
+    // 🌾 Wasserpflanzen
+    if (answers.water === 'glass' || answers.water === 'refill') {
+      const reed = document.createElement('a-entity');
+      reed.setAttribute('gltf-model', '#reed');
+      reed.setAttribute('position', '0.4 0.01 -2.4');
+      reed.setAttribute('scale', '0.3 0.3 0.3');
+      container.appendChild(reed);
+      console.log('🌾 Schilf platziert.');
+    }
+    if (answers.water === 'refill') {
+      const lily = document.createElement('a-entity');
+      lily.setAttribute('gltf-model', '#lily');
+      lily.setAttribute('position', '-0.4 0.01 -2.6');
+      lily.setAttribute('scale', '0.3 0.3 0.3');
+      container.appendChild(lily);
+      console.log('🌸 Seerose platziert.');
+    }
   
 
 
