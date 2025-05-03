@@ -91,7 +91,7 @@ export function renderGarden(answers) {
     // 💧 Teich
     const pond = document.createElement('a-entity');
     pond.setAttribute('gltf-model', '#pond');
-    pond.setAttribute('position', '0 1.5 1');
+    pond.setAttribute('position', '0 0.5 1.5');
     pond.setAttribute('scale', '1.2 1.2 1.2');
     pond.setAttribute('rotation', '0 90 0');
     container.appendChild(pond);
