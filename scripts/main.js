@@ -7,7 +7,6 @@ import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
 import { renderGarden } from './renderGarden.js';
 
-
 let currentIndex = 0;
 let answers = {};
 let userName = "";
@@ -15,7 +14,6 @@ let currentQuestions = [];
 
 const renderButton = document.getElementById("render-button");
 const nextButton = document.getElementById("next-question");
-
 
 function updateLiveBall(totalKg) {
   const indicator = document.getElementById("co2-indicator");
@@ -42,11 +40,7 @@ function updateLiveBall(totalKg) {
 }
 
 function renderQuestion(index) {
-
-  hideFeedback()
-  
- 
-  
+  hideFeedback();
   const question = currentQuestions[index];
   const body = document.querySelector(".input-card-body");
   if (!question || !body) return;
@@ -56,7 +50,6 @@ function renderQuestion(index) {
   const label = document.createElement("label");
   label.textContent = question.question;
   body.appendChild(label);
-
   if (question.type === "select") {
     const select = document.createElement("select");
     select.id = question.id;
@@ -72,15 +65,11 @@ function renderQuestion(index) {
       }
       select.appendChild(option);
     });
+
     select.value = "";
     if (select.querySelector('option[value=""]')) {
       select.querySelector('option[value=""]').disabled = true;
     }
-    
-
-
-    
-
 
     select.addEventListener("input", () => {
       let value = select.value;
@@ -122,11 +111,10 @@ function renderQuestion(index) {
 
     body.appendChild(slider);
     body.appendChild(output);
+  }
 
   checkRenderReady();
-  }
 }
-
 
 function checkRenderReady() {
   const isLastQuestion = currentIndex === currentQuestions.length - 1;
@@ -144,9 +132,6 @@ function checkRenderReady() {
   }
 }
 
-
-
-
 function showFeedback(questionId, selectedValue) {
   const feedbackBox = document.getElementById('feedback-text');
   let feedback = '';
@@ -159,8 +144,8 @@ function showFeedback(questionId, selectedValue) {
 
   if (feedback && feedbackBox) {
     feedbackBox.innerText = feedback;
-    feedbackBox.style.display = "block"; // Zeigen
-    feedbackBox.classList.add('active'); // <-- richtig
+    feedbackBox.style.display = "block";
+    feedbackBox.classList.add('active');
     feedbackBox.classList.remove('hidden');
   }
 }
@@ -168,28 +153,19 @@ function showFeedback(questionId, selectedValue) {
 function hideFeedback() {
   const feedbackBox = document.getElementById('feedback-text');
   if (feedbackBox) {
-    feedbackBox.classList.remove('active'); // <-- richtig
+    feedbackBox.classList.remove('active');
     feedbackBox.classList.add('hidden');
     setTimeout(() => {
-      feedbackBox.style.display = "none"; // Erst nach der Animation verstecken
-    }, 600); // <-- passt zu deiner CSS-Transition (0.6s)
+      feedbackBox.style.display = "none";
+    }, 600);
   }
 }
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const co2 = document.getElementById("co2-indicator");
   if (co2) co2.style.display = "none";
 
   initGlobals();
   initScene();
-  // handleEarthRotation();
   setupNamePrompt();
 
   const namePrompt = document.getElementById("name-prompt");
@@ -200,11 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#hint-bg")?.setAttribute("visible", "false");
   document.querySelector("#arrow-icon-entity")?.setAttribute("visible", "false");
 
-  
-
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "none";
-
 
   const allInputIds = mainQuestions.map(q => q.id);
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
@@ -213,9 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
-    if (scene) {
-      scene.classList.add('no-interaction');
-    }
+    if (scene) scene.classList.add('no-interaction');
 
     userName = document.getElementById("user-name").value.trim();
     if (!userName) {
@@ -227,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("input-overlay").style.display = "flex";
     if (co2) co2.style.display = "flex";
 
-    renderSetup(); // NEU: Setup-Seite zuerst anzeigen
+    renderSetup();
 
     new MutationObserver(() => {
       updateLiveBall(calculateFootprint(answers).totalKg);
@@ -250,14 +221,27 @@ document.addEventListener("DOMContentLoaded", () => {
       currentIndex++;
       renderQuestion(currentIndex);
       checkRenderReady();
-
     } else {
       const result = calculateFootprint(answers);
       if (co2) co2.style.display = "none";
       console.log("Fragen abgeschlossen:", result);
     }
   });
+
+  const marker = document.querySelector("a-marker");
+  if (marker) {
+    marker.setAttribute("emitevents", "true");
+
+    marker.addEventListener("markerLost", () => {
+      console.log("⚠️ Marker verloren – Szene bleibt sichtbar.");
+    });
+
+    marker.addEventListener("markerFound", () => {
+      console.log("✅ Marker wiedergefunden.");
+    });
+  }
 });
+
 renderButton.addEventListener("click", () => {
   renderButton.style.display = "none";
 
@@ -266,7 +250,6 @@ renderButton.addEventListener("click", () => {
   document.getElementById("feedback-text").style.display = "none";
   document.getElementById("co2-indicator").style.display = "none";
 
-  // 📷 Hinweis anzeigen
   const hint = document.getElementById("scan-hint");
   if (hint) {
     hint.style.display = "block";
@@ -277,14 +260,13 @@ renderButton.addEventListener("click", () => {
     }, 10000);
   }
 
-  // 🟩 Garten & Wiese sichtbar machen
   const garden = document.querySelector("#garden-container");
   const grass = document.querySelector("#grass-plane");
   if (garden) garden.setAttribute("visible", "true");
   if (grass) grass.setAttribute("visible", "true");
 
-  // ⏳ Marker prüfen → dann rendern
   const marker = document.querySelector("a-marker");
+  if (!marker) {
     console.error("❌ Kein Marker gefunden!");
     return;
   }
@@ -335,14 +317,11 @@ function renderSetup() {
         }
         select.appendChild(option);
       });
-      
+
       select.value = "";
       if (select.querySelector('option[value=""]')) {
         select.querySelector('option[value=""]').disabled = true;
       }
-      
-
-
 
       questionWrapper.appendChild(select);
     }
@@ -388,19 +367,3 @@ function startMainFlow() {
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
 }
-document.addEventListener("DOMContentLoaded", () => {
-  const marker = document.querySelector("a-marker");
-  if (!marker) return;
-
-  marker.setAttribute("emitevents", "true");
-
-  marker.addEventListener("markerLost", (e) => {
-    console.log("⚠️ Marker verloren – Szene bleibt sichtbar.");
-    // NICHTS tun – Szene bleibt sichtbar
-  });
-
-  marker.addEventListener("markerFound", (e) => {
-    console.log("✅ Marker wiedergefunden.");
-    // Optional: Animation oder Sound starten
-  });
-});
