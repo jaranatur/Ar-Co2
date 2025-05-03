@@ -92,7 +92,7 @@ export function renderGarden(answers) {
     const pond = document.createElement('a-entity');
     pond.setAttribute('gltf-model', '#pond');
     pond.setAttribute('position', '0 0 0.5');
-    pond.setAttribute('scale', '0.06 0.06 0.0');
+    pond.setAttribute('scale', '0.06 0.06 0.06');
     container.appendChild(pond);
     console.log('💧 Teich platziert.');
   
