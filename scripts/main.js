@@ -266,21 +266,22 @@ renderButton.addEventListener("click", () => {
   grassGrow(); // 🌱 Lässt die Wiese animiert wachsen
   
 
-  // const marker = document.querySelector("a-marker");
-  // if (!marker) {
-  //   console.error("❌ Kein Marker gefunden!");
-  //   return;
-  // }
+const marker = document.querySelector("a-marker");
+   if (!marker) {
+     console.error("❌ Kein Marker gefunden!");
+     return;
+   }
 
-  // if (marker.object3D.visible) {
-  //   console.log("✅ Marker sichtbar – direkt rendern.");
-  //   renderGarden(answers);
-  // } else {
-  //   marker.addEventListener("markerFound", () => {
-  //     console.log("✅ Marker sichtbar → Garten wird gerendert.");
-  //     renderGarden(answers);
-  //   }, { once: true });
-  // }
+   if (marker.object3D.visible) {
+    console.log("✅ Marker sichtbar – direkt rendern.");
+    setTimeout(() => renderGarden(answers), 1200);
+  } else {
+    marker.addEventListener("markerFound", () => {
+      console.log("✅ Marker sichtbar → Garten wird gerendert.");
+      setTimeout(() => renderGarden(answers), 1200);
+    }, { once: true });
+  }
+  
 });
 
 function renderSetup() {
