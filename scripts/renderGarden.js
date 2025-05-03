@@ -25,18 +25,24 @@ export function renderGarden(answers) {
       carpool: ['tree-good', 'tree-dead'],
       auto: ['tree-dead']
     };
-  
+    
+    const scaleMap = {
+      'tree-good': '0.25 0.25 0.25',
+      'tree-dead': '20 20 20'
+    };
+    
     const trees = treeMap[answers.transport];
     if (!trees) console.warn('⚠️ Keine Bäume für Transport:', answers.transport);
-  
+    
     trees?.forEach((id, i) => {
       const tree = document.createElement('a-entity');
       tree.setAttribute('gltf-model', `#${id}`);
       tree.setAttribute('position', `${-1 + i * 2} 0 -1.5`);
-      tree.setAttribute('scale', '20 20 20');
+      tree.setAttribute('scale', scaleMap[id] || '1 1 1');
       container.appendChild(tree);
       console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
     });
+    
   
     // // 🌸 Blumen nach Ernährung
     // const flowerMap = {
