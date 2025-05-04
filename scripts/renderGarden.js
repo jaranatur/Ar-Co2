@@ -1,159 +1,119 @@
-// 
+export function animateEntityGrow(entity, delay = 0) {
+  entity.setAttribute('scale', '0.001 0.001 0.001');
+  entity.setAttribute('visible', 'true');
+  entity.setAttribute('animation__grow', {
+    property: 'scale',
+    to: entity.getAttribute('final-scale') || '1 1 1',
+    delay: delay,
+    dur: 1000,
+    easing: 'easeOutElastic'
+  });
+}
 
 export function renderGarden(answers) {
   const container = document.querySelector('#garden-container');
-  if (!container) {
-    console.error("❌ Kein #garden-container gefunden!");
-    return;
-  }
+  if (!container) return;
 
-  console.log("✅ #garden-container gefunden und bereit.");
-
-  // 🔁 Nur Kinder außer der Wiese entfernen
+  // ❗Nur Elemente außer der Wiese löschen
   [...container.children].forEach(child => {
     if (child.id !== 'grass-plane') container.removeChild(child);
   });
-  
-   
-    console.log('✅ Garten-Container geleert.');
-  
-    // 🌳 Bäume nach Transport
-    const treeMap = {
-      walk: ['tree-good', 'tree-good'],
-      bike: ['tree-good', 'tree-good'],
-      public: ['tree-good'],
-      carpool: ['tree-good', 'tree-dead'],
-      auto: ['tree-dead']
-    };
-    
-    const scaleMap = {
-      'tree-good': '0.18 0.18 0.18',
-      'tree-dead': '20 20 20'
-    };
-    
-    const trees = treeMap[answers.transport];
-    if (!trees) console.warn('⚠️ Keine Bäume für Transport:', answers.transport);
-    
-    trees?.forEach((id, i) => {
-      const tree = document.createElement('a-entity');
-      tree.setAttribute('gltf-model', `#${id}`);
-      tree.setAttribute('position', `${-1 + i * 2} 0 -1.5`);
-      tree.setAttribute('scale', scaleMap[id] || '1 1 1');
-      container.appendChild(tree);
-      console.log(`🌳 Baum #${i + 1} (${id}) platziert.`);
-    });
-    
 
+  // 🌳 Bäume
+  const treeMap = {
+    walk: ['tree-good', 'tree-good'],
+    bike: ['tree-good', 'tree-good'],
+    public: ['tree-good'],
+    carpool: ['tree-good', 'tree-dead'],
+    auto: ['tree-dead']
+  };
+  const treeScaleMap = {
+    'tree-good': '0.25 0.25 0.25',
+    'tree-dead': '20 20 20'
+  };
+  const trees = treeMap[answers.transport];
+  trees?.forEach((id, i) => {
+    const tree = document.createElement('a-entity');
+    tree.setAttribute('gltf-model', `#${id}`);
+    tree.setAttribute('position', `${-1 + i * 2} 0 -4.5`);
+    tree.setAttribute('final-scale', treeScaleMap[id]);
+    container.appendChild(tree);
+    animateEntityGrow(tree, 0);
+  });
 
+  // 🌸 Blumen
+  const flowerMap = {
+    vegan: ['flower-big', 'flower-big'],
+    vegetarian: ['flower-tulip', 'flower-tulip'],
+    'meat-rare': ['flower-tulip'],
+    'meat-daily': ['flower-dead']
+  };
+  const flowerScaleMap = {
+    'flower-big': '0.2 0.2 0.2',
+    'flower-tulip': '0.06 0.06 0.06',
+    'flower-dead': '2 2 2'
+  };
+  const flowers = flowerMap[answers.diet];
+  flowers?.forEach((id, i) => {
+    const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
+    const flower = document.createElement('a-entity');
+    flower.setAttribute('gltf-model', `#${id}`);
+    flower.setAttribute('position', `${x} 0 -3.5`);
+    flower.setAttribute('final-scale', flowerScaleMap[id]);
+    container.appendChild(flower);
+    animateEntityGrow(flower, 1200);
+  });
 
+  // 💧 Pond + Wasserpflanzen
+  const pond = document.createElement('a-entity');
+  pond.setAttribute('gltf-model', '#pond');
+  pond.setAttribute('position', '0.1 0.5 2');
+  pond.setAttribute('rotation', '0 90 0');
+  pond.setAttribute('final-scale', '1.2 1.2 1.2');
+  container.appendChild(pond);
+  animateEntityGrow(pond, 2400);
 
+  if (answers.water === 'glass' || answers.water === 'refill') {
+    const reed = document.createElement('a-entity');
+    reed.setAttribute('gltf-model', '#reed');
+    reed.setAttribute('position', '0.8 0.01 2');
+    reed.setAttribute('final-scale', '0.3 0.3 0.3');
+    container.appendChild(reed);
+    animateEntityGrow(reed, 2400);
+  }
 
+  if (answers.water === 'refill') {
+    const lily = document.createElement('a-entity');
+    lily.setAttribute('gltf-model', '#lily');
+    lily.setAttribute('position', '-0.8 0.01 2');
+    lily.setAttribute('final-scale', '0.3 0.3 0.3');
+    container.appendChild(lily);
+    animateEntityGrow(lily, 2400);
+  }
 
-
-  
-    // 🌸 Blumen nach Ernährung
-    const flowerMap = {
-      vegan: ['flower-big', 'flower-big'],
-      vegetarian: ['flower-tulip', 'flower-tulip'],
-      'meat-rare': ['flower-tulip'],
-      'meat-daily': ['flower-dead']
-    };
-  
-  // 🌼 Skalierungen pro Modell
-    const flowerScaleMap = {
-  'flower-big': '0.2 0.2 0.2',
-  'flower-tulip': '0.06 0.06 0.06',
-  'flower-dead': '2 2 2'
-      };  
-
-      const flowers = flowerMap[answers.diet];
-      if (!flowers) console.warn('⚠️ Keine Blumen für Ernährung:', answers.diet);
-      
-      flowers?.forEach((id, i) => {
-        const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
-        const flower = document.createElement('a-entity');
-        flower.setAttribute('gltf-model', `#${id}`);
-        flower.setAttribute('position', `${x} 0 -0.5`);
-        flower.setAttribute('scale', flowerScaleMap[id] || '1 1 1');
-        container.appendChild(flower);
-        console.log(`🌸 Blume #${i + 1} (${id}) platziert.`);
-      });
-
-
-
-
-
-
-
-
-
-  
-    // 💧 Teich
-    const pond = document.createElement('a-entity');
-    pond.setAttribute('gltf-model', '#pond');
-    pond.setAttribute('position', '0.1 0.5 2');
-    pond.setAttribute('scale', '1.2 1.2 1.2');
-    pond.setAttribute('rotation', '0 90 0');
-    container.appendChild(pond);
-    console.log('💧 Teich platziert.');
-    
-  
-    // 🌾 Wasserpflanzen
-    if (answers.water === 'glass' || answers.water === 'refill') {
-      const reed = document.createElement('a-entity');
-      reed.setAttribute('gltf-model', '#reed');
-      reed.setAttribute('position', '1 0.01 0.3');
-      reed.setAttribute('scale', '1 1 1');
-      container.appendChild(reed);
-      console.log('🌾 Schilf platziert.');
-    }
-    if (answers.water === 'refill') {
-      const lily = document.createElement('a-entity');
-      lily.setAttribute('gltf-model', '#lily');
-      lily.setAttribute('position', '-1.3 0.08 0.3');
-      lily.setAttribute('scale', '2 2 2');
-      container.appendChild(lily);
-      console.log('🌸 Seerose platziert.');
-    }
-  
-
-
-
-
-    // 🌿 Büsche
-    const bushMap = {
-      none: ['bush-green', 'bush-flower'],
-      rare: ['bush-green'],
-      medium: ['bush-dead'],
-      often: ['bush-dead']
-    };
-  
-    
-// 📏 Skalen je Busch-ID
-const bushScaleMap = {
-  'bush-green': '5 5 5',
-  'bush-flower': '0.1 0.1 0.1',
-  'bush-dead': '1  1 1'
-};
-
-const bushes = bushMap[answers.paper];
-if (!bushes) console.warn('⚠️ Keine Büsche für Papierverhalten:', answers.paper);
-
-bushes?.forEach((id, i) => {
-  const x = bushes.length === 1 ? 0 : -1 + i * 2;
-  const bush = document.createElement('a-entity');
-  bush.setAttribute('gltf-model', `#${id}`);
-  bush.setAttribute('position', `${x} 0 1.4`);
-  
-  // ✨ Skala aus der Map holen (Fallback: 0.4)
-  const scale = bushScaleMap[id] || '0.4 0.4 0.4';
-  bush.setAttribute('scale', scale);
-  
-  container.appendChild(bush);
-  console.log(`🌿 Busch #${i + 1} (${id}) platziert mit Skala ${scale}.`);
-});
-
-
+  // 🌿 Büsche
+  const bushMap = {
+    none: ['bush-green', 'bush-flower'],
+    rare: ['bush-green'],
+    medium: ['bush-dead'],
+    often: ['bush-dead']
+  };
+  const bushScaleMap = {
+    'bush-green': '5 5 5',
+    'bush-flower': '100 100 100',
+    'bush-dead': '1 1 1'
+  };
+  const bushes = bushMap[answers.paper];
+  bushes?.forEach((id, i) => {
+    const x = bushes.length === 1 ? 0 : -1 + i * 2;
+    const bush = document.createElement('a-entity');
+    bush.setAttribute('gltf-model', `#${id}`);
+    bush.setAttribute('position', `${x} 0 1.4`);
+    bush.setAttribute('final-scale', bushScaleMap[id]);
+    container.appendChild(bush);
+    animateEntityGrow(bush, 3600);
+  });
+}
 
 
 
@@ -188,7 +148,7 @@ bushes?.forEach((id, i) => {
 
 
 
-}
+
 
 
   

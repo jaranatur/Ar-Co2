@@ -258,7 +258,7 @@ renderButton.addEventListener("click", () => {
       hint.style.transition = "opacity 1s ease";
       hint.style.opacity = "0";
       setTimeout(() => hint.remove(), 1000);
-    }, 10000);
+    },4000);
   }
 
   const garden = document.querySelector("#garden-container");
@@ -279,7 +279,7 @@ renderButton.addEventListener("click", () => {
   } else {
     marker.addEventListener("markerFound", () => {
       console.log("✅ Marker sichtbar → Garten wird gerendert.");
-      setTimeout(() => renderGarden(answers), 1200);
+      setTimeout(() => renderGarden(answers), 5000);
     }, { once: true });
   }
 });
