@@ -374,10 +374,11 @@ export function renderFinalButtons() {
   const container = document.createElement('div');
   container.id = 'final-button-container';
   container.innerHTML = `
-    <button>📷 Screenshot</button>
-    <button>ℹ️ Fakten</button>
-    <button>📊 Ergebnis</button>
-    <button>🔁 Neu starten</button>
-  `;
+  <button><div>📷</div><span>Screenshot</span></button>
+  <button><div>ℹ️</div><span>Fakten</span></button>
+  <button><div>📊</div><span>Ergebnis</span></button>
+  <button><div>🔁</div><span>Neu</span></button>
+`;
+
   document.body.appendChild(container);
 }
