@@ -425,25 +425,25 @@ export function renderFinalButtons() {
   const container = document.createElement('div');
   container.id = 'final-button-container';
   container.innerHTML = `
-  <button><div>📷</div><span>Screenshot</span></button>
-  <button><div>ℹ️</div><span>Fakten</span></button>
-  <button><div>📊</div><span>Ergebnis</span></button>
-  <button><div>🔁</div><span>Neu</span></button>
-`;
+    <button><div>📷</div><span>Screenshot</span></button>
+    <button><div>ℹ️</div><span>Fakten</span></button>
+    <button><div>📊</div><span>Ergebnis</span></button>
+    <button><div>💡</div><span>Wusstest du?</span></button>
+    <button><div>🔁</div><span>Neu</span></button>
+  `;
 
   document.body.appendChild(container);
-  setupRestartButton();
+
   const buttons = document.querySelectorAll("#final-button-container button");
-  const factsButton = buttons[1]; // 2. Button = ℹ️
+  const factsButton = buttons[1];   // ℹ️
+  const tipButton = buttons[3];     // 💡
+  const restartButton = buttons[4]; // 🔁
+
   factsButton.addEventListener("click", showFactsModal);
 
-
-}
-
-export function setupRestartButton() {
-  const buttons = document.querySelectorAll("#final-button-container button");
-  const restartButton = buttons[3]; // 4. Button = 🔁 Neu
-  if (!restartButton) return;
+  tipButton.addEventListener("click", () => {
+    alert("💡 Wusstest du schon? Bald gibt es hier spannende Klima-Fakten!");
+  });
 
   restartButton.addEventListener("click", () => {
     if (confirm("Willst du wirklich neu starten? Deine Daten gehen verloren.")) {
@@ -451,4 +451,5 @@ export function setupRestartButton() {
     }
   });
 }
+
 
