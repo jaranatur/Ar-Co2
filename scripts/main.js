@@ -370,32 +370,6 @@ function startMainFlow() {
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
 }
-export function renderFinalButtons() {
-  const container = document.createElement('div');
-  container.id = 'final-button-container';
-  container.innerHTML = `
-  <button><div>📷</div><span>Screenshot</span></button>
-  <button><div>ℹ️</div><span>Fakten</span></button>
-  <button><div>📊</div><span>Ergebnis</span></button>
-  <button><div>🔁</div><span>Neu</span></button>
-`;
-
-  document.body.appendChild(container);
-  setupRestartButton();
-
-}
-
-export function setupRestartButton() {
-  const buttons = document.querySelectorAll("#final-button-container button");
-  const restartButton = buttons[3]; // 4. Button = 🔁 Neu
-  if (!restartButton) return;
-
-  restartButton.addEventListener("click", () => {
-    if (confirm("Willst du wirklich neu starten? Deine Daten gehen verloren.")) {
-      window.location.reload();
-    }
-  });
-}
 
 export function showFactsModal() {
   if (document.getElementById('facts-modal')) {
@@ -446,3 +420,35 @@ export function showFactsModal() {
     modal.style.display = 'none';
   };
 }
+
+export function renderFinalButtons() {
+  const container = document.createElement('div');
+  container.id = 'final-button-container';
+  container.innerHTML = `
+  <button><div>📷</div><span>Screenshot</span></button>
+  <button><div>ℹ️</div><span>Fakten</span></button>
+  <button><div>📊</div><span>Ergebnis</span></button>
+  <button><div>🔁</div><span>Neu</span></button>
+`;
+
+  document.body.appendChild(container);
+  setupRestartButton();
+  const buttons = document.querySelectorAll("#final-button-container button");
+  const factsButton = buttons[1]; // 2. Button = ℹ️
+  factsButton.addEventListener("click", showFactsModal);
+
+
+}
+
+export function setupRestartButton() {
+  const buttons = document.querySelectorAll("#final-button-container button");
+  const restartButton = buttons[3]; // 4. Button = 🔁 Neu
+  if (!restartButton) return;
+
+  restartButton.addEventListener("click", () => {
+    if (confirm("Willst du wirklich neu starten? Deine Daten gehen verloren.")) {
+      window.location.reload();
+    }
+  });
+}
+
