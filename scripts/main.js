@@ -489,9 +489,14 @@ export function renderFinalButtons() {
 
   factsButton.addEventListener("click", showFactsModal);
 
+  let currentFactIndex = 0;
+
   tipButton.addEventListener("click", () => {
-    alert("💡 Wusstest du schon? Bald gibt es hier spannende Klima-Fakten!");
+    const factBox = document.getElementById("fact-overlay") || createFactBox(true);
+    showFactAtIndex(currentFactIndex);
+    factBox.style.display = "flex";
   });
+
 
   restartButton.addEventListener("click", () => {
     if (confirm("Willst du wirklich neu starten? Deine Daten gehen verloren.")) {
@@ -519,16 +524,52 @@ document.addEventListener("click", (e) => {
 });
 
 
-function createFactBox() {
+
+
+
+
+function showFactAtIndex(index) {
+  const factBox = document.getElementById("fact-overlay");
+  if (!factBox) return;
+  factBox.querySelector("p").textContent = digitalFacts[index];
+}
+
+function createFactBox(includeNavigation = false) {
   const overlay = document.createElement("div");
   overlay.id = "fact-overlay";
   overlay.innerHTML = `
     <div class="fact-card">
       <button id="close-fact">✖</button>
-      <h3>💡 Wusstest du schon, dass...</h3>
+      <h3>💡 Wusstest du schon?</h3>
       <p></p>
+      ${
+        includeNavigation
+          ? `
+        <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+          <button id="prev-fact">← Zurück</button>
+          <button id="next-fact">Weiter →</button>
+        </div>`
+          : ""
+      }
     </div>
   `;
   document.body.appendChild(overlay);
+
+  if (includeNavigation) {
+    overlay.querySelector("#prev-fact").addEventListener("click", () => {
+      if (currentFactIndex > 0) currentFactIndex--;
+      showFactAtIndex(currentFactIndex);
+    });
+
+    overlay.querySelector("#next-fact").addEventListener("click", () => {
+      if (currentFactIndex < digitalFacts.length - 1) currentFactIndex++;
+      showFactAtIndex(currentFactIndex);
+    });
+  }
+
+  overlay.querySelector("#close-fact").addEventListener("click", () => {
+    overlay.style.display = "none";
+  });
+
   return overlay;
 }
