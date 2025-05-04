@@ -134,7 +134,10 @@ export function renderGarden(answers) {
 
   
 
-  renderFinalButtons();
+  setTimeout(() => {
+    renderFinalButtons();
+  }, 11000); // 8.5s + 1.8s + Puffer
+  
   
 
 }
