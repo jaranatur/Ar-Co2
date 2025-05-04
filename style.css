@@ -435,3 +435,15 @@ a-scene[hidden] {
   backdrop-filter: blur(5px);     /* Weichzeichner */
   z-index: -1;
 }
+#final-button-container button {
+  font-size: 0.85em;
+  padding: 6px 10px;
+}
+
+#final-button-container button div {
+  font-size: 1.2em; /* Icon-Größe */
+}
+
+#final-button-container button span {
+  font-size: 0.8em; /* Text-Größe */
+}
