@@ -404,7 +404,7 @@ function startMainFlow() {
   if (!document.getElementById("fact-button")) {
     const btn = document.createElement("button");
     btn.id = "fact-button";
-    btn.innerHTML = "💡 Wusstest du schon, dass?";
+    btn.innerHTML = "💡 Wusstest du schon, dass...?";
     btn.addEventListener("click", () => {
       const factBox = document.getElementById("fact-overlay") || createFactBox();
       const random = digitalFacts[Math.floor(Math.random() * digitalFacts.length)];
@@ -508,13 +508,16 @@ document.addEventListener("click", (e) => {
     factBox.querySelector("p").textContent = random;
     factBox.style.display = "flex";
     document.getElementById("input-overlay").classList.add("blurred");
+    document.getElementById("fact-button").classList.add("blurred"); // 👈 hinzugefügt
   }
 
   if (e.target.id === "close-fact") {
     document.getElementById("fact-overlay").style.display = "none";
     document.getElementById("input-overlay").classList.remove("blurred");
+    document.getElementById("fact-button").classList.remove("blurred"); // 👈 hinzugefügt
   }
 });
+
 
 function createFactBox() {
   const overlay = document.createElement("div");
@@ -522,7 +525,7 @@ function createFactBox() {
   overlay.innerHTML = `
     <div class="fact-card">
       <button id="close-fact">✖</button>
-      <h3>💡 Wusstest du schon?</h3>
+      <h3>💡 Wusstest du schon, dass...</h3>
       <p></p>
     </div>
   `;
