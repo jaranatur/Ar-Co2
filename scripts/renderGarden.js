@@ -101,7 +101,7 @@ export function renderGarden(answers) {
   };
   const bushScaleMap = {
     'bush-green': '5.5 5.5 5.5',
-    'bush-flower': '1.5 1.5 1.5',
+    'bush-flower': '1.25 1.25 1.25',
     'bush-dead': '1 1 1'
   };
   const bushes = bushMap[answers.paper];
@@ -114,39 +114,55 @@ export function renderGarden(answers) {
     container.appendChild(bush);
     animateEntityGrow(bush, 8500, 1800);
   });
+
+
+
+
+
+ // ☀️ oder ☁️ je nach Bildschirmzeit
+const hours = parseFloat(answers.screenHoursPerDay);
+if (isNaN(hours)) {
+  console.warn('⚠️ Ungültiger screenHoursPerDay:', answers.screenHoursPerDay);
+  return;
 }
 
+if (hours <= 2) {
+  // 🌞 Helle Szene mit Sonne
+  const sun = document.createElement('a-entity');
+  sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 0.8; castShadow: true');
+  sun.setAttribute('position', '2 4 2');
+  container.appendChild(sun);
 
+  // 👀 Optional: Himmel zur Aufhellung
+  const sky = document.createElement('a-sky');
+  sky.setAttribute('color', '#e5f5ff');
+  container.appendChild(sky);
 
+  console.log('🌞 Sonne + Himmel platziert.');
+} else {
+  // ☁️ Wolke
+  const cloud = document.createElement('a-entity');
+  cloud.setAttribute('gltf-model', '#cloud');
+  cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
+  cloud.setAttribute('position', '-1.5 3 -2');
+  cloud.setAttribute('scale', '0.8 0.8 0.8');
 
-  //   // // 🌞 oder ☁️
-  // const hours = parseFloat(answers.screenHoursPerDay);
-  //  if (isNaN(hours)) {
-  //      console.warn('⚠️ Ungültiger screenHoursPerDay:', answers.screenHoursPerDay);
-  //     return;
-  //    }
-  
-  //    if (hours <= 2) {
-  //      const sun = document.createElement('a-entity');
-  //      sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 1');
-  //      sun.setAttribute('position', '0 4 -2');
-  //      container.appendChild(sun);
-  //      console.log('🌞 Sonne platziert.');
-  //   } else {
-  //      const cloud = document.createElement('a-entity');
-  //      cloud.setAttribute('gltf-model', '#cloud');
-  //      cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
-  //      cloud.setAttribute('position', '0 4 -2');
-  //      cloud.setAttribute('scale', '0.8 0.8 0.8');
-  //      container.appendChild(cloud);
-  //      console.log('☁️ Wolke platziert.');
-  //  }
-  
-  //    console.log('✅ Garten fertig gerendert.');
-  // }
+  // ➡️ Animation (horizontal verschieben)
+  cloud.setAttribute('animation__move', {
+    property: 'position',
+    from: '-1.5 3 -2',
+    to: '1.5 3 -2',
+    dur: 8000,
+    loop: true,
+    dir: 'alternate',
+    easing: 'easeInOutSine'
+  });
 
+  container.appendChild(cloud);
+  console.log('☁️ Wolke mit Animation platziert.');
+}
 
-
+}
 
 
 
