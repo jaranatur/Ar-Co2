@@ -1,5 +1,5 @@
 
-
+import { renderFinalButtons } from './main.js';
 
 export function animateEntityGrow(entity, delay = 0, duration = 2500) {
   entity.setAttribute('scale', '0.001 0.001 0.001');
@@ -132,7 +132,12 @@ export function renderGarden(answers) {
   });
 
 
+  
 
+  renderFinalButtons();
+  
+
+}
 
 
 //  // ☀️ oder ☁️ je nach Bildschirmzeit
@@ -168,7 +173,7 @@ export function renderGarden(answers) {
 //   container.appendChild(cloud);
 //   console.log('☁️ Wolke mit Animation platziert.');
 // }
-}
+
 
 
 

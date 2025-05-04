@@ -370,3 +370,14 @@ function startMainFlow() {
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
 }
+export function renderFinalButtons() {
+  const container = document.createElement('div');
+  container.id = 'final-button-container';
+  container.innerHTML = `
+    <button>📷 Screenshot</button>
+    <button>ℹ️ Fakten</button>
+    <button>📊 Ergebnis</button>
+    <button>🔁 Neu starten</button>
+  `;
+  document.body.appendChild(container);
+}
