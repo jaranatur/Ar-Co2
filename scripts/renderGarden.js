@@ -1,14 +1,15 @@
-export function animateEntityGrow(entity, delay = 0) {
+export function animateEntityGrow(entity, delay = 0, duration = 1600) {
   entity.setAttribute('scale', '0.001 0.001 0.001');
   entity.setAttribute('visible', 'true');
   entity.setAttribute('animation__grow', {
     property: 'scale',
     to: entity.getAttribute('final-scale') || '1 1 1',
-    delay: delay,
-    dur: 1000,
+    delay,
+    dur: duration,
     easing: 'easeOutElastic'
   });
 }
+
 
 export function renderGarden(answers) {
   const container = document.querySelector('#garden-container');
@@ -35,10 +36,10 @@ export function renderGarden(answers) {
   trees?.forEach((id, i) => {
     const tree = document.createElement('a-entity');
     tree.setAttribute('gltf-model', `#${id}`);
-    tree.setAttribute('position', `${-1 + i * 2} 0 -4.5`);
+    tree.setAttribute('position', `${-1 + i * 2} 0 -1.5`);
     tree.setAttribute('final-scale', treeScaleMap[id]);
     container.appendChild(tree);
-    animateEntityGrow(tree, 0);
+    animateEntityGrow(tree, 0, 1800);
   });
 
   // 🌸 Blumen
@@ -58,10 +59,10 @@ export function renderGarden(answers) {
     const x = flowers.length === 1 ? 0 : -0.75 + i * 1.5;
     const flower = document.createElement('a-entity');
     flower.setAttribute('gltf-model', `#${id}`);
-    flower.setAttribute('position', `${x} 0 -3.5`);
+    flower.setAttribute('position', `${x} 0 -0.5`);
     flower.setAttribute('final-scale', flowerScaleMap[id]);
     container.appendChild(flower);
-    animateEntityGrow(flower, 1200);
+    animateEntityGrow(flower, 2500, 1800);
   });
 
   // 💧 Pond + Wasserpflanzen
@@ -71,7 +72,7 @@ export function renderGarden(answers) {
   pond.setAttribute('rotation', '0 90 0');
   pond.setAttribute('final-scale', '1.2 1.2 1.2');
   container.appendChild(pond);
-  animateEntityGrow(pond, 2400);
+  animateEntityGrow(pond, 5000, 1800);
 
   if (answers.water === 'glass' || answers.water === 'refill') {
     const reed = document.createElement('a-entity');
@@ -79,7 +80,7 @@ export function renderGarden(answers) {
     reed.setAttribute('position', '0.8 0.01 2');
     reed.setAttribute('final-scale', '0.3 0.3 0.3');
     container.appendChild(reed);
-    animateEntityGrow(reed, 2400);
+    animateEntityGrow(reed, 5000, 1800);
   }
 
   if (answers.water === 'refill') {
@@ -88,7 +89,7 @@ export function renderGarden(answers) {
     lily.setAttribute('position', '-0.8 0.01 2');
     lily.setAttribute('final-scale', '0.3 0.3 0.3');
     container.appendChild(lily);
-    animateEntityGrow(lily, 2400);
+    animateEntityGrow(lily, 5000, 1800);
   }
 
   // 🌿 Büsche
@@ -111,14 +112,13 @@ export function renderGarden(answers) {
     bush.setAttribute('position', `${x} 0 1.4`);
     bush.setAttribute('final-scale', bushScaleMap[id]);
     container.appendChild(bush);
-    animateEntityGrow(bush, 3600);
+    animateEntityGrow(bush, 8500, 1800);
   });
 }
 
 
 
 
-  
   //   // // 🌞 oder ☁️
   // const hours = parseFloat(answers.screenHoursPerDay);
   //  if (isNaN(hours)) {
