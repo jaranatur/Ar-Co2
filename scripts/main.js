@@ -175,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (namePrompt) namePrompt.style.display = "flex";
 
 
-  setupNamePrompt();
 
   document.querySelector("#earth-container")?.setAttribute("visible", "false");
   document.querySelector("#hint-text")?.setAttribute("visible", "false");
@@ -189,6 +188,30 @@ document.addEventListener("DOMContentLoaded", () => {
   allInputIds.forEach(id => answers[id] = id === "screenHoursPerDay" ? 0 : "");
 
   updateLiveBall(0);
+
+
+
+  const startBtn = document.getElementById("start-btn");
+  const nameInput = document.getElementById("user-name");
+
+  if (startBtn && nameInput) {
+    setupNamePrompt();
+  } else {
+    const retryInterval = setInterval(() => {
+      const btn = document.getElementById("start-btn");
+      const input = document.getElementById("user-name");
+      if (btn && input) {
+        clearInterval(retryInterval);
+        setupNamePrompt();
+        console.log("✅ setupNamePrompt() wurde erfolgreich aufgerufen.");
+      }
+    }, 100);
+  }
+
+
+
+
+  
 
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
