@@ -101,7 +101,7 @@ export function renderGarden(answers) {
   };
   const bushScaleMap = {
     'bush-green': '5 5 5',
-    'bush-flower': '200 200 200',
+    'bush-flower': '1 1 1',
     'bush-dead': '1 1 1'
   };
   const bushes = bushMap[answers.paper];
