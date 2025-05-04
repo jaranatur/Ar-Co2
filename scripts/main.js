@@ -14,6 +14,8 @@ let currentIndex = 0;
 let answers = {};
 let userName = "";
 let currentQuestions = [];
+let currentFactIndex = 0;
+
 
 const renderButton = document.getElementById("render-button");
 const nextButton = document.getElementById("next-question");
@@ -133,6 +135,13 @@ function checkRenderReady() {
     renderButton.style.display = "none";
     nextButton.style.display = "inline-block";
   }
+  const factButton = document.getElementById("fact-button");
+  if (factButton) {
+    const shouldHideFactBtn = isLastQuestion && allAnswered;
+    factButton.style.display = shouldHideFactBtn ? "none" : "block";
+  }
+  
+
 }
 
 function showFeedback(questionId, selectedValue) {
@@ -476,7 +485,7 @@ export function renderFinalButtons() {
     <button><div>📷</div><span>Screenshot</span></button>
     <button><div>ℹ️</div><span>Fakten</span></button>
     <button><div>📊</div><span>Ergebnis</span></button>
-    <button><div>💡</div><span>Wusstest du?</span></button>
+    <button><div>💡</div><span>Wusstest du schon?</span></button>
     <button><div>🔁</div><span>Neu</span></button>
   `;
 
@@ -495,7 +504,13 @@ export function renderFinalButtons() {
     const factBox = document.getElementById("fact-overlay") || createFactBox(true);
     showFactAtIndex(currentFactIndex);
     factBox.style.display = "flex";
+  
+    // Blur alle finalen Buttons
+    document.querySelectorAll("#final-button-container button").forEach(btn =>
+      btn.classList.add("blurred")
+    );
   });
+  
 
 
   restartButton.addEventListener("click", () => {
@@ -540,7 +555,8 @@ function createFactBox(includeNavigation = false) {
   overlay.innerHTML = `
     <div class="fact-card">
       <button id="close-fact">✖</button>
-      <h3>💡 Wusstest du schon?</h3>
+      <h3>${includeNavigation ? "💡 Digital-Fakten" : "💡 Wusstest du schon, dass ... ?"}</h3>
+
       <p></p>
       ${
         includeNavigation
@@ -569,7 +585,12 @@ function createFactBox(includeNavigation = false) {
 
   overlay.querySelector("#close-fact").addEventListener("click", () => {
     overlay.style.display = "none";
+    document.querySelectorAll("#final-button-container button").forEach(btn => {
+      btn.classList.remove("blurred");
+    });
   });
+  
+  
 
   return overlay;
 }
