@@ -1,4 +1,4 @@
-export function animateEntityGrow(entity, delay = 0, duration = 1600) {
+export function animateEntityGrow(entity, delay = 0, duration = 2500) {
   entity.setAttribute('scale', '0.001 0.001 0.001');
   entity.setAttribute('visible', 'true');
   entity.setAttribute('animation__grow', {
@@ -77,8 +77,8 @@ export function renderGarden(answers) {
   if (answers.water === 'glass' || answers.water === 'refill') {
     const reed = document.createElement('a-entity');
     reed.setAttribute('gltf-model', '#reed');
-    reed.setAttribute('position', '0.8 0.01 2');
-    reed.setAttribute('final-scale', '0.3 0.3 0.3');
+    reed.setAttribute('position', '1 0.01 0.3');
+    reed.setAttribute('final-scale', '1 1 1');
     container.appendChild(reed);
     animateEntityGrow(reed, 5000, 1800);
   }
@@ -86,8 +86,8 @@ export function renderGarden(answers) {
   if (answers.water === 'refill') {
     const lily = document.createElement('a-entity');
     lily.setAttribute('gltf-model', '#lily');
-    lily.setAttribute('position', '-0.8 0.01 2');
-    lily.setAttribute('final-scale', '0.3 0.3 0.3');
+    lily.setAttribute('position', '-1.3 0.08 0.3');
+    lily.setAttribute('final-scale', '2 2 2');
     container.appendChild(lily);
     animateEntityGrow(lily, 5000, 1800);
   }
