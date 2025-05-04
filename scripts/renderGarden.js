@@ -100,8 +100,8 @@ export function renderGarden(answers) {
     often: ['bush-dead']
   };
   const bushScaleMap = {
-    'bush-green': '5 5 5',
-    'bush-flower': '1 1 1',
+    'bush-green': '5.5 5.5 5.5',
+    'bush-flower': '1.5 1.5 1.5',
     'bush-dead': '1 1 1'
   };
   const bushes = bushMap[answers.paper];
@@ -109,7 +109,7 @@ export function renderGarden(answers) {
     const x = bushes.length === 1 ? 0 : -1 + i * 2;
     const bush = document.createElement('a-entity');
     bush.setAttribute('gltf-model', `#${id}`);
-    bush.setAttribute('position', `${x} 0 1.4`);
+    bush.setAttribute('position', `${x} 0 1.2`);
     bush.setAttribute('final-scale', bushScaleMap[id]);
     container.appendChild(bush);
     animateEntityGrow(bush, 8500, 1800);
