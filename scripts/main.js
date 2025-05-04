@@ -169,10 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // initGlobals();
   // initScene();
-  setupNamePrompt();
+  
 
   const namePrompt = document.getElementById("name-prompt");
   if (namePrompt) namePrompt.style.display = "flex";
+
+
+  setupNamePrompt();
 
   document.querySelector("#earth-container")?.setAttribute("visible", "false");
   document.querySelector("#hint-text")?.setAttribute("visible", "false");
@@ -214,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
       attributeFilter: ["style"]
     });
   });
+ 
 
   document.getElementById("prev-question").addEventListener("click", () => {
     if (currentIndex > 0) {
