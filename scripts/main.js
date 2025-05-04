@@ -223,10 +223,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    document.querySelector(".input-card-header h2").innerHTML = `
-    ${userName}s Nachhaltigkeitsinfos 
-    <button id="fact-button" title="Wusstest du schon?" style="margin-left: 12px; font-size: 1rem; border: 1px solid #aaa; border-radius: 6px; padding: 2px 6px; cursor: pointer;">💡</button>
+    document.querySelector(".input-card-header").innerHTML = `
+    <h2>${userName}s Nachhaltigkeitsinfos</h2>
+    <button id="fact-button" title="Wusstest du schon?">💡</button>
   `;
+  
   
     document.getElementById("input-overlay").style.display = "flex";
     if (co2) co2.style.display = "flex";
