@@ -396,3 +396,53 @@ export function setupRestartButton() {
     }
   });
 }
+
+export function showFactsModal() {
+  if (document.getElementById('facts-modal')) {
+    document.getElementById('facts-modal').style.display = 'flex';
+    return;
+  }
+
+  const modal = document.createElement('div');
+  modal.id = 'facts-modal';
+  modal.innerHTML = `
+    <div class="facts-card">
+      <button id="close-facts">✖</button>
+      <h2>🌍 Mehr erfahren: Quellen & Inspiration</h2>
+      <p>In der Entwicklung dieser AR-Anwendung wurden neben offiziellen Klimazielen der Hochschule Düsseldorf auch praxisnahe Maßnahmen und digitale Bildungsformate berücksichtigt.</p>
+      <p>Die folgenden Ressourcen bieten weiterführende Informationen für alle, die sich tiefer mit dem Thema Nachhaltigkeit, CO₂-Reduktion und digitaler Vermittlung beschäftigen möchten:</p>
+
+      <h3>📚 Quellen zur HSD & Klimaschutz</h3>
+      <ul>
+        <li><strong>Klimaschutzkonzept der Hochschule Düsseldorf (2020)</strong><br>
+          <a href="https://example.com/pdf1" target="_blank">Download PDF</a><br>
+          Enthält Ziele, Maßnahmen und Emissionsdaten – u. a. das 100 kg CO₂-Jahresziel für Studierende.
+        </li>
+        <li><strong>Maßnahmenkatalog Nachhaltigkeit der HSD</strong><br>
+          <a href="https://example.com/pdf2" target="_blank">PDF: Maßnahmenübersicht</a><br>
+          Workshops, Energie-Scouts, EMAS-System, Mobilität etc.
+        </li>
+      </ul>
+
+      <h3>🌐 Inspirierende AR-Projekte</h3>
+      <ul>
+        <li><strong>„Explore Münster“</strong> – <a href="https://explore-muenster.de" target="_blank">Website</a></li>
+        <li><strong>„Die Befreiung AR“</strong> – <a href="https://br.de/zaubar" target="_blank">Zur Webversion</a></li>
+        <li><strong>„Chemnitz.ZeitWeise“</strong> – <a href="https://zeitweise.app" target="_blank">Zur App</a></li>
+      </ul>
+
+      <h3>💡 Weitere Recherchemöglichkeiten</h3>
+      <ul>
+        <li><strong>Nachhaltigkeit & Lehre</strong> – <a href="https://www.hoch-n.org" target="_blank">hoch-n.org</a></li>
+        <li><strong>CO₂-Rechner</strong> – <a href="https://uba.co2-rechner.de" target="_blank">UBA-Rechner</a></li>
+      </ul>
+
+      <p><strong>👉 Tipp:</strong> Diese Anwendung zeigt dir einen Richtwert für deinen CO₂-Fußabdruck im Uni-Alltag. Für genauere Einblicke schau in die verlinkten Quellen.</p>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  document.getElementById("close-facts").onclick = () => {
+    modal.style.display = 'none';
+  };
+}
