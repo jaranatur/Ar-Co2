@@ -5,7 +5,7 @@ const sign = document.createElement('a-entity');
 sign.setAttribute('gltf-model', '#wood-sign');
 sign.setAttribute('position', '0 0 -0.8');  // zentriert, leicht vorne
 sign.setAttribute('rotation', '0 180 0');  // dreht das Schild zur Kamera
-sign.setAttribute('final-scale', '1 1 1');
+sign.setAttribute('final-scale', '5 5 5');
 container.appendChild(sign);
 animateEntityGrow(sign, 0, 1800); // zuerst animieren
 
