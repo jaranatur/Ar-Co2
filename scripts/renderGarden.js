@@ -120,25 +120,17 @@ export function renderGarden(answers) {
 
 
  // ☀️ oder ☁️ je nach Bildschirmzeit
-const hours = parseFloat(answers.screenHoursPerDay);
-if (isNaN(hours)) {
-  console.warn('⚠️ Ungültiger screenHoursPerDay:', answers.screenHoursPerDay);
-  return;
-}
-
+// ☀️ Sonnenlicht
 if (hours <= 2) {
-  // 🌞 Helle Szene mit Sonne
   const sun = document.createElement('a-entity');
   sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 0.8; castShadow: true');
   sun.setAttribute('position', '2 4 2');
   container.appendChild(sun);
 
-  // 👀 Optional: Himmel zur Aufhellung
-  const sky = document.createElement('a-sky');
-  sky.setAttribute('color', '#e5f5ff');
-  container.appendChild(sky);
-
-  console.log('🌞 Sonne + Himmel platziert.');
+  // 💡 Umgebungslicht
+  const ambient = document.createElement('a-entity');
+  ambient.setAttribute('light', 'type: ambient; color: #ffffff; intensity: 0.6');
+  container.appendChild(ambient);
 } else {
   // ☁️ Wolke
   const cloud = document.createElement('a-entity');
@@ -147,7 +139,6 @@ if (hours <= 2) {
   cloud.setAttribute('position', '-1.5 3 -2');
   cloud.setAttribute('scale', '0.8 0.8 0.8');
 
-  // ➡️ Animation (horizontal verschieben)
   cloud.setAttribute('animation__move', {
     property: 'position',
     from: '-1.5 3 -2',
@@ -161,7 +152,6 @@ if (hours <= 2) {
   container.appendChild(cloud);
   console.log('☁️ Wolke mit Animation platziert.');
 }
-
 }
 
 
