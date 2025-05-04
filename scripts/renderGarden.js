@@ -1,3 +1,14 @@
+
+
+// 🪧 Schild
+const sign = document.createElement('a-entity');
+sign.setAttribute('gltf-model', '#wood-sign');
+sign.setAttribute('position', '0 0 -0.8');  // zentriert, leicht vorne
+sign.setAttribute('rotation', '0 180 0');  // dreht das Schild zur Kamera
+sign.setAttribute('final-scale', '1 1 1');
+container.appendChild(sign);
+animateEntityGrow(sign, 0, 1800); // zuerst animieren
+
 export function animateEntityGrow(entity, delay = 0, duration = 2500) {
   entity.setAttribute('scale', '0.001 0.001 0.001');
   entity.setAttribute('visible', 'true');
@@ -119,39 +130,39 @@ export function renderGarden(answers) {
 
 
 
- // ☀️ oder ☁️ je nach Bildschirmzeit
-// ☀️ Sonnenlicht
-if (hours <= 2) {
-  const sun = document.createElement('a-entity');
-  sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 0.8; castShadow: true');
-  sun.setAttribute('position', '2 4 2');
-  container.appendChild(sun);
+//  // ☀️ oder ☁️ je nach Bildschirmzeit
+// // ☀️ Sonnenlicht
+// if (hours <= 2) {
+//   const sun = document.createElement('a-entity');
+//   sun.setAttribute('light', 'type: directional; color: #fffca0; intensity: 0.8; castShadow: true');
+//   sun.setAttribute('position', '2 4 2');
+//   container.appendChild(sun);
 
-  // 💡 Umgebungslicht
-  const ambient = document.createElement('a-entity');
-  ambient.setAttribute('light', 'type: ambient; color: #ffffff; intensity: 0.6');
-  container.appendChild(ambient);
-} else {
-  // ☁️ Wolke
-  const cloud = document.createElement('a-entity');
-  cloud.setAttribute('gltf-model', '#cloud');
-  cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
-  cloud.setAttribute('position', '-1.5 3 -2');
-  cloud.setAttribute('scale', '0.8 0.8 0.8');
+//   // 💡 Umgebungslicht
+//   const ambient = document.createElement('a-entity');
+//   ambient.setAttribute('light', 'type: ambient; color: #ffffff; intensity: 0.6');
+//   container.appendChild(ambient);
+// } else {
+//   // ☁️ Wolke
+//   const cloud = document.createElement('a-entity');
+//   cloud.setAttribute('gltf-model', '#cloud');
+//   cloud.setAttribute('material', `color: ${hours > 5 ? '#555' : '#ccc'}`);
+//   cloud.setAttribute('position', '-1.5 3 -2');
+//   cloud.setAttribute('scale', '0.8 0.8 0.8');
 
-  cloud.setAttribute('animation__move', {
-    property: 'position',
-    from: '-1.5 3 -2',
-    to: '1.5 3 -2',
-    dur: 8000,
-    loop: true,
-    dir: 'alternate',
-    easing: 'easeInOutSine'
-  });
+//   cloud.setAttribute('animation__move', {
+//     property: 'position',
+//     from: '-1.5 3 -2',
+//     to: '1.5 3 -2',
+//     dur: 8000,
+//     loop: true,
+//     dir: 'alternate',
+//     easing: 'easeInOutSine'
+//   });
 
-  container.appendChild(cloud);
-  console.log('☁️ Wolke mit Animation platziert.');
-}
+//   container.appendChild(cloud);
+//   console.log('☁️ Wolke mit Animation platziert.');
+// }
 }
 
 
