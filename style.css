@@ -447,3 +447,37 @@ a-scene[hidden] {
 #final-button-container button span {
   font-size: 0.8em; /* Text-Größe */
 }
+
+
+#fact-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 300px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.fact-card {
+  display: flex;
+  flex-direction: column;
+}
+#close-fact {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.blurred {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+  overflow: hidden;
+}
+

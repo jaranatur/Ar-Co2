@@ -7,6 +7,8 @@ import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
 import { renderGarden } from './renderGarden.js';
 // import { grassGrow } from "./renderGarden.js";
+import { digitalFacts } from './common/digitalFacts.js';
+
 
 let currentIndex = 0;
 let answers = {};
@@ -195,7 +197,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+    document.querySelector(".input-card-header h2").innerHTML = `
+    ${userName}s Nachhaltigkeitsinfos 
+    <button id="fact-button" title="Wusstest du schon?" style="margin-left: 12px; font-size: 1rem; border: 1px solid #aaa; border-radius: 6px; padding: 2px 6px; cursor: pointer;">💡</button>
+  `;
+  
     document.getElementById("input-overlay").style.display = "flex";
     if (co2) co2.style.display = "flex";
 
@@ -453,3 +459,31 @@ export function renderFinalButtons() {
 }
 
 
+document.addEventListener("click", (e) => {
+  if (e.target.id === "fact-button") {
+    const factBox = document.getElementById("fact-overlay") || createFactBox();
+    const random = digitalFacts[Math.floor(Math.random() * digitalFacts.length)];
+    factBox.querySelector("p").textContent = random;
+    factBox.style.display = "flex";
+    document.getElementById("input-overlay").classList.add("blurred");
+  }
+
+  if (e.target.id === "close-fact") {
+    document.getElementById("fact-overlay").style.display = "none";
+    document.getElementById("input-overlay").classList.remove("blurred");
+  }
+});
+
+function createFactBox() {
+  const overlay = document.createElement("div");
+  overlay.id = "fact-overlay";
+  overlay.innerHTML = `
+    <div class="fact-card">
+      <button id="close-fact">✖</button>
+      <h3>💡 Wusstest du schon?</h3>
+      <p></p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  return overlay;
+}
