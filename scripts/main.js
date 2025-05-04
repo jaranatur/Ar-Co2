@@ -223,10 +223,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    document.querySelector(".input-card-header").innerHTML = `
-    <h2>${userName}s Nachhaltigkeitsinfos</h2>
-    <button id="fact-button" title="Wusstest du schon?">💡</button>
-  `;
+    document.querySelector(".input-card-header h2").textContent = `${userName}s Nachhaltigkeitsinfos`;
+
   
   
     document.getElementById("input-overlay").style.display = "flex";
@@ -395,15 +393,31 @@ function startMainFlow() {
   currentIndex = 0;
 
   const indicator = document.getElementById("co2-indicator");
-  if (indicator) {
-    indicator.style.display = "flex";
-  }
+  if (indicator) indicator.style.display = "flex";
 
   renderQuestion(currentIndex);
 
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
+
+  // 👉 Button nur hier erstellen (nur bei mainQuestions)
+  if (!document.getElementById("fact-button")) {
+    const btn = document.createElement("button");
+    btn.id = "fact-button";
+    btn.innerHTML = "💡 Wusstest du schon, dass?";
+    btn.addEventListener("click", () => {
+      const factBox = document.getElementById("fact-overlay") || createFactBox();
+      const random = digitalFacts[Math.floor(Math.random() * digitalFacts.length)];
+      factBox.querySelector("p").textContent = random;
+      factBox.style.display = "flex";
+      document.getElementById("input-overlay").classList.add("blurred");
+    });
+    document.body.appendChild(btn);
+  } else {
+    document.getElementById("fact-button").style.display = "block";
+  }
 }
+
 
 export function showFactsModal() {
   if (document.getElementById('facts-modal')) {
