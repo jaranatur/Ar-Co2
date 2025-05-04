@@ -1,13 +1,5 @@
 
 
-// 🪧 Schild
-const sign = document.createElement('a-entity');
-sign.setAttribute('gltf-model', '#wooden-sign');
-sign.setAttribute('position', '0 0 -0.8');  // zentriert, leicht vorne
-sign.setAttribute('rotation', '0 180 0');  // dreht das Schild zur Kamera
-sign.setAttribute('final-scale', '5 5 5');
-container.appendChild(sign);
-animateEntityGrow(sign, 0, 1800); // zuerst animieren
 
 export function animateEntityGrow(entity, delay = 0, duration = 2500) {
   entity.setAttribute('scale', '0.001 0.001 0.001');
@@ -25,6 +17,19 @@ export function animateEntityGrow(entity, delay = 0, duration = 2500) {
 export function renderGarden(answers) {
   const container = document.querySelector('#garden-container');
   if (!container) return;
+
+// 🪧 Schild
+
+
+
+  const sign = document.createElement('a-entity');
+  sign.setAttribute('gltf-model', '#wooden-sign');
+  sign.setAttribute('position', '0 0 -0.8');  // zentriert, leicht vorne
+  sign.setAttribute('rotation', '0 180 0');  // dreht das Schild zur Kamera
+  sign.setAttribute('final-scale', '5 5 5');
+  container.appendChild(sign);
+  animateEntityGrow(sign, 0, 1800); // zuerst animieren
+  
 
   // ❗Nur Elemente außer der Wiese löschen
   [...container.children].forEach(child => {
