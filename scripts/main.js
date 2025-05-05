@@ -597,45 +597,65 @@ function createFactBox(includeNavigation = false) {
   return overlay;
 }
 function showResultOverlay() {
-  // Ergebnis berechnen
   const result = calculateFootprint(answers);
+  const overlayId = "result-overlay";
+  let overlay = document.getElementById(overlayId);
 
-  // Wenn Overlay existiert, nur aktualisieren
-  let overlay = document.getElementById("result-overlay");
   if (!overlay) {
     overlay = document.createElement("div");
-    overlay.id = "result-overlay";
+    overlay.id = overlayId;
     overlay.innerHTML = `
       <div class="result-card">
         <button id="close-result">✖</button>
-        <h3>📊 Dein CO₂-Fußabdruck</h3>
+        <h3>📊 Dein CO₂-Fußabdruck im Studienalltag an der HSD</h3>
         <div id="result-content"></div>
+        <button id="show-more-facts">🔗 Mehr erfahren</button>
       </div>`;
     document.body.appendChild(overlay);
 
-    // Schließen-Button Event
     document.getElementById("close-result").addEventListener("click", () => {
       overlay.style.display = "none";
       document.querySelectorAll("#final-button-container button").forEach(btn => {
         btn.classList.remove("blurred");
       });
     });
+
+    document.getElementById("show-more-facts").addEventListener("click", () => {
+      overlay.style.display = "none";
+      showFactsModal();
+    });
   }
 
-  // Ergebnis-Inhalt füllen
+  let klimaText = "";
+  if (result.totalKg > 100) {
+    klimaText = `
+      Die Hochschule Düsseldorf hat sich im Klimaschutzkonzept das Ziel gesetzt, die individuellen CO₂-Emissionen von Studierenden bis 2030 auf 100 kg CO₂ pro Jahr zu senken. Dein aktueller Wert liegt deutlich darüber – aber: <strong>jede Veränderung zählt.</strong>
+    `;
+  } else {
+    klimaText = `
+      Super! Du liegst bereits unter dem Ziel der Hochschule Düsseldorf von 100 kg CO₂ pro Jahr. Damit leistest du schon jetzt einen wichtigen Beitrag zur Erreichung der Klimaschutzziele. Weiter so! 🎉
+    `;
+  }
+
   const content = overlay.querySelector("#result-content");
   content.innerHTML = `
-    <p>🌍 <strong>Gesamt:</strong> ${result.totalKg} kg CO₂ pro Semester</p>
-    <p>🌳 <strong>Bäume benötigt:</strong> ${result.trees}</p>
-    <p>📅 <strong>Overshoot-Day:</strong> ${result.overshootDay}</p>
-    <h4>💡 Tipps für dich:</h4>
+    <p>🌍 <strong>Gesamt:</strong> ${result.totalKg} kg CO₂ (pro Semester)</p>
+    <p>${klimaText}</p>
+    <p>🌳 <strong>Bäume benötigt:</strong> ${result.trees}<br>
+    Um diesen CO₂-Ausstoß auszugleichen, müssten ${result.trees} Bäume gepflanzt werden – und zwar jedes Jahr aufs Neue.</p>
+    <p>📆 <strong>Overshoot Day:</strong> ${result.overshootDay}<br>
+    Würden alle Studierenden so leben wie du in deinem Studienalltag, wären die natürlichen Ressourcen der Erde bereits am ${result.overshootDay} eines Jahres aufgebraucht.</p>
+    <h4>💡 Tipps für dich</h4>
+    <p>(Kleine Veränderungen im Uni-Alltag können große Wirkung zeigen)</p>
     <ul>${result.tips.map(tip => `<li>${tip}</li>`).join('')}</ul>
+    <p>
+      <strong>🔗 Mehr erfahren?</strong><br>
+      Tippe auf den ℹ️ Button unten, um weitere Fakten, Hintergrundinformationen und Quellen rund um Nachhaltigkeit, CO₂ und digitale Verantwortung zu entdecken.<br>
+      Dort findest du auch das Klimaziel der HSD, CO₂-Vergleiche sowie Inspirationen für deinen Alltag.
+    </p>
   `;
 
-  // Overlay anzeigen
   overlay.style.display = "flex";
-
-  // Buttons ausblenden (Blur)
   document.querySelectorAll("#final-button-container button").forEach(btn => {
     btn.classList.add("blurred");
   });
