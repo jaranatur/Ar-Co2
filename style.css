@@ -514,6 +514,7 @@ a-scene[hidden] {
   overflow-y: auto;
   backdrop-filter: blur(4px);
   box-sizing: border-box;
+  padding-bottom: 5vh;
 }
 
 .result-card {
