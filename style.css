@@ -463,6 +463,7 @@ a-scene[hidden] {
   display: none;
   flex-direction: column;
   gap: 0.8rem;
+  padding-bottom: 20vh;
 }
 .fact-card {
   display: flex;
@@ -514,7 +515,7 @@ a-scene[hidden] {
   overflow-y: auto;
   backdrop-filter: blur(4px);
   box-sizing: border-box;
-  padding-bottom: 10vh;
+  padding-bottom: 20vh;
 }
 
 .result-card {
