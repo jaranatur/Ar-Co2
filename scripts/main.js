@@ -561,6 +561,25 @@ export function renderFinalButtons() {
 }
 
 
+document.getElementById("save-screenshot-btn").addEventListener("click", async () => {
+  const btn = document.getElementById("save-screenshot-btn");
+  btn.style.display = "none";
+
+  await new Promise(resolve => setTimeout(resolve, 300));
+
+  html2canvas(document.getElementById("screenshot-mode"), { useCORS: true }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "mein-co2-fakten.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    btn.style.display = "block";
+  });
+});
+
+
+
+
 document.addEventListener("click", (e) => {
   if (e.target.id === "fact-button") {
     const factBox = document.getElementById("fact-overlay") || createFactBox();
