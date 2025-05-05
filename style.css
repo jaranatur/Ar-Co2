@@ -509,10 +509,13 @@ a-scene[hidden] {
   background: rgba(0,0,0,0.4);
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* NEU: Inhalt beginnt oben */
+  padding-top: 5vh;         /* NEU: Abstand nach oben */
   z-index: 10000;
+  overflow-y: auto;         /* NEU: Scrollen erlauben */
   backdrop-filter: blur(4px);
 }
+
 
 .result-card {
   background: white;
@@ -522,9 +525,10 @@ a-scene[hidden] {
   max-width: 480px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   position: relative;
-  text-align: center;
   font-family: sans-serif;
+  text-align: left;
 }
+
 
 .result-card h3 {
   margin-top: 0;
