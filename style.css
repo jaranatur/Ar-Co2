@@ -499,3 +499,48 @@ a-scene[hidden] {
 #fact-button:hover {
   transform: translateX(-50%) scale(1.05);
 }
+
+#result-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.result-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  position: relative;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.result-card h3 {
+  margin-top: 0;
+}
+
+.result-card ul {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.result-card button#close-result {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

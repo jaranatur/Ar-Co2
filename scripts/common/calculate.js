@@ -1,14 +1,16 @@
 // calculate.js
 
+
+
 export function calculateFootprint({
-  distance,         // in km (einfach)
-  transport,        // auto, carpool, public, bike, walk
-  daysPerWeek,      // wie oft pro Woche an der HSD
-  mealsPerWeek,     // Mensa-Besuche pro Woche
-  diet,             // meat-daily, meat-rare, vegetarian, vegan
-  water,            // plastic, glass, refill
-  paper,            // none, monthly, weekly, often
-  screenHoursPerDay // z. B. 3.5
+  distance,
+  transport,
+  daysPerWeek,
+  mealsPerWeek,
+  diet,
+  water,
+  paper,
+  screenHoursPerDay
 }) {
   let total = 0;
   const semesterWeeks = 30;
@@ -91,7 +93,58 @@ export function calculateFootprint({
   // ✨ Ausgabe
   return {
     totalKg: parseFloat(total.toFixed(1)),
-    equivalent: "≈ Flug Düsseldorf → Lissabon",
-    trees: Math.ceil(total / 21) // 1 Baum ≈ 21 kg CO₂
+    trees: Math.ceil(total / 21), // 1 Baum ≈ 21 kg
+    overshootDay: calculateOvershootDay(total),
+    tips: generateImprovementTips({
+      distance, transport, daysPerWeek, mealsPerWeek,
+      diet, water, paper, screenHoursPerDay
+    })
   };
+}
+// 📁 calculate.js
+
+export function calculateOvershootDay(totalKg) {
+  const targetPerYear = 2000; // Pariser Ziel: 2 Tonnen CO₂/Jahr
+  const days = Math.round((totalKg / targetPerYear) * 365);
+  const baseDate = new Date(new Date().getFullYear(), 0, 1);
+  baseDate.setDate(baseDate.getDate() + days);
+  return baseDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long" });
+}
+
+export function generateImprovementTips(answers) {
+  const tips = [];
+
+  if (answers.diet === "meat-daily") {
+    tips.push("🍖 Wenn du nur an wenigen Tagen Fleisch isst, kannst du bis zu **30 kg CO₂ pro Jahr** sparen.");
+  } else if (answers.diet === "meat-rare") {
+    tips.push("🥦 Du isst schon selten Fleisch – noch klimafreundlicher wäre eine überwiegend vegetarische oder vegane Ernährung.");
+  }
+
+  if (answers.transport === "auto") {
+    tips.push("🚗 Der Wechsel vom Auto zum Fahrrad oder ÖPNV kann dir jährlich **bis zu 200 kg CO₂** einsparen.");
+  } else if (answers.transport === "carpool") {
+    tips.push("🚘 Fahrgemeinschaften sind besser als alleine fahren – noch nachhaltiger wäre der Umstieg auf Bus, Bahn oder Fahrrad.");
+  } else if (answers.transport === "public") {
+    tips.push("🚌 Der ÖPNV ist super – wenn’s möglich ist, könntest du kurze Strecken auch mal mit dem Fahrrad fahren.");
+  }
+
+  if (answers.screenHoursPerDay > 5) {
+    tips.push("📺 Weniger Streaming in HD kann dir schnell **50 kg CO₂ pro Jahr** sparen – SD reicht oft völlig aus.");
+  } else if (answers.screenHoursPerDay > 3) {
+    tips.push("📱 Ein bewusster Umgang mit Streaming und Geräten spart CO₂ – probier mal Podcast oder Lesen statt Video.");
+  }
+
+  if (answers.water === "plastic") {
+    tips.push("💧 Eine Mehrwegflasche spart über das Jahr hinweg mehrere Kilo CO₂ – und auch Plastikmüll.");
+  } else if (answers.water === "glass") {
+    tips.push("🔁 Glasflaschen sind besser als Plastik – am nachhaltigsten sind langlebige, selbst befüllte Mehrwegflaschen.");
+  }
+
+  if (answers.paper === "often") {
+    tips.push("📄 Viel Papierverbrauch lässt sich leicht reduzieren – doppelseitig drucken oder digital arbeiten spart **~30 kg CO₂**.");
+  } else if (answers.paper === "weekly") {
+    tips.push("📝 Du verwendest regelmäßig Papier – vielleicht kannst du auf digitale Notizen umsteigen?");
+  }
+
+  return tips.slice(0, 3); // Maximal 3 Tipps
 }

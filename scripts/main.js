@@ -485,7 +485,7 @@ export function renderFinalButtons() {
     <button><div>📷</div><span>Screenshot</span></button>
     <button><div>ℹ️</div><span>Fakten</span></button>
     <button><div>📊</div><span>Ergebnis</span></button>
-    <button><div>💡</div><span>Wusstest du schon?</span></button>
+    <button><div>💡</div><span>Wusstest du ?</span></button>
     <button><div>🔁</div><span>Neu</span></button>
   `;
 
@@ -493,10 +493,12 @@ export function renderFinalButtons() {
 
   const buttons = document.querySelectorAll("#final-button-container button");
   const factsButton = buttons[1];   // ℹ️
+  const resultButton = buttons[2];
   const tipButton = buttons[3];     // 💡
   const restartButton = buttons[4]; // 🔁
 
   factsButton.addEventListener("click", showFactsModal);
+  resultButton.addEventListener("click", showResultOverlay)
 
   let currentFactIndex = 0;
 
@@ -593,4 +595,48 @@ function createFactBox(includeNavigation = false) {
   
 
   return overlay;
+}
+function showResultOverlay() {
+  // Ergebnis berechnen
+  const result = calculateFootprint(answers);
+
+  // Wenn Overlay existiert, nur aktualisieren
+  let overlay = document.getElementById("result-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "result-overlay";
+    overlay.innerHTML = `
+      <div class="result-card">
+        <button id="close-result">✖</button>
+        <h3>📊 Dein CO₂-Fußabdruck</h3>
+        <div id="result-content"></div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    // Schließen-Button Event
+    document.getElementById("close-result").addEventListener("click", () => {
+      overlay.style.display = "none";
+      document.querySelectorAll("#final-button-container button").forEach(btn => {
+        btn.classList.remove("blurred");
+      });
+    });
+  }
+
+  // Ergebnis-Inhalt füllen
+  const content = overlay.querySelector("#result-content");
+  content.innerHTML = `
+    <p>🌍 <strong>Gesamt:</strong> ${result.totalKg} kg CO₂ pro Semester</p>
+    <p>🌳 <strong>Bäume benötigt:</strong> ${result.trees}</p>
+    <p>📅 <strong>Overshoot-Day:</strong> ${result.overshootDay}</p>
+    <h4>💡 Tipps für dich:</h4>
+    <ul>${result.tips.map(tip => `<li>${tip}</li>`).join('')}</ul>
+  `;
+
+  // Overlay anzeigen
+  overlay.style.display = "flex";
+
+  // Buttons ausblenden (Blur)
+  document.querySelectorAll("#final-button-container button").forEach(btn => {
+    btn.classList.add("blurred");
+  });
 }
