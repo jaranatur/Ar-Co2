@@ -7,6 +7,8 @@
 
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -179,6 +181,34 @@
 </div>
 
 
+
+<div id="screenshot-facts" style="
+  display: none;
+  position: fixed;
+  top: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1.4rem 1.2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  width: 92%;
+  max-width: 480px;
+  z-index: 99999;
+  text-align: left;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.45;
+">
+  <h3 style="margin-top: 0; font-size: 1.1rem;">📊 Dein CO₂-Fußabdruck</h3>
+  <p id="sf-total"></p>
+  <p id="sf-overshoot"></p>
+  <p id="sf-trees"></p>
+</div>
+
+
+
+
       <!-- Ergebnisanzeige -->
       <div id="result-box" style="display: none; text-align: center;">
         <div id="summary-box" class="result-section"></div>
@@ -186,6 +216,10 @@
         <div id="trees-box" class="result-section"></div>
       </div>
     </div>
+
+
+
+
 
     <script type="module" src="scripts/main.js"></script>
   </body>

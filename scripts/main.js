@@ -492,6 +492,42 @@ export function renderFinalButtons() {
   document.body.appendChild(container);
 
   const buttons = document.querySelectorAll("#final-button-container button");
+  const screenshotButton = buttons[0]; // 📷 Screenshot
+
+
+
+  screenshotButton.addEventListener("click", async () => {
+    const finalButtons = document.getElementById("final-button-container");
+    const factBox = document.getElementById("screenshot-facts");
+    const result = calculateFootprint(answers);
+  
+    // Fakten füllen
+    document.getElementById("sf-total").textContent = `🌍 Gesamt: ${result.totalKg} kg CO₂ (pro Semester)`;
+    document.getElementById("sf-overshoot").textContent = `📆 Overshoot Day: ${result.overshootDay}`;
+    document.getElementById("sf-trees").textContent = `🌳 Bäume benötigt: ${result.trees}`;
+  
+    // Anzeigen & Buttons verstecken
+    factBox.style.display = "block";
+    finalButtons.style.display = "none";
+  
+    // Warten, damit Anzeige korrekt ist
+    await new Promise(resolve => setTimeout(resolve, 500));
+  
+    // Screenshot machen
+    html2canvas(document.body, { useCORS: true }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "mein-co2-fakten.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+  
+      // Alles zurücksetzen
+      factBox.style.display = "none";
+      finalButtons.style.display = "flex";
+    });
+  });
+  
+
+
   const factsButton = buttons[1];   // ℹ️
   const resultButton = buttons[2];
   const tipButton = buttons[3];     // 💡
