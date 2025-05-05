@@ -182,29 +182,27 @@
 
 
 
-<div id="screenshot-facts" style="
+<!-- 🎯 Screenshot-Modus: Abschlussbildschirm -->
+<div id="screenshot-mode" style="
   display: none;
   position: fixed;
-  top: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.85);
-  padding: 1.4rem 1.2rem;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-  width: 92%;
-  max-width: 480px;
-  z-index: 99999;
-  text-align: left;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 999999;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  overflow: auto;
   font-family: sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.45;
+  text-align: left;
 ">
-  <h3 style="margin-top: 0; font-size: 1.1rem;">📊 Dein CO₂-Fußabdruck</h3>
-  <p id="sf-total"></p>
-  <p id="sf-overshoot"></p>
-  <p id="sf-trees"></p>
+  <h2 style="margin-top: 0; font-size: 1.3rem;">📊 Deine CO₂-Bilanz im Uni-Alltag</h2>
+  <p id="sm-total"></p>
+  <p id="sm-overshoot"></p>
+  <p id="sm-trees"></p>
 </div>
+
 
 
 

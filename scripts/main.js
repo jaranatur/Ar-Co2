@@ -498,33 +498,35 @@ export function renderFinalButtons() {
 
   screenshotButton.addEventListener("click", async () => {
     const finalButtons = document.getElementById("final-button-container");
-    const factBox = document.getElementById("screenshot-facts");
+    const screenshotMode = document.getElementById("screenshot-mode");
+  
     const result = calculateFootprint(answers);
   
-    // Fakten füllen
-    document.getElementById("sf-total").textContent = `🌍 Gesamt: ${result.totalKg} kg CO₂ (pro Semester)`;
-    document.getElementById("sf-overshoot").textContent = `📆 Overshoot Day: ${result.overshootDay}`;
-    document.getElementById("sf-trees").textContent = `🌳 Bäume benötigt: ${result.trees}`;
+    // Fakten setzen
+    document.getElementById("sm-total").textContent = `🌍 Gesamt: ${result.totalKg} kg CO₂ (pro Semester)`;
+    document.getElementById("sm-overshoot").textContent = `📆 Overshoot Day: ${result.overshootDay}`;
+    document.getElementById("sm-trees").textContent = `🌳 Bäume benötigt: ${result.trees}`;
   
-    // Anzeigen & Buttons verstecken
-    factBox.style.display = "block";
+    // Nur Screenshot-Modus anzeigen
     finalButtons.style.display = "none";
+    screenshotMode.style.display = "block";
   
-    // Warten, damit Anzeige korrekt ist
+    // Warten, bis es sichtbar ist
     await new Promise(resolve => setTimeout(resolve, 500));
   
-    // Screenshot machen
-    html2canvas(document.body, { useCORS: true }).then(canvas => {
+    // Screenshot nur vom Abschlussbereich machen
+    html2canvas(screenshotMode, { useCORS: true }).then(canvas => {
       const link = document.createElement("a");
       link.download = "mein-co2-fakten.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
   
-      // Alles zurücksetzen
-      factBox.style.display = "none";
+      // Rückkehr zur AR-Szene
+      screenshotMode.style.display = "none";
       finalButtons.style.display = "flex";
     });
   });
+  
   
 
 
