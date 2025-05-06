@@ -591,3 +591,44 @@ a-scene[hidden] {
 .result-card button#show-more-facts:hover {
   background-color: #388e3c;
 }
+
+:root {
+  --color-green: #a8dadc;
+  --color-green-dark: #89c2d9;
+}
+
+/* 🟩 Einheitliches Design für alle SELECTs */
+.input-card select {
+  border: 1px solid var(--color-green);
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20fill%3D'%23a8dadc'%20viewBox%3D'0%200%2024%2024'%20xmlns%3D'http://www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M7%2010l5%205%205-5H7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2rem;
+  color: #333;
+}
+
+/* 🟩 Alle Buttons einheitlich */
+.input-card button,
+#render-button,
+.result-card button#show-more-facts {
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.input-card button:hover,
+#render-button:hover,
+.result-card button#show-more-facts:hover {
+  background-color: var(--color-green-dark);
+}
+
+.input-card select,
+.input-card input[type="range"] {
+  margin-bottom: 1.6rem; /* oder mehr, z.B. 2rem */
+}
