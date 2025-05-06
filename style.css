@@ -235,7 +235,7 @@ canvas.arjs-video {
 /* 🎯 Navigation */
 #nav-buttons {
   position: fixed;
-  top: 240px; /* exakt vertikal mittig zum Donut */
+  top: 330px; /* exakt vertikal mittig zum Donut */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
