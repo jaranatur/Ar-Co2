@@ -233,7 +233,7 @@ canvas.arjs-video {
 /* 🎯 Navigation */
 #nav-buttons {
   position: fixed;
-  top: 270px;
+  top: 330px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -303,7 +303,7 @@ a-scene[hidden] {
 
 #feedback-text {
   position: absolute;
-  top: 410px;
+  top: 470px;
   left: 50%;
   transform: translate(-50%, 8px);
   width: 90%;
