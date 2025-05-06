@@ -50,7 +50,7 @@ a-entity {
 /* 🌍 CO₂-Kreis */
 #co2-indicator {
   position: fixed;
-  top: 240px;
+  top: 300px;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
@@ -248,8 +248,9 @@ canvas.arjs-video {
   border-radius: 50%;
   font-size: 1.6rem;
   border: none;
-  background-color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
