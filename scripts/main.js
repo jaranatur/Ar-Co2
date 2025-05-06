@@ -614,7 +614,7 @@ function createFactBox(includeNavigation = false) {
   overlay.innerHTML = `
     <div class="fact-card">
       <button id="close-fact">✖</button>
-      <h3>${includeNavigation ? "💡 Digital-Fakten" : "💡 Wusstest du schon, dass ... ?" }</h3>
+      <h3>${includeNavigation ? "💡 Digital-Fakten" : "💡 Wusstest du schon, dass ... " }</h3>
 
       <p></p>
       ${
