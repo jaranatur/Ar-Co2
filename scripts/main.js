@@ -413,7 +413,7 @@ function startMainFlow() {
   if (!document.getElementById("fact-button")) {
     const btn = document.createElement("button");
     btn.id = "fact-button";
-    btn.innerHTML = "💡 Wusstest du schon, dass...?";
+    btn.innerHTML = "💡 Wusstest du schon, dass...";
     btn.addEventListener("click", () => {
       const factBox = document.getElementById("fact-overlay") || createFactBox();
       const random = digitalFacts[Math.floor(Math.random() * digitalFacts.length)];

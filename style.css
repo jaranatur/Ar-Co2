@@ -240,7 +240,7 @@ canvas.arjs-video {
   transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
-  width: 260px; /* näher am Donut */
+  width: 280px; /* näher am Donut */
   z-index: 9999;
 }
 
