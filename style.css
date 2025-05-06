@@ -648,3 +648,18 @@ a-scene[hidden] {
 .input-card input[type="range"] {
   margin-bottom: 1.6rem; /* oder mehr, z.B. 2rem */
 }
+#name-prompt button {
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.8rem 1.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+#name-prompt button:hover {
+  background-color: var(--color-green-dark);
+}
