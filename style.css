@@ -55,6 +55,7 @@ a-entity {
   transform: translateX(-50%);
   width: 140px;
   height: 140px;
+  aspect-ratio: 1 / 1;
   z-index: 9999;
   background: rgba(255,255,255,0.92);
   border-radius: 50%;
@@ -67,6 +68,7 @@ a-entity {
 .donut {
   width: 100%;
   height: 100%;
+   aspect-ratio: 1 / 1;
 }
 
 .donut-bg {
@@ -233,24 +235,23 @@ canvas.arjs-video {
 /* 🎯 Navigation */
 #nav-buttons {
   position: fixed;
-  top: 330px;
+  top: 240px; /* exakt vertikal mittig zum Donut */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
-  width: 320px;
+  width: 260px; /* näher am Donut */
   z-index: 9999;
 }
 
 #nav-buttons button {
-  width: 60px;
-  height: 60px;
+  width: 80px;          /* größerer Button */
+  height: 80px;
   border-radius: 50%;
-  font-size: 1.6rem;
+  font-size: 2.2rem;     /* größerer Pfeil */
   border: none;
   background-color: transparent;
   box-shadow: none;
-  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
