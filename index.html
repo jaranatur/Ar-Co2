@@ -18,14 +18,20 @@
       <h1>AR Erde</h1>
     </header>
 
-    <!-- 🧑‍🎓 Name-Eingabe -->
-    <div id="name-prompt" style="display: none; flex-direction: column; align-items: center; padding: 2rem;">
-      <label for="user-name" style="font-size: 1.2rem; margin-bottom: 0.5rem;">Wie heißt du?</label>
-      <input type="text" id="user-name" placeholder="Dein Vorname" style="padding: 0.6rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;" />
-      <button id="start-btn" style="margin-top: 1rem; padding: 0.6rem 1rem; font-size: 1rem; border: none; background-color: #52b788; color: white; border-radius: 8px; cursor: pointer;">
-        Weiter
-      </button>
-    </div>
+  <!-- 🧑‍🎓 Name-Eingabe + Startbildschirm -->
+<div id="name-prompt" style="display: none; flex-direction: column; align-items: center; padding: 2rem; text-align: center;">
+  <h2 style="margin-bottom: 1rem;">🌍 Willkommen!</h2>
+  <p style="max-width: 400px; font-size: 1rem; line-height: 1.5;">
+    Wie nachhaltig ist dein Alltag an der HSD? <br />
+    Gib deinen Namen ein und finde es heraus – mit deiner ganz persönlichen CO₂-Bilanz als AR-Garten! 🌱✨
+  </p>
+
+  <input type="text" id="user-name" placeholder="Dein Vorname" style="margin-top: 1.8rem; padding: 0.6rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;" />
+  <button id="start-btn" style="margin-top: 1.5rem; padding: 0.6rem 1.4rem; font-size: 1rem; border: none; background-color: #52b788; color: white; border-radius: 8px; cursor: pointer;">
+    Start 
+  </button>
+</div>
+
 
     <!-- 🌐 AR-Szene -->
     <a-scene embedded vr-mode-ui="enabled: false" arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
