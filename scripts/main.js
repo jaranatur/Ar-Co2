@@ -446,11 +446,11 @@ export function showFactsModal() {
       <h3>📚 Quellen zur HSD & Klimaschutz</h3>
       <ul>
         <li><strong>Klimaschutzkonzept der Hochschule Düsseldorf (2020)</strong><br>
-          <a href="https://example.com/pdf1" target="_blank">Download PDF</a><br>
+          <a href="https://www.hs-duesseldorf.de/hochschule/profil/nachhaltigkeit/klimaschutz/projekt/Documents/HSD_Wertsicht_Klimaschutzkonzept_2020.pdf" target="_blank">Klimaschutzkonzept der HSD (PDF)</a> <br>
           Enthält Ziele, Maßnahmen und Emissionsdaten – u. a. das 100 kg CO₂-Jahresziel für Studierende.
         </li>
         <li><strong>Maßnahmenkatalog Nachhaltigkeit der HSD</strong><br>
-          <a href="https://example.com/pdf2" target="_blank">PDF: Maßnahmenübersicht</a><br>
+        <a href="https://www.hs-duesseldorf.de/hochschule/profil/nachhaltigkeit/klimaschutz/projekt/Documents/Anhang%204_Ma%C3%9Fnahmenprogramm.pdf" target="_blank">Maßnahmenkatalog Nachhaltigkeit der HSD (PDF)</a><br>
           Workshops, Energie-Scouts, EMAS-System, Mobilität etc.
         </li>
       </ul>
