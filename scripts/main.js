@@ -503,7 +503,7 @@ export function renderFinalButtons() {
     const result = calculateFootprint(answers);
   
     // Fakten setzen
-    document.getElementById("sm-total").textContent = `🌍 Gesamt: ${result.totalKg} kg CO₂ (pro Semester)`;
+    document.getElementById("sm-total").textContent = `🌍 Gesamt: ${result.totalKg} kg CO₂ `;
     document.getElementById("sm-overshoot").textContent = `📆 Overshoot Day: ${result.overshootDay}`;
     document.getElementById("sm-trees").textContent = `🌳 Bäume benötigt: ${result.trees}`;
   
