@@ -10,7 +10,7 @@ export const feedbackTexts = {
       "meat-daily": "Täglich Fleisch? Das haut CO₂-mäßig ordentlich rein – jede Reduktion hilft.",
       "meat-rare": "Selten Fleisch ist stark! Das spart ordentlich Emissionen.",
       vegetarian: "Super Wahl! Vegetarisch zu essen reduziert deine Bilanz deutlich.",
-      vegan: "King Move. Vegan leben senkt den CO₂-Fußabdruck der Ernährung drastisch."
+      vegan: "Queen/King Move. Vegan leben senkt den CO₂-Fußabdruck der Ernährung drastisch."
     },
     water: {
       plastic: "Plastikflaschen verursachen CO₂ in Produktion & Entsorgung – HSD bietet Nachfüllstationen!",

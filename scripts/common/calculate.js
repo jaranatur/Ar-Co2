@@ -104,7 +104,7 @@ export function calculateFootprint({
 // 📁 calculate.js
 
 export function calculateOvershootDay(totalKg) {
-  const targetPerYear = 2000; // Pariser Ziel: 2 Tonnen CO₂/Jahr
+  const targetPerYear = 100; // Pariser Ziel: 2 Tonnen CO₂/Jahr
   const days = Math.round((totalKg / targetPerYear) * 365);
   const baseDate = new Date(new Date().getFullYear(), 0, 1);
   baseDate.setDate(baseDate.getDate() + days);
