@@ -1,12 +1,8 @@
-// import { initGlobals } from './common/globals.js';
-// import { initScene } from './common/initScene.js';
-// import { handleEarthRotation } from './common/handleEarthRotation.js';
 import { calculateFootprint } from './common/calculate.js';
 import { setupQuestions, mainQuestions } from './common/questions.js';
 import { setupNamePrompt } from './common/handleNamePrompt.js';
 import { feedbackTexts } from './common/feedbackTexts.js';
 import { renderGarden } from './renderGarden.js';
-// import { grassGrow } from "./renderGarden.js";
 import { digitalFacts } from './common/digitalFacts.js';
 
 
@@ -176,10 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const co2 = document.getElementById("co2-indicator");
   if (co2) co2.style.display = "none";
 
-  // initGlobals();
-  // initScene();
-  
-
   const namePrompt = document.getElementById("name-prompt");
   if (namePrompt) namePrompt.style.display = "flex";
 
@@ -212,15 +204,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btn && input) {
         clearInterval(retryInterval);
         setupNamePrompt();
-        console.log("✅ setupNamePrompt() wurde erfolgreich aufgerufen.");
+        console.log(" setupNamePrompt() wurde erfolgreich aufgerufen.");
       }
     }, 100);
   }
 
-
-
-
-  
 
   document.addEventListener("start-questions", () => {
     const scene = document.querySelector('a-scene');
@@ -275,11 +263,11 @@ document.addEventListener("DOMContentLoaded", () => {
     marker.setAttribute("emitevents", "true");
 
     marker.addEventListener("markerLost", () => {
-      console.log("⚠️ Marker verloren – Szene bleibt sichtbar.");
+      console.log(" Marker verloren – Szene bleibt sichtbar.");
     });
 
     marker.addEventListener("markerFound", () => {
-      console.log("✅ Marker wiedergefunden.");
+      console.log(" Marker wiedergefunden.");
     });
   }
 });
@@ -310,16 +298,16 @@ renderButton.addEventListener("click", () => {
 
   const marker = document.querySelector("a-marker");
   if (!marker) {
-    console.error("❌ Kein Marker gefunden!");
+    console.error(" Kein Marker gefunden!");
     return;
   }
 
   if (marker.object3D.visible) {
-    console.log("✅ Marker sichtbar – direkt rendern.");
+    console.log(" Marker sichtbar – direkt rendern.");
     setTimeout(() => renderGarden(answers), 1200);
   } else {
     marker.addEventListener("markerFound", () => {
-      console.log("✅ Marker sichtbar → Garten wird gerendert.");
+      console.log(" Marker sichtbar → Garten wird gerendert.");
       setTimeout(() => renderGarden(answers), 5000);
     }, { once: true });
   }
@@ -409,7 +397,7 @@ function startMainFlow() {
   const navButtons = document.getElementById("nav-buttons");
   if (navButtons) navButtons.style.display = "flex";
 
-  // 👉 Button nur hier erstellen (nur bei mainQuestions)
+  //  Button nur hier erstellen (nur bei mainQuestions)
   if (!document.getElementById("fact-button")) {
     const btn = document.createElement("button");
     btn.id = "fact-button";
@@ -492,7 +480,7 @@ export function renderFinalButtons() {
   document.body.appendChild(container);
 
   const buttons = document.querySelectorAll("#final-button-container button");
-  const screenshotButton = buttons[0]; // 📷 Screenshot
+  const screenshotButton = buttons[0]; // Screenshot
 
 
 
@@ -528,8 +516,6 @@ export function renderFinalButtons() {
   });
   
   
-
-
   const factsButton = buttons[1];   // ℹ️
   const resultButton = buttons[2];
   const tipButton = buttons[3];     // 💡
@@ -551,15 +537,12 @@ export function renderFinalButtons() {
     );
   });
   
-
-
   restartButton.addEventListener("click", () => {
     if (confirm("Willst du wirklich neu starten? Deine Daten gehen verloren.")) {
       window.location.reload();
     }
   });
 }
-
 
 document.getElementById("save-screenshot-btn").addEventListener("click", async () => {
   const btn = document.getElementById("save-screenshot-btn");
@@ -578,8 +561,6 @@ document.getElementById("save-screenshot-btn").addEventListener("click", async (
 });
 
 
-
-
 document.addEventListener("click", (e) => {
   if (e.target.id === "fact-button") {
     const factBox = document.getElementById("fact-overlay") || createFactBox();
@@ -587,19 +568,15 @@ document.addEventListener("click", (e) => {
     factBox.querySelector("p").textContent = random;
     factBox.style.display = "flex";
     document.getElementById("input-overlay").classList.add("blurred");
-    document.getElementById("fact-button").classList.add("blurred"); // 👈 hinzugefügt
+    document.getElementById("fact-button").classList.add("blurred"); //  hinzugefügt
   }
 
   if (e.target.id === "close-fact") {
     document.getElementById("fact-overlay").style.display = "none";
     document.getElementById("input-overlay").classList.remove("blurred");
-    document.getElementById("fact-button").classList.remove("blurred"); // 👈 hinzugefügt
+    document.getElementById("fact-button").classList.remove("blurred"); // hinzugefügt
   }
 });
-
-
-
-
 
 
 function showFactAtIndex(index) {
@@ -650,7 +627,6 @@ function createFactBox(includeNavigation = false) {
   });
   
   
-
   return overlay;
 }
 function showResultOverlay() {

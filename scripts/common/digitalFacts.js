@@ -1,4 +1,3 @@
-// scripts/common/digitalFacts.js
 
 export const digitalFacts = [
   "eine E-Mail ohne Anhang ca. 4 g CO₂ verursacht ?",

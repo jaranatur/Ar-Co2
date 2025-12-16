@@ -1,11 +1,11 @@
 export function setupOverlayObserver() {
-  console.log("🧪 setupOverlayObserver gestartet!");
+  console.log(" setupOverlayObserver gestartet!");
 
   const sceneSelection = document.getElementById("scene-selection");
   const overlay = document.getElementById("input-overlay");
 
   if (!sceneSelection || !overlay) {
-    console.error("❌ sceneSelection oder input-overlay NICHT gefunden!");
+    console.error(" sceneSelection oder input-overlay NICHT gefunden!");
     return;
   }
 
@@ -16,11 +16,11 @@ export function setupOverlayObserver() {
         mutation.attributeName === "data-visible"
       ) {
         const visible = sceneSelection.getAttribute("data-visible");
-        console.log(`🔍 Mutation erkannt – data-visible = ${visible}`);
+        console.log(` Mutation erkannt – data-visible = ${visible}`);
 
         if (visible === "true") {
           overlay.style.display = "flex";
-          console.log("📊 Overlay eingeblendet");
+          console.log(" Overlay eingeblendet");
         }
       }
     }

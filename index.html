@@ -18,7 +18,7 @@
      
     </header>
 
-  <!-- 🧑‍🎓 Name-Eingabe + Startbildschirm -->
+  <!-- Name-Eingabe + Startbildschirm -->
 <div id="name-prompt" style="display: none; flex-direction: column; align-items: center; padding: 2rem; text-align: center;">
   <h2 style="margin-bottom: 1rem;">🌍 Willkommen!</h2>
   <p style="max-width: 400px; font-size: 1rem; line-height: 1.5;">
@@ -33,40 +33,39 @@
 </div>
 
 
-    <!-- 🌐 AR-Szene -->
+    <!--  AR-Szene -->
     <a-scene embedded vr-mode-ui="enabled: false" arjs="detectionMode: mono; matrixCodeType: 3x3; trackingMethod: best; deviceOrientationEnabled: false;">
       <a-assets>
         <img id="arrow-icon" src="assets/arrow-down-white.png" />
         <audio id="swipe-sound" src="assets/swipe.mp3" preload="auto"></audio>
       
-        <!-- 🌳 Bäume -->
+        <!--  Bäume -->
         <a-asset-item id="tree-good" src="assets/tree-good.glb"></a-asset-item>
   
         <a-asset-item id="tree-dead" src="assets/tree-dead.glb"></a-asset-item>
       
-        <!-- 🌸 Blumen -->
+        <!--  Blumen -->
         <a-asset-item id="flower-big" src="assets/flower-big.glb"></a-asset-item>
         <a-asset-item id="flower-tulip" src="assets/flower-tulip.glb"></a-asset-item>
         <a-asset-item id="flower-dead" src="assets/flower-dead.glb"></a-asset-item>
       
-        <!-- 💧 Wasser -->
+        <!--  Wasser -->
         <a-asset-item id="pond" src="assets/pond.glb"></a-asset-item>
         <a-asset-item id="reed" src="assets/reed.glb"></a-asset-item>
         <a-asset-item id="lily" src="assets/lily.glb"></a-asset-item>
       
-        <!-- 🌿 Büsche -->
+        <!--  Büsche -->
         <a-asset-item id="bush-green" src="assets/bush-green.glb"></a-asset-item>
         <a-asset-item id="bush-flower" src="assets/bush-flower.glb"></a-asset-item>
         <a-asset-item id="bush-dead" src="assets/bush-dead.glb"></a-asset-item>
       
-        <!-- ☁️ Wolke -->
+        <!--  Wolke -->
         <a-asset-item id="cloud" src="assets/cloud.glb"></a-asset-item>
 
         <img id="grass-diffuse" src="assets/grass1-albedo3.png" />
         <img id="grass-normal" src="assets/grass1-normal1-dx.png" />
         <img id="grass-bump" src="assets/grass1-height.png" />
 
-        <!-- <a-asset-item id="wooden-sign" src="assets/wooden-sign.glb"></a-asset-item> -->
 
       </a-assets>
       
@@ -74,20 +73,13 @@
 
       <a-marker preset="hiro">
 
-        <!-- Erde über allem -->
-        <!-- <a-entity id="earth-container">
-          <a-entity id="earth" gltf-model="assets/earth.glb" position="0 2.5 0" scale="0.01 0.01 0.01"
-            animation__grow="property: scale; to: 1 1 1; dur: 2000; easing: easeOutElastic">
-          </a-entity>
-        </a-entity> -->
-
-
+    
         
       
         <!-- Garten-Container mit Wiese drin -->
         <a-entity id="garden-container" position="0 0 -0.85" visible="false">
     
-          <!-- 🌱 Wiese – anfangs unsichtbar -->
+          <!--  Wiese – anfangs unsichtbar -->
           <a-plane
           id="grass-plane"
           position="0 0 0"
@@ -106,38 +98,11 @@
       
       </a-marker>
       
-
-
-
-<!-- 
-        <a-entity id="scene-selection" visible="false"></a-entity>
-
-        <a-entity id="hint-text" position="0 2.5 -1" visible="true"
-          text="value: Würdest du das HSD-Klimaziel schaffen?\nDreh die Erde – und finde es heraus.; align: center; color: white; width: 4; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;">
-        </a-entity>
-        <a-entity id="hint-bg"
-          geometry="primitive: plane; height: auto; width: auto"
-          position="0 2.5 -1.01"
-          material="color: black; opacity: 0.4; transparent: true"
-          visible="true">
-        </a-entity>
-
-        <a-entity id="arrow-icon-entity"
-          geometry="primitive: plane; height: 0.9; width: 0.9"
-          material="src: #arrow-icon; transparent: true; opacity: 0.8"
-          position="0 1.7 -1"
-          rotation="-90 0 0"
-          animation="property: position; dir: alternate; dur: 1000; easing: easeInOutSine; loop: true; to: 0 2.0 -1"
-          animation__fade="property: material.opacity; from: 0; to: 0.8; dur: 1200; delay: 1000;">
-        </a-entity>
-       -->
-
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
     </a-scene>
 
 
-
-    <!-- 🌱 Overlay -->
+    <!--  Overlay -->
     <div id="input-overlay" style="display: none;">
       <!-- Weiße Karte -->
       <div class="input-card">
@@ -150,12 +115,11 @@
           <!-- Wird durch renderQuestion() befüllt -->
         </div>
       
-        
       </div>
 
      
 
-      <!-- ❗ Live CO₂-Tracker -->
+      <!--  Live CO₂-Tracker -->
       <div id="co2-indicator" class="hidden">
         <svg viewBox="0 0 36 36" class="donut" width="100" height="100">
           <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
@@ -181,7 +145,7 @@
   Gesamtbilanz anzeigen
 </button>
 
-<!-- 📷 Hinweistext zum Marker-Scannen -->
+<!--  Hinweistext zum Marker-Scannen -->
 <div id="scan-hint" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
   background: #ffffffdd; padding: 1rem 2rem; border-radius: 10px; font-size: 1.2rem; font-weight: bold; z-index: 9999;
   text-align: center;">
@@ -190,7 +154,7 @@
 
 
 
-<!-- 🎯 Screenshot-Modus: Abschlussbildschirm -->
+<!--  Screenshot-Modus: Abschlussbildschirm -->
 <div id="screenshot-mode" style="
   display: none;
   position: fixed;
@@ -210,7 +174,7 @@
   <p id="sm-overshoot"></p>
   <p id="sm-trees"></p>
 
-  <!-- 📸 Button für Screenshot -->
+  <!--  Button für Screenshot -->
   <button id="save-screenshot-btn" style="
     margin-top: 2rem;
     padding: 0.6rem 1.2rem;
@@ -225,10 +189,6 @@
   </button>
 </div>
 
-
-
-
-
       <!-- Ergebnisanzeige -->
       <div id="result-box" style="display: none; text-align: center;">
         <div id="summary-box" class="result-section"></div>
@@ -236,9 +196,6 @@
         <div id="trees-box" class="result-section"></div>
       </div>
     </div>
-
-
-
 
 
     <script type="module" src="scripts/main.js"></script>

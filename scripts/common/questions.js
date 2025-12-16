@@ -1,5 +1,3 @@
-// scripts/common/questions.js
-
 export const setupQuestions = [
   {
     id: "daysPerWeek",

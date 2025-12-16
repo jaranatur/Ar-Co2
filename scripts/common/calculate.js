@@ -1,6 +1,3 @@
-// calculate.js
-
-
 
 export function calculateFootprint({
   distance,
@@ -16,7 +13,7 @@ export function calculateFootprint({
   const semesterWeeks = 30;
   const uniDays = daysPerWeek * semesterWeeks;
 
-  // 🚗 Mobilität
+  //  Mobilität
   const dailyDistance = distance * 2; // hin & zurück
   switch (transport) {
     case "auto":
@@ -35,7 +32,7 @@ export function calculateFootprint({
       break;
   }
 
-  // 🍽️ Ernährung
+  //  Ernährung
   let mealFactor = 0;
   switch (diet) {
     case "meat-daily":
@@ -56,7 +53,7 @@ export function calculateFootprint({
   }
   total += mealsPerWeek * semesterWeeks * mealFactor;
 
-  // 💧 Wasser
+  //  Wasser
   switch (water) {
     case "plastic":
       total += uniDays * 0.15;
@@ -70,7 +67,7 @@ export function calculateFootprint({
       break;
   }
 
-  // 📄 Papier
+  //  Papier
   switch (paper) {
     case "none":
       break; // kein CO₂
@@ -87,10 +84,10 @@ export function calculateFootprint({
       break;
   }
 
-  // 💻 Bildschirmzeit
+  //  Bildschirmzeit
   total += screenHoursPerDay * 5 * semesterWeeks * 0.2;
 
-  // ✨ Ausgabe
+  //  Ausgabe
   return {
     totalKg: parseFloat(total.toFixed(1)),
     trees: Math.ceil(total / 21), // 1 Baum ≈ 21 kg
@@ -101,8 +98,6 @@ export function calculateFootprint({
     })
   };
 }
-// 📁 calculate.js
-
 export function calculateOvershootDay(totalKg) {
   const targetPerYear = 100; // Pariser Ziel: 2 Tonnen CO₂/Jahr
   const days = Math.round((totalKg / targetPerYear) * 365);

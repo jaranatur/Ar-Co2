@@ -9,14 +9,14 @@
   display: none !important;
 }
 
-/* 🌍 Szene darf sich nicht bewegen, wenn .no-interaction gesetzt wird */
+/* Szene darf sich nicht bewegen, wenn .no-interaction gesetzt wird */
 a-scene.no-interaction {
   pointer-events: none !important;
   user-select: none !important;
   touch-action: none !important;
 }
 
-/* 🖥️ Basis */
+/* Basis */
 html, body {
   margin: 0;
   overflow-x: hidden;
@@ -47,7 +47,7 @@ a-entity {
   cursor: pointer;
 }
 
-/* 🌍 CO₂-Kreis */
+/* CO₂-Kreis */
 #co2-indicator {
   position: fixed;
   top: 300px;
@@ -115,7 +115,7 @@ canvas.arjs-video {
   visibility: hidden !important;
 }
 
-/* 🌱 Overlay */
+/* Overlay */
 #input-overlay {
   position: fixed;
   top: 0;
@@ -135,7 +135,7 @@ canvas.arjs-video {
   pointer-events: auto;
 }
 
-/* 🧾 Weiße Karte */
+/*  Weiße Karte */
 .input-card {
   margin-top: 2vh;
   margin-left: auto;
@@ -179,7 +179,7 @@ canvas.arjs-video {
   flex: 1;
 }
 
-/* ✍️ Fragen */
+/*  Fragen */
 .input-card label {
   display: block;
   margin: 1rem 1rem 0.25rem;
@@ -208,7 +208,7 @@ canvas.arjs-video {
   cursor: pointer;
 }
 
-/* 📊 Ergebnis */
+/*  Ergebnis */
 #result-box {
   position: absolute;
   top: 1rem;
@@ -232,7 +232,7 @@ canvas.arjs-video {
   opacity: 1 !important;
 }
 
-/* 🎯 Navigation */
+/*  Navigation */
 #nav-buttons {
   position: fixed;
   top: 330px; /* exakt vertikal mittig zum Donut */
@@ -263,7 +263,7 @@ canvas.arjs-video {
   transform: scale(1.1);
 }
 
-/* 🧑‍🎓 Namensfeld */
+/*  Namensfeld */
 #name-prompt {
   z-index: 10000 !important;
   pointer-events: all !important;
@@ -615,7 +615,7 @@ a-scene[hidden] {
   --color-green-dark: #89c2d9;
 }
 
-/* 🟩 Einheitliches Design für alle SELECTs */
+/* Einheitliches Design für alle SELECTs */
 .input-card select {
   border: 1px solid var(--color-green);
   background-color: white;
@@ -628,7 +628,7 @@ a-scene[hidden] {
   color: #333;
 }
 
-/* 🟩 Alle Buttons einheitlich */
+/*  Alle Buttons einheitlich */
 .input-card button,
 #render-button,
 .result-card button#show-more-facts {
